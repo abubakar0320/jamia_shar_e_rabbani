@@ -19,7 +19,7 @@ export default function ExpenseManagementModule() {
 
   const fetchExpenses = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/admin/expenses');
+      const res = await fetch('/api/admin/expenses');
       const data = await res.json();
       setExpenses(data || []);
       setLoading(false);
@@ -33,7 +33,7 @@ export default function ExpenseManagementModule() {
     e.preventDefault();
     setIsSaving(true);
     const isNew = !formData.id;
-    const url = isNew ? 'http://localhost:5000/api/admin/expenses' : `http://localhost:5000/api/admin/expenses/${formData.id}`;
+    const url = isNew ? '/api/admin/expenses' : `/api/admin/expenses/${formData.id}`;
     
     try {
       const res = await fetch(url, {
@@ -55,7 +55,7 @@ export default function ExpenseManagementModule() {
   const handleDelete = async (id: string) => {
     if (!confirm('Are you sure you want to delete this expense record?')) return;
     try {
-      const res = await fetch(`http://localhost:5000/api/admin/expenses/${id}`, { method: 'DELETE' });
+      const res = await fetch(`/api/admin/expenses/${id}`, { method: 'DELETE' });
       if (res.ok) fetchExpenses();
     } catch (err) {
       console.error(err);

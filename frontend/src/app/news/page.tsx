@@ -29,7 +29,7 @@ export default function News() {
 
   useEffect(() => {
     if (!mounted) return;
-    fetch('http://localhost:5000/api/news')
+    fetch('/api/news')
       .then(res => res.json())
       .then(data => {
         setNews(data);

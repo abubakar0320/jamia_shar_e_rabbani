@@ -25,7 +25,7 @@ export default function AdmissionRequirementsModule() {
 
   const fetchRequirements = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/admin/admission-requirements?t=' + Date.now());
+      const res = await fetch('/api/admin/admission-requirements?t=' + Date.now());
       const data = await res.json();
       setRequirements(data || []);
       setLoading(false);
@@ -39,7 +39,7 @@ export default function AdmissionRequirementsModule() {
     e.preventDefault();
     setIsSaving(true);
     const isNew = !formData.id;
-    const url = isNew ? 'http://localhost:5000/api/admin/admission-requirements' : `http://localhost:5000/api/admin/admission-requirements/${formData.id}`;
+    const url = isNew ? '/api/admin/admission-requirements' : `/api/admin/admission-requirements/${formData.id}`;
     
     try {
       const res = await fetch(url, {
@@ -61,7 +61,7 @@ export default function AdmissionRequirementsModule() {
   const handleDelete = async (id: number) => {
     if (!confirm('Are you sure you want to delete this requirement?')) return;
     try {
-      const res = await fetch(`http://localhost:5000/api/admin/admission-requirements/${id}`, { method: 'DELETE' });
+      const res = await fetch(`/api/admin/admission-requirements/${id}`, { method: 'DELETE' });
       if (res.ok) {
         fetchRequirements();
       }

@@ -24,7 +24,7 @@ export default function AnnouncementPopup() {
     
     const fetchConfig = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/popup-announcement');
+        const res = await fetch('/api/popup-announcement');
         if (res.ok) {
           const data: PopupConfig = await res.json();
           setConfig(data);

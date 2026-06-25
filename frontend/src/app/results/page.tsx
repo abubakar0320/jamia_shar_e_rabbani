@@ -55,7 +55,7 @@ export default function ResultsPage() {
 
     try {
       // Fetch public results
-      const res = await fetch('http://localhost:5000/api/results');
+      const res = await fetch('/api/results');
       if (!res.ok) throw new Error('Failed to fetch results');
       const data: Result[] = await res.json();
 

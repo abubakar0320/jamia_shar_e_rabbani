@@ -87,7 +87,7 @@ export default function Courses() {
   useEffect(() => {
     if (!mounted) return;
     setLoading(true);
-    fetch('http://localhost:5000/api/courses')
+    fetch('/api/courses')
       .then(res => res.json())
       .then(data => {
         if (data && data.length > 0) {

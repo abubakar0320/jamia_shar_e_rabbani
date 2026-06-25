@@ -39,7 +39,7 @@ export default function AdmissionChallan({ data, onBack }: ChallanProps) {
   const [bankConfig, setBankConfig] = React.useState({ bankName: '', accountTitle: '', accountNumber: '' });
 
   React.useEffect(() => {
-    fetch('http://localhost:5000/api/bank-config')
+    fetch('/api/bank-config')
       .then(res => res.json())
       .then(data => setBankConfig(data))
       .catch(console.error);

@@ -47,7 +47,7 @@ export default function FeeManagementModule() {
 
   const fetchFees = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/admin/fee-structures?t=' + Date.now());
+      const res = await fetch('/api/admin/fee-structures?t=' + Date.now());
       const data = await res.json();
       setFeeStructures(data || []);
       setLoading(false);
@@ -61,8 +61,8 @@ export default function FeeManagementModule() {
     e.preventDefault();
     const isNew = !formData.id;
     const url = isNew 
-      ? 'http://localhost:5000/api/admin/fee-structures' 
-      : `http://localhost:5000/api/admin/fee-structures/${formData.id}`;
+      ? '/api/admin/fee-structures' 
+      : `/api/admin/fee-structures/${formData.id}`;
     const method = isNew ? 'POST' : 'PUT';
 
     try {
@@ -81,7 +81,7 @@ export default function FeeManagementModule() {
   const handleDelete = async (id: number) => {
     if (!confirm('Are you sure you want to delete this fee structure?')) return;
     try {
-      await fetch(`http://localhost:5000/api/admin/fee-structures/${id}`, { method: 'DELETE' });
+      await fetch(`/api/admin/fee-structures/${id}`, { method: 'DELETE' });
       fetchFees();
     } catch (err) {
       console.error('Error deleting fee structure:', err);

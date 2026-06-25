@@ -19,7 +19,7 @@ export default function AdmissionFormBuilderModule() {
 
   const fetchFields = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/admin/form-fields?t=' + Date.now());
+      const res = await fetch('/api/admin/form-fields?t=' + Date.now());
       const data = await res.json();
       setFields(data || []);
       setLoading(false);
@@ -33,7 +33,7 @@ export default function AdmissionFormBuilderModule() {
     e.preventDefault();
     setIsSaving(true);
     const isNew = !formData.id;
-    const url = isNew ? 'http://localhost:5000/api/admin/form-fields' : `http://localhost:5000/api/admin/form-fields/${formData.id}`;
+    const url = isNew ? '/api/admin/form-fields' : `/api/admin/form-fields/${formData.id}`;
     
     try {
       const res = await fetch(url, {
@@ -57,7 +57,7 @@ export default function AdmissionFormBuilderModule() {
     const id = field.id;
     if (!confirm('Are you sure you want to delete this custom field?')) return;
     try {
-      const res = await fetch(`http://localhost:5000/api/admin/form-fields/${id}`, { method: 'DELETE' });
+      const res = await fetch(`/api/admin/form-fields/${id}`, { method: 'DELETE' });
       if (res.ok) fetchFields();
     } catch (err) {
       console.error(err);

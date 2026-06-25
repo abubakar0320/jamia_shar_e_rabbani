@@ -79,7 +79,7 @@ export default function DonationPortal() {
     setLoading(true);
     try {
       const payload = { ...formData, receiptImage, category: info.title };
-      const res = await fetch('http://localhost:5000/api/donations', {
+      const res = await fetch('/api/donations', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)

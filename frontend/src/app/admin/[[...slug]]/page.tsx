@@ -256,15 +256,15 @@ export default function AdminDashboard() {
  setLoading(true);
  try {
  const [resAdm, resStu, resFac, resCrs, resRes, resFs, resCh, resCat, resSched] = await Promise.all([
- fetch('http://localhost:5000/api/admin/admissions').catch(() => null),
- fetch('http://localhost:5000/api/admin/students').catch(() => null),
- fetch('http://localhost:5000/api/admin/faculty').catch(() => null),
- fetch('http://localhost:5000/api/admin/courses').catch(() => null),
- fetch('http://localhost:5000/api/admin/results').catch(() => null),
- fetch('http://localhost:5000/api/admin/fee-structures').catch(() => null),
- fetch('http://localhost:5000/api/admin/challans').catch(() => null),
- fetch('http://localhost:5000/api/admin/fee-categories').catch(() => null),
- fetch('http://localhost:5000/api/admission-schedule').catch(() => null)
+ fetch('/api/admin/admissions').catch(() => null),
+ fetch('/api/admin/students').catch(() => null),
+ fetch('/api/admin/faculty').catch(() => null),
+ fetch('/api/admin/courses').catch(() => null),
+ fetch('/api/admin/results').catch(() => null),
+ fetch('/api/admin/fee-structures').catch(() => null),
+ fetch('/api/admin/challans').catch(() => null),
+ fetch('/api/admin/fee-categories').catch(() => null),
+ fetch('/api/admission-schedule').catch(() => null)
  ]);
  if (resAdm && resAdm.ok) {
  const data = await resAdm.json().catch(() => null);
@@ -392,7 +392,7 @@ export default function AdminDashboard() {
 
  const handleStatusUpdate = async (id: number, status: string, reason?: string) => {
  try {
- const res = await fetch(`http://localhost:5000/api/admin/admissions/${id}/status`, {
+ const res = await fetch(`/api/admin/admissions/${id}/status`, {
  method: 'PUT',
  headers: { 'Content-Type': 'application/json' },
  body: JSON.stringify({ status, rejectionReason: reason })
@@ -415,7 +415,7 @@ export default function AdminDashboard() {
  const handleDelete = async (id: number) => {
  if(!confirm('Are you sure you want to completely delete this application?')) return;
  try {
- await fetch(`http://localhost:5000/api/admin/admissions/${id}`, { method: 'DELETE' });
+ await fetch(`/api/admin/admissions/${id}`, { method: 'DELETE' });
  alert('Application deleted successfully.');
  fetchAllData();
  if (selectedApplication?.id === id) setSelectedApplication(null);
@@ -430,7 +430,7 @@ export default function AdminDashboard() {
  if (action === 'delete') {
  if(!confirm(`Are you sure you want to delete ${selectedIds.length} applications?`)) return;
  try {
- await Promise.all(selectedIds.map(id => fetch(`http://localhost:5000/api/admin/admissions/${id}`, { method: 'DELETE' })));
+ await Promise.all(selectedIds.map(id => fetch(`/api/admin/admissions/${id}`, { method: 'DELETE' })));
  alert('Selected applications deleted.');
  setSelectedIds([]);
  fetchAllData();
@@ -439,7 +439,7 @@ export default function AdminDashboard() {
  handleDownloadPDF(`Bulk Export (${selectedIds.length} records)`);
  } else {
  try {
- await Promise.all(selectedIds.map(id => fetch(`http://localhost:5000/api/admin/admissions/${id}/status`, {
+ await Promise.all(selectedIds.map(id => fetch(`/api/admin/admissions/${id}/status`, {
  method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ status: action })
  })));
  alert(`Selected applications marked as ${action}.`);
@@ -523,7 +523,7 @@ export default function AdminDashboard() {
           classProgram: formData.get('classProgram') as string,
         };
         try {
-          await fetch('http://localhost:5000/api/admin/admissions/' + selectedApplication.id, {
+          await fetch('/api/admin/admissions/' + selectedApplication.id, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(updatedData)
@@ -944,7 +944,7 @@ export default function AdminDashboard() {
 
  const handleStudentStatusUpdate = async (id: number, status: string) => {
  try {
- const res = await fetch(`http://localhost:5000/api/admin/students/${id}`, {
+ const res = await fetch(`/api/admin/students/${id}`, {
  method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ studentStatus: status })
  });
  if (res.ok) {
@@ -960,7 +960,7 @@ export default function AdminDashboard() {
  const handleStudentDelete = async (id: number) => {
  if(!confirm('Are you sure you want to completely delete this student record?')) return;
  try {
- await fetch(`http://localhost:5000/api/admin/students/${id}`, { method: 'DELETE' });
+ await fetch(`/api/admin/students/${id}`, { method: 'DELETE' });
  alert('Student deleted successfully.');
  fetchAllData();
  if (selectedStudent?.id === id) setSelectedStudent(null);
@@ -992,7 +992,7 @@ export default function AdminDashboard() {
  
  if(confirm(`Promote ${student.studentName} from ${currentClass} to ${nextClass}?`)) {
  try {
- const res = await fetch(`http://localhost:5000/api/admin/students/${student.id}`, {
+ const res = await fetch(`/api/admin/students/${student.id}`, {
  method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ classProgram: nextClass, fees: {...student.fees, session: '2027-28'} })
  });
  if (res.ok) {
@@ -1009,7 +1009,7 @@ export default function AdminDashboard() {
  if (action === 'delete') {
  if(!confirm(`Are you sure you want to delete ${selectedIds.length} students?`)) return;
  try {
- await Promise.all(selectedIds.map(id => fetch(`http://localhost:5000/api/admin/students/${id}`, { method: 'DELETE' })));
+ await Promise.all(selectedIds.map(id => fetch(`/api/admin/students/${id}`, { method: 'DELETE' })));
  alert('Selected students deleted.');
  setSelectedIds([]); fetchAllData();
  } catch(e) { alert('Error in bulk delete'); }
@@ -1019,7 +1019,7 @@ export default function AdminDashboard() {
  alert('Bulk promotion requires individual class rules mapping. Simulated success.');
  } else {
  try {
- await Promise.all(selectedIds.map(id => fetch(`http://localhost:5000/api/admin/students/${id}`, {
+ await Promise.all(selectedIds.map(id => fetch(`/api/admin/students/${id}`, {
  method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ studentStatus: action })
  })));
  alert(`Selected students marked as ${action}.`);
@@ -1355,7 +1355,7 @@ export default function AdminDashboard() {
 
  const handleFacultyFieldUpdate = async (id: number, field: string, value: any) => {
  try {
- const res = await fetch(`http://localhost:5000/api/admin/faculty/${id}`, {
+ const res = await fetch(`/api/admin/faculty/${id}`, {
  method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ [field]: value })
  });
  if (res.ok) {
@@ -1396,7 +1396,7 @@ export default function AdminDashboard() {
  const handleDelete = async (id: number) => {
  if(!confirm('Are you sure you want to completely delete this faculty record?')) return;
  try {
- await fetch(`http://localhost:5000/api/admin/faculty/${id}`, { method: 'DELETE' });
+ await fetch(`/api/admin/faculty/${id}`, { method: 'DELETE' });
  alert('Faculty deleted successfully.');
  fetchAllData();
  if (selectedFaculty?.id === id) setSelectedFaculty(null);
@@ -1408,7 +1408,7 @@ export default function AdminDashboard() {
  if (action === 'delete') {
  if(!confirm(`Are you sure you want to delete ${selectedIds.length} faculty members?`)) return;
  try {
- await Promise.all(selectedIds.map(id => fetch(`http://localhost:5000/api/admin/faculty/${id}`, { method: 'DELETE' })));
+ await Promise.all(selectedIds.map(id => fetch(`/api/admin/faculty/${id}`, { method: 'DELETE' })));
  alert('Selected faculty deleted.');
  setSelectedIds([]); fetchAllData();
  } catch(e) { alert('Error in bulk delete'); }
@@ -1416,7 +1416,7 @@ export default function AdminDashboard() {
  handleDownloadPDF(`Bulk Export Faculty`);
  } else {
  try {
- await Promise.all(selectedIds.map(id => fetch(`http://localhost:5000/api/admin/faculty/${id}`, {
+ await Promise.all(selectedIds.map(id => fetch(`/api/admin/faculty/${id}`, {
  method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ status: action })
  })));
  alert(`Selected faculty marked as ${action}.`);
@@ -1744,7 +1744,7 @@ export default function AdminDashboard() {
 
  const handleCourseFieldUpdate = async (id: number, field: string, value: any) => {
  try {
- const res = await fetch(`http://localhost:5000/api/admin/courses/${id}`, {
+ const res = await fetch(`/api/admin/courses/${id}`, {
  method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ [field]: value })
  });
  if (res.ok) {
@@ -1763,7 +1763,7 @@ export default function AdminDashboard() {
  const handleDelete = async (id: number) => {
  if(!confirm('Are you sure you want to permanently delete this course?')) return;
  try {
- await fetch(`http://localhost:5000/api/admin/courses/${id}`, { method: 'DELETE' });
+ await fetch(`/api/admin/courses/${id}`, { method: 'DELETE' });
  alert('Course deleted successfully.');
  fetchAllData();
  if (selectedCourse?.id === id) setSelectedCourse(null);
@@ -1798,7 +1798,7 @@ export default function AdminDashboard() {
  if (action === 'delete') {
  if(!confirm(`Delete ${selectedIds.length} courses?`)) return;
  try {
- await Promise.all(selectedIds.map(id => fetch(`http://localhost:5000/api/admin/courses/${id}`, { method: 'DELETE' })));
+ await Promise.all(selectedIds.map(id => fetch(`/api/admin/courses/${id}`, { method: 'DELETE' })));
  alert('Deleted.');
  setSelectedIds([]); fetchAllData();
  } catch(e) {}
@@ -1806,7 +1806,7 @@ export default function AdminDashboard() {
  alert('Exporting course details...');
  } else {
  try {
- await Promise.all(selectedIds.map(id => fetch(`http://localhost:5000/api/admin/courses/${id}`, {
+ await Promise.all(selectedIds.map(id => fetch(`/api/admin/courses/${id}`, {
  method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ status: action })
  })));
  alert(`Status updated to ${action}.`);
@@ -2235,7 +2235,7 @@ export default function AdminDashboard() {
  outcome
  };
 
- fetch('http://localhost:5000/api/admin/results', {
+ fetch('/api/admin/results', {
  method: 'POST',
  headers: { 'Content-Type': 'application/json' },
  body: JSON.stringify(newResult)
@@ -2247,7 +2247,7 @@ export default function AdminDashboard() {
 
  const handleUpdateStatus = async (id: number, status: string) => {
  try {
- await fetch(`http://localhost:5000/api/admin/results/${id}`, {
+ await fetch(`/api/admin/results/${id}`, {
  method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ status })
  });
  alert(`Result marked as ${status}`);
@@ -2259,7 +2259,7 @@ export default function AdminDashboard() {
  const handleDelete = async (id: number) => {
  if(!confirm('Are you sure you want to permanently delete this result?')) return;
  try {
- await fetch(`http://localhost:5000/api/admin/results/${id}`, { method: 'DELETE' });
+ await fetch(`/api/admin/results/${id}`, { method: 'DELETE' });
  alert('Result deleted.');
  fetchAllData();
  if (selectedResult?.id === id) setSelectedResult(null);
@@ -2271,7 +2271,7 @@ export default function AdminDashboard() {
  if (action === 'delete') {
  if(!confirm(`Delete ${selectedIds.length} results?`)) return;
  try {
- await Promise.all(selectedIds.map(id => fetch(`http://localhost:5000/api/admin/results/${id}`, { method: 'DELETE' })));
+ await Promise.all(selectedIds.map(id => fetch(`/api/admin/results/${id}`, { method: 'DELETE' })));
  alert('Deleted.');
  setSelectedIds([]); fetchAllData();
  } catch(e) {}
@@ -2279,7 +2279,7 @@ export default function AdminDashboard() {
  alert('Exporting results details...');
  } else {
  try {
- await Promise.all(selectedIds.map(id => fetch(`http://localhost:5000/api/admin/results/${id}`, {
+ await Promise.all(selectedIds.map(id => fetch(`/api/admin/results/${id}`, {
  method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ status: action })
  })));
  alert(`Status updated to ${action}.`);
@@ -2597,7 +2597,7 @@ export default function AdminDashboard() {
 
  const handleCategoryToggle = async (cat: FeeCategory) => {
  const newStatus = cat.status === 'Active' ? 'Inactive' : 'Active';
- await fetch(`http://localhost:5000/api/admin/fee-categories/${cat.id}`, {
+ await fetch(`/api/admin/fee-categories/${cat.id}`, {
  method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ status: newStatus })
  });
  fetchAllData();
@@ -2605,7 +2605,7 @@ export default function AdminDashboard() {
 
  const handleDeleteCategory = async (id: number) => {
  if(!confirm("Are you sure you want to delete this fee category? It will be removed from future challans but historical challans will be preserved.")) return;
- await fetch(`http://localhost:5000/api/admin/fee-categories/${id}`, { method: 'DELETE' });
+ await fetch(`/api/admin/fee-categories/${id}`, { method: 'DELETE' });
  fetchAllData();
  };
 
@@ -2619,7 +2619,7 @@ export default function AdminDashboard() {
  let status = 'Partially Paid';
  if (paid >= challan.totalAmount) status = 'Paid';
  
- await fetch(`http://localhost:5000/api/admin/challans/${id}`, {
+ await fetch(`/api/admin/challans/${id}`, {
  method: 'PUT', headers: { 'Content-Type': 'application/json' }, 
  body: JSON.stringify({ paidAmount: paid, status, paymentDate: new Date().toISOString().split('T')[0], paymentMethod: 'Cash' })
  });
@@ -2629,7 +2629,7 @@ export default function AdminDashboard() {
 
  const handleDeleteChallan = async (id: number) => {
  if(!confirm("Delete this challan?")) return;
- await fetch(`http://localhost:5000/api/admin/challans/${id}`, { method: 'DELETE' });
+ await fetch(`/api/admin/challans/${id}`, { method: 'DELETE' });
  fetchAllData();
  };
 
@@ -2859,7 +2859,7 @@ export default function AdminDashboard() {
  if (!name) return;
  const amount = parseInt(prompt(`Amount for ${name}:`, "500") || "0");
  const description = prompt("Description:");
- fetch('http://localhost:5000/api/admin/fee-categories', {
+ fetch('/api/admin/fee-categories', {
  method: 'POST', headers: { 'Content-Type': 'application/json' },
  body: JSON.stringify({ name, amount, description: description || name, status: 'Active', dateCreated: new Date().toISOString().split('T')[0] })
  }).then(() => fetchAllData());
@@ -2874,7 +2874,7 @@ export default function AdminDashboard() {
  </button>
  <button onClick={() => {
  const amt = prompt(`New amount for ${cat.name}:`, cat.amount.toString());
- if(amt) fetch(`http://localhost:5000/api/admin/fee-categories/${cat.id}`, { method: 'PUT', headers:{'Content-Type':'application/json'}, body:JSON.stringify({amount:parseInt(amt)})}).then(()=>fetchAllData());
+ if(amt) fetch(`/api/admin/fee-categories/${cat.id}`, { method: 'PUT', headers:{'Content-Type':'application/json'}, body:JSON.stringify({amount:parseInt(amt)})}).then(()=>fetchAllData());
  }} title="Edit Amount" className="text-slate-300 hover:text-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity"><Edit size={16}/></button>
  <button onClick={() => handleDeleteCategory(cat.id)} className="text-slate-300 hover:text-rose-600 opacity-0 group-hover:opacity-100 transition-opacity"><Trash2 size={16}/></button>
  </div>
@@ -3268,7 +3268,7 @@ function ChallanBuilderModal({ onClose, students, feeCategories, onGenerate }: a
  paidAmount: 0
  };
 
- await fetch('http://localhost:5000/api/admin/challans', {
+ await fetch('/api/admin/challans', {
  method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(newChallan)
  });
  alert('Challan generated successfully!');
@@ -3383,7 +3383,7 @@ function RegistrationFeeModal({ onClose, onUpdate }: any) {
  const [saving, setSaving] = useState(false);
 
  useEffect(() => {
- fetch('http://localhost:5000/api/fee-config')
+ fetch('/api/fee-config')
  .then(res => res.json())
  .then(data => setRegFee(data.registrationFee || 1000))
  .catch(console.error);
@@ -3392,9 +3392,9 @@ function RegistrationFeeModal({ onClose, onUpdate }: any) {
  const handleSave = async (e: React.FormEvent) => {
  e.preventDefault();
  setSaving(true);
- const feeConfigRes = await fetch('http://localhost:5000/api/fee-config');
+ const feeConfigRes = await fetch('/api/fee-config');
  const config = await feeConfigRes.json();
- await fetch('http://localhost:5000/api/admin/fee-config', {
+ await fetch('/api/admin/fee-config', {
  method: 'POST', headers: { 'Content-Type': 'application/json' },
  body: JSON.stringify({ ...config, registrationFee: regFee })
  });
@@ -3430,7 +3430,7 @@ function BankSettingsModal({ onClose }: any) {
  const [saving, setSaving] = useState(false);
 
  useEffect(() => {
- fetch('http://localhost:5000/api/bank-config')
+ fetch('/api/bank-config')
  .then(res => res.json())
  .then(data => setBankConfig(data))
  .catch(console.error);
@@ -3439,7 +3439,7 @@ function BankSettingsModal({ onClose }: any) {
  const handleSave = async (e: React.FormEvent) => {
  e.preventDefault();
  setSaving(true);
- await fetch('http://localhost:5000/api/admin/bank-config', {
+ await fetch('/api/admin/bank-config', {
  method: 'POST', headers: { 'Content-Type': 'application/json' },
  body: JSON.stringify(bankConfig)
  });
@@ -3485,7 +3485,7 @@ function FeeSettingsModal({ onClose, feeStructures, onUpdate }: any) {
 
  const handleSave = async (e: React.FormEvent) => {
  e.preventDefault();
- await fetch(`http://localhost:5000/api/admin/fee-structures/${editingTemplate.id}`, {
+ await fetch(`/api/admin/fee-structures/${editingTemplate.id}`, {
  method: 'PUT', headers: { 'Content-Type': 'application/json' },
  body: JSON.stringify(editingTemplate)
  });
@@ -3501,7 +3501,7 @@ function FeeSettingsModal({ onClose, feeStructures, onUpdate }: any) {
  
  const confirmed = confirm(`Overwrite ${targetFs.classProgram} fees with ${fs.classProgram} fees?`);
  if (confirmed) {
- await fetch(`http://localhost:5000/api/admin/fee-structures/${targetFs.id}`, {
+ await fetch(`/api/admin/fee-structures/${targetFs.id}`, {
  method: 'PUT', headers: { 'Content-Type': 'application/json' },
  body: JSON.stringify({ ...fs, id: targetFs.id, classProgram: targetFs.classProgram })
  });

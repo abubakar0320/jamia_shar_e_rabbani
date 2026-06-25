@@ -27,7 +27,7 @@ export default function DonationsAdmin() {
   const [selectedReceipt, setSelectedReceipt] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/donations')
+    fetch('/api/donations')
       .then(res => res.json())
       .then(data => {
         setDonations(data);

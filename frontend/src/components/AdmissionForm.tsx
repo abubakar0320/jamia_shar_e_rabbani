@@ -90,7 +90,7 @@ export default function AdmissionForm({ onSuccess }: { onSuccess: (data: Admissi
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   React.useEffect(() => {
-    fetch('http://localhost:5000/api/admin/form-fields?t=' + Date.now())
+    fetch('/api/admin/form-fields?t=' + Date.now())
       .then(res => res.json())
       .then(data => setCustomFields(data || []))
       .catch(console.error);
@@ -155,7 +155,7 @@ export default function AdmissionForm({ onSuccess }: { onSuccess: (data: Admissi
     }
 
     try {
-      const res = await fetch('http://localhost:5000/api/admissions', {
+      const res = await fetch('/api/admissions', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...formData, documents })

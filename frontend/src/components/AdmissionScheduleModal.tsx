@@ -40,7 +40,7 @@ export default function AdmissionScheduleModal({ onClose, schedule, onUpdate }: 
   const handleSave = async () => {
     setSaving(true);
     try {
-      await fetch('http://localhost:5000/api/admin/admission-schedule', {
+      await fetch('/api/admin/admission-schedule', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)

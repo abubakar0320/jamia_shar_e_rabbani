@@ -27,7 +27,7 @@ export default function Admissions() {
 
   useEffect(() => {
     setMounted(true);
-    fetch('http://localhost:5000/api/admission-requirements?t=' + Date.now()).then(res => res.json()).then(data => setRequirements(data)).catch(err => console.error(err));
+    fetch('/api/admission-requirements?t=' + Date.now()).then(res => res.json()).then(data => setRequirements(data)).catch(err => console.error(err));
   }, []);
 
   if (!mounted) {
