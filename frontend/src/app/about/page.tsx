@@ -74,21 +74,21 @@ export default function About() {
         {/* --- MISSION/VISION/HISTORY GRID --- */}
         <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white border-b border-slate-100">
           <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
               {sections.map((item, i) => (
-                <div key={i} className="flex flex-col">
-                  <div className="w-12 h-12 bg-white flex items-center justify-center text-blue-700 mb-6 border border-gray-100">
-                    {item.icon}
+                <div key={i} className="flex flex-col p-4 border border-slate-100 rounded-2xl bg-slate-50/50">
+                  <div className="w-10 h-10 md:w-12 md:h-12 bg-white flex items-center justify-center text-blue-700 mb-3 md:mb-6 border border-gray-100 rounded-xl shadow-sm">
+                    {React.cloneElement(item.icon, { className: "w-5 h-5 md:w-8 md:h-8" })}
                   </div>
-                  <h3 className="text-2xl font-semibold mb-3 text-slate-900">{item.title}</h3>
-                  <p className="text-base text-slate-600 mb-6 flex-grow">
+                  <h3 className="text-sm md:text-2xl font-bold mb-2 md:mb-3 text-slate-900 leading-tight">{item.title}</h3>
+                  <p className="text-xs md:text-base text-slate-600 mb-3 md:mb-6 flex-grow line-clamp-3 md:line-clamp-none">
                     {item.desc}
                   </p>
                   <Link 
                     href={item.link} 
-                    className="text-blue-700 font-semibold flex items-center hover:underline"
+                    className="text-blue-700 text-[10px] md:text-base font-bold flex items-center hover:underline mt-auto"
                   >
-                    {t('about_learn_more')} <ChevronRight className="ml-1" size={16} />
+                    {t('about_learn_more')} <ChevronRight className="ml-1" size={14} />
                   </Link>
                 </div>
               ))}
@@ -174,19 +174,19 @@ export default function About() {
               <p className="text-slate-600 text-lg">The foundational principles that guide our institution, our teaching methodology, and our community.</p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
               {[
                 { title: 'Academic Excellence', desc: 'Rigorous scholarship based on authentic sources and continuous intellectual growth.', icon: <BookOpen size={24} /> },
                 { title: 'Spiritual Growth', desc: 'Fostering Taqwa, sincerity, and exemplary prophetic character in daily life.', icon: <Award size={24} /> },
                 { title: 'Service to Ummah', desc: 'Preparing students to positively contribute to society through education and leadership.', icon: <Users size={24} /> },
                 { title: 'Integrity & Ethics', desc: 'Upholding the highest standards of honesty, transparency, and moral responsibility.', icon: <Target size={24} /> }
               ].map((value, idx) => (
-                <div key={idx} className={`bg-white p-8 border shadow-sm flex flex-col transition-all duration-300 transform hover:-translate-y-2 rounded-2xl ${idx%4===0?"border-rose-100 hover:border-rose-400 hover:shadow-[0_10px_30px_rgba(244,63,94,0.2)]":idx%4===1?"border-amber-100 hover:border-amber-400 hover:shadow-[0_10px_30px_rgba(245,158,11,0.2)]":idx%4===2?"border-emerald-100 hover:border-emerald-400 hover:shadow-[0_10px_30px_rgba(16,185,129,0.2)]":"border-blue-100 hover:border-blue-400 hover:shadow-[0_10px_30px_rgba(59,130,246,0.2)]"}`}>
-                  <div className={`mb-6 w-12 h-12 flex items-center justify-center rounded-xl ${idx%4===0?"bg-rose-50 text-rose-600":idx%4===1?"bg-amber-50 text-amber-600":idx%4===2?"bg-emerald-50 text-emerald-600":"bg-blue-50 text-blue-600"}`}>
-                    {value.icon}
+                <div key={idx} className={`bg-white p-4 md:p-8 border shadow-sm flex flex-col transition-all duration-300 transform hover:-translate-y-2 rounded-2xl ${idx%4===0?"border-rose-100 hover:border-rose-400 hover:shadow-[0_10px_30px_rgba(244,63,94,0.2)]":idx%4===1?"border-amber-100 hover:border-amber-400 hover:shadow-[0_10px_30px_rgba(245,158,11,0.2)]":idx%4===2?"border-emerald-100 hover:border-emerald-400 hover:shadow-[0_10px_30px_rgba(16,185,129,0.2)]":"border-blue-100 hover:border-blue-400 hover:shadow-[0_10px_30px_rgba(59,130,246,0.2)]"}`}>
+                  <div className={`mb-3 md:mb-6 w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-xl ${idx%4===0?"bg-rose-50 text-rose-600":idx%4===1?"bg-amber-50 text-amber-600":idx%4===2?"bg-emerald-50 text-emerald-600":"bg-blue-50 text-blue-600"}`}>
+                    {React.cloneElement(value.icon, { className: "w-5 h-5 md:w-6 md:h-6" })}
                   </div>
-                  <h3 className="text-xl font-semibold text-slate-900 mb-3">{value.title}</h3>
-                  <p className="text-slate-600">{value.desc}</p>
+                  <h3 className="text-sm md:text-xl font-bold text-slate-900 mb-1 md:mb-3">{value.title}</h3>
+                  <p className="text-xs md:text-base text-slate-600 line-clamp-3 md:line-clamp-none">{value.desc}</p>
                 </div>
               ))}
             </div>
@@ -195,7 +195,7 @@ export default function About() {
 
         {/* --- STATS SECTION --- */}
         <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-violet-600 via-fuchsia-600 to-pink-500">
-          <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-12">
+          <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-12">
             {[
               { label: t('about_stat_founded'), val: '1995' },
               { label: t('about_stat_students'), val: '500+' },
@@ -203,8 +203,8 @@ export default function About() {
               { label: t('about_stat_programs'), val: '25+' }
             ].map((stat, i) => (
               <div key={i} className="text-center">
-                <div className="text-4xl md:text-5xl font-semibold text-white mb-2">{stat.val}</div>
-                <div className="text-xs font-semibold text-fuchsia-100 uppercase tracking-wide">{stat.label}</div>
+                <div className="text-2xl md:text-5xl font-black text-white mb-1 md:mb-2">{stat.val}</div>
+                <div className="text-[10px] md:text-xs font-bold text-fuchsia-100 uppercase tracking-wide">{stat.label}</div>
               </div>
             ))}
           </div>
