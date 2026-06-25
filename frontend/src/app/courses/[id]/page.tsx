@@ -56,15 +56,73 @@ export default function CourseDetails() {
   const [loading, setLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
+  const staticCourses: Course[] = [
+    {
+      id: 1,
+      title: 'academic_programs_1_title',
+      duration: '3-4 Years',
+      level: 'academic_programs_1_category',
+      desc: 'academic_programs_1_desc',
+      image: 'https://images.unsplash.com/photo-1609599006353-e629aaabfeae?auto=format&fit=crop&q=80&w=800'
+    },
+    {
+      id: 2,
+      title: 'academic_programs_2_title',
+      duration: '8 Years',
+      level: 'academic_programs_2_category',
+      desc: 'academic_programs_2_desc',
+      image: '/hadith.jpg'
+    },
+    {
+      id: 3,
+      title: 'academic_programs_3_title',
+      duration: '2 Years',
+      level: 'academic_programs_3_category',
+      desc: 'academic_programs_3_desc',
+      image: '/tajweed-o-qirat.jpg'
+    },
+    {
+      id: 4,
+      title: 'academic_programs_4_title',
+      duration: '1 Year',
+      level: 'academic_programs_4_category',
+      desc: 'academic_programs_4_desc',
+      image: '/arabic-language.jpg'
+    },
+    {
+      id: 5,
+      title: 'academic_programs_5_title',
+      duration: '2 Years',
+      level: 'academic_programs_5_category',
+      desc: 'academic_programs_5_desc',
+      image: '/takhasus.jpeg'
+    },
+    {
+      id: 6,
+      title: 'academic_programs_6_title',
+      duration: '6 Years',
+      level: 'academic_programs_6_category',
+      desc: 'academic_programs_6_desc',
+      image: '/hadith.jpg'
+    }
+  ];
+
   useEffect(() => {
+    const fallbackCourse = staticCourses.find(c => c.id.toString() === String(id)) || null;
+    
     fetch(`http://localhost:5000/api/courses/${id}`)
       .then(res => res.json())
       .then(data => {
-        setCourse(data);
+        if (data && data.title) {
+          setCourse(data);
+        } else {
+          setCourse(fallbackCourse);
+        }
         setLoading(false);
       })
       .catch(err => {
         console.error('Error fetching course details:', err);
+        setCourse(fallbackCourse);
         setLoading(false);
       });
   }, [id]);
