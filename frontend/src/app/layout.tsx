@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
@@ -13,9 +13,14 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+export const viewport: Viewport = {
+  themeColor: "#1e3a8a",
+};
+
 export const metadata: Metadata = {
   title: "Jamia Sher-e-Rabbani | Mananwala, Sheikhupura",
   description: "Dedicated to the preservation and dissemination of sacred Islamic knowledge through contemporary academic excellence.",
+  manifest: "/manifest.json",
   icons: {
     icon: '/logo.jpeg',
     shortcut: '/logo.jpeg',
