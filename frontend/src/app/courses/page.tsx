@@ -174,54 +174,55 @@ export default function Courses() {
                 <div className="mt-4 text-sm font-semibold text-slate-600 uppercase">{t('courses_loading')}</div>
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+              <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-8">
                 {courses.map((course, i) => (
-                  <div key={course.id} className={`flex flex-col bg-white border-2 shadow-sm transition-all duration-300 transform hover:-translate-y-2 group rounded-2xl overflow-hidden ${i%4===0?"border-rose-100 hover:border-rose-300 hover:shadow-[0_8px_30px_rgba(244,63,94,0.15)]":i%4===1?"border-amber-100 hover:border-amber-300 hover:shadow-[0_8px_30px_rgba(245,158,11,0.15)]":i%4===2?"border-emerald-100 hover:border-emerald-300 hover:shadow-[0_8px_30px_rgba(16,185,129,0.15)]":"border-blue-100 hover:border-blue-300 hover:shadow-[0_8px_30px_rgba(59,130,246,0.15)]"}`}>
-                    <div className="aspect-[16/10] bg-gray-100 relative overflow-hidden">
+                  <div key={course.id} className={`flex flex-col bg-white border md:border-2 shadow-sm transition-all duration-300 transform hover:-translate-y-1 md:hover:-translate-y-2 group rounded-xl md:rounded-2xl overflow-hidden ${i%4===0?"border-rose-100 hover:border-rose-300 hover:shadow-[0_8px_30px_rgba(244,63,94,0.15)]":i%4===1?"border-amber-100 hover:border-amber-300 hover:shadow-[0_8px_30px_rgba(245,158,11,0.15)]":i%4===2?"border-emerald-100 hover:border-emerald-300 hover:shadow-[0_8px_30px_rgba(16,185,129,0.15)]":"border-blue-100 hover:border-blue-300 hover:shadow-[0_8px_30px_rgba(59,130,246,0.15)]"}`}>
+                    <div className="aspect-[4/3] md:aspect-[16/10] bg-gray-100 relative overflow-hidden">
                       <OptimizedImage 
                         src={course.image || getCourseImage(course.title)} 
                         alt={course.title} 
                         fill
                         section="course"
                         className="object-cover group-hover:scale-110 transition-transform duration-700"
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
+                        sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
                       />
-                      <div className="absolute top-4 left-4">
-                        <span className={`text-[10px] px-3 py-1 rounded-full font-black uppercase tracking-widest border shadow-sm backdrop-blur-md ${i%4===0?"bg-rose-500/90 text-white border-rose-400":i%4===1?"bg-amber-500/90 text-white border-amber-400":i%4===2?"bg-emerald-500/90 text-white border-emerald-400":"bg-blue-500/90 text-white border-blue-400"}`}>
+                      <div className="absolute top-2 left-2 md:top-4 md:left-4">
+                        <span className={`text-[8px] md:text-[10px] px-2 md:px-3 py-0.5 md:py-1 rounded-full font-black uppercase tracking-widest border shadow-sm backdrop-blur-md ${i%4===0?"bg-rose-500/90 text-white border-rose-400":i%4===1?"bg-amber-500/90 text-white border-amber-400":i%4===2?"bg-emerald-500/90 text-white border-emerald-400":"bg-blue-500/90 text-white border-blue-400"}`}>
                           {t(course.level)}
                         </span>
                       </div>
                     </div>
-                    <div className="p-6 flex flex-col flex-1">
-                      <h3 className={`text-xl font-bold mb-3 ${i%4===0?"text-rose-600":i%4===1?"text-amber-600":i%4===2?"text-emerald-600":"text-blue-600"}`}>
+                    <div className="p-3 md:p-6 flex flex-col flex-1">
+                      <h3 className={`text-sm md:text-xl font-bold mb-1 md:mb-3 line-clamp-2 leading-snug ${i%4===0?"text-rose-600":i%4===1?"text-amber-600":i%4===2?"text-emerald-600":"text-blue-600"}`}>
                         {t(course.title)}
                       </h3>
-                      <p className="text-sm text-slate-600 mb-6 flex-1 line-clamp-3">
+                      <p className="hidden md:block text-sm text-slate-600 mb-6 flex-1 line-clamp-3">
                         {t(course.desc)}
                       </p>
                       
-                      <div className="flex flex-col gap-4 mt-auto">
-                        <div className="flex items-center gap-4 text-[11px] font-bold text-slate-500 uppercase tracking-wide">
-                          <div className="flex items-center gap-1.5">
-                            <Clock size={14} className={`shrink-0 ${i%4===0?"text-rose-500":i%4===1?"text-amber-500":i%4===2?"text-emerald-500":"text-blue-500"}`} />
+                      <div className="flex flex-col gap-2 md:gap-4 mt-auto">
+                        <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-4 text-[9px] md:text-[11px] font-bold text-slate-500 uppercase tracking-wide">
+                          <div className="flex items-center gap-1 md:gap-1.5">
+                            <Clock size={12} className={`md:w-3.5 md:h-3.5 shrink-0 ${i%4===0?"text-rose-500":i%4===1?"text-amber-500":i%4===2?"text-emerald-500":"text-blue-500"}`} />
                             {t(course.duration)}
                           </div>
-                          <div className="flex items-center gap-1.5">
-                            <Award size={14} className={`shrink-0 ${i%4===0?"text-rose-500":i%4===1?"text-amber-500":i%4===2?"text-emerald-500":"text-blue-500"}`} />
-                            {t('courses_certified_label')}
+                          <div className="flex items-center gap-1 md:gap-1.5">
+                            <Award size={12} className={`md:w-3.5 md:h-3.5 shrink-0 ${i%4===0?"text-rose-500":i%4===1?"text-amber-500":i%4===2?"text-emerald-500":"text-blue-500"}`} />
+                            <span className="hidden md:inline">{t('courses_certified_label')}</span>
+                            <span className="md:hidden">Certified</span>
                           </div>
                         </div>
                         
-                        <div className="flex gap-3 pt-2 border-t border-slate-100">
+                        <div className="flex flex-col xl:flex-row gap-2 md:gap-3 pt-2 md:pt-2 border-t border-slate-100">
                           <Link 
                             href={`/courses/${course.id}`} 
-                            className={`flex-1 text-center py-2.5 text-xs font-bold rounded-xl border-2 transition-colors ${i%4===0?"border-rose-100 text-rose-600 hover:bg-rose-50":i%4===1?"border-amber-100 text-amber-600 hover:bg-amber-50":i%4===2?"border-emerald-100 text-emerald-600 hover:bg-emerald-50":"border-blue-100 text-blue-600 hover:bg-blue-50"}`}
+                            className={`flex-1 text-center py-1.5 md:py-2.5 text-[10px] md:text-xs font-bold rounded-lg md:rounded-xl border md:border-2 transition-colors ${i%4===0?"border-rose-100 text-rose-600 hover:bg-rose-50":i%4===1?"border-amber-100 text-amber-600 hover:bg-amber-50":i%4===2?"border-emerald-100 text-emerald-600 hover:bg-emerald-50":"border-blue-100 text-blue-600 hover:bg-blue-50"}`}
                           >
                             {t('courses_details_link')}
                           </Link>
                           <Link 
                             href={`/admissions?course=${encodeURIComponent(course.title)}`}
-                            className={`flex-1 text-center py-2.5 text-xs text-white font-bold transition-all shadow-md rounded-xl hover:shadow-lg hover:-translate-y-0.5 ${i%4===0?"bg-gradient-to-r from-rose-500 to-pink-500 shadow-rose-500/30":i%4===1?"bg-gradient-to-r from-amber-500 to-orange-500 shadow-amber-500/30":i%4===2?"bg-gradient-to-r from-emerald-500 to-teal-500 shadow-emerald-500/30":"bg-gradient-to-r from-blue-500 to-indigo-500 shadow-blue-500/30"}`}
+                            className={`flex-1 text-center py-1.5 md:py-2.5 text-[10px] md:text-xs text-white font-bold transition-all shadow-sm md:shadow-md rounded-lg md:rounded-xl hover:shadow-lg hover:-translate-y-0.5 ${i%4===0?"bg-gradient-to-r from-rose-500 to-pink-500 shadow-rose-500/30":i%4===1?"bg-gradient-to-r from-amber-500 to-orange-500 shadow-amber-500/30":i%4===2?"bg-gradient-to-r from-emerald-500 to-teal-500 shadow-emerald-500/30":"bg-gradient-to-r from-blue-500 to-indigo-500 shadow-blue-500/30"}`}
                           >
                             {t('courses_apply_button')}
                           </Link>
@@ -243,21 +244,21 @@ export default function Courses() {
               <p className="text-slate-600 text-lg">A structured educational journey designed to take students from foundational learning to advanced Islamic scholarship.</p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
               {[
                 { step: "01", title: "Foundational Level", desc: "Focuses on memorization of the Quran, basic Tajweed, and fundamental Arabic reading and writing skills.", icon: <Book size={24} /> },
                 { step: "02", title: "Intermediate Level", desc: "Introduces Arabic grammar, syntax, foundational Fiqh (jurisprudence), and the translation of the Holy Quran.", icon: <Award size={24} /> },
                 { step: "03", title: "Advanced Level", desc: "Deep dive into Hadith methodology, advanced Fiqh, Usul al-Fiqh, and comparative religious studies.", icon: <Clock size={24} /> }
               ].map((path, idx) => (
-                <div key={idx} className={`flex flex-col p-8 border shadow-sm rounded-2xl relative transition-all duration-300 transform hover:-translate-y-2 ${idx===0?"border-rose-100 hover:border-rose-400 hover:shadow-[0_10px_30px_rgba(244,63,94,0.2)]":idx===1?"border-amber-100 hover:border-amber-400 hover:shadow-[0_10px_30px_rgba(245,158,11,0.2)]":"border-emerald-100 hover:border-emerald-400 hover:shadow-[0_10px_30px_rgba(16,185,129,0.2)]"}`}>
-                  <div className={`mb-4 w-12 h-12 flex items-center justify-center rounded-xl ${idx===0?"bg-rose-50 text-rose-600":idx===1?"bg-amber-50 text-amber-600":"bg-emerald-50 text-emerald-600"}`}>
-                    {path.icon}
+                <div key={idx} className={`flex flex-col p-4 md:p-8 border shadow-sm rounded-xl md:rounded-2xl relative transition-all duration-300 transform hover:-translate-y-1 md:hover:-translate-y-2 ${idx===0?"border-rose-100 hover:border-rose-400 hover:shadow-[0_10px_30px_rgba(244,63,94,0.2)]":idx===1?"border-amber-100 hover:border-amber-400 hover:shadow-[0_10px_30px_rgba(245,158,11,0.2)]":"border-emerald-100 hover:border-emerald-400 hover:shadow-[0_10px_30px_rgba(16,185,129,0.2)]"}`}>
+                  <div className={`mb-3 md:mb-4 w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-lg md:rounded-xl ${idx===0?"bg-rose-50 text-rose-600":idx===1?"bg-amber-50 text-amber-600":"bg-emerald-50 text-emerald-600"}`}>
+                    {React.cloneElement(path.icon, { className: "w-5 h-5 md:w-6 md:h-6" })}
                   </div>
-                  <div className="absolute top-6 right-6 text-2xl font-bold text-gray-200">
+                  <div className="absolute top-3 right-3 md:top-6 md:right-6 text-lg md:text-2xl font-bold text-gray-200">
                     {path.step}
                   </div>
-                  <h3 className="text-xl font-semibold text-slate-900 mb-3">{path.title}</h3>
-                  <p className="text-slate-600">{path.desc}</p>
+                  <h3 className="text-sm md:text-xl font-bold text-slate-900 mb-2 md:mb-3">{path.title}</h3>
+                  <p className="hidden md:block text-slate-600 text-sm md:text-base">{path.desc}</p>
                 </div>
               ))}
             </div>
@@ -287,22 +288,22 @@ export default function Courses() {
                   ))}
                 </ul>
               </div>
-              <div className="grid grid-cols-2 gap-6">
-                <div className="bg-white p-8 border border-slate-100 rounded-2xl shadow-sm text-center">
-                  <div className="text-4xl font-semibold text-slate-900 mb-2">1:15</div>
-                  <div className="text-sm font-semibold text-slate-500 uppercase tracking-wide">Teacher-Student Ratio</div>
+              <div className="grid grid-cols-2 gap-3 md:gap-6">
+                <div className="bg-white p-4 md:p-8 border border-slate-100 rounded-xl md:rounded-2xl shadow-sm text-center">
+                  <div className="text-2xl md:text-4xl font-bold text-slate-900 mb-1 md:mb-2">1:15</div>
+                  <div className="text-[10px] md:text-sm font-bold text-slate-500 uppercase tracking-wide">Teacher-Student Ratio</div>
                 </div>
-                <div className="bg-white p-8 border border-slate-100 rounded-2xl shadow-sm text-center">
-                  <div className="text-4xl font-semibold text-slate-900 mb-2">100%</div>
-                  <div className="text-sm font-semibold text-slate-500 uppercase tracking-wide">Certified Curriculum</div>
+                <div className="bg-white p-4 md:p-8 border border-slate-100 rounded-xl md:rounded-2xl shadow-sm text-center">
+                  <div className="text-2xl md:text-4xl font-bold text-slate-900 mb-1 md:mb-2">100%</div>
+                  <div className="text-[10px] md:text-sm font-bold text-slate-500 uppercase tracking-wide">Certified Curriculum</div>
                 </div>
-                <div className="bg-white p-8 border border-slate-100 rounded-2xl shadow-sm text-center">
-                  <div className="text-4xl font-semibold text-slate-900 mb-2">5+</div>
-                  <div className="text-sm font-semibold text-slate-500 uppercase tracking-wide">Specialized Libraries</div>
+                <div className="bg-white p-4 md:p-8 border border-slate-100 rounded-xl md:rounded-2xl shadow-sm text-center">
+                  <div className="text-2xl md:text-4xl font-bold text-slate-900 mb-1 md:mb-2">5+</div>
+                  <div className="text-[10px] md:text-sm font-bold text-slate-500 uppercase tracking-wide">Specialized Libraries</div>
                 </div>
-                <div className="bg-gradient-to-br from-violet-600 to-fuchsia-600 p-8 border-none rounded-2xl text-center text-white shadow-lg shadow-purple-500/30 transform hover:-translate-y-1 transition-transform">
-                  <div className="text-4xl font-semibold mb-2">Top</div>
-                  <div className="text-sm font-semibold text-purple-200 uppercase tracking-wide">Wafaq Rankings</div>
+                <div className="bg-gradient-to-br from-violet-600 to-fuchsia-600 p-4 md:p-8 border-none rounded-xl md:rounded-2xl text-center text-white shadow-lg shadow-purple-500/30 transform hover:-translate-y-1 transition-transform">
+                  <div className="text-2xl md:text-4xl font-bold mb-1 md:mb-2">Top</div>
+                  <div className="text-[10px] md:text-sm font-bold text-purple-200 uppercase tracking-wide">Wafaq Rankings</div>
                 </div>
               </div>
             </div>

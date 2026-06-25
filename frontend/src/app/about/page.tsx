@@ -4,7 +4,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BookOpen, Target, History, Award, Users, GraduationCap, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
