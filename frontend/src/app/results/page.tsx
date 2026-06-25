@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Search, Award, CheckCircle2, XCircle, ArrowLeft, Printer } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Search, FileText, CheckCircle2, XCircle, ArrowLeft, Printer } from 'lucide-react';
 import Image from 'next/image';
 import Header from '@/components/Header';

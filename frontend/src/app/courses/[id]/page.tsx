@@ -9,7 +9,7 @@ import {
   ShieldCheck, Mail, Share2, GraduationCap,
   FileIcon, Eye, Download, X
 } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';

@@ -5,7 +5,7 @@ import Footer from '@/components/Footer';
 import { useTranslation } from 'react-i18next';
 import Image from 'next/image';
 import { Mail, Phone, MapPin, ChevronRight, Globe2, Clock, Landmark, ShieldCheck, Award } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 
