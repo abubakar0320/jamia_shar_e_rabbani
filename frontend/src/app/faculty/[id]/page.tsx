@@ -76,11 +76,35 @@ export default function FacultyProfile() {
   ];
 
   useEffect(() => {
-    const data = staticFaculty;
-    const found = data.find(m => m.id === Number(id));
-    setMember(found || null);
-    setRelated(data.filter(m => m.id !== Number(id)).slice(0, 3));
-    setLoading(false);
+    fetch(`/api/faculty/${id}`)
+      .then(res => res.json())
+      .then(data => {
+        if (data && data.name) {
+          setMember(data);
+          // Fetch related
+          fetch('/api/faculty').then(r => r.json()).then(all => {
+             if (all && all.length > 0) {
+               setRelated(all.filter((m: any) => m.id !== Number(id) && m._id !== id).slice(0, 3));
+             } else {
+               setRelated(staticFaculty.filter(m => m.id !== Number(id)).slice(0, 3));
+             }
+          }).catch(() => {
+             setRelated(staticFaculty.filter(m => m.id !== Number(id)).slice(0, 3));
+          });
+        } else {
+          const found = staticFaculty.find(m => m.id === Number(id));
+          setMember(found || null);
+          setRelated(staticFaculty.filter(m => m.id !== Number(id)).slice(0, 3));
+        }
+      })
+      .catch(() => {
+        const found = staticFaculty.find(m => m.id === Number(id));
+        setMember(found || null);
+        setRelated(staticFaculty.filter(m => m.id !== Number(id)).slice(0, 3));
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, [id]);
 
   if (loading) {

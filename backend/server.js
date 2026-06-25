@@ -13,7 +13,16 @@ app.use(express.json({ limit: "20mb" }));
 app.use(express.urlencoded({ limit: "20mb", extended: true }));
 
 // Database Setup
-const adapter = new FileSync(path.join(__dirname, 'db.json'));
+const fs = require('fs');
+let dbPath = path.join(__dirname, 'db.json');
+if (process.env.VERCEL) {
+  const tmpPath = path.join('/tmp', 'db.json');
+  if (!fs.existsSync(tmpPath) && fs.existsSync(dbPath)) {
+    fs.copyFileSync(dbPath, tmpPath);
+  }
+  dbPath = tmpPath;
+}
+const adapter = new FileSync(dbPath);
 const db = low(adapter);
 
 // Set default data

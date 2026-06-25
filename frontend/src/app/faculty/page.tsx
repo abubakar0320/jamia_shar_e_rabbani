@@ -45,11 +45,26 @@ export default function Faculty() {
   ];
 
   const [faculty, setFaculty] = useState<FacultyMember[]>(staticFaculty);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
+    fetch('/api/faculty')
+      .then(res => res.json())
+      .then(data => {
+        if (data && data.length > 0) {
+          setFaculty(data);
+        } else {
+          setFaculty(staticFaculty);
+        }
+      })
+      .catch(() => {
+        setFaculty(staticFaculty);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
 
   if (!mounted) {
