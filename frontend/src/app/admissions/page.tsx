@@ -95,20 +95,20 @@ export default function Admissions() {
               <p className="text-slate-600 text-lg">{t("We have streamlined our application procedure to ensure that prospective students can apply from anywhere with ease.")}</p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-8">
               {[
-                { step: "01", title: t("Form Submission"), desc: t("Fill out the online application form with your personal and academic details."), icon: <FileText size={24} /> },
-                { step: "02", title: t("Document Upload"), desc: t("Upload clear scans of your ID cards, photographs, and previous result cards."), icon: <FileText size={24} /> },
-                { step: "03", title: t("Review & Interview"), desc: t("Our academic committee will review your files and schedule an entrance interview."), icon: <Building2 size={24} /> },
-                { step: "04", title: t("Confirmation"), desc: t("Once selected, pay your admission fee to secure your seat and receive your student ID."), icon: <Award size={24} /> }
+                { step: "01", title: t("Form Submission"), desc: t("Fill out the online application form with your personal and academic details."), icon: <FileText className="w-4 h-4 md:w-6 md:h-6" /> },
+                { step: "02", title: t("Document Upload"), desc: t("Upload clear scans of your ID cards, photographs, and previous result cards."), icon: <FileText className="w-4 h-4 md:w-6 md:h-6" /> },
+                { step: "03", title: t("Review & Interview"), desc: t("Our academic committee will review your files and schedule an entrance interview."), icon: <Building2 className="w-4 h-4 md:w-6 md:h-6" /> },
+                { step: "04", title: t("Confirmation"), desc: t("Once selected, pay your admission fee to secure your seat and receive your student ID."), icon: <Award className="w-4 h-4 md:w-6 md:h-6" /> }
               ].map((item, idx) => (
-                <div key={idx} className={`bg-white p-8 border shadow-sm transition-all duration-300 transform hover:-translate-y-2 relative group rounded-2xl ${idx===0?"border-rose-100 hover:border-rose-400 hover:shadow-[0_10px_30px_rgba(244,63,94,0.15)]":idx===1?"border-amber-100 hover:border-amber-400 hover:shadow-[0_10px_30px_rgba(245,158,11,0.15)]":idx===2?"border-emerald-100 hover:border-emerald-400 hover:shadow-[0_10px_30px_rgba(16,185,129,0.15)]":"border-blue-100 hover:border-blue-400 hover:shadow-[0_10px_30px_rgba(59,130,246,0.15)]"}`}>
-                  <div className={`mb-6 w-14 h-14 rounded-xl flex items-center justify-center shadow-sm border ${idx===0?"bg-rose-50 text-rose-600 border-rose-100":idx===1?"bg-amber-50 text-amber-600 border-amber-100":idx===2?"bg-emerald-50 text-emerald-600 border-emerald-100":"bg-blue-50 text-blue-600 border-blue-100"}`}>
+                <div key={idx} className={`bg-white p-4 md:p-8 border shadow-sm transition-all duration-300 transform hover:-translate-y-1 md:hover:-translate-y-2 relative group rounded-xl md:rounded-2xl ${idx===0?"border-rose-100 hover:border-rose-400 hover:shadow-[0_10px_30px_rgba(244,63,94,0.15)]":idx===1?"border-amber-100 hover:border-amber-400 hover:shadow-[0_10px_30px_rgba(245,158,11,0.15)]":idx===2?"border-emerald-100 hover:border-emerald-400 hover:shadow-[0_10px_30px_rgba(16,185,129,0.15)]":"border-blue-100 hover:border-blue-400 hover:shadow-[0_10px_30px_rgba(59,130,246,0.15)]"}`}>
+                  <div className={`mb-3 md:mb-6 w-10 h-10 md:w-14 md:h-14 rounded-lg md:rounded-xl flex items-center justify-center shadow-sm border ${idx===0?"bg-rose-50 text-rose-600 border-rose-100":idx===1?"bg-amber-50 text-amber-600 border-amber-100":idx===2?"bg-emerald-50 text-emerald-600 border-emerald-100":"bg-blue-50 text-blue-600 border-blue-100"}`}>
                     {item.icon}
                   </div>
-                  <div className="absolute top-6 end-6 text-3xl font-bold text-slate-100 opacity-50 transition-colors">{item.step}</div>
-                  <h3 className="text-lg font-semibold text-slate-900 mb-2">{item.title}</h3>
-                  <p className="text-sm text-slate-600">{item.desc}</p>
+                  <div className="absolute top-3 end-3 md:top-6 md:end-6 text-xl md:text-3xl font-bold text-slate-100 opacity-50 transition-colors">{item.step}</div>
+                  <h3 className="text-xs md:text-lg font-semibold text-slate-900 mb-1 md:mb-2 leading-tight">{item.title}</h3>
+                  <p className="hidden md:block text-sm text-slate-600">{item.desc}</p>
                 </div>
               ))}
             </div>
@@ -176,7 +176,7 @@ export default function Admissions() {
 
         {/* --- FAQ / FOOTER INFO SECTION --- */}
         <section className="py-16 bg-white border-b border-slate-100">
-           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8">
+           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-8">
             {[{
               title: t("Entrance Test"),
               desc: t("A baseline test for Arabic and Quran proficiency to determine the appropriate starting class level.")
@@ -187,12 +187,12 @@ export default function Admissions() {
               title: t("Financial Aid"),
               desc: t("Scholarships and Zakat-funded support are available for deserving students who cannot afford the fees.")
             }].map((box, i) => (
-              <div key={i} className={`bg-white p-8 border shadow-sm rounded-2xl transition-all transform hover:-translate-y-1 ${i===0?"border-rose-100 hover:border-rose-300":i===1?"border-amber-100 hover:border-amber-300":"border-emerald-100 hover:border-emerald-300"}`}>
-                <h4 className="font-semibold text-slate-900 text-lg mb-3 flex items-center gap-2">
-                  <div className={`w-2 h-2 rounded-full shadow-sm ${i===0?"bg-rose-500":i===1?"bg-amber-500":"bg-emerald-500"}`} />
+              <div key={i} className={`bg-white p-4 md:p-8 border shadow-sm rounded-xl md:rounded-2xl transition-all transform hover:-translate-y-1 ${i===0?"border-rose-100 hover:border-rose-300":i===1?"border-amber-100 hover:border-amber-300":"border-emerald-100 hover:border-emerald-300"} col-span-1 ${i===2 ? 'col-span-2 md:col-span-1' : ''}`}>
+                <h4 className="font-semibold text-slate-900 text-xs md:text-lg mb-2 md:mb-3 flex items-center gap-1.5 md:gap-2 leading-tight">
+                  <div className={`w-1.5 h-1.5 md:w-2 md:h-2 rounded-full shrink-0 shadow-sm ${i===0?"bg-rose-500":i===1?"bg-amber-500":"bg-emerald-500"}`} />
                   {box.title}
                 </h4>
-                <p className="text-sm text-slate-600 leading-relaxed">{box.desc}</p>
+                <p className="text-[10px] md:text-sm text-slate-600 leading-relaxed">{box.desc}</p>
               </div>
             ))}
           </div>

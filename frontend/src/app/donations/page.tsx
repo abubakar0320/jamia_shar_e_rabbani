@@ -87,7 +87,7 @@ export default function Donations() {
         <section className="py-16 bg-white border-b border-slate-100">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-3xl font-semibold text-slate-900 mb-12 text-center">{t('Ways to Give')}</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8">
+            <div className="grid grid-cols-2 md:grid-cols-2 xl:grid-cols-4 gap-3 md:gap-8">
               {donationCategories.map((item, i) => (
                 <motion.div 
                    key={i}
@@ -96,7 +96,7 @@ export default function Donations() {
                    viewport={{ once: true }}
                    transition={{ delay: i * 0.1, duration: 0.5 }}
                 >
-                   <Link href={item.link} className={`flex flex-col group cursor-pointer bg-white border shadow-sm transition-all duration-300 transform hover:-translate-y-2 h-full rounded-2xl overflow-hidden ${i%4===0?"border-emerald-100 hover:border-emerald-400 hover:shadow-[0_10px_30px_rgba(16,185,129,0.2)]":i%4===1?"border-amber-100 hover:border-amber-400 hover:shadow-[0_10px_30px_rgba(245,158,11,0.2)]":i%4===2?"border-blue-100 hover:border-blue-400 hover:shadow-[0_10px_30px_rgba(59,130,246,0.2)]":"border-purple-100 hover:border-purple-400 hover:shadow-[0_10px_30px_rgba(168,85,247,0.2)]"}`}>
+                   <Link href={item.link} className={`flex flex-col group cursor-pointer bg-white border shadow-sm transition-all duration-300 transform hover:-translate-y-1 md:hover:-translate-y-2 h-full rounded-xl md:rounded-2xl overflow-hidden ${i%4===0?"border-emerald-100 hover:border-emerald-400 hover:shadow-[0_10px_30px_rgba(16,185,129,0.2)]":i%4===1?"border-amber-100 hover:border-amber-400 hover:shadow-[0_10px_30px_rgba(245,158,11,0.2)]":i%4===2?"border-blue-100 hover:border-blue-400 hover:shadow-[0_10px_30px_rgba(59,130,246,0.2)]":"border-purple-100 hover:border-purple-400 hover:shadow-[0_10px_30px_rgba(168,85,247,0.2)]"}`}>
                      <div className="aspect-[4/3] relative bg-slate-50 overflow-hidden">
                        <OptimizedImage 
                          src={item.img} 
@@ -104,22 +104,22 @@ export default function Donations() {
                          fill
                          section="news"
                          className="object-cover group-hover:scale-105 transition-transform duration-500"
-                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                         sizes="(max-width: 768px) 50vw, (max-width: 1200px) 50vw, 25vw"
                        />
                      </div>
-                     <div className="p-6 flex flex-col flex-1">
-                       <h3 className={`text-xl font-bold mb-3 transition-colors ${i%4===0?"group-hover:text-emerald-600":i%4===1?"group-hover:text-amber-600":i%4===2?"group-hover:text-blue-600":"group-hover:text-purple-600"}`}>
+                     <div className="p-3 md:p-6 flex flex-col flex-1">
+                       <h3 className={`text-[11px] md:text-xl leading-tight font-bold mb-1 md:mb-3 transition-colors ${i%4===0?"group-hover:text-emerald-600":i%4===1?"group-hover:text-amber-600":i%4===2?"group-hover:text-blue-600":"group-hover:text-purple-600"}`}>
                          {item.title}
                        </h3>
-                       <p className="text-sm text-slate-600 mb-6 flex-1">
+                       <p className="hidden md:block text-sm text-slate-600 mb-6 flex-1">
                          {item.desc}
                        </p>
-                       <div className="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between">
-                          <span className={`font-bold text-sm flex items-center hover:underline ${i%4===0?"text-emerald-600":i%4===1?"text-amber-600":i%4===2?"text-blue-600":"text-purple-600"}`}>
-                            {t('Donate now')} <ChevronRight size={16} className="ml-1" />
+                       <div className="mt-auto pt-2 md:pt-4 border-t border-slate-100 flex items-center justify-between">
+                          <span className={`font-bold text-[10px] md:text-sm flex items-center hover:underline ${i%4===0?"text-emerald-600":i%4===1?"text-amber-600":i%4===2?"text-blue-600":"text-purple-600"}`}>
+                            {t('Donate')} <ChevronRight className="w-3 h-3 md:w-4 md:h-4 ml-0.5 md:ml-1" />
                           </span>
                           <div className={`transition-colors ${i%4===0?"text-slate-400 group-hover:text-emerald-500":i%4===1?"text-slate-400 group-hover:text-amber-500":i%4===2?"text-slate-400 group-hover:text-blue-500":"text-slate-400 group-hover:text-purple-500"}`}>
-                             <Heart size={18} />
+                             <Heart className="w-3.5 h-3.5 md:w-[18px] md:h-[18px]" />
                           </div>
                        </div>
                      </div>
@@ -165,14 +165,14 @@ export default function Donations() {
                       <div className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-6 flex items-center gap-2">
                         <CreditCard size={14} /> Digital Wallets (Pakistan)
                       </div>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div className="bg-white p-5 border border-slate-100 text-center hover:border-blue-700 transition-colors">
-                          <div className="text-xs font-semibold text-slate-500 mb-1 uppercase tracking-wide">JazzCash</div>
-                          <div className="text-lg font-semibold text-slate-900">0328 4381 312</div>
+                      <div className="grid grid-cols-2 sm:grid-cols-2 gap-3 md:gap-4">
+                        <div className="bg-white p-3 md:p-5 border border-slate-100 text-center hover:border-blue-700 transition-colors rounded-lg md:rounded-none">
+                          <div className="text-[9px] md:text-xs font-semibold text-slate-500 mb-1 uppercase tracking-wide">JazzCash</div>
+                          <div className="text-xs md:text-lg font-semibold text-slate-900">0328 4381 312</div>
                         </div>
-                        <div className="bg-white p-5 border border-slate-100 text-center hover:border-blue-700 transition-colors">
-                          <div className="text-xs font-semibold text-slate-500 mb-1 uppercase tracking-wide">NayaPay</div>
-                          <div className="text-lg font-semibold text-slate-900">0316 4415 465</div>
+                        <div className="bg-white p-3 md:p-5 border border-slate-100 text-center hover:border-blue-700 transition-colors rounded-lg md:rounded-none">
+                          <div className="text-[9px] md:text-xs font-semibold text-slate-500 mb-1 uppercase tracking-wide">NayaPay</div>
+                          <div className="text-xs md:text-lg font-semibold text-slate-900">0316 4415 465</div>
                         </div>
                       </div>
                     </div>
@@ -228,23 +228,23 @@ export default function Donations() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-8">
               <motion.div 
                  initial={{ opacity: 0, y: 20 }}
                  whileInView={{ opacity: 1, y: 0 }}
                  viewport={{ once: true }}
-                 className="bg-white p-8 border border-slate-100 flex flex-col transition-all duration-300 transform hover:-translate-y-2 rounded-2xl shadow-sm border-t-4 border-t-emerald-400 hover:shadow-[0_10px_30px_rgba(16,185,129,0.15)]"
+                 className="bg-white p-4 md:p-8 border border-slate-100 flex flex-col transition-all duration-300 transform hover:-translate-y-1 md:hover:-translate-y-2 rounded-xl md:rounded-2xl shadow-sm border-t-4 border-t-emerald-400 hover:shadow-[0_10px_30px_rgba(16,185,129,0.15)]"
               >
-                <div className="text-emerald-500 mb-6 bg-emerald-50 w-16 h-16 rounded-xl flex items-center justify-center">
-                  <BookOpen size={32} />
+                <div className="text-emerald-500 mb-3 md:mb-6 bg-emerald-50 w-10 h-10 md:w-16 md:h-16 rounded-lg md:rounded-xl flex items-center justify-center">
+                  <BookOpen className="w-5 h-5 md:w-8 md:h-8" />
                 </div>
-                <h3 className="text-xl font-semibold text-slate-900 mb-3">Sponsor a Hafiz</h3>
-                <p className="text-sm text-slate-600 flex-1 mb-8">
+                <h3 className="text-[11px] md:text-xl leading-tight font-semibold text-slate-900 mb-1 md:mb-3">Sponsor a Hafiz</h3>
+                <p className="hidden md:block text-sm text-slate-600 flex-1 mb-8">
                   Cover the educational and living expenses of a student memorizing the Holy Quran. You earn a share of the reward for every letter they recite.
                 </p>
-                <div className="pt-6 border-t border-slate-100 flex items-end gap-2">
-                   <div className="text-slate-900 font-semibold text-2xl">Rs. 8,000</div>
-                   <div className="text-xs font-semibold text-slate-500 uppercase tracking-wide pb-1">/ month</div>
+                <div className="mt-auto pt-3 md:pt-6 border-t border-slate-100 flex items-end gap-1 md:gap-2">
+                   <div className="text-slate-900 font-semibold text-sm md:text-2xl">Rs. 8,000</div>
+                   <div className="text-[8px] md:text-xs font-semibold text-slate-500 uppercase tracking-wide pb-0.5 md:pb-1">/ month</div>
                 </div>
               </motion.div>
               
@@ -253,18 +253,18 @@ export default function Donations() {
                  whileInView={{ opacity: 1, y: 0 }}
                  viewport={{ once: true }}
                  transition={{ delay: 0.1 }}
-                 className="bg-white p-8 border border-slate-100 flex flex-col transition-all duration-300 transform hover:-translate-y-2 rounded-2xl shadow-sm border-t-4 border-t-amber-400 hover:shadow-[0_10px_30px_rgba(245,158,11,0.15)]"
+                 className="bg-white p-4 md:p-8 border border-slate-100 flex flex-col transition-all duration-300 transform hover:-translate-y-1 md:hover:-translate-y-2 rounded-xl md:rounded-2xl shadow-sm border-t-4 border-t-amber-400 hover:shadow-[0_10px_30px_rgba(245,158,11,0.15)]"
               >
-                <div className="text-amber-500 mb-6 bg-amber-50 w-16 h-16 rounded-xl flex items-center justify-center">
-                  <GraduationCap size={32} />
+                <div className="text-amber-500 mb-3 md:mb-6 bg-amber-50 w-10 h-10 md:w-16 md:h-16 rounded-lg md:rounded-xl flex items-center justify-center">
+                  <GraduationCap className="w-5 h-5 md:w-8 md:h-8" />
                 </div>
-                <h3 className="text-xl font-semibold text-slate-900 mb-3">Dars-e-Nizami Student</h3>
-                <p className="text-sm text-slate-600 flex-1 mb-8">
+                <h3 className="text-[11px] md:text-xl leading-tight font-semibold text-slate-900 mb-1 md:mb-3">Dars-e-Nizami</h3>
+                <p className="hidden md:block text-sm text-slate-600 flex-1 mb-8">
                   Support a scholar-in-training undergoing the rigorous 8-year Alim course. Invest in the future leaders and teachers of our communities.
                 </p>
-                <div className="pt-6 border-t border-slate-100 flex items-end gap-2">
-                   <div className="text-slate-900 font-semibold text-2xl">Rs. 12,000</div>
-                   <div className="text-xs font-semibold text-slate-500 uppercase tracking-wide pb-1">/ month</div>
+                <div className="mt-auto pt-3 md:pt-6 border-t border-slate-100 flex items-end gap-1 md:gap-2">
+                   <div className="text-slate-900 font-semibold text-sm md:text-2xl">Rs. 12,000</div>
+                   <div className="text-[8px] md:text-xs font-semibold text-slate-500 uppercase tracking-wide pb-0.5 md:pb-1">/ month</div>
                 </div>
               </motion.div>
 
@@ -273,17 +273,17 @@ export default function Donations() {
                  whileInView={{ opacity: 1, y: 0 }}
                  viewport={{ once: true }}
                  transition={{ delay: 0.2 }}
-                 className="bg-white p-8 border border-slate-100 flex flex-col transition-all duration-300 transform hover:-translate-y-2 rounded-2xl shadow-sm border-t-4 border-t-blue-400 hover:shadow-[0_10px_30px_rgba(59,130,246,0.15)]"
+                 className="bg-white p-4 md:p-8 border border-slate-100 flex flex-col transition-all duration-300 transform hover:-translate-y-1 md:hover:-translate-y-2 rounded-xl md:rounded-2xl shadow-sm border-t-4 border-t-blue-400 hover:shadow-[0_10px_30px_rgba(59,130,246,0.15)] col-span-2 md:col-span-1"
               >
-                <div className="text-blue-500 mb-6 bg-blue-50 w-16 h-16 rounded-xl flex items-center justify-center">
-                  <Building2 size={32} />
+                <div className="text-blue-500 mb-3 md:mb-6 bg-blue-50 w-10 h-10 md:w-16 md:h-16 rounded-lg md:rounded-xl flex items-center justify-center">
+                  <Building2 className="w-5 h-5 md:w-8 md:h-8" />
                 </div>
-                <h3 className="text-xl font-semibold text-slate-900 mb-3">Campus Expansion</h3>
-                <p className="text-sm text-slate-600 flex-1 mb-8">
+                <h3 className="text-[11px] md:text-xl leading-tight font-semibold text-slate-900 mb-1 md:mb-3">Campus Expansion</h3>
+                <p className="hidden md:block text-sm text-slate-600 flex-1 mb-8">
                   Contribute to the construction of new classrooms, library expansion, and boarding facilities to accommodate our growing student body.
                 </p>
-                <div className="pt-6 border-t border-slate-100 flex items-end gap-2">
-                   <div className="text-slate-900 font-semibold text-2xl">Any Amount</div>
+                <div className="mt-auto pt-3 md:pt-6 border-t border-slate-100 flex items-end gap-1 md:gap-2">
+                   <div className="text-slate-900 font-semibold text-sm md:text-2xl">Any Amount</div>
                 </div>
               </motion.div>
             </div>

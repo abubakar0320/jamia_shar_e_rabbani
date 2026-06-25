@@ -99,14 +99,14 @@ export default function News() {
                 <div className="mt-4 text-sm font-semibold text-slate-600 uppercase">{t('Loading Articles')}</div>
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-8">
                 {news.map((item, i) => (
                   <motion.div 
                      key={item.id} 
                      initial={{ opacity: 0, y: 20 }}
                      animate={{ opacity: 1, y: 0 }}
                      transition={{ delay: i * 0.1, duration: 0.5 }}
-                     className={`flex flex-col bg-white border shadow-sm transition-all duration-300 transform hover:-translate-y-2 group rounded-2xl overflow-hidden ${i%4===0?"border-rose-100 hover:border-rose-400 hover:shadow-[0_10px_30px_rgba(244,63,94,0.2)]":i%4===1?"border-amber-100 hover:border-amber-400 hover:shadow-[0_10px_30px_rgba(245,158,11,0.2)]":i%4===2?"border-emerald-100 hover:border-emerald-400 hover:shadow-[0_10px_30px_rgba(16,185,129,0.2)]":"border-blue-100 hover:border-blue-400 hover:shadow-[0_10px_30px_rgba(59,130,246,0.2)]"}`}
+                     className={`flex flex-col bg-white border shadow-sm transition-all duration-300 transform hover:-translate-y-1 md:hover:-translate-y-2 group rounded-xl md:rounded-2xl overflow-hidden ${i%4===0?"border-rose-100 hover:border-rose-400 hover:shadow-[0_10px_30px_rgba(244,63,94,0.2)]":i%4===1?"border-amber-100 hover:border-amber-400 hover:shadow-[0_10px_30px_rgba(245,158,11,0.2)]":i%4===2?"border-emerald-100 hover:border-emerald-400 hover:shadow-[0_10px_30px_rgba(16,185,129,0.2)]":"border-blue-100 hover:border-blue-400 hover:shadow-[0_10px_30px_rgba(59,130,246,0.2)]"}`}
                   >
                     <div className="aspect-[4/3] relative bg-slate-50 overflow-hidden">
                       <OptimizedImage 
@@ -115,30 +115,30 @@ export default function News() {
                         fill
                         section="news"
                         className="object-cover group-hover:scale-105 transition-transform duration-500"
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
+                        sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
                       />
                     </div>
                     
-                    <div className="p-6 flex flex-col flex-1">
-                      <div className="flex items-center gap-2 text-xs font-semibold text-slate-500 mb-3 uppercase tracking-wide">
-                        <Calendar size={14} />
+                    <div className="p-3 md:p-6 flex flex-col flex-1">
+                      <div className="flex items-center gap-1 md:gap-2 text-[9px] md:text-xs font-semibold text-slate-500 mb-1 md:mb-3 uppercase tracking-wide">
+                        <Calendar className="w-3 h-3 md:w-3.5 md:h-3.5" />
                         {t(item.date)}
                       </div>
-                      <h3 className={`text-xl font-bold mb-3 transition-colors ${i%4===0?"group-hover:text-rose-600":i%4===1?"group-hover:text-amber-600":i%4===2?"group-hover:text-emerald-600":"group-hover:text-blue-600"}`}>
+                      <h3 className={`text-sm md:text-xl font-bold mb-2 md:mb-3 line-clamp-2 transition-colors ${i%4===0?"group-hover:text-rose-600":i%4===1?"group-hover:text-amber-600":i%4===2?"group-hover:text-emerald-600":"group-hover:text-blue-600"}`}>
                         {t(item.title)}
                       </h3>
-                      <p className="text-sm text-slate-600 mb-6 flex-1 line-clamp-3">
+                      <p className="hidden md:block text-sm text-slate-600 mb-6 flex-1 line-clamp-3">
                         {t(item.desc)}
                       </p>
-                      <div className="flex justify-between items-center mt-auto pt-4 border-t border-slate-100">
+                      <div className="flex justify-between items-center mt-auto pt-2 md:pt-4 border-t border-slate-100">
                         <Link 
                           href="#" 
-                          className={`font-bold text-sm hover:underline flex items-center ${i%4===0?"text-rose-600":i%4===1?"text-amber-600":i%4===2?"text-emerald-600":"text-blue-600"}`}
+                          className={`font-bold text-[10px] md:text-sm hover:underline flex items-center ${i%4===0?"text-rose-600":i%4===1?"text-amber-600":i%4===2?"text-emerald-600":"text-blue-600"}`}
                         >
-                          {t('Read article')} <ChevronRight size={16} className="ml-1" />
+                          {t('Read article')} <ChevronRight className="w-3 h-3 md:w-4 md:h-4 ml-0.5 md:ml-1" />
                         </Link>
                         <button className={`transition-colors ${i%4===0?"text-slate-400 hover:text-rose-500":i%4===1?"text-slate-400 hover:text-amber-500":i%4===2?"text-slate-400 hover:text-emerald-500":"text-slate-400 hover:text-blue-500"}`}>
-                          <Share2 size={18} />
+                          <Share2 className="w-3 h-3 md:w-[18px] md:h-[18px]" />
                         </button>
                       </div>
                     </div>
@@ -204,24 +204,24 @@ export default function News() {
               </Link>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
               {[
                 { date: "15", month: "AUG", title: "New Academic Year Orientation", desc: "Welcoming the batch of 2026-27 with comprehensive guidelines and campus tours." },
                 { date: "02", month: "SEP", title: "Seerah Conference 2026", desc: "A day-long seminar exploring the life of the Prophet ﷺ and its modern applications." },
                 { date: "20", month: "OCT", title: "Inter-Madrasa Qira'at Competition", desc: "Annual recitation competition featuring top students from across the region." }
               ].map((event, idx) => (
-                <div key={idx} className={`bg-white border shadow-sm p-8 flex flex-col transition-all duration-300 transform hover:-translate-y-2 rounded-2xl ${idx===0?"border-rose-100 hover:border-rose-400 hover:shadow-[0_10px_30px_rgba(244,63,94,0.2)]":idx===1?"border-amber-100 hover:border-amber-400 hover:shadow-[0_10px_30px_rgba(245,158,11,0.2)]":"border-emerald-100 hover:border-emerald-400 hover:shadow-[0_10px_30px_rgba(16,185,129,0.2)]"}`}>
-                  <div className="flex items-start gap-6 mb-6">
-                    <div className="bg-white border border-slate-100 w-20 h-20 flex flex-col items-center justify-center shrink-0">
-                      <span className={`text-2xl font-bold leading-none mb-1 ${idx===0?"text-rose-600":idx===1?"text-amber-600":"text-emerald-600"}`}>{event.date}</span>
-                      <span className="text-xs font-semibold text-slate-500 uppercase tracking-wide">{event.month}</span>
+                <div key={idx} className={`bg-white border shadow-sm p-4 md:p-8 flex flex-col transition-all duration-300 transform hover:-translate-y-1 md:hover:-translate-y-2 rounded-xl md:rounded-2xl ${idx===0?"border-rose-100 hover:border-rose-400 hover:shadow-[0_10px_30px_rgba(244,63,94,0.2)]":idx===1?"border-amber-100 hover:border-amber-400 hover:shadow-[0_10px_30px_rgba(245,158,11,0.2)]":"border-emerald-100 hover:border-emerald-400 hover:shadow-[0_10px_30px_rgba(16,185,129,0.2)]"}`}>
+                  <div className="flex flex-col md:flex-row md:items-start gap-3 md:gap-6 mb-3 md:mb-6">
+                    <div className="bg-white border border-slate-100 w-12 h-12 md:w-20 md:h-20 rounded-lg md:rounded-none flex flex-col items-center justify-center shrink-0">
+                      <span className={`text-lg md:text-2xl font-bold leading-none md:mb-1 ${idx===0?"text-rose-600":idx===1?"text-amber-600":"text-emerald-600"}`}>{event.date}</span>
+                      <span className="text-[9px] md:text-xs font-semibold text-slate-500 uppercase tracking-wide">{event.month}</span>
                     </div>
                     <div>
-                      <h4 className="font-semibold text-slate-900 text-lg leading-tight">{event.title}</h4>
+                      <h4 className="font-semibold text-slate-900 text-sm md:text-lg leading-tight line-clamp-2 md:line-clamp-none">{event.title}</h4>
                     </div>
                   </div>
-                  <p className="text-slate-600 flex-1 mb-8">{event.desc}</p>
-                  <button className="w-full py-3 bg-slate-50 text-slate-700 font-semibold hover:bg-gray-200 transition-colors">
+                  <p className="hidden md:block text-slate-600 flex-1 mb-8">{event.desc}</p>
+                  <button className="w-full py-2 md:py-3 mt-auto bg-slate-50 text-[10px] md:text-base text-slate-700 font-semibold hover:bg-gray-200 transition-colors rounded-lg md:rounded-none">
                     Add to Calendar
                   </button>
                 </div>

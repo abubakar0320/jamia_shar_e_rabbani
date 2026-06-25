@@ -314,21 +314,21 @@ export default function IslamicResearchCenter() {
               </button>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
               {FEATURED_COLLECTIONS.map((collection, idx) => (
-                <div key={collection.id} className={`bg-white p-8 border shadow-sm flex flex-col transition-all duration-300 transform hover:-translate-y-2 rounded-2xl ${idx===0?"border-rose-100 hover:border-rose-400 hover:shadow-[0_10px_30px_rgba(244,63,94,0.2)]":idx===1?"border-amber-100 hover:border-amber-400 hover:shadow-[0_10px_30px_rgba(245,158,11,0.2)]":"border-emerald-100 hover:border-emerald-400 hover:shadow-[0_10px_30px_rgba(16,185,129,0.2)]"}`}>
-                  <div className={`mb-6 w-14 h-14 rounded-xl flex items-center justify-center shadow-sm border ${idx===0?"bg-rose-50 text-rose-600 border-rose-100":idx===1?"bg-amber-50 text-amber-600 border-amber-100":"bg-emerald-50 text-emerald-600 border-emerald-100"}`}>
-                    {collection.icon}
+                <div key={collection.id} className={`bg-white p-4 md:p-8 border shadow-sm flex flex-col transition-all duration-300 transform hover:-translate-y-1 md:hover:-translate-y-2 rounded-xl md:rounded-2xl ${idx===0?"border-rose-100 hover:border-rose-400 hover:shadow-[0_10px_30px_rgba(244,63,94,0.2)]":idx===1?"border-amber-100 hover:border-amber-400 hover:shadow-[0_10px_30px_rgba(245,158,11,0.2)]":"border-emerald-100 hover:border-emerald-400 hover:shadow-[0_10px_30px_rgba(16,185,129,0.2)]"}`}>
+                  <div className={`mb-3 md:mb-6 w-10 h-10 md:w-14 md:h-14 rounded-lg md:rounded-xl flex items-center justify-center shadow-sm border ${idx===0?"bg-rose-50 text-rose-600 border-rose-100":idx===1?"bg-amber-50 text-amber-600 border-amber-100":"bg-emerald-50 text-emerald-600 border-emerald-100"}`}>
+                    {React.cloneElement(collection.icon, { className: "w-5 h-5 md:w-6 md:h-6" })}
                   </div>
-                  <h3 className="text-xl font-semibold text-slate-900 mb-2">{collection.title}</h3>
-                  <div className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-4">
+                  <h3 className="text-sm md:text-xl font-bold text-slate-900 mb-1 md:mb-2">{collection.title}</h3>
+                  <div className="text-[9px] md:text-xs font-bold text-slate-500 uppercase tracking-wide mb-2 md:mb-4">
                     {collection.count}
                   </div>
-                  <p className="text-sm text-slate-600 flex-1 mb-6">
+                  <p className="hidden md:block text-sm text-slate-600 flex-1 mb-6">
                     {collection.desc}
                   </p>
-                  <button className={`text-sm font-bold hover:underline flex items-center mt-auto ${idx===0?"text-rose-600":idx===1?"text-amber-600":"text-emerald-600"}`}>
-                    Explore Archive <ChevronRight className="ml-1" size={16} />
+                  <button className={`text-[10px] md:text-sm font-bold hover:underline flex items-center mt-auto ${idx===0?"text-rose-600":idx===1?"text-amber-600":"text-emerald-600"}`}>
+                    Explore <span className="hidden md:inline ml-1">Archive</span> <ChevronRight className="ml-1 w-3 h-3 md:w-4 md:h-4" />
                   </button>
                 </div>
               ))}
@@ -381,7 +381,7 @@ export default function IslamicResearchCenter() {
         {/* Resource Stats */}
         <section className="py-16 bg-gradient-to-r from-violet-600 via-fuchsia-600 to-pink-500 text-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
               {[
                 { label: "Surahs", count: "114" },
                 { label: "Hadith Books", count: "300+" },
@@ -389,8 +389,8 @@ export default function IslamicResearchCenter() {
                 { label: "Active Scholars", count: "50+" }
               ].map((stat, i) => (
                 <div key={i} className="text-center">
-                  <div className="text-4xl font-semibold mb-2">{stat.count}</div>
-                  <div className="text-sm font-semibold text-fuchsia-100 uppercase tracking-wide">{stat.label}</div>
+                  <div className="text-2xl md:text-4xl font-bold mb-1 md:mb-2">{stat.count}</div>
+                  <div className="text-[10px] md:text-sm font-bold text-fuchsia-100 uppercase tracking-wide">{stat.label}</div>
                 </div>
               ))}
             </div>

@@ -99,9 +99,9 @@ export default function Faculty() {
                 <div className="mt-4 text-sm font-semibold text-slate-600 uppercase">{t('faculty_loading')}</div>
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
                 {faculty.map((member, i) => (
-                  <div key={member.id} className={`flex flex-col bg-white border-2 shadow-sm transition-all duration-300 transform hover:-translate-y-2 group rounded-2xl overflow-hidden ${i%4===0?"border-rose-100 hover:border-rose-300 hover:shadow-[0_8px_30px_rgba(244,63,94,0.15)]":i%4===1?"border-amber-100 hover:border-amber-300 hover:shadow-[0_8px_30px_rgba(245,158,11,0.15)]":i%4===2?"border-emerald-100 hover:border-emerald-300 hover:shadow-[0_8px_30px_rgba(16,185,129,0.15)]":"border-blue-100 hover:border-blue-300 hover:shadow-[0_8px_30px_rgba(59,130,246,0.15)]"}`}>
+                  <div key={member.id} className={`flex flex-col bg-white border md:border-2 shadow-sm transition-all duration-300 transform hover:-translate-y-1 md:hover:-translate-y-2 group rounded-xl md:rounded-2xl overflow-hidden ${i%4===0?"border-rose-100 hover:border-rose-300 hover:shadow-[0_8px_30px_rgba(244,63,94,0.15)]":i%4===1?"border-amber-100 hover:border-amber-300 hover:shadow-[0_8px_30px_rgba(245,158,11,0.15)]":i%4===2?"border-emerald-100 hover:border-emerald-300 hover:shadow-[0_8px_30px_rgba(16,185,129,0.15)]":"border-blue-100 hover:border-blue-300 hover:shadow-[0_8px_30px_rgba(59,130,246,0.15)]"}`}>
                     <div className="aspect-[4/5] relative bg-gray-100 overflow-hidden">
                       <OptimizedImage 
                         src={member.image || "/images/WhatsApp.jpeg"}
@@ -109,18 +109,19 @@ export default function Faculty() {
                         fill
                         section="faculty"
                         className="object-cover object-top group-hover:scale-110 transition-transform duration-700"
+                        sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
                       />
                     </div>
                     
-                    <div className="p-6 flex flex-col flex-1">
-                      <h3 className={`text-xl font-bold mb-1 ${i%4===0?"text-rose-600":i%4===1?"text-amber-600":i%4===2?"text-emerald-600":"text-blue-600"}`}>
+                    <div className="p-3 md:p-6 flex flex-col flex-1">
+                      <h3 className={`text-sm md:text-xl font-bold mb-0.5 md:mb-1 line-clamp-1 ${i%4===0?"text-rose-600":i%4===1?"text-amber-600":i%4===2?"text-emerald-600":"text-blue-600"}`}>
                         {t(member.name)}
                       </h3>
-                      <p className="text-xs font-bold mb-4 uppercase tracking-wide text-slate-500">
+                      <p className="text-[9px] md:text-xs font-bold mb-2 md:mb-4 uppercase tracking-wide text-slate-500 line-clamp-1">
                         {t(member.designation || member.role)}
                       </p>
                       
-                      <div className="space-y-3 mb-6 flex-1 text-sm">
+                      <div className="hidden md:block space-y-3 mb-6 flex-1 text-sm">
                         <div>
                           <span className="font-semibold text-slate-900 block mb-0.5">{t('faculty_member_education_label', 'Education')}</span>
                           <span className="text-slate-600">{t(member.education)}</span>
@@ -131,18 +132,19 @@ export default function Faculty() {
                         </div>
                       </div>
 
-                      <div className="flex gap-4 items-center pt-4 border-t border-slate-100 mt-auto">
+                      <div className="flex gap-2 md:gap-4 items-center pt-2 md:pt-4 border-t border-slate-100 mt-auto">
                         <Link href={`mailto:${member.email || 'shererabbani@gmail.com'}`} className={`transition-colors ${i%4===0?"text-rose-400 hover:text-rose-600":i%4===1?"text-amber-400 hover:text-amber-600":i%4===2?"text-emerald-400 hover:text-emerald-600":"text-blue-400 hover:text-blue-600"}`}>
-                          <Mail size={20} />
+                          <Mail className="w-4 h-4 md:w-5 md:h-5" />
                         </Link>
                         <Link href={`tel:${member.contact || '03144081516'}`} className={`transition-colors ${i%4===0?"text-rose-400 hover:text-rose-600":i%4===1?"text-amber-400 hover:text-amber-600":i%4===2?"text-emerald-400 hover:text-emerald-600":"text-blue-400 hover:text-blue-600"}`}>
-                          <Phone size={20} />
+                          <Phone className="w-4 h-4 md:w-5 md:h-5" />
                         </Link>
                         <Link 
                           href={`/faculty/${member.id}`} 
-                          className={`ml-auto px-4 py-1.5 text-xs font-bold rounded-xl border-2 transition-colors ${i%4===0?"border-rose-100 text-rose-600 hover:bg-rose-50":i%4===1?"border-amber-100 text-amber-600 hover:bg-amber-50":i%4===2?"border-emerald-100 text-emerald-600 hover:bg-emerald-50":"border-blue-100 text-blue-600 hover:bg-blue-50"}`}
+                          className={`ml-auto px-2 md:px-4 py-1 md:py-1.5 text-[9px] md:text-xs font-bold rounded-lg md:rounded-xl border md:border-2 transition-colors ${i%4===0?"border-rose-100 text-rose-600 hover:bg-rose-50":i%4===1?"border-amber-100 text-amber-600 hover:bg-amber-50":i%4===2?"border-emerald-100 text-emerald-600 hover:bg-emerald-50":"border-blue-100 text-blue-600 hover:bg-blue-50"}`}
                         >
-                          {t('faculty_member_profile_link', 'View Profile')}
+                          <span className="hidden md:inline">{t('faculty_member_profile_link', 'View Profile')}</span>
+                          <span className="md:hidden">Profile</span>
                         </Link>
                       </div>
                     </div>
@@ -178,26 +180,26 @@ export default function Faculty() {
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-6">
-                <div className="bg-white p-8 border border-rose-100 shadow-sm rounded-2xl text-center transform hover:-translate-y-2 transition-all hover:shadow-[0_10px_30px_rgba(244,63,94,0.2)]">
-                  <div className="w-16 h-16 mx-auto bg-rose-50 rounded-2xl flex items-center justify-center mb-4"><BookOpen size={32} className="text-rose-500" /></div>
-                  <h4 className="font-semibold text-slate-900 text-lg mb-1">Tafseer</h4>
-                  <p className="text-xs text-slate-500 uppercase tracking-wide">Exegesis</p>
+              <div className="grid grid-cols-2 gap-3 md:gap-6">
+                <div className="bg-white p-4 md:p-8 border border-rose-100 shadow-sm rounded-xl md:rounded-2xl text-center transform hover:-translate-y-2 transition-all hover:shadow-[0_10px_30px_rgba(244,63,94,0.2)]">
+                  <div className="w-10 h-10 md:w-16 md:h-16 mx-auto bg-rose-50 rounded-lg md:rounded-2xl flex items-center justify-center mb-3 md:mb-4"><BookOpen className="w-5 h-5 md:w-8 md:h-8 text-rose-500" /></div>
+                  <h4 className="font-bold text-slate-900 text-[11px] md:text-lg mb-0.5 md:mb-1">Tafseer</h4>
+                  <p className="text-[9px] md:text-xs text-slate-500 uppercase tracking-wide">Exegesis</p>
                 </div>
-                <div className="bg-white p-8 border border-amber-100 shadow-sm rounded-2xl text-center transform hover:-translate-y-2 transition-all hover:shadow-[0_10px_30px_rgba(245,158,11,0.2)]">
-                  <div className="w-16 h-16 mx-auto bg-amber-50 rounded-2xl flex items-center justify-center mb-4"><BookOpen size={32} className="text-amber-500" /></div>
-                  <h4 className="font-semibold text-slate-900 text-lg mb-1">Hadith</h4>
-                  <p className="text-xs text-slate-500 uppercase tracking-wide">Prophetic Traditions</p>
+                <div className="bg-white p-4 md:p-8 border border-amber-100 shadow-sm rounded-xl md:rounded-2xl text-center transform hover:-translate-y-2 transition-all hover:shadow-[0_10px_30px_rgba(245,158,11,0.2)]">
+                  <div className="w-10 h-10 md:w-16 md:h-16 mx-auto bg-amber-50 rounded-lg md:rounded-2xl flex items-center justify-center mb-3 md:mb-4"><BookOpen className="w-5 h-5 md:w-8 md:h-8 text-amber-500" /></div>
+                  <h4 className="font-bold text-slate-900 text-[11px] md:text-lg mb-0.5 md:mb-1">Hadith</h4>
+                  <p className="text-[9px] md:text-xs text-slate-500 uppercase tracking-wide">Prophetic Traditions</p>
                 </div>
-                <div className="bg-white p-8 border border-emerald-100 shadow-sm rounded-2xl text-center transform hover:-translate-y-2 transition-all hover:shadow-[0_10px_30px_rgba(16,185,129,0.2)]">
-                  <div className="w-16 h-16 mx-auto bg-emerald-50 rounded-2xl flex items-center justify-center mb-4"><BookOpen size={32} className="text-emerald-500" /></div>
-                  <h4 className="font-semibold text-slate-900 text-lg mb-1">Fiqh & Ifta</h4>
-                  <p className="text-xs text-slate-500 uppercase tracking-wide">Jurisprudence</p>
+                <div className="bg-white p-4 md:p-8 border border-emerald-100 shadow-sm rounded-xl md:rounded-2xl text-center transform hover:-translate-y-2 transition-all hover:shadow-[0_10px_30px_rgba(16,185,129,0.2)]">
+                  <div className="w-10 h-10 md:w-16 md:h-16 mx-auto bg-emerald-50 rounded-lg md:rounded-2xl flex items-center justify-center mb-3 md:mb-4"><BookOpen className="w-5 h-5 md:w-8 md:h-8 text-emerald-500" /></div>
+                  <h4 className="font-bold text-slate-900 text-[11px] md:text-lg mb-0.5 md:mb-1">Fiqh & Ifta</h4>
+                  <p className="text-[9px] md:text-xs text-slate-500 uppercase tracking-wide">Jurisprudence</p>
                 </div>
-                <div className="bg-gradient-to-br from-blue-600 to-indigo-600 p-8 border-none rounded-2xl text-center text-white shadow-lg shadow-indigo-500/30 transform hover:-translate-y-2 transition-all">
-                  <div className="w-16 h-16 mx-auto bg-white/20 rounded-2xl flex items-center justify-center mb-4 backdrop-blur-sm"><BookOpen size={32} className="text-white" /></div>
-                  <h4 className="font-semibold text-white text-lg mb-1">Aqaid</h4>
-                  <p className="text-xs text-blue-200 uppercase tracking-wide">Islamic Theology</p>
+                <div className="bg-gradient-to-br from-blue-600 to-indigo-600 p-4 md:p-8 border-none rounded-xl md:rounded-2xl text-center text-white shadow-lg shadow-indigo-500/30 transform hover:-translate-y-2 transition-all">
+                  <div className="w-10 h-10 md:w-16 md:h-16 mx-auto bg-white/20 rounded-lg md:rounded-2xl flex items-center justify-center mb-3 md:mb-4 backdrop-blur-sm"><BookOpen className="w-5 h-5 md:w-8 md:h-8 text-white" /></div>
+                  <h4 className="font-bold text-white text-[11px] md:text-lg mb-0.5 md:mb-1">Aqaid</h4>
+                  <p className="text-[9px] md:text-xs text-blue-200 uppercase tracking-wide">Islamic Theology</p>
                 </div>
               </div>
             </div>
@@ -214,20 +216,20 @@ export default function Faculty() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
               {[
-                { title: 'Department of Quranic Sciences', desc: 'Focusing on Hifz, Tajweed, Qira\'at (variant readings), and the profound sciences of Tafseer.', icon: <BookOpen size={32} /> },
-                { title: 'Department of Hadith', desc: 'Dedicated to the rigorous study of the Sihah Sittah, methodology of Muhadditheen, and Hadith criticism.', icon: <UserCircle size={32} /> },
-                { title: 'Darul Ifta (Jurisprudence)', desc: 'Specializing in advanced Fiqh, Usul al-Fiqh, and the issuance of contemporary fatwas.', icon: <GraduationCap size={32} /> }
+                { title: 'Department of Quranic Sciences', desc: 'Focusing on Hifz, Tajweed, Qira\'at, and the profound sciences of Tafseer.', icon: <BookOpen size={32} /> },
+                { title: 'Department of Hadith', desc: 'Dedicated to the rigorous study of the Sihah Sittah and methodology.', icon: <UserCircle size={32} /> },
+                { title: 'Darul Ifta (Jurisprudence)', desc: 'Specializing in advanced Fiqh, Usul al-Fiqh, and contemporary fatwas.', icon: <GraduationCap size={32} /> }
               ].map((dept, idx) => (
-                <div key={idx} className={`bg-white border shadow-sm p-8 flex flex-col rounded-2xl transition-all duration-300 transform hover:-translate-y-2 ${idx===0?"border-rose-100 hover:border-rose-400 hover:shadow-[0_10px_30px_rgba(244,63,94,0.2)]":idx===1?"border-amber-100 hover:border-amber-400 hover:shadow-[0_10px_30px_rgba(245,158,11,0.2)]":"border-emerald-100 hover:border-emerald-400 hover:shadow-[0_10px_30px_rgba(16,185,129,0.2)]"}`}>
-                  <div className={`mb-6 w-14 h-14 rounded-xl flex items-center justify-center shadow-sm border ${idx===0?"bg-rose-50 text-rose-600 border-rose-100":idx===1?"bg-amber-50 text-amber-600 border-amber-100":"bg-emerald-50 text-emerald-600 border-emerald-100"}`}>
-                    {dept.icon}
+                <div key={idx} className={`bg-white border shadow-sm p-4 md:p-8 flex flex-col rounded-xl md:rounded-2xl transition-all duration-300 transform hover:-translate-y-2 ${idx===0?"border-rose-100 hover:border-rose-400 hover:shadow-[0_10px_30px_rgba(244,63,94,0.2)]":idx===1?"border-amber-100 hover:border-amber-400 hover:shadow-[0_10px_30px_rgba(245,158,11,0.2)]":"border-emerald-100 hover:border-emerald-400 hover:shadow-[0_10px_30px_rgba(16,185,129,0.2)]"}`}>
+                  <div className={`mb-3 md:mb-6 w-10 h-10 md:w-14 md:h-14 rounded-lg md:rounded-xl flex items-center justify-center shadow-sm border ${idx===0?"bg-rose-50 text-rose-600 border-rose-100":idx===1?"bg-amber-50 text-amber-600 border-amber-100":"bg-emerald-50 text-emerald-600 border-emerald-100"}`}>
+                    {React.cloneElement(dept.icon, { className: "w-5 h-5 md:w-8 md:h-8" })}
                   </div>
-                  <h3 className="text-xl font-semibold text-slate-900 mb-3">{dept.title}</h3>
-                  <p className="text-slate-600 mb-6 flex-1">{dept.desc}</p>
-                  <Link href="/courses" className={`font-bold inline-flex items-center hover:underline mt-auto ${idx===0?"text-rose-600":idx===1?"text-amber-600":"text-emerald-600"}`}>
-                     Explore Programs <ChevronRight className="ml-1" size={16} />
+                  <h3 className="text-sm md:text-xl font-bold text-slate-900 mb-1 md:mb-3">{dept.title}</h3>
+                  <p className="hidden md:block text-slate-600 mb-6 flex-1 text-sm md:text-base">{dept.desc}</p>
+                  <Link href="/courses" className={`font-bold text-[10px] md:text-base inline-flex items-center hover:underline mt-auto ${idx===0?"text-rose-600":idx===1?"text-amber-600":"text-emerald-600"}`}>
+                     Explore <span className="hidden md:inline ml-1">Programs</span> <ChevronRight className="ml-1 w-3 h-3 md:w-4 md:h-4" />
                   </Link>
                 </div>
               ))}

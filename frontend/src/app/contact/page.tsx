@@ -95,18 +95,18 @@ export default function Contact() {
         {/* --- DETAILED CONTACT METHODS --- */}
         <section className="py-16 bg-white border-b border-slate-100">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <div className="grid grid-cols-2 md:grid-cols-2 gap-3 md:gap-8 max-w-4xl mx-auto">
               {[
-                { title: "General Inquiries", icon: <Globe2 size={24} />, info: "shererabbani@gmail.com", sub: "0314-4081516" },
-                { title: "Admissions Office", icon: <Landmark size={24} />, info: "shererabbani@gmail.com", sub: "0332-8364368" }
+                { title: "General Inquiries", icon: <Globe2 className="w-4 h-4 md:w-6 md:h-6" />, info: "shererabbani@gmail.com", sub: "0314-4081516" },
+                { title: "Admissions Office", icon: <Landmark className="w-4 h-4 md:w-6 md:h-6" />, info: "shererabbani@gmail.com", sub: "0332-8364368" }
               ].map((method, idx) => (
-                <div key={idx} className={`bg-white p-8 border shadow-sm transition-all duration-300 transform hover:-translate-y-2 rounded-2xl text-center group ${idx===0?"border-blue-100 hover:border-blue-400 hover:shadow-[0_10px_30px_rgba(59,130,246,0.15)]":"border-rose-100 hover:border-rose-400 hover:shadow-[0_10px_30px_rgba(244,63,94,0.15)]"}`}>
-                  <div className={`mb-4 w-16 h-16 mx-auto rounded-full flex items-center justify-center shadow-sm border ${idx===0?"bg-blue-50 text-blue-600 border-blue-100":"bg-rose-50 text-rose-600 border-rose-100"}`}>
+                <div key={idx} className={`bg-white p-4 md:p-8 border shadow-sm transition-all duration-300 transform hover:-translate-y-1 md:hover:-translate-y-2 rounded-xl md:rounded-2xl text-center group ${idx===0?"border-blue-100 hover:border-blue-400 hover:shadow-[0_10px_30px_rgba(59,130,246,0.15)]":"border-rose-100 hover:border-rose-400 hover:shadow-[0_10px_30px_rgba(244,63,94,0.15)]"}`}>
+                  <div className={`mb-3 md:mb-4 w-10 h-10 md:w-16 md:h-16 mx-auto rounded-full flex items-center justify-center shadow-sm border ${idx===0?"bg-blue-50 text-blue-600 border-blue-100":"bg-rose-50 text-rose-600 border-rose-100"}`}>
                     {method.icon}
                   </div>
-                  <h3 className="text-lg font-semibold text-slate-900 mb-2">{method.title}</h3>
-                  <p className="text-sm font-semibold text-slate-700 mb-1">{method.info}</p>
-                  <p className="text-xs text-slate-500 font-semibold tracking-wide">{method.sub}</p>
+                  <h3 className="text-[11px] md:text-lg font-semibold text-slate-900 mb-1 md:mb-2">{method.title}</h3>
+                  <p className="text-[9px] md:text-sm font-semibold text-slate-700 mb-1 truncate">{method.info}</p>
+                  <p className="text-[9px] md:text-xs text-slate-500 font-semibold tracking-wide">{method.sub}</p>
                 </div>
               ))}
             </div>

@@ -170,51 +170,51 @@ export default function ResultsPage() {
 
         {/* General Instructions & Grading System (Visible on Landing Page) */}
         {!result && (
-          <div className="max-w-5xl mx-auto mt-16 grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="max-w-5xl mx-auto mt-16 grid grid-cols-2 md:grid-cols-2 gap-4 md:gap-8 overflow-x-hidden">
             {/* Grading Scale */}
-            <div className="bg-white p-8 border border-slate-100 shadow-sm rounded-2xl transform hover:-translate-y-1 transition-all">
-              <h3 className="font-semibold text-gray-900 uppercase tracking-wide text-sm mb-6 flex items-center gap-2">
-                <Award size={18} className="text-amber-500" /> Grading System
+            <div className="bg-white p-4 md:p-8 border border-slate-100 shadow-sm rounded-xl md:rounded-2xl transform hover:-translate-y-1 transition-all overflow-x-auto">
+              <h3 className="font-semibold text-gray-900 uppercase tracking-wide text-[10px] md:text-sm mb-3 md:mb-6 flex items-center gap-1 md:gap-2">
+                <Award className="w-4 h-4 md:w-[18px] md:h-[18px] text-amber-500" /> <span className="hidden md:inline">Grading System</span><span className="md:hidden">Grading</span>
               </h3>
               <div className="border border-gray-200">
-                <table className="w-full text-xs text-gray-600">
+                <table className="w-full text-[8px] md:text-xs text-gray-600">
                   <thead className="bg-white border-b border-gray-200 text-gray-500 font-semibold uppercase tracking-wide">
                     <tr>
-                      <th className="py-3 px-4 text-left font-semibold">Percentage</th>
-                      <th className="py-3 px-4 text-center border-x border-gray-200 font-semibold">Grade</th>
-                      <th className="py-3 px-4 text-left font-semibold">Remarks</th>
+                      <th className="py-2 md:py-3 px-2 md:px-4 text-left font-semibold">Percentage</th>
+                      <th className="py-2 md:py-3 px-2 md:px-4 text-center border-x border-gray-200 font-semibold">Grade</th>
+                      <th className="py-2 md:py-3 px-2 md:px-4 text-left font-semibold hidden md:table-cell">Remarks</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-100 font-medium">
                     <tr className="hover:bg-white">
-                      <td className="py-3 px-4">90% - 100%</td>
-                      <td className="py-3 px-4 text-center text-emerald-600 border-x border-slate-100 font-bold">A+</td>
-                      <td className="py-3 px-4">Mumtaz (Outstanding)</td>
+                      <td className="py-2 md:py-3 px-2 md:px-4">90% - 100%</td>
+                      <td className="py-2 md:py-3 px-2 md:px-4 text-center text-emerald-600 border-x border-slate-100 font-bold">A+</td>
+                      <td className="py-2 md:py-3 px-2 md:px-4 hidden md:table-cell">Mumtaz (Outstanding)</td>
                     </tr>
                     <tr className="hover:bg-white">
-                      <td className="py-3 px-4">80% - 89%</td>
-                      <td className="py-3 px-4 text-center text-emerald-500 border-x border-slate-100 font-bold">A</td>
-                      <td className="py-3 px-4">Jayyid Jiddan (Excellent)</td>
+                      <td className="py-2 md:py-3 px-2 md:px-4">80% - 89%</td>
+                      <td className="py-2 md:py-3 px-2 md:px-4 text-center text-emerald-500 border-x border-slate-100 font-bold">A</td>
+                      <td className="py-2 md:py-3 px-2 md:px-4 hidden md:table-cell">Jayyid Jiddan (Excellent)</td>
                     </tr>
                     <tr className="hover:bg-white">
-                      <td className="py-3 px-4">70% - 79%</td>
-                      <td className="py-3 px-4 text-center text-gray-900 border-x border-gray-100 font-semibold">B</td>
-                      <td className="py-3 px-4">Jayyid (Very Good)</td>
+                      <td className="py-2 md:py-3 px-2 md:px-4">70% - 79%</td>
+                      <td className="py-2 md:py-3 px-2 md:px-4 text-center text-gray-900 border-x border-gray-100 font-semibold">B</td>
+                      <td className="py-2 md:py-3 px-2 md:px-4 hidden md:table-cell">Jayyid (Very Good)</td>
                     </tr>
                     <tr className="hover:bg-white">
-                      <td className="py-3 px-4">60% - 69%</td>
-                      <td className="py-3 px-4 text-center text-gray-900 border-x border-gray-100 font-semibold">C</td>
-                      <td className="py-3 px-4">Maqbool (Good)</td>
+                      <td className="py-2 md:py-3 px-2 md:px-4">60% - 69%</td>
+                      <td className="py-2 md:py-3 px-2 md:px-4 text-center text-gray-900 border-x border-gray-100 font-semibold">C</td>
+                      <td className="py-2 md:py-3 px-2 md:px-4 hidden md:table-cell">Maqbool (Good)</td>
                     </tr>
                     <tr className="hover:bg-white">
-                      <td className="py-3 px-4">50% - 59%</td>
-                      <td className="py-3 px-4 text-center text-gray-900 border-x border-gray-100 font-semibold">D</td>
-                      <td className="py-3 px-4">Naajih (Pass)</td>
+                      <td className="py-2 md:py-3 px-2 md:px-4">50% - 59%</td>
+                      <td className="py-2 md:py-3 px-2 md:px-4 text-center text-gray-900 border-x border-gray-100 font-semibold">D</td>
+                      <td className="py-2 md:py-3 px-2 md:px-4 hidden md:table-cell">Naajih (Pass)</td>
                     </tr>
                     <tr className="hover:bg-red-50 bg-red-50/50">
-                      <td className="py-3 px-4 text-red-700">Below 50%</td>
-                      <td className="py-3 px-4 text-center text-red-700 border-x border-red-100 font-semibold">F</td>
-                      <td className="py-3 px-4 text-red-700">Rasib (Fail)</td>
+                      <td className="py-2 md:py-3 px-2 md:px-4 text-red-700">Below 50%</td>
+                      <td className="py-2 md:py-3 px-2 md:px-4 text-center text-red-700 border-x border-red-100 font-semibold">F</td>
+                      <td className="py-2 md:py-3 px-2 md:px-4 text-red-700 hidden md:table-cell">Rasib (Fail)</td>
                     </tr>
                   </tbody>
                 </table>
@@ -222,30 +222,30 @@ export default function ResultsPage() {
             </div>
 
             {/* Important Instructions */}
-            <div className="bg-white p-8 border border-slate-100 shadow-sm rounded-2xl transform hover:-translate-y-1 transition-all">
-              <h3 className="font-semibold text-gray-900 uppercase tracking-wide text-sm mb-6 flex items-center gap-2">
-                <CheckCircle2 size={18} className="text-emerald-500" /> General Instructions
+            <div className="bg-white p-4 md:p-8 border border-slate-100 shadow-sm rounded-xl md:rounded-2xl transform hover:-translate-y-1 transition-all">
+              <h3 className="font-semibold text-gray-900 uppercase tracking-wide text-[10px] md:text-sm mb-3 md:mb-6 flex items-center gap-1 md:gap-2">
+                <CheckCircle2 className="w-4 h-4 md:w-[18px] md:h-[18px] text-emerald-500" /> <span className="hidden md:inline">General Instructions</span><span className="md:hidden">Instructions</span>
               </h3>
-              <ul className="text-sm text-gray-600 space-y-4">
-                <li className="flex gap-3 items-start">
-                  <span className="w-2 h-2 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 mt-1.5 shrink-0 shadow-sm"></span>
-                  <span>Results are officially announced by the Controller of Examinations, Jamia Sher-e-Rabbani.</span>
+              <ul className="text-[9px] md:text-sm text-gray-600 space-y-2 md:space-y-4 pl-1 md:pl-0">
+                <li className="flex gap-1 md:gap-3 items-start">
+                  <span className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 mt-1 md:mt-1.5 shrink-0 shadow-sm"></span>
+                  <span>Results are officially announced by the Controller of Examinations.</span>
                 </li>
-                <li className="flex gap-3 items-start">
-                  <span className="w-2 h-2 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 mt-1.5 shrink-0 shadow-sm"></span>
-                  <span>Enter your exact Roll Number or Registration Number along with the correct academic session to find your result.</span>
+                <li className="flex gap-1 md:gap-3 items-start">
+                  <span className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 mt-1 md:mt-1.5 shrink-0 shadow-sm"></span>
+                  <span>Enter your exact Roll Number and session.</span>
                 </li>
-                <li className="flex gap-3 items-start">
-                  <span className="w-2 h-2 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 mt-1.5 shrink-0 shadow-sm"></span>
-                  <span>This portal provides computer-generated provisional results for immediate student information.</span>
+                <li className="flex gap-1 md:gap-3 items-start">
+                  <span className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 mt-1 md:mt-1.5 shrink-0 shadow-sm"></span>
+                  <span>This portal provides provisional results.</span>
                 </li>
-                <li className="flex gap-3 items-start">
+                <li className="flex gap-1 md:gap-3 items-start hidden md:flex">
                   <span className="w-2 h-2 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 mt-1.5 shrink-0 shadow-sm"></span>
-                  <span>For any discrepancies regarding names, marks, or subjects, students must contact the Examination Office within 15 days of the result declaration date.</span>
+                  <span>For any discrepancies, contact Examination Office within 15 days.</span>
                 </li>
-                <li className="flex gap-3 items-start">
-                  <span className="w-1.5 h-1.5 bg-gray-400 mt-1.5 shrink-0"></span>
-                  <span>Official stamped certificates must be collected physically from the Jamia administration office.</span>
+                <li className="flex gap-1 md:gap-3 items-start">
+                  <span className="w-1 h-1 md:w-1.5 md:h-1.5 bg-gray-400 mt-1 md:mt-1.5 shrink-0"></span>
+                  <span>Official certificates must be physically collected.</span>
                 </li>
               </ul>
             </div>
@@ -364,63 +364,63 @@ export default function ResultsPage() {
                 </div>
 
                 {/* Grading System & Instructions */}
-                <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 border-t border-slate-200 pt-6">
+                <div className="mt-6 md:mt-12 grid grid-cols-2 md:grid-cols-2 gap-4 md:gap-8 border-t border-slate-200 pt-6">
                   {/* Grading Scale */}
                   <div>
-                    <h3 className="font-semibold text-gray-900 uppercase tracking-wide text-xs mb-3 flex items-center gap-2">
+                    <h3 className="font-semibold text-gray-900 uppercase tracking-wide text-[9px] md:text-xs mb-2 md:mb-3 flex items-center gap-2">
                       Grading System
                     </h3>
-                    <table className="w-full text-[10px] uppercase tracking-wide text-gray-600 border border-slate-200">
+                    <table className="w-full text-[8px] md:text-[10px] uppercase tracking-wide text-gray-600 border border-slate-200">
                       <thead className="bg-white text-gray-500 font-semibold">
                         <tr>
-                          <th className="py-1 border border-slate-200 text-left px-2">Percentage</th>
-                          <th className="py-1 border border-slate-200 text-center px-2">Grade</th>
-                          <th className="py-1 border border-slate-200 text-left px-2">Remarks</th>
+                          <th className="py-1 border border-slate-200 text-left px-1 md:px-2">Percent</th>
+                          <th className="py-1 border border-slate-200 text-center px-1 md:px-2">Grade</th>
+                          <th className="py-1 border border-slate-200 text-left px-1 md:px-2 hidden md:table-cell">Remarks</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
-                          <td className="py-1 border border-slate-200 px-2">90% - 100%</td>
+                          <td className="py-1 border border-slate-200 px-1 md:px-2">90-100%</td>
                           <td className="py-1 border border-slate-200 text-center text-gray-900 font-semibold">A+</td>
-                          <td className="py-1 border border-slate-200 px-2">Mumtaz</td>
+                          <td className="py-1 border border-slate-200 px-1 md:px-2 hidden md:table-cell">Mumtaz</td>
                         </tr>
                         <tr>
-                          <td className="py-1 border border-slate-200 px-2">80% - 89%</td>
+                          <td className="py-1 border border-slate-200 px-1 md:px-2">80-89%</td>
                           <td className="py-1 border border-slate-200 text-center text-gray-900 font-semibold">A</td>
-                          <td className="py-1 border border-slate-200 px-2">Jayyid Jiddan</td>
+                          <td className="py-1 border border-slate-200 px-1 md:px-2 hidden md:table-cell">Jayyid Jiddan</td>
                         </tr>
                         <tr>
-                          <td className="py-1 border border-slate-200 px-2">70% - 79%</td>
+                          <td className="py-1 border border-slate-200 px-1 md:px-2">70-79%</td>
                           <td className="py-1 border border-slate-200 text-center text-gray-900 font-semibold">B</td>
-                          <td className="py-1 border border-slate-200 px-2">Jayyid</td>
+                          <td className="py-1 border border-slate-200 px-1 md:px-2 hidden md:table-cell">Jayyid</td>
                         </tr>
                         <tr>
-                          <td className="py-1 border border-slate-200 px-2">60% - 69%</td>
+                          <td className="py-1 border border-slate-200 px-1 md:px-2">60-69%</td>
                           <td className="py-1 border border-slate-200 text-center text-gray-900 font-semibold">C</td>
-                          <td className="py-1 border border-slate-200 px-2">Maqbool</td>
+                          <td className="py-1 border border-slate-200 px-1 md:px-2 hidden md:table-cell">Maqbool</td>
                         </tr>
                         <tr>
-                          <td className="py-1 border border-slate-200 px-2">50% - 59%</td>
+                          <td className="py-1 border border-slate-200 px-1 md:px-2">50-59%</td>
                           <td className="py-1 border border-slate-200 text-center text-gray-900 font-semibold">D</td>
-                          <td className="py-1 border border-slate-200 px-2">Naajih</td>
+                          <td className="py-1 border border-slate-200 px-1 md:px-2 hidden md:table-cell">Naajih</td>
                         </tr>
                         <tr>
-                          <td className="py-1 border border-slate-200 px-2 text-red-700">Below 50%</td>
+                          <td className="py-1 border border-slate-200 px-1 md:px-2 text-red-700">&lt;50%</td>
                           <td className="py-1 border border-slate-200 text-center text-red-700 font-semibold">F</td>
-                          <td className="py-1 border border-slate-200 px-2 text-red-700">Rasib</td>
+                          <td className="py-1 border border-slate-200 px-1 md:px-2 text-red-700 hidden md:table-cell">Rasib</td>
                         </tr>
                       </tbody>
                     </table>
                   </div>
-
+                  
                   {/* Important Instructions */}
                   <div>
-                    <h3 className="font-semibold text-gray-900 uppercase tracking-wide text-xs mb-3">Important Instructions</h3>
-                    <ul className="text-[10px] text-gray-600 space-y-1.5 list-disc pl-3 leading-relaxed">
-                      <li>This is a computer-generated provisional result card.</li>
-                      <li>For official use (admissions to other institutions), a stamped and verified physical copy must be obtained from the Examination Office.</li>
-                      <li>In case of any discrepancy in the name, marks, or subjects, the student must report to the examination office within 15 days of the result declaration.</li>
-                      <li>Any alteration or unauthorized tampering with this document will result in strict disciplinary action.</li>
+                    <h3 className="font-semibold text-gray-900 uppercase tracking-wide text-[9px] md:text-xs mb-2 md:mb-3">Instructions</h3>
+                    <ul className="text-[8px] md:text-[10px] text-gray-600 space-y-1.5 list-disc pl-3 md:pl-3 leading-relaxed pr-1">
+                      <li>This is a provisional computer-generated result.</li>
+                      <li>For official use, a stamped physical copy must be obtained.</li>
+                      <li className="hidden md:list-item">In case of any discrepancy, report within 15 days.</li>
+                      <li>Any unauthorized tampering will result in action.</li>
                     </ul>
                   </div>
                 </div>
