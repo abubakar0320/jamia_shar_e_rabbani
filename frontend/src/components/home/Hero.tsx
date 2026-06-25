@@ -57,27 +57,27 @@ export default function Hero() {
             </AnimatePresence>
           </div>
           
-          <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center">
-            <div className="bg-white p-8 md:p-12 shadow-2xl border-t-4 border-rose-500 rounded-3xl max-w-lg shadow-sm border border-slate-100">
-              <span className="inline-block px-3 py-1 bg-blue-50 text-blue-600 border border-blue-200 font-bold px-4 py-1 rounded-full shadow-sm text-xs font-semibold mb-4">
+          <div className="relative z-10 w-full h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-end pb-12 md:pb-0 md:items-center">
+            <div className="bg-white/90 md:bg-white backdrop-blur-md p-6 md:p-12 shadow-2xl border-t-4 border-rose-500 rounded-2xl md:rounded-3xl max-w-lg border border-slate-100 mb-8 md:mb-0 w-full">
+              <span className="inline-block bg-blue-50 text-blue-600 border border-blue-200 px-4 py-1 rounded-full shadow-sm text-xs font-bold mb-4">
                 {t('hero_admissions_badge')}
               </span>
-              <h1 className="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-rose-500 via-purple-500 to-blue-500 drop-shadow-sm mb-4 leading-tight">
+              <h1 className="text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-rose-500 via-purple-500 to-blue-500 drop-shadow-sm mb-3 md:mb-4 leading-tight">
                 {t('hero_title_start')} {t('hero_title_accent')} {t('hero_title_end')}
               </h1>
-              <p className="text-base text-slate-700 font-medium mb-8">
+              <p className="text-sm md:text-base text-slate-800 font-medium mb-6 md:mb-8">
                 {t('hero_description')}
               </p>
-              <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
                 <Link 
                   href="/admissions" 
-                  className="inline-flex items-center justify-center px-6 py-2.5 bg-gradient-to-r from-rose-500 to-orange-500 text-white shadow-lg shadow-rose-500/40 hover:from-rose-600 hover:to-orange-600 font-bold px-8 py-3 rounded-full transform hover:-translate-y-1 transition-all text-white text-base font-semibold hover:bg-emerald-800 transition-colors"
+                  className="inline-flex items-center justify-center bg-gradient-to-r from-rose-500 to-orange-500 text-white shadow-lg shadow-rose-500/40 hover:from-rose-600 hover:to-orange-600 font-bold px-6 py-3 rounded-full transform hover:-translate-y-1 transition-all text-sm md:text-base"
                 >
                   {t('hero_apply_now')}
                 </Link>
                 <Link 
                   href="/courses" 
-                  className="inline-flex items-center justify-center px-6 py-2.5 text-transparent bg-clip-text bg-gradient-to-r from-rose-500 via-purple-500 to-blue-500 drop-shadow-sm text-base font-semibold hover:underline group"
+                  className="inline-flex items-center justify-center px-6 py-2.5 text-transparent bg-clip-text bg-gradient-to-r from-rose-500 via-purple-500 to-blue-500 drop-shadow-sm text-sm md:text-base font-bold hover:underline group"
                 >
                   {t('hero_view_programs')} <ChevronRight className="ml-1 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
