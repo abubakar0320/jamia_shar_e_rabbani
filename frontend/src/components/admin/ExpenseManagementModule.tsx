@@ -91,7 +91,7 @@ export default function ExpenseManagementModule() {
         </div>
 
         {/* STATS */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-6 mb-8">
             <div className="bg-white p-6 rounded-sm shadow-sm border border-slate-200">
                 <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 flex items-center gap-2"><Calculator size={14}/> Total Expenses (All Time)</p>
                 <h3 className="text-3xl font-black text-rose-600">Rs. {totalExpense.toLocaleString()}</h3>

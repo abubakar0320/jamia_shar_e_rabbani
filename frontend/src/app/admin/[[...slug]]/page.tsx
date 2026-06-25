@@ -618,7 +618,7 @@ export default function AdminDashboard() {
  </div>
  </div>
 
- <div className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-slate-50 p-8 rounded-sm border border-slate-100 relative overflow-hidden print:bg-white print:border-black print:rounded-none">
+ <div className="grid grid-cols-2 md:grid-cols-2 gap-4 md:gap-8 bg-slate-50 p-4 md:p-8 rounded-sm border border-slate-100 relative overflow-hidden print:bg-white print:border-black print:rounded-none">
  <div className="absolute top-0 right-0 w-32 h-32 bg-white rounded-bl-full opacity-50 blur-2xl pointer-events-none print:hidden"></div>
  <div>
  <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Father's Name</p>
@@ -641,7 +641,7 @@ export default function AdminDashboard() {
 
  <div>
  <h4 className="text-xl font-black text-slate-800 mb-6 flex items-center gap-2"><GraduationCap className="text-blue-600 print:text-black"/> Academic Information</h4>
- <div className="bg-slate-50 p-8 rounded-sm border border-slate-100 grid grid-cols-1 md:grid-cols-2 gap-8 print:bg-white print:border-black print:rounded-none">
+ <div className="bg-slate-50 p-4 md:p-8 rounded-sm border border-slate-100 grid grid-cols-2 md:grid-cols-2 gap-4 md:gap-8 print:bg-white print:border-black print:rounded-none">
  <div>
  <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Selected Class / Program</p>
  <p className="text-sm font-bold text-slate-800">{selectedApplication.classProgram}</p>
@@ -778,7 +778,7 @@ export default function AdminDashboard() {
  ))}
  </div>
  </div>
- <div className="grid grid-cols-1 md:grid-cols-4 gap-4 pt-4 border-t border-slate-100">
+ <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 pt-4 border-t border-slate-100">
  <div>
  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1 block">Class Filter</label>
  <select value={classFilter} onChange={e => setClassFilter(e.target.value)} className="w-full p-3 bg-slate-50 rounded-sm text-sm font-bold border-none">
@@ -1070,7 +1070,7 @@ export default function AdminDashboard() {
  </div>
  </div>
 
- <div className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-slate-50 p-8 rounded-sm border border-slate-100 relative overflow-hidden print:bg-white print:border-black print:rounded-none">
+ <div className="grid grid-cols-2 md:grid-cols-2 gap-4 md:gap-8 bg-slate-50 p-4 md:p-8 rounded-sm border border-slate-100 relative overflow-hidden print:bg-white print:border-black print:rounded-none">
  <div className="absolute top-0 right-0 w-32 h-32 bg-white rounded-bl-full opacity-50 blur-2xl pointer-events-none print:hidden"></div>
  <div><p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Father's Name</p><p className="text-sm font-bold text-slate-800">{selectedStudent.fatherName}</p></div>
  <div><p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Date of Birth</p><p className="text-sm font-bold text-slate-800">{selectedStudent.dob || 'Not Provided'}</p></div>
@@ -1081,7 +1081,7 @@ export default function AdminDashboard() {
 
  <div>
  <h4 className="text-xl font-black text-slate-800 mb-6 flex items-center gap-2"><BookOpen className="text-indigo-600 print:text-black"/> Academic Enrollment</h4>
- <div className="bg-slate-50 p-8 rounded-sm border border-slate-100 grid grid-cols-1 md:grid-cols-2 gap-8 print:bg-white print:border-black print:rounded-none">
+ <div className="bg-slate-50 p-4 md:p-8 rounded-sm border border-slate-100 grid grid-cols-2 md:grid-cols-2 gap-4 md:gap-8 print:bg-white print:border-black print:rounded-none">
  <div><p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Current Class</p><p className="text-sm font-bold text-slate-800">{selectedStudent.classProgram}</p></div>
  <div><p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Section</p><p className="text-sm font-bold text-slate-800">{selectedStudent.sectionType}</p></div>
  <div><p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Academic Session</p><p className="text-sm font-bold text-slate-800 font-mono">{selectedStudent.fees.session}</p></div>
@@ -1199,7 +1199,7 @@ export default function AdminDashboard() {
  ))}
  </div>
  </div>
- <div className="grid grid-cols-1 md:grid-cols-4 gap-4 pt-4 border-t border-slate-100">
+ <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 pt-4 border-t border-slate-100">
  <div>
  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1 block">Class Filter</label>
  <select value={classFilter} onChange={e => setClassFilter(e.target.value)} className="w-full p-3 bg-slate-50 rounded-sm text-sm font-bold border-none">
@@ -1469,7 +1469,7 @@ export default function AdminDashboard() {
  </div>
  </div>
 
- <div className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-slate-50 p-8 rounded-sm border border-slate-100 relative overflow-hidden print:bg-white print:border-black print:rounded-none">
+ <div className="grid grid-cols-2 md:grid-cols-2 gap-4 md:gap-8 bg-slate-50 p-4 md:p-8 rounded-sm border border-slate-100 relative overflow-hidden print:bg-white print:border-black print:rounded-none">
  <div className="absolute top-0 right-0 w-32 h-32 bg-white rounded-bl-full opacity-50 blur-2xl pointer-events-none print:hidden"></div>
  <div><p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Faculty ID</p><p className="text-sm font-mono font-bold text-slate-800">{selectedFaculty.facultyId}</p></div>
  <div><p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Contact Number</p><p className="text-sm font-mono font-bold text-slate-800">{selectedFaculty.contactNumber}</p></div>
@@ -1481,7 +1481,7 @@ export default function AdminDashboard() {
 
  <div>
  <h4 className="text-xl font-black text-slate-800 mb-6 flex items-center gap-2"><BookOpen className="text-indigo-600 print:text-black"/> Academic & Professional Info</h4>
- <div className="bg-slate-50 p-8 rounded-sm border border-slate-100 grid grid-cols-1 md:grid-cols-2 gap-8 print:bg-white print:border-black print:rounded-none">
+ <div className="bg-slate-50 p-4 md:p-8 rounded-sm border border-slate-100 grid grid-cols-2 md:grid-cols-2 gap-4 md:gap-8 print:bg-white print:border-black print:rounded-none">
  <div><p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Highest Qualification</p><p className="text-sm font-bold text-slate-800">{selectedFaculty.qualification || 'N/A'}</p></div>
  <div><p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">University / Institute</p><p className="text-sm font-bold text-slate-800">{selectedFaculty.university || 'N/A'}</p></div>
  <div><p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Specialization</p><p className="text-sm font-bold text-slate-800">{selectedFaculty.specialization || 'N/A'}</p></div>
@@ -1597,7 +1597,7 @@ export default function AdminDashboard() {
  <button onClick={() => alert('Opening Add Faculty form...')} className="px-6 py-3 bg-blue-600 text-white rounded-sm text-xs font-black uppercase tracking-widest hover:bg-blue-700 transition-all shadow-sm">+ Add Faculty</button>
  </div>
  </div>
- <div className="grid grid-cols-1 md:grid-cols-4 gap-4 pt-4 border-t border-slate-100">
+ <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 pt-4 border-t border-slate-100">
  <div>
  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1 block">Department Filter</label>
  <select value={classFilter} onChange={e => setClassFilter(e.target.value)} className="w-full p-3 bg-slate-50 rounded-sm text-sm font-bold border-none">
@@ -2036,7 +2036,7 @@ export default function AdminDashboard() {
  <button onClick={() => alert('Opening Create Course wizard...')} className="px-6 py-3 bg-blue-600 text-white rounded-sm text-xs font-black uppercase tracking-widest hover:bg-blue-700 transition-all shadow-sm">+ Create Course</button>
  </div>
  </div>
- <div className="grid grid-cols-1 md:grid-cols-4 gap-4 pt-4 border-t border-slate-100">
+ <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 pt-4 border-t border-slate-100">
  <div>
  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1 block">Category Filter</label>
  <select value={classFilter} onChange={e => setClassFilter(e.target.value)} className="w-full p-3 bg-slate-50 rounded-sm text-sm font-bold border-none">
@@ -2454,7 +2454,7 @@ export default function AdminDashboard() {
  <button onClick={handleCreateResult} className="px-6 py-3 bg-blue-600 text-white rounded-sm text-xs font-black uppercase tracking-widest hover:bg-blue-700 transition-all shadow-sm"><Plus size={16} className="inline mr-2"/> Manual Entry</button>
  </div>
  </div>
- <div className="grid grid-cols-1 md:grid-cols-4 gap-4 pt-4 border-t border-slate-100">
+ <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 pt-4 border-t border-slate-100">
  <div>
  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1 block">Class Filter</label>
  <select value={classFilter} onChange={e => setClassFilter(e.target.value)} className="w-full p-3 bg-slate-50 rounded-sm text-sm font-bold border-none">
@@ -2865,7 +2865,7 @@ export default function AdminDashboard() {
  }).then(() => fetchAllData());
  }} className="mb-6 px-4 py-2 bg-indigo-600 text-white rounded-sm text-xs font-black uppercase tracking-widest hover:bg-indigo-700"><Plus size={16} className="inline mr-2"/> Add New Category</button>
  
- <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+ <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
  {feeCategories.map(cat => (
  <div key={cat.id} className={`bg-white p-5 rounded-sm border ${cat.status === 'Active' ? 'border-indigo-200' : 'border-slate-200 opacity-60'} shadow-sm relative group`}>
  <div className="absolute top-4 right-4 flex gap-2">
@@ -2972,7 +2972,7 @@ export default function AdminDashboard() {
  </div>
 
  {/* Quick Statistics Cards */}
- <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+ <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
  {STATS.map((stat, i) => (
  <div key={i} onClick={() => handleNavigate(stat.id)} className="bg-white p-6 rounded-sm shadow-sm border border-slate-200 relative overflow-hidden group cursor-pointer hover:border-blue-200 hover:shadow-md transition-all">
  <div className="flex justify-between items-start mb-4">
@@ -3558,7 +3558,7 @@ function FeeSettingsModal({ onClose, feeStructures, onUpdate }: any) {
  </div>
 
  <div className="p-6 flex-1 overflow-y-auto bg-slate-50">
- <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+ <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
  {filteredStructures.map((fs: any) => (
  <div key={fs.id} className="bg-white p-6 rounded-sm border border-slate-200 shadow-sm relative group hover:shadow-md transition-shadow">
  <div className="absolute top-4 right-4 flex gap-2">
