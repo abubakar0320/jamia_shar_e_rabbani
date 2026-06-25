@@ -110,34 +110,58 @@ const Header = () => {
       {/* Mobile Nav Overlay */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div 
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="xl:hidden bg-white border-b border-slate-100 overflow-hidden"
-          >
-            <div className="px-6 py-8 space-y-2">
-              {navItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
+          <>
+            {/* Backdrop */}
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsOpen(false)}
+              className="xl:hidden fixed inset-0 bg-slate-900/40 z-40"
+            />
+            
+            {/* Sidebar */}
+            <motion.div 
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              className="xl:hidden fixed top-0 right-0 h-screen w-[75vw] sm:w-80 bg-white z-50 overflow-y-auto shadow-2xl flex flex-col"
+            >
+              <div className="px-6 py-5 flex justify-between items-center border-b border-slate-100">
+                <span className="font-black text-emerald-800 text-lg tracking-tighter">MENU</span>
+                <button
                   onClick={() => setIsOpen(false)}
-                  className="block px-4 py-3 text-base font-bold text-slate-800 hover:bg-emerald-50 hover:text-emerald-700 rounded-xl transition-all"
+                  className="p-2 -mr-2 rounded-lg text-slate-500 hover:bg-slate-100 transition-colors"
                 >
-                  {item.label}
-                </Link>
-              ))}
-                  <div className="pt-6 mt-6 border-t border-slate-100 flex flex-col gap-6">
-                 <a 
-                    href="/admissions" 
-                    onClick={() => setIsOpen(false)}
-                    className="flex items-center justify-center py-3 bg-emerald-700 text-white text-[15px] font-bold rounded-xl shadow-lg"
-                 >
-                    {t('apply_now')}
-                 </a>
+                  <X size={24} />
+                </button>
               </div>
-            </div>
-          </motion.div>
+              
+              <div className="px-6 py-6 space-y-2 flex-grow">
+                {navItems.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setIsOpen(false)}
+                    className="block px-4 py-3 text-base font-bold text-slate-800 hover:bg-emerald-50 hover:text-emerald-700 rounded-xl transition-all"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+
+              <div className="p-6 border-t border-slate-100">
+                <a 
+                  href="/admissions" 
+                  onClick={() => setIsOpen(false)}
+                  className="flex items-center justify-center py-3.5 bg-emerald-700 text-white text-[15px] font-bold rounded-xl shadow-lg hover:bg-emerald-800 transition-colors"
+                >
+                  {t('apply_now')}
+                </a>
+              </div>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </header>
