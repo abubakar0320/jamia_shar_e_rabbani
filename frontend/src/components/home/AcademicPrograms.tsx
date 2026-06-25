@@ -71,11 +71,11 @@ export default function AcademicPrograms() {
   return (
     <section className="py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl font-semibold text-indigo-600 mb-12">
+        <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-8 md:mb-16">
           {t('academic_programs_heading')}
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-16">
+        <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-8">
           {academicPrograms.map((program, i) => (
             <motion.div 
               key={program.id}
@@ -83,34 +83,35 @@ export default function AcademicPrograms() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ delay: i * 0.1, duration: 0.5 }}
-              className="flex flex-col bg-white text-slate-900 shadow-sm border border-slate-100 hover:shadow-md transition-shadow group"
+              className="flex flex-col bg-white text-slate-900 shadow-sm border border-slate-100 hover:shadow-xl hover:-translate-y-1 rounded-2xl overflow-hidden transition-all group"
             >
-              <div className="aspect-[16/10] overflow-hidden relative">
+              <div className="aspect-[4/3] md:aspect-[16/10] overflow-hidden relative">
                 <OptimizedImage 
                   src={program.image} 
                   alt={program.title}
                   fill
                   section="course"
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
-              <div className="p-6 flex flex-col flex-1">
-                <span className="text-xs px-3 py-1 rounded-full font-bold mb-3 uppercase tracking-wide inline-block w-max border border-white/30 bg-white/20 text-slate-900 backdrop-blur-sm">
+              <div className="p-3 md:p-6 flex flex-col flex-1">
+                <span className="text-[9px] md:text-xs px-2 md:px-3 py-0.5 md:py-1 rounded-md font-bold mb-2 md:mb-3 uppercase tracking-wider inline-block w-max bg-emerald-50 text-emerald-700 border border-emerald-100">
                   {program.category}
                 </span>
-                <h3 className="text-xl font-semibold text-indigo-600 mb-3">
+                <h3 className="text-sm md:text-xl font-bold text-slate-900 mb-1 md:mb-3 line-clamp-2 leading-snug">
                   {program.title}
                 </h3>
-                <p className="text-base text-slate-600 mb-16 line-clamp-3 flex-1">
+                <p className="hidden md:block text-sm text-slate-600 mb-6 line-clamp-3 flex-1">
                   {t(program.desc)}
                 </p>
-                <div className="mt-auto">
+                <div className="mt-auto pt-2 md:pt-4 border-t border-slate-50">
                   <Link 
                     href={program.link}
-                    className="inline-flex items-center text-indigo-600 font-semibold hover:underline group/link"
+                    className="inline-flex items-center text-[11px] md:text-sm text-emerald-600 font-bold hover:text-emerald-700 group/link"
                   >
-                    {t('academic_programs_details')} <ChevronRight className="ml-1 w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
+                    {t('academic_programs_details')} <ChevronRight className="ml-1 w-3 h-3 md:w-4 md:h-4 group-hover/link:translate-x-1 transition-transform" />
                   </Link>
                 </div>
               </div>

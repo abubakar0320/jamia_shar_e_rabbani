@@ -73,15 +73,15 @@ export default function WhyChooseUs() {
               {t('why_choose_us_heading_start')} {t('why_choose_us_heading_end')}
             </h3>
             
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-20 mb-12">
+            <div className="grid grid-cols-2 gap-4 md:gap-10 mb-12">
               {features.map((feature, i) => (
-                <div key={i} className="flex flex-col gap-3">
-                  <div className="w-12 h-12 bg-slate-50 flex items-center justify-center border border-slate-100">
-                    {feature.icon}
+                <div key={i} className="flex flex-col gap-2 md:gap-3">
+                  <div className="w-10 h-10 md:w-12 md:h-12 bg-slate-50 flex items-center justify-center border border-slate-100 rounded-xl shadow-sm">
+                    {React.cloneElement(feature.icon, { className: "w-5 h-5 md:w-6 md:h-6 text-emerald-700" })}
                   </div>
                   <div>
-                    <h4 className="text-lg font-semibold text-slate-900 mb-2">{feature.title}</h4>
-                    <p className="text-slate-700 text-sm leading-relaxed">{feature.desc}</p>
+                    <h4 className="text-sm md:text-lg font-bold text-slate-900 mb-1 md:mb-2">{feature.title}</h4>
+                    <p className="text-slate-600 text-xs md:text-sm leading-relaxed line-clamp-3 md:line-clamp-none">{feature.desc}</p>
                   </div>
                 </div>
               ))}
