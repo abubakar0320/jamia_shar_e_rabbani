@@ -1,0 +1,885 @@
+{
+  "courses": [
+    {
+      "id": 1,
+      "title": "Hifz-ul-Quran",
+      "duration": "3-4 Years",
+      "level": "Primary",
+      "desc": "Complete memorization of the Holy Quran with Tajweed rules.",
+      "programDetailsImage": "/images/h.jpeg",
+      "playlists": [
+        {
+          "id": "hifz-urdu",
+          "title": "Quran Recitation with Urdu Translation",
+          "category": "Quranic Studies",
+          "listId": "PLfty3tvJoMC3aAIYP7AfF2tiZXS5VIS6i",
+          "videoId": "dXxh8tmUimc",
+          "badge": "Urdu",
+          "description": "Complete Quran recitation with authentic Urdu translation for better understanding of the Holy Book.",
+          "icon": "video"
+        },
+        {
+          "id": "hifz-arabic",
+          "title": "Quran Recitation (Arabic Only)",
+          "category": "Quranic Studies",
+          "listId": "PL7pGH6oFXtc5aldXNh7MicDh20dG5PGJG",
+          "videoId": "6XyuiBAKf5s",
+          "badge": "Arabic",
+          "description": "Beautiful recitation of the Holy Quran in Arabic, focusing on Tajweed and proper pronunciation.",
+          "icon": "award"
+        },
+        {
+          "id": "hifz-english",
+          "title": "Quran Recitation with English Translation",
+          "category": "Quranic Studies",
+          "listId": "PL95kNBEuhY4a4LU7ph8RXDYdh2MvUvVYr",
+          "videoId": "yjdqH0T7SUU",
+          "badge": "English",
+          "description": "Quran recitation paired with English translation for students and researchers worldwide.",
+          "icon": "book"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Dars-e-Nizami",
+      "duration": "8 Years",
+      "level": "Advanced",
+      "desc": "Comprehensive Islamic scholarship program covering Fiqh, Hadith, Tafseer, and Arabic Literature.",
+      "image": "/hadith.jpg",
+      "gallery": [
+        "/images/1.jpeg",
+        "/images/2.jpeg",
+        "/images/3.jpeg",
+        "/images/4.jpeg"
+      ],
+      "syllabus": [
+        {
+          "title": "Nisab Baraye Dars-e-Nizami (Tulba)",
+          "file": "/syllabus/nisab-dars-e-nizami-tulba.pdf"
+        },
+        {
+          "title": "Nisab Baraye Dars-e-Nizami (Talibat)",
+          "file": "/syllabus/nisab-dars-e-nizami-talibat.pdf"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Tajweed-o-Qira'at",
+      "duration": "1 Year",
+      "level": "Intermediate",
+      "desc": "Specialized course in the art of Quranic recitation.",
+      "image": "/tajweed-o-qirat.jpg",
+      "programDetailsImage": "/images/t.jpeg",
+      "playlists": [
+        {
+          "id": "tajweed-lessons",
+          "title": "Advanced Tajweed-o-Qira'at Video Lessons",
+          "category": "Quranic Studies",
+          "listId": "PLz_oGF0kwgM4GVAdWdD7KavI3PDAtEc28",
+          "videoId": "GrwrpA2H97A",
+          "badge": "Specialized",
+          "description": "A comprehensive collection of Tajweed and Qira'at lessons designed to help students improve Quran recitation, pronunciation, Makharij, and practical Tajweed rules.",
+          "icon": "award"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Arabic Language",
+      "duration": "2 Years",
+      "level": "Beginner/Intermediate",
+      "desc": "Intensive course focusing on classical and modern Arabic grammar and conversation.",
+      "image": "/arabic-language.jpg",
+      "playlistTitle": "Arabic Language Video Lessons",
+      "playlistUrl": "https://www.youtube.com/watch?v=i0lQZHnvAUc&list=PL7ryrm4bCxy8Hkdco9fRz3LGffuQqeMD4",
+      "playlistId": "PL7ryrm4bCxy8Hkdco9fRz3LGffuQqeMD4",
+      "videoId": "i0lQZHnvAUc",
+      "playlists": [
+        {
+          "id": "arabic-lessons",
+          "title": "Arabic Language Video Lessons",
+          "category": "Education",
+          "listId": "PL7ryrm4bCxy8Hkdco9fRz3LGffuQqeMD4",
+          "videoId": "i0lQZHnvAUc",
+          "badge": "Full Course",
+          "description": "A comprehensive Arabic language learning series designed to help students develop Arabic reading, writing, speaking, grammar, and comprehension skills.",
+          "icon": "book"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Takhassus",
+      "duration": "2 Years",
+      "level": "Specialized",
+      "desc": "Advanced specialization course in specific branches of Islamic Jurisprudence (Fiqh) or Hadith.",
+      "image": "/takhasus.jpeg",
+      "gallery": [
+        "/images/a.jpeg",
+        "/images/b.jpeg",
+        "/images/c.jpeg"
+      ],
+      "syllabus": [
+        {
+          "title": "Nisab Baraye Takhassus",
+          "file": "/syllabus/nisab-Takhassus.pdf"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Khasusi Dars-e-Nizami",
+      "duration": "Variable",
+      "level": "Advanced",
+      "desc": "An advanced and specialized Dars-e-Nizami program designed for students seeking deeper understanding of classical Islamic sciences, Fiqh, Hadith, Tafsir, Arabic language, and scholarly research.",
+      "image": "/hadith.jpg",
+      "gallery": [
+        "/images/1.jpeg",
+        "/images/2.jpeg",
+        "/images/3.jpeg",
+        "/images/4.jpeg"
+      ],
+      "syllabus": [
+        {
+          "title": "Nisab Baraye Almiya Khasusi",
+          "file": "/syllabus/nisab-almiya-khasusi.pdf"
+        },
+        {
+          "title": "Nisab Baraye Amma wa Khasa Khasusi",
+          "file": "/syllabus/nisab-amma-khasa-khasusi.pdf"
+        }
+      ]
+    }
+  ],
+  "faculty": [],
+  "news": [],
+  "contacts": [],
+  "admissions": [
+    {
+      "id": 1782206348210,
+      "studentName": "Itaque hic possimus",
+      "fatherName": "Ipsam libero quas at",
+      "dob": "1988-02-06",
+      "cnic": "35405-4153785-8",
+      "mobile": "+1 (231) 429-7938",
+      "whatsapp": "",
+      "sectionType": "Talibat",
+      "classProgram": "Hifz-ul-Quran",
+      "documents": {
+        "photo": {
+          "name": "WhatsApp Image 2026-06-21 at 2.17.40 PM.jpeg",
+          "size": "15.7 KB",
+          "type": "image/jpeg"
+        },
+        "student_cnic": {
+          "name": "WhatsApp Image 2026-06-21 at 2.17.40 PM.jpeg",
+          "size": "15.7 KB",
+          "type": "image/jpeg"
+        },
+        "father_cnic": {
+          "name": "WhatsApp Image 2026-06-21 at 2.17.40 PM.jpeg",
+          "size": "15.7 KB",
+          "type": "image/jpeg"
+        },
+        "result_card": {
+          "name": "WhatsApp Image 2026-06-21 at 2.17.40 PM.jpeg",
+          "size": "15.7 KB",
+          "type": "image/jpeg"
+        }
+      },
+      "challanNo": "JS-2753",
+      "applicationNo": "APP-72983",
+      "date": "2026-06-23T09:19:08.210Z",
+      "status": "Pending",
+      "fees": {
+        "admissionFee": 2500,
+        "registrationFee": 1000,
+        "session": "2026-27",
+        "lateFeeDays": 0,
+        "dailyLateFeeRate": 0,
+        "totalLateFee": 0,
+        "totalFee": 3500
+      }
+    },
+    {
+      "id": 1782206384513,
+      "studentName": "Itaque hic possimus",
+      "fatherName": "Ipsam libero quas at",
+      "dob": "1988-02-06",
+      "cnic": "35405-4153785-8",
+      "mobile": "03328364368",
+      "whatsapp": "",
+      "sectionType": "Talibat",
+      "classProgram": "Hifz-ul-Quran",
+      "documents": {
+        "photo": {
+          "name": "WhatsApp Image 2026-06-21 at 2.17.40 PM.jpeg",
+          "size": "15.7 KB",
+          "type": "image/jpeg"
+        },
+        "student_cnic": {
+          "name": "WhatsApp Image 2026-06-21 at 2.17.40 PM.jpeg",
+          "size": "15.7 KB",
+          "type": "image/jpeg"
+        },
+        "father_cnic": {
+          "name": "WhatsApp Image 2026-06-21 at 2.17.40 PM.jpeg",
+          "size": "15.7 KB",
+          "type": "image/jpeg"
+        },
+        "result_card": {
+          "name": "WhatsApp Image 2026-06-21 at 2.17.40 PM.jpeg",
+          "size": "15.7 KB",
+          "type": "image/jpeg"
+        }
+      },
+      "challanNo": "JS-4621",
+      "applicationNo": "APP-64507",
+      "date": "2026-06-23T09:19:44.513Z",
+      "status": "Pending",
+      "fees": {
+        "admissionFee": 2500,
+        "registrationFee": 1000,
+        "session": "2026-27",
+        "lateFeeDays": 0,
+        "dailyLateFeeRate": 0,
+        "totalLateFee": 0,
+        "totalFee": 3500
+      }
+    },
+    {
+      "id": 1782206423634,
+      "studentName": "Itaque hic possimus",
+      "fatherName": "Ipsam libero quas at",
+      "dob": "1988-02-06",
+      "cnic": "35405-4153785-8",
+      "mobile": "03328364368",
+      "whatsapp": "",
+      "sectionType": "Talibat",
+      "classProgram": "Almiya Khasusi Part One",
+      "documents": {
+        "photo": {
+          "name": "WhatsApp Image 2026-06-21 at 2.17.40 PM.jpeg",
+          "size": "15.7 KB",
+          "type": "image/jpeg"
+        },
+        "student_cnic": {
+          "name": "WhatsApp Image 2026-06-21 at 2.17.40 PM.jpeg",
+          "size": "15.7 KB",
+          "type": "image/jpeg"
+        },
+        "father_cnic": {
+          "name": "WhatsApp Image 2026-06-21 at 2.17.40 PM.jpeg",
+          "size": "15.7 KB",
+          "type": "image/jpeg"
+        },
+        "result_card": {
+          "name": "WhatsApp Image 2026-06-21 at 2.17.40 PM.jpeg",
+          "size": "15.7 KB",
+          "type": "image/jpeg"
+        },
+        "matric_result": {
+          "name": "WhatsApp Image 2026-06-21 at 2.17.40 PM.jpeg",
+          "size": "15.7 KB",
+          "type": "image/jpeg"
+        },
+        "inter_result": {
+          "name": "WhatsApp Image 2026-06-21 at 2.17.40 PM.jpeg",
+          "size": "15.7 KB",
+          "type": "image/jpeg"
+        },
+        "grad_result": {
+          "name": "WhatsApp Image 2026-06-21 at 2.17.40 PM.jpeg",
+          "size": "15.7 KB",
+          "type": "image/jpeg"
+        }
+      },
+      "challanNo": "JS-7694",
+      "applicationNo": "APP-62414",
+      "date": "2026-06-23T09:20:23.634Z",
+      "status": "Pending",
+      "fees": {
+        "admissionFee": 1000,
+        "registrationFee": 1000,
+        "session": "2026-27",
+        "lateFeeDays": 0,
+        "dailyLateFeeRate": 0,
+        "totalLateFee": 0,
+        "totalFee": 2000
+      }
+    },
+    {
+      "id": 1782206428555,
+      "studentName": "Itaque hic possimus",
+      "fatherName": "Ipsam libero quas at",
+      "dob": "1988-02-06",
+      "cnic": "35405-4153785-8",
+      "mobile": "03328364368",
+      "whatsapp": "",
+      "sectionType": "Talibat",
+      "classProgram": "Almiya Khasusi Part One",
+      "documents": {
+        "photo": {
+          "name": "WhatsApp Image 2026-06-21 at 2.17.40 PM.jpeg",
+          "size": "15.7 KB",
+          "type": "image/jpeg"
+        },
+        "student_cnic": {
+          "name": "WhatsApp Image 2026-06-21 at 2.17.40 PM.jpeg",
+          "size": "15.7 KB",
+          "type": "image/jpeg"
+        },
+        "father_cnic": {
+          "name": "WhatsApp Image 2026-06-21 at 2.17.40 PM.jpeg",
+          "size": "15.7 KB",
+          "type": "image/jpeg"
+        },
+        "result_card": {
+          "name": "WhatsApp Image 2026-06-21 at 2.17.40 PM.jpeg",
+          "size": "15.7 KB",
+          "type": "image/jpeg"
+        },
+        "matric_result": {
+          "name": "WhatsApp Image 2026-06-21 at 2.17.40 PM.jpeg",
+          "size": "15.7 KB",
+          "type": "image/jpeg"
+        },
+        "inter_result": {
+          "name": "WhatsApp Image 2026-06-21 at 2.17.40 PM.jpeg",
+          "size": "15.7 KB",
+          "type": "image/jpeg"
+        },
+        "grad_result": {
+          "name": "WhatsApp Image 2026-06-21 at 2.17.40 PM.jpeg",
+          "size": "15.7 KB",
+          "type": "image/jpeg"
+        }
+      },
+      "challanNo": "JS-5878",
+      "applicationNo": "APP-87300",
+      "date": "2026-06-23T09:20:28.556Z",
+      "status": "Pending",
+      "fees": {
+        "admissionFee": 1000,
+        "registrationFee": 1000,
+        "session": "2026-27",
+        "lateFeeDays": 0,
+        "dailyLateFeeRate": 0,
+        "totalLateFee": 0,
+        "totalFee": 2000
+      }
+    },
+    {
+      "id": 1782206733868,
+      "studentName": "Ali",
+      "fatherName": "Ahmad",
+      "dob": "2010-01-01",
+      "cnic": "12345-1234567-1",
+      "mobile": "03001234567",
+      "sectionType": "Tulba",
+      "classProgram": "Mutawassitah",
+      "documents": {
+        "photo": {
+          "name": "a.jpg"
+        },
+        "student_cnic": {
+          "name": "b.jpg"
+        },
+        "father_cnic": {
+          "name": "c.jpg"
+        },
+        "result_card": {
+          "name": "d.jpg"
+        }
+      },
+      "challanNo": "JS-7619",
+      "applicationNo": "APP-89740",
+      "date": "2026-06-23T09:25:33.868Z",
+      "status": "Pending",
+      "fees": {
+        "admissionFee": 1000,
+        "registrationFee": 1000,
+        "session": "2026-27",
+        "lateFeeDays": 0,
+        "dailyLateFeeRate": 0,
+        "totalLateFee": 0,
+        "totalFee": 2000
+      }
+    }
+  ],
+  "feeConfig": {
+    "admissionFee": 2000,
+    "registrationFee": 1000,
+    "session": "2026-27"
+  },
+  "feeStructures": [
+    {
+      "classProgram": "Mutawassitah",
+      "admissionFee": 2050,
+      "phase1Fee": 2050,
+      "phase2Fee": 2550,
+      "phase3Fee": 3550,
+      "sectionType": "Tulba Section",
+      "id": 1782039530484
+    },
+    {
+      "classProgram": "Mutawassitah",
+      "admissionFee": 2050,
+      "phase1Fee": 2050,
+      "phase2Fee": 2550,
+      "phase3Fee": 3550,
+      "sectionType": "Talibat Section",
+      "id": 1782039530152
+    },
+    {
+      "classProgram": "Sanawiya Aamma Awal",
+      "admissionFee": 3050,
+      "phase1Fee": 3050,
+      "phase2Fee": 3550,
+      "phase3Fee": 4550,
+      "sectionType": "Tulba Section",
+      "id": 1782039530167
+    },
+    {
+      "classProgram": "Sanawiya Aamma Awal",
+      "admissionFee": 3050,
+      "phase1Fee": 3050,
+      "phase2Fee": 3550,
+      "phase3Fee": 4550,
+      "sectionType": "Talibat Section",
+      "id": 1782039530692
+    },
+    {
+      "classProgram": "Sanawiya Aamma Dom",
+      "admissionFee": 3050,
+      "phase1Fee": 3050,
+      "phase2Fee": 3550,
+      "phase3Fee": 4550,
+      "sectionType": "Tulba Section",
+      "id": 1782039531027
+    },
+    {
+      "classProgram": "Sanawiya Aamma Dom",
+      "admissionFee": 3050,
+      "phase1Fee": 3050,
+      "phase2Fee": 3550,
+      "phase3Fee": 4550,
+      "sectionType": "Talibat Section",
+      "id": 1782039530608
+    },
+    {
+      "classProgram": "Sanawiya Khasa Awal",
+      "admissionFee": 3550,
+      "phase1Fee": 3550,
+      "phase2Fee": 4050,
+      "phase3Fee": 5050,
+      "sectionType": "Tulba Section",
+      "id": 1782039530976
+    },
+    {
+      "classProgram": "Sanawiya Khasa Awal",
+      "admissionFee": 3550,
+      "phase1Fee": 3550,
+      "phase2Fee": 4050,
+      "phase3Fee": 5050,
+      "sectionType": "Talibat Section",
+      "id": 1782039530817
+    },
+    {
+      "classProgram": "Sanawiya Khasa Dom",
+      "admissionFee": 3550,
+      "phase1Fee": 3550,
+      "phase2Fee": 4050,
+      "phase3Fee": 5050,
+      "sectionType": "Tulba Section",
+      "id": 1782039531040
+    },
+    {
+      "classProgram": "Sanawiya Khasa Dom",
+      "admissionFee": 3550,
+      "phase1Fee": 3550,
+      "phase2Fee": 4050,
+      "phase3Fee": 5050,
+      "sectionType": "Talibat Section",
+      "id": 1782039530731
+    },
+    {
+      "classProgram": "Aliya Awal",
+      "admissionFee": 4050,
+      "phase1Fee": 4050,
+      "phase2Fee": 5050,
+      "phase3Fee": 6050,
+      "sectionType": "Tulba Section",
+      "id": 1782039530792
+    },
+    {
+      "classProgram": "Aliya Awal",
+      "admissionFee": 4050,
+      "phase1Fee": 4050,
+      "phase2Fee": 5050,
+      "phase3Fee": 6050,
+      "sectionType": "Talibat Section",
+      "id": 1782039530838
+    },
+    {
+      "classProgram": "Aliya Dom",
+      "admissionFee": 4050,
+      "phase1Fee": 4050,
+      "phase2Fee": 5050,
+      "phase3Fee": 6050,
+      "sectionType": "Tulba Section",
+      "id": 1782039530528
+    },
+    {
+      "classProgram": "Aliya Dom",
+      "admissionFee": 4050,
+      "phase1Fee": 4050,
+      "phase2Fee": 5050,
+      "phase3Fee": 6050,
+      "sectionType": "Talibat Section",
+      "id": 1782039531032
+    },
+    {
+      "classProgram": "Alamiya Awal",
+      "admissionFee": 5550,
+      "phase1Fee": 5550,
+      "phase2Fee": 6550,
+      "phase3Fee": 7550,
+      "sectionType": "Tulba Section",
+      "id": 1782039530687
+    },
+    {
+      "classProgram": "Alamiya Awal",
+      "admissionFee": 5550,
+      "phase1Fee": 5550,
+      "phase2Fee": 6550,
+      "phase3Fee": 7550,
+      "sectionType": "Talibat Section",
+      "id": 1782039530896
+    },
+    {
+      "classProgram": "Alamiya Dom",
+      "admissionFee": 5550,
+      "phase1Fee": 5550,
+      "phase2Fee": 6550,
+      "phase3Fee": 7550,
+      "sectionType": "Tulba Section",
+      "id": 1782039530512
+    },
+    {
+      "classProgram": "Alamiya Dom",
+      "admissionFee": 5550,
+      "phase1Fee": 5550,
+      "phase2Fee": 6550,
+      "phase3Fee": 7550,
+      "sectionType": "Talibat Section",
+      "id": 1782039530671
+    },
+    {
+      "classProgram": "Takhassus Awal",
+      "admissionFee": 6050,
+      "phase1Fee": 6050,
+      "phase2Fee": 7050,
+      "phase3Fee": 8050,
+      "sectionType": "Tulba Section",
+      "id": 1782039530322
+    },
+    {
+      "classProgram": "Takhassus Awal",
+      "admissionFee": 6050,
+      "phase1Fee": 6050,
+      "phase2Fee": 7050,
+      "phase3Fee": 8050,
+      "sectionType": "Talibat Section",
+      "id": 1782039530237
+    },
+    {
+      "classProgram": "Takhassus Dom",
+      "admissionFee": 6050,
+      "phase1Fee": 6050,
+      "phase2Fee": 7050,
+      "phase3Fee": 8050,
+      "sectionType": "Tulba Section",
+      "id": 1782039531000
+    },
+    {
+      "classProgram": "Takhassus Dom",
+      "admissionFee": 6050,
+      "phase1Fee": 6050,
+      "phase2Fee": 7050,
+      "phase3Fee": 8050,
+      "sectionType": "Talibat Section",
+      "id": 1782039530626
+    },
+    {
+      "classProgram": "Amma Khasusi",
+      "admissionFee": 5550,
+      "phase1Fee": 5550,
+      "phase2Fee": 6550,
+      "phase3Fee": 7550,
+      "sectionType": "Tulba Section",
+      "id": 1782039845207
+    },
+    {
+      "classProgram": "Amma Khasusi",
+      "admissionFee": 5550,
+      "phase1Fee": 5550,
+      "phase2Fee": 6550,
+      "phase3Fee": 7550,
+      "sectionType": "Talibat Section",
+      "id": 1782039530854
+    },
+    {
+      "classProgram": "Khasa Khasusi",
+      "admissionFee": 7050,
+      "phase1Fee": 7050,
+      "phase2Fee": 8050,
+      "phase3Fee": 9050,
+      "sectionType": "Tulba Section",
+      "id": 1782039530208
+    },
+    {
+      "classProgram": "Khasa Khasusi",
+      "admissionFee": 7050,
+      "phase1Fee": 7050,
+      "phase2Fee": 8050,
+      "phase3Fee": 9050,
+      "sectionType": "Talibat Section",
+      "id": 1782039530856
+    },
+    {
+      "classProgram": "Almiya Khasusi Part One",
+      "admissionFee": 13550,
+      "phase1Fee": 13550,
+      "phase2Fee": 17550,
+      "phase3Fee": 22550,
+      "sectionType": "Tulba Section",
+      "id": 1782039845208
+    },
+    {
+      "classProgram": "Almiya Khasusi Part One",
+      "admissionFee": 13550,
+      "phase1Fee": 13550,
+      "phase2Fee": 17550,
+      "phase3Fee": 22550,
+      "sectionType": "Talibat Section",
+      "id": 1782039530711
+    },
+    {
+      "classProgram": "Almiya Khasusi Part Two",
+      "admissionFee": 13550,
+      "phase1Fee": 13550,
+      "phase2Fee": 17550,
+      "phase3Fee": 22550,
+      "sectionType": "Tulba Section",
+      "id": 1782039530806
+    },
+    {
+      "classProgram": "Almiya Khasusi Part Two",
+      "admissionFee": 13550,
+      "phase1Fee": 13550,
+      "phase2Fee": 17550,
+      "phase3Fee": 22550,
+      "sectionType": "Talibat Section",
+      "id": 1782039530971
+    },
+    {
+      "classProgram": "Hifz-ul-Quran",
+      "sectionType": "Tulba Section",
+      "admissionFee": 3500,
+      "registrationFee": 1000,
+      "phase1Fee": 3500,
+      "phase2Fee": 4500,
+      "phase3Fee": 5500,
+      "monthlyFee": 1500,
+      "annualCharges": 0,
+      "id": 1782309820523
+    },
+    {
+      "classProgram": "Hifz-ul-Quran",
+      "sectionType": "Talibat Section",
+      "admissionFee": 3500,
+      "registrationFee": 1000,
+      "phase1Fee": 3500,
+      "phase2Fee": 4500,
+      "phase3Fee": 5500,
+      "monthlyFee": 1500,
+      "annualCharges": 0,
+      "id": 1782309819681
+    },
+    {
+      "classProgram": "Tajweed-o-Qira'at",
+      "sectionType": "Tulba Section",
+      "admissionFee": 3500,
+      "registrationFee": 1000,
+      "phase1Fee": 3500,
+      "phase2Fee": 4500,
+      "phase3Fee": 5500,
+      "monthlyFee": 1500,
+      "annualCharges": 0,
+      "id": 1782309820132
+    },
+    {
+      "classProgram": "Tajweed-o-Qira'at",
+      "sectionType": "Talibat Section",
+      "admissionFee": 3500,
+      "registrationFee": 1000,
+      "phase1Fee": 3500,
+      "phase2Fee": 4500,
+      "phase3Fee": 5500,
+      "monthlyFee": 1500,
+      "annualCharges": 0,
+      "id": 1782309820469
+    }
+  ],
+  "admissionSchedule": {
+    "enabled": true,
+    "academicYear": "2026-27",
+    "phases": [
+      {
+        "name": "Phase 1 (Single Fee)",
+        "startDate": "2026-06-25",
+        "endDate": "2026-07-24"
+      },
+      {
+        "name": "Phase 2 (Double Fee)",
+        "startDate": "2026-07-25",
+        "endDate": "2026-08-24"
+      },
+      {
+        "name": "Phase 3 (Triple Fee)",
+        "startDate": "2026-08-25",
+        "endDate": "2026-09-24"
+      }
+    ],
+    "lateFee": {
+      "enabled": true,
+      "amountPerDay": 170
+    },
+    "specialFees": {
+      "Hifz-ul-Quran": {
+        "normal": 3500,
+        "urgent": 5000
+      },
+      "Tajweed-o-Qira'at": {
+        "normal": 3500,
+        "urgent": 5000
+      }
+    }
+  },
+  "donations": [],
+  "donationPortals": [
+    {
+      "id": "student-sponsorship",
+      "title": "Student Sponsorship",
+      "image": "/images/whatsapp_2.jpeg"
+    },
+    {
+      "id": "zakat-fund",
+      "title": "Zakat Fund",
+      "image": "/images/WhatsApp 3.jpeg"
+    },
+    {
+      "id": "campus-development",
+      "title": "Campus Development",
+      "image": "https://images.unsplash.com/photo-1519817650390-64a93db51149?q=80&w=800&auto=format&fit=crop"
+    },
+    {
+      "id": "sadaqah-jariyah",
+      "title": "Sadaqah Jariyah",
+      "image": "https://images.unsplash.com/photo-1574672280600-4accfa5b6f98?q=80&w=800&auto=format&fit=crop"
+    }
+  ],
+  "pageConfigs": [
+    {
+      "page": "contact",
+      "image": "/images/ahmad.png"
+    },
+    {
+      "page": "courses",
+      "image": "/images/WhatsApp 5.jpeg"
+    },
+    {
+      "page": "home",
+      "section": "Student Learning",
+      "image": "/images/WhatsApp 1.jpeg"
+    },
+    {
+      "page": "home",
+      "section": "Hero Slider",
+      "sliderImages": [
+        "https://images.unsplash.com/photo-1519817650390-64a93db51149?q=80&w=2000",
+        "/images/mahfil.png",
+        "/images/mahfil1.jpeg",
+        "/images/mahfil2.jpeg",
+        "/images/mahfil3.jpeg",
+        "/images/WhatsApp.jpeg"
+      ]
+    }
+  ],
+  "popupAnnouncement": {
+    "enabled": false,
+    "image": "/images/admission.jpeg",
+    "link": "/admissions",
+    "title": "",
+    "showOncePerDay": false,
+    "message": ""
+  },
+  "results": [],
+  "admissionRequirements": [
+    {
+      "id": 1782040652804,
+      "title": "Age Verification",
+      "text": "Applicants must be between 5 and 80 years old for various departments."
+    },
+    {
+      "id": 1782040652805,
+      "title": "Authentic Documents",
+      "text": "Clear copies of NADRA ID/B-Form, Father's CNIC, and previous marksheets/result cards are mandatory."
+    },
+    {
+      "id": 1782040652806,
+      "title": "Interview Process",
+      "text": "All students must pass a basic Quran recitation and character assessment interview."
+    }
+  ],
+  "customFormFields": [
+    {
+      "id": "mobile",
+      "title": "Mobile Number",
+      "type": "tel",
+      "required": true,
+      "isCore": true
+    },
+    {
+      "id": "cnic",
+      "title": "CNIC / B-Form Number",
+      "type": "text",
+      "required": true,
+      "isCore": true
+    },
+    {
+      "id": "dob",
+      "title": "Date of Birth",
+      "type": "date",
+      "required": true,
+      "isCore": true
+    },
+    {
+      "id": "fatherName",
+      "title": "Father Name",
+      "type": "text",
+      "required": true,
+      "isCore": true
+    },
+    {
+      "id": "studentName",
+      "title": "Student Full Name",
+      "type": "text",
+      "required": true,
+      "isCore": true
+    }
+  ]
+}
