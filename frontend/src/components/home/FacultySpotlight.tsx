@@ -50,7 +50,7 @@ export default function FacultySpotlight() {
                  <h3 className="text-sm md:text-2xl font-black text-slate-900 mb-0.5 md:mb-1 line-clamp-1">{t('faculty_member_1_name')}</h3>
                  <p className="text-teal-600 font-bold text-[9px] md:text-sm mb-2 md:mb-12">{t('faculty_member_1_role')}</p>
                  <p className="hidden md:block text-slate-700 text-base mb-16 flex-1">&quot;{t('faculty_member_1_bio')}&quot;</p>
-                 <Link href="/faculty/1" className="mt-auto inline-flex items-center text-teal-600 font-bold text-[10px] md:text-base hover:text-teal-700 transition-colors">
+                 <Link href="/faculty-profile?id=1" className="mt-auto inline-flex items-center text-teal-600 font-bold text-[10px] md:text-base hover:text-teal-700 transition-colors">
                     {t('faculty_spotlight_view_profile')} <ChevronRight className="ml-0.5 md:ml-1 w-3 h-3 md:w-4 md:h-4" />
                  </Link>
               </div>
@@ -77,7 +77,7 @@ export default function FacultySpotlight() {
                  <h3 className="text-sm md:text-2xl font-black text-slate-900 mb-0.5 md:mb-1 line-clamp-1">{t('faculty_member_2_name')}</h3>
                  <p className="text-purple-600 font-bold text-[9px] md:text-sm mb-2 md:mb-12">{t('faculty_member_2_role')}</p>
                  <p className="hidden md:block text-slate-700 text-base mb-16 flex-1">&quot;{t('faculty_member_2_bio')}&quot;</p>
-                 <Link href="/faculty/2" className="mt-auto inline-flex items-center text-purple-600 font-bold text-[10px] md:text-base hover:opacity-80 transition-colors">
+                 <Link href="/faculty-profile?id=2" className="mt-auto inline-flex items-center text-purple-600 font-bold text-[10px] md:text-base hover:text-purple-700 transition-colors">
                     {t('faculty_spotlight_view_profile')} <ChevronRight className="ml-0.5 md:ml-1 w-3 h-3 md:w-4 md:h-4" />
                  </Link>
               </div>

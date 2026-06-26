@@ -24,7 +24,7 @@ export default function AcademicPrograms() {
       category: t('academic_programs_1_category'),
       desc: t('academic_programs_1_desc'),
       image: 'https://images.unsplash.com/photo-1609599006353-e629aaabfeae?auto=format&fit=crop&q=80&w=800',
-      link: '/courses/1'
+      link: '/program?id=1'
     },
     {
       id: 'dars-e-nizami',
@@ -32,7 +32,7 @@ export default function AcademicPrograms() {
       category: t('academic_programs_2_category'),
       desc: t('academic_programs_2_desc'),
       image: '/hadith.jpg',
-      link: '/courses/2'
+      link: '/program?id=2'
     },
     {
       id: 'tajweed',
@@ -40,7 +40,7 @@ export default function AcademicPrograms() {
       category: t('academic_programs_3_category'),
       desc: t('academic_programs_3_desc'),
       image: '/tajweed-o-qirat.jpg',
-      link: '/courses/3'
+      link: '/program?id=3'
     },
     {
       id: 'arabic',
@@ -48,7 +48,7 @@ export default function AcademicPrograms() {
       category: t('academic_programs_4_category'),
       desc: t('academic_programs_4_desc'),
       image: '/arabic-language.jpg',
-      link: '/courses/4'
+      link: '/program?id=4'
     },
     {
       id: 'takhasusat',
@@ -56,7 +56,7 @@ export default function AcademicPrograms() {
       category: t('academic_programs_5_category'),
       desc: t('academic_programs_5_desc'),
       image: '/takhasus.jpeg',
-      link: '/courses/5'
+      link: '/program?id=5'
     },
     {
       id: 'khasusi-dars-e-nizami',
@@ -64,7 +64,7 @@ export default function AcademicPrograms() {
       category: t('academic_programs_6_category'),
       desc: t('academic_programs_6_desc'),
       image: '/hadith.jpg',
-      link: '/courses/6'
+      link: '/program?id=6'
     }
   ];
 
