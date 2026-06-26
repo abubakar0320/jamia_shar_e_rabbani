@@ -9,8 +9,8 @@ import {
   ShieldCheck, Mail, Share2, GraduationCap,
   FileIcon, Eye, Download, X
 } from 'lucide-react';
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'next/navigation';
+import React, { useEffect, useState, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import OptimizedImage from '@/components/OptimizedImage';
@@ -49,63 +49,65 @@ interface Course {
   programDetailsImage?: string;
 }
 
-export default function CourseDetails() {
+const staticCourses: Course[] = [
+  {
+    id: 1,
+    title: 'academic_programs_1_title',
+    duration: '3-4 Years',
+    level: 'academic_programs_1_category',
+    desc: 'academic_programs_1_desc',
+    image: 'https://images.unsplash.com/photo-1609599006353-e629aaabfeae?auto=format&fit=crop&q=80&w=800'
+  },
+  {
+    id: 2,
+    title: 'academic_programs_2_title',
+    duration: '8 Years',
+    level: 'academic_programs_2_category',
+    desc: 'academic_programs_2_desc',
+    image: '/hadith.jpg'
+  },
+  {
+    id: 3,
+    title: 'academic_programs_3_title',
+    duration: '2 Years',
+    level: 'academic_programs_3_category',
+    desc: 'academic_programs_3_desc',
+    image: '/tajweed-o-qirat.jpg'
+  },
+  {
+    id: 4,
+    title: 'academic_programs_4_title',
+    duration: '1 Year',
+    level: 'academic_programs_4_category',
+    desc: 'academic_programs_4_desc',
+    image: '/arabic-language.jpg'
+  },
+  {
+    id: 5,
+    title: 'academic_programs_5_title',
+    duration: '2 Years',
+    level: 'academic_programs_5_category',
+    desc: 'academic_programs_5_desc',
+    image: '/takhasus.jpeg'
+  },
+  {
+    id: 6,
+    title: 'academic_programs_6_title',
+    duration: '6 Years',
+    level: 'academic_programs_6_category',
+    desc: 'academic_programs_6_desc',
+    image: '/hadith.jpg'
+  }
+];
+
+function CourseDetailsContent() {
   const { t } = useTranslation();
-  const { id } = useParams();
+  const searchParams = useSearchParams();
+  const id = searchParams.get('id');
   const [course, setCourse] = useState<Course | null>(null);
   const [loading, setLoading] = useState(true);
+  const [activeTab, setActiveTab] = useState('overview');
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-
-  const staticCourses: Course[] = [
-    {
-      id: 1,
-      title: 'academic_programs_1_title',
-      duration: '3-4 Years',
-      level: 'academic_programs_1_category',
-      desc: 'academic_programs_1_desc',
-      image: 'https://images.unsplash.com/photo-1609599006353-e629aaabfeae?auto=format&fit=crop&q=80&w=800'
-    },
-    {
-      id: 2,
-      title: 'academic_programs_2_title',
-      duration: '8 Years',
-      level: 'academic_programs_2_category',
-      desc: 'academic_programs_2_desc',
-      image: '/hadith.jpg'
-    },
-    {
-      id: 3,
-      title: 'academic_programs_3_title',
-      duration: '2 Years',
-      level: 'academic_programs_3_category',
-      desc: 'academic_programs_3_desc',
-      image: '/tajweed-o-qirat.jpg'
-    },
-    {
-      id: 4,
-      title: 'academic_programs_4_title',
-      duration: '1 Year',
-      level: 'academic_programs_4_category',
-      desc: 'academic_programs_4_desc',
-      image: '/arabic-language.jpg'
-    },
-    {
-      id: 5,
-      title: 'academic_programs_5_title',
-      duration: '2 Years',
-      level: 'academic_programs_5_category',
-      desc: 'academic_programs_5_desc',
-      image: '/takhasus.jpeg'
-    },
-    {
-      id: 6,
-      title: 'academic_programs_6_title',
-      duration: '6 Years',
-      level: 'academic_programs_6_category',
-      desc: 'academic_programs_6_desc',
-      image: '/hadith.jpg'
-    }
-  ];
 
   useEffect(() => {
     const fallbackCourse = staticCourses.find(c => c.id.toString() === String(id)) || null;
@@ -452,3 +454,4 @@ export default function CourseDetails() {
     </div>
   );
 }
+export default function CourseDetails() { return <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><div className="w-10 h-10 border-4 border-emerald-700 border-t-transparent rounded-full animate-spin"></div></div>}><CourseDetailsContent /></Suspense>; }

@@ -155,7 +155,7 @@ export default function Faculty() {
                           <Phone className="w-4 h-4 md:w-5 md:h-5" />
                         </Link>
                         <Link 
-                          href={`/faculty/${(member as any)._id || member.id}`} 
+                          href={`/faculty-profile?id=${(member as any)._id || member.id}`} 
                           className={`ml-auto px-2 md:px-4 py-1 md:py-1.5 text-[9px] md:text-xs font-bold rounded-lg md:rounded-xl border md:border-2 transition-colors ${i%4===0?"border-rose-100 text-rose-600 hover:bg-rose-50":i%4===1?"border-amber-100 text-amber-600 hover:bg-amber-50":i%4===2?"border-emerald-100 text-emerald-600 hover:bg-emerald-50":"border-blue-100 text-blue-600 hover:bg-blue-50"}`}
                         >
                           <span className="hidden md:inline">{t('faculty_member_profile_link', 'View Profile')}</span>

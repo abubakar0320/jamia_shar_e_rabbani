@@ -215,7 +215,7 @@ export default function Courses() {
                         
                         <div className="flex flex-col xl:flex-row gap-2 md:gap-3 pt-2 md:pt-2 border-t border-slate-100">
                           <Link 
-                            href={`/courses/${(course as any)._id || course.id}`} 
+                            href={`/program?id=${(course as any)._id || course.id}`} 
                             className={`flex-1 text-center py-1.5 md:py-2.5 text-[10px] md:text-xs font-bold rounded-lg md:rounded-xl border md:border-2 transition-colors ${i%4===0?"border-rose-100 text-rose-600 hover:bg-rose-50":i%4===1?"border-amber-100 text-amber-600 hover:bg-amber-50":i%4===2?"border-emerald-100 text-emerald-600 hover:bg-emerald-50":"border-blue-100 text-blue-600 hover:bg-blue-50"}`}
                           >
                             {t('courses_details_link')}

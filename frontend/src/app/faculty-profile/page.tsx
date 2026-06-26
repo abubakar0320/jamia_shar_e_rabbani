@@ -1,7 +1,7 @@
 'use client';
 
-import { useParams } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
+import React, { useEffect, useState, Suspense } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import OptimizedImage from '@/components/OptimizedImage';
@@ -33,8 +33,9 @@ interface FacultyMember {
   achievements?: string[];
 }
 
-export default function FacultyProfile() {
-  const { id } = useParams();
+function FacultyProfileContent() {
+  const searchParams = useSearchParams();
+  const id = searchParams.get('id');
   const { t } = useTranslation();
   const [member, setMember] = useState<FacultyMember | null>(null);
   const [related, setRelated] = useState<FacultyMember[]>([]);
@@ -351,3 +352,4 @@ export default function FacultyProfile() {
     </div>
   );
 }
+export default function FacultyProfile() { return <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><div className="w-10 h-10 border-4 border-emerald-700 border-t-transparent rounded-full animate-spin"></div></div>}><FacultyProfileContent /></Suspense>; }
