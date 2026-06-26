@@ -82,11 +82,16 @@ export default function AdmissionChallan({ data, onBack }: ChallanProps) {
   };
 
   const ChallanCopy = ({ title, type }: { title: string, type: 'jamia' | 'bank' | 'student' }) => {
+    const theme = 
+      type === 'jamia' ? { border: 'border-rose-800', text: 'text-rose-800', bg: 'bg-rose-50' } :
+      type === 'bank' ? { border: 'border-blue-800', text: 'text-blue-800', bg: 'bg-blue-50' } :
+      { border: 'border-emerald-800', text: 'text-emerald-800', bg: 'bg-emerald-50' };
+
     return (
-      <div className="flex-1 p-6 border-r border-dashed border-gray-300 last:border-r-0 print:border-r print:border-gray-300 flex flex-col h-full bg-white">
+      <div className={`flex-1 p-6 relative overflow-hidden flex flex-col h-full bg-white border-2 ${theme.border} rounded-sm m-2 shadow-sm print:m-0 print:border-2 print:border-gray-900 print:rounded-none print:shadow-none print:border-r-0 last:print:border-r-2`}>
+        <div className={`absolute top-0 right-0 ${theme.bg} ${theme.text} px-4 py-1 rounded-bl-xl font-black text-[10px] uppercase tracking-widest print:border print:border-gray-300`}>{title}</div>
         {/* Header */}
-        <div className="text-center mb-6 pb-4 border-b-2 border-gray-800">
-           <h2 className="text-xs font-semibold uppercase tracking-widest text-gray-500 mb-1">{title}</h2>
+        <div className="text-center mb-6 pb-4 border-b-2 border-gray-800 mt-4">
            <h1 className="font-bold text-lg leading-none tracking-tight uppercase text-gray-900">{t('JAMIA SHER-E-RABBANI')}</h1>
            <p className="text-[9px] font-semibold text-gray-500 uppercase tracking-widest mt-1">{t('Mananwala, District Sheikhupura')}</p>
         </div>
@@ -221,7 +226,7 @@ export default function AdmissionChallan({ data, onBack }: ChallanProps) {
         animate={{ opacity: 1, y: 0 }}
         className="flex flex-col gap-10"
       >
-        <div className={`bg-white border-2 border-gray-900 print:border-2 print:border-gray-900 flex flex-col lg:flex-row print:flex-row h-full min-h-[297mm] ${printMode === 'form' ? 'print:hidden' : ''}`}>
+        <div className={`flex flex-col lg:flex-row print:flex-row h-full min-h-[297mm] print:border-2 print:border-gray-900 print:bg-white ${printMode === 'form' ? 'print:hidden' : ''}`}>
           <ChallanCopy title="JAMIA RECORD COPY" type="jamia" />
           <ChallanCopy title="BANK COPY" type="bank" />
           <ChallanCopy title="STUDENT COPY" type="student" />
