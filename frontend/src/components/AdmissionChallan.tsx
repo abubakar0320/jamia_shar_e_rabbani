@@ -88,7 +88,7 @@ export default function AdmissionChallan({ data, onBack }: ChallanProps) {
       { border: 'border-emerald-800', text: 'text-emerald-800', bg: 'bg-emerald-50' };
 
     return (
-      <div className={`flex-1 p-6 relative overflow-hidden flex flex-col h-full bg-white border-2 ${theme.border} rounded-sm m-2 shadow-sm print:p-2 print:m-0 print:border-x-0 print:border-t-0 print:border-b-2 print:border-dashed print:border-slate-400 print:rounded-none print:shadow-none last:print:border-b-0`}>
+      <div className={`flex-1 p-6 relative overflow-hidden flex flex-col h-full bg-white border-2 ${theme.border} rounded-sm m-2 shadow-sm print:p-2 print:m-0 print:border-y-0 print:border-l-0 print:border-r-2 print:border-dashed print:border-slate-400 print:rounded-none print:shadow-none last:print:border-r-0`}>
         <div className={`absolute top-0 right-0 ${theme.bg} ${theme.text} px-4 py-1 rounded-bl-xl font-black text-[10px] uppercase tracking-widest print:py-0 print:text-[8px] print:border print:border-gray-300`}>{title}</div>
         {/* Header */}
         <div className="text-center mb-6 pb-4 border-b-2 border-gray-800 mt-4 print:mb-2 print:pb-2 print:mt-1">
@@ -214,7 +214,7 @@ export default function AdmissionChallan({ data, onBack }: ChallanProps) {
         animate={{ opacity: 1, y: 0 }}
         className="flex flex-col gap-10"
       >
-        <div className="flex flex-col lg:flex-row print:flex-col print:h-[285mm] print:overflow-hidden print:bg-white print:border-none print:shadow-none">
+        <div className="flex flex-col lg:flex-row print:flex-row print:h-full print:min-h-[190mm] print:overflow-hidden print:bg-white print:border-none print:shadow-none">
           <ChallanCopy title="JAMIA RECORD COPY" type="jamia" />
           <ChallanCopy title="BANK COPY" type="bank" />
           <ChallanCopy title="STUDENT COPY" type="student" />
@@ -228,7 +228,7 @@ export default function AdmissionChallan({ data, onBack }: ChallanProps) {
       <style jsx global>{`
         @media print {
           @page {
-            size: A4 portrait;
+            size: A4 landscape;
             margin: 5mm;
           }
           body {
