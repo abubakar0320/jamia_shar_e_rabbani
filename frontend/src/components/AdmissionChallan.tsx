@@ -88,26 +88,26 @@ export default function AdmissionChallan({ data, onBack }: ChallanProps) {
       { border: 'border-emerald-800', text: 'text-emerald-800', bg: 'bg-emerald-50' };
 
     return (
-      <div className={`flex-1 p-6 relative overflow-hidden flex flex-col h-full bg-white border-2 ${theme.border} rounded-sm m-2 shadow-sm print:m-0 print:border-x-0 print:border-t-0 print:border-b-2 print:border-dashed print:border-slate-400 print:rounded-none print:shadow-none last:print:border-b-0`}>
-        <div className={`absolute top-0 right-0 ${theme.bg} ${theme.text} px-4 py-1 rounded-bl-xl font-black text-[10px] uppercase tracking-widest print:border print:border-gray-300`}>{title}</div>
+      <div className={`flex-1 p-6 relative overflow-hidden flex flex-col h-full bg-white border-2 ${theme.border} rounded-sm m-2 shadow-sm print:p-2 print:m-0 print:border-x-0 print:border-t-0 print:border-b-2 print:border-dashed print:border-slate-400 print:rounded-none print:shadow-none last:print:border-b-0`}>
+        <div className={`absolute top-0 right-0 ${theme.bg} ${theme.text} px-4 py-1 rounded-bl-xl font-black text-[10px] uppercase tracking-widest print:py-0 print:text-[8px] print:border print:border-gray-300`}>{title}</div>
         {/* Header */}
-        <div className="text-center mb-6 pb-4 border-b-2 border-gray-800 mt-4">
-           <h1 className="font-bold text-lg leading-none tracking-tight uppercase text-gray-900">{t('JAMIA SHER-E-RABBANI')}</h1>
-           <p className="text-[9px] font-semibold text-gray-500 uppercase tracking-widest mt-1">{t('Mananwala, District Sheikhupura')}</p>
+        <div className="text-center mb-6 pb-4 border-b-2 border-gray-800 mt-4 print:mb-2 print:pb-2 print:mt-1">
+           <h1 className="font-bold text-lg leading-none tracking-tight uppercase text-gray-900 print:text-base">{t('JAMIA SHER-E-RABBANI')}</h1>
+           <p className="text-[9px] font-semibold text-gray-500 uppercase tracking-widest mt-1 print:text-[7px]">{t('Mananwala, District Sheikhupura')}</p>
         </div>
 
-        <div className="flex justify-between mb-6 p-3 border border-gray-300 bg-gray-50">
+        <div className="flex justify-between mb-6 p-3 border border-gray-300 bg-gray-50 print:mb-2 print:p-1.5">
           <div>
-            <p className="text-[9px] text-gray-500 uppercase font-semibold tracking-wide">{t('Challan No')}</p>
-            <p className="font-bold text-gray-900">{data.challanNo}</p>
+            <p className="text-[9px] text-gray-500 uppercase font-semibold tracking-wide print:text-[7px]">{t('Challan No')}</p>
+            <p className="font-bold text-gray-900 print:text-[10px]">{data.challanNo}</p>
           </div>
           <div className="text-right">
-            <p className="text-[9px] text-gray-500 uppercase font-semibold tracking-wide">{t('Application No')}</p>
-            <p className="font-bold text-gray-900">{data.applicationNo}</p>
+            <p className="text-[9px] text-gray-500 uppercase font-semibold tracking-wide print:text-[7px]">{t('Application No')}</p>
+            <p className="font-bold text-gray-900 print:text-[10px]">{data.applicationNo}</p>
           </div>
         </div>
 
-        <div className="space-y-2 mb-6">
+        <div className="space-y-2 mb-6 print:space-y-0.5 print:mb-2">
           <ChallanRow label={t('Student Name')} value={data.studentName} />
           <ChallanRow label={t('Father Name')} value={data.fatherName} />
           <ChallanRow label={t('CNIC / B-Form')} value={data.cnic || '---'} />
@@ -116,12 +116,12 @@ export default function AdmissionChallan({ data, onBack }: ChallanProps) {
           <ChallanRow label={t('Date')} value={new Date(data.date).toLocaleDateString()} />
         </div>
 
-        <div className="border border-gray-300 mb-6">
+        <div className="border border-gray-300 mb-6 print:mb-2">
           <table className="w-full text-xs">
             <thead>
               <tr className="bg-gray-100 border-b border-gray-300">
-                <th className="text-left py-2 px-3 uppercase text-[9px] text-gray-700 font-semibold">{t('Fee Description')}</th>
-                <th className="text-right py-2 px-3 uppercase text-[9px] text-gray-700 font-semibold">{t('Amount')}</th>
+                <th className="text-left py-2 px-3 uppercase text-[9px] text-gray-700 font-semibold print:py-0.5 print:px-2 print:text-[8px]">{t('Fee Description')}</th>
+                <th className="text-right py-2 px-3 uppercase text-[9px] text-gray-700 font-semibold print:py-0.5 print:px-2 print:text-[8px]">{t('Amount')}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
@@ -132,43 +132,43 @@ export default function AdmissionChallan({ data, onBack }: ChallanProps) {
             </tbody>
             <tfoot>
               <tr className="bg-gray-50 border-t border-gray-300">
-                <th className="text-left py-3 px-3 font-semibold text-[10px] text-gray-900">{t('GRAND TOTAL')}</th>
-                <th className="text-right py-3 px-3 font-bold text-base text-gray-900">RS. {grandTotal}</th>
+                <th className="text-left py-3 px-3 font-semibold text-[10px] text-gray-900 print:py-1 print:px-2">{t('GRAND TOTAL')}</th>
+                <th className="text-right py-3 px-3 font-bold text-base text-gray-900 print:py-1 print:px-2 print:text-sm">RS. {grandTotal}</th>
               </tr>
             </tfoot>
           </table>
         </div>
 
         {/* Bank Account Details */}
-        <div className="mb-6 p-4 border border-gray-300 bg-gray-50">
-          <div className="text-[10px] font-semibold uppercase tracking-wide text-gray-900 border-b border-gray-300 pb-2 mb-3">
+        <div className="mb-6 p-4 border border-gray-300 bg-gray-50 print:mb-2 print:p-2">
+          <div className="text-[10px] font-semibold uppercase tracking-wide text-gray-900 border-b border-gray-300 pb-2 mb-3 print:pb-1 print:mb-1 print:text-[8px]">
             BANK ACCOUNT DETAILS
           </div>
-          <div className="space-y-1.5">
+          <div className="space-y-1.5 print:space-y-0.5">
             <div className="flex justify-between">
-              <span className="text-[9px] font-semibold text-gray-500 uppercase">Bank Name:</span>
-              <span className="font-semibold text-[10px] uppercase text-gray-900">{bankConfig.bankName}</span>
+              <span className="text-[9px] font-semibold text-gray-500 uppercase print:text-[7px]">Bank Name:</span>
+              <span className="font-semibold text-[10px] uppercase text-gray-900 print:text-[8px]">{bankConfig.bankName}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-[9px] font-semibold text-gray-500 uppercase">Account Title:</span>
-              <span className="font-semibold text-[10px] uppercase text-gray-900">{bankConfig.accountTitle}</span>
+              <span className="text-[9px] font-semibold text-gray-500 uppercase print:text-[7px]">Account Title:</span>
+              <span className="font-semibold text-[10px] uppercase text-gray-900 print:text-[8px]">{bankConfig.accountTitle}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-[9px] font-semibold text-gray-500 uppercase">Account Number:</span>
-              <span className="font-semibold text-[10px] uppercase text-gray-900">{bankConfig.accountNumber}</span>
+              <span className="text-[9px] font-semibold text-gray-500 uppercase print:text-[7px]">Account Number:</span>
+              <span className="font-semibold text-[10px] uppercase text-gray-900 print:text-[8px]">{bankConfig.accountNumber}</span>
             </div>
           </div>
         </div>
 
-        <div className="mt-auto pt-8 flex justify-between gap-4">
+        <div className="mt-auto pt-8 flex justify-between gap-4 print:pt-2">
           <div className="flex-1 border-t border-gray-400 pt-1 text-center">
-            <p className="text-[8px] font-semibold text-gray-600 uppercase tracking-widest">{t('Authorized Signature')}</p>
+            <p className="text-[8px] font-semibold text-gray-600 uppercase tracking-widest print:text-[6px]">{t('Authorized Signature')}</p>
           </div>
           <div className="flex-1 border-t border-gray-400 pt-1 text-center">
-            <p className="text-[8px] font-semibold text-gray-600 uppercase tracking-widest">{t('Official Stamp')}</p>
+            <p className="text-[8px] font-semibold text-gray-600 uppercase tracking-widest print:text-[6px]">{t('Official Stamp')}</p>
           </div>
           <div className="flex-1 border-t border-gray-400 pt-1 text-center">
-            <p className="text-[8px] font-semibold text-gray-600 uppercase tracking-widest">{t('Depositor Signature')}</p>
+            <p className="text-[8px] font-semibold text-gray-600 uppercase tracking-widest print:text-[6px]">{t('Depositor Signature')}</p>
           </div>
         </div>
       </div>
@@ -176,16 +176,16 @@ export default function AdmissionChallan({ data, onBack }: ChallanProps) {
   };
 
   const ChallanRow = ({ label, value, highlight = false }: { label: string, value: string, highlight?: boolean }) => (
-    <div className={`flex justify-between items-center border-b border-gray-200 pb-1 ${highlight ? 'bg-gray-100 px-2 py-1 border border-gray-300' : ''}`}>
-      <span className="text-[9px] font-semibold text-gray-500 uppercase tracking-wide">{label}</span>
-      <span className={`font-semibold text-[10px] uppercase text-end ${highlight ? 'text-gray-900' : 'text-gray-800'}`}>{value}</span>
+    <div className={`flex justify-between items-center border-b border-gray-200 pb-1 print:pb-0.5 ${highlight ? 'bg-gray-100 px-2 py-1 print:px-1 print:py-0 border border-gray-300' : ''}`}>
+      <span className="text-[9px] font-semibold text-gray-500 uppercase tracking-wide print:text-[7px]">{label}</span>
+      <span className={`font-semibold text-[10px] uppercase text-end print:text-[8px] ${highlight ? 'text-gray-900' : 'text-gray-800'}`}>{value}</span>
     </div>
   );
 
   const FeeRow = ({ label, amount }: { label: string, amount: number }) => (
     <tr className="bg-white">
-      <td className="py-2 px-3 font-semibold text-gray-600 uppercase text-[9px]">{label}</td>
-      <td className="text-right py-2 px-3 font-semibold text-gray-900 text-[11px]">{amount}</td>
+      <td className="py-2 px-3 font-semibold text-gray-600 uppercase text-[9px] print:py-0.5 print:px-2 print:text-[7px]">{label}</td>
+      <td className="text-right py-2 px-3 font-semibold text-gray-900 text-[11px] print:py-0.5 print:px-2 print:text-[9px]">{amount}</td>
     </tr>
   );
 
@@ -220,9 +220,7 @@ export default function AdmissionChallan({ data, onBack }: ChallanProps) {
           <ChallanCopy title="STUDENT COPY" type="student" />
         </div>
         
-        <div className="print:break-before-page"></div>
-        
-        <div className="bg-white border-2 border-gray-900 print:border-none print:m-0 mt-10">
+        <div className="bg-white border-2 border-gray-900 print:hidden mt-10">
            <OfficialForm />
         </div>
       </motion.div>
