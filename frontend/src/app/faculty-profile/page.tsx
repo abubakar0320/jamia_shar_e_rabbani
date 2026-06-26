@@ -155,7 +155,7 @@ function FacultyProfileContent() {
               </Link>
               
               <div className="flex flex-col lg:flex-row gap-12 items-start lg:items-end">
-                  <div className="w-48 h-64 md:w-56 md:h-72 lg:w-64 lg:h-80 bg-white rounded-2xl shadow-2xl overflow-hidden relative border-4 border-white shrink-0 -mb-20 lg:-mb-32 z-20">
+                  <div className="w-48 h-64 md:w-56 md:h-72 lg:w-64 lg:h-80 bg-white rounded-2xl shadow-2xl overflow-hidden relative border-4 border-white shrink-0 mb-0 lg:-mb-32 z-20">
                     <OptimizedImage 
                       src={member.image || "/images/WhatsApp.jpeg"}
                       alt={t(member.name)}
@@ -165,7 +165,7 @@ function FacultyProfileContent() {
                     />
                  </div>
                  
-                 <div className="flex-1 pb-4">
+                 <div className="flex-1 pb-4 z-30">
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -191,7 +191,7 @@ function FacultyProfileContent() {
         </section>
 
         {/* CONTENT GRID */}
-        <section className="container mx-auto px-6 lg:px-12 mt-32">
+        <section className="container mx-auto px-6 lg:px-12 mt-12 lg:mt-32">
            <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
               
               {/* MAIN COLUMN */}
