@@ -36,7 +36,7 @@ export default function Courses() {
       duration: '3-4 Years',
       level: 'academic_programs_1_category',
       desc: 'academic_programs_1_desc',
-      image: 'https://images.unsplash.com/photo-1609599006353-e629aaabfeae?auto=format&fit=crop&q=80&w=800'
+      image: '/images/hifaz.jpeg'
     },
     {
       id: 2,
@@ -52,7 +52,7 @@ export default function Courses() {
       duration: '2 Years',
       level: 'academic_programs_3_category',
       desc: 'academic_programs_3_desc',
-      image: '/tajweed-o-qirat.jpg'
+      image: '/images/tajweed.jpeg'
     },
     {
       id: 4,

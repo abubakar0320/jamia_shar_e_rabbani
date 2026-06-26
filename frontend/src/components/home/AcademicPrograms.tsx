@@ -23,7 +23,7 @@ export default function AcademicPrograms() {
       title: t('academic_programs_1_title'),
       category: t('academic_programs_1_category'),
       desc: t('academic_programs_1_desc'),
-      image: 'https://images.unsplash.com/photo-1609599006353-e629aaabfeae?auto=format&fit=crop&q=80&w=800',
+      image: '/images/hifaz.jpeg',
       link: '/program?id=1'
     },
     {
@@ -39,7 +39,7 @@ export default function AcademicPrograms() {
       title: t('academic_programs_3_title'),
       category: t('academic_programs_3_category'),
       desc: t('academic_programs_3_desc'),
-      image: '/tajweed-o-qirat.jpg',
+      image: '/images/tajweed.jpeg',
       link: '/program?id=3'
     },
     {
