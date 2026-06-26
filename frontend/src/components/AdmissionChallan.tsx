@@ -214,7 +214,7 @@ export default function AdmissionChallan({ data, onBack }: ChallanProps) {
         animate={{ opacity: 1, y: 0 }}
         className="flex flex-col gap-10"
       >
-        <div className="flex flex-col lg:flex-row print:flex-row print:h-full print:min-h-[190mm] print:overflow-hidden print:bg-white print:border-none print:shadow-none">
+        <div className="flex flex-col lg:flex-row print:flex-row print:h-full print:min-h-[190mm] print:overflow-hidden print:bg-white print:border-none print:shadow-none print:p-2">
           <ChallanCopy title="JAMIA RECORD COPY" type="jamia" />
           <ChallanCopy title="BANK COPY" type="bank" />
           <ChallanCopy title="STUDENT COPY" type="student" />
@@ -229,7 +229,7 @@ export default function AdmissionChallan({ data, onBack }: ChallanProps) {
         @media print {
           @page {
             size: A4 landscape;
-            margin: 5mm;
+            margin: 0;
           }
           body {
             margin: 0;
