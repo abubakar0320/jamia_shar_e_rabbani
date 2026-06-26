@@ -16,7 +16,7 @@ const Footer = () => {
 
   if (!mounted) {
     return (
-      <footer className="bg-slate-900 text-slate-300 py-10">
+      <footer className="bg-slate-900 text-slate-300 py-10 print:hidden">
         <div className="max-w-[1600px] mx-auto px-6 text-center text-xs opacity-50">
           {t('Loading footer...')}
         </div>
@@ -70,7 +70,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-slate-900 text-slate-300 font-sans mt-auto selection:bg-purple-500/30 border-t-4 border-transparent" style={{ borderImage: "linear-gradient(to right, #f43f5e, #a855f7, #3b82f6) 1" }}>
+    <footer className="bg-slate-900 text-slate-300 font-sans mt-auto selection:bg-purple-500/30 border-t-4 border-transparent print:hidden" style={{ borderImage: "linear-gradient(to right, #f43f5e, #a855f7, #3b82f6) 1" }}>
       <div className="max-w-[1600px] mx-auto px-6 md:px-12 py-6">
         
         {/* Brand & Social Section */}
