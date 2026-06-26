@@ -201,22 +201,10 @@ export default function AdmissionChallan({ data, onBack }: ChallanProps) {
         
         <div className="flex flex-wrap gap-4">
           <button 
-            onClick={() => { setPrintMode('all'); setTimeout(() => window.print(), 100); }}
+            onClick={() => { window.print(); }}
             className="flex items-center gap-2 px-6 py-3 bg-blue-700 text-white font-semibold text-sm transition-colors hover:bg-blue-800"
           >
-            <Printer size={16} /> {t('Print All')}
-          </button>
-          <button 
-            onClick={() => { setPrintMode('challan'); setTimeout(() => window.print(), 100); }}
-            className="flex items-center gap-2 px-6 py-3 bg-white text-gray-700 border border-gray-300 font-semibold text-sm hover:bg-gray-50 transition-colors"
-          >
-            <Download size={16} /> {t('Download Challan')}
-          </button>
-          <button 
-            onClick={() => { setPrintMode('form'); setTimeout(() => window.print(), 100); }}
-            className="flex items-center gap-2 px-6 py-3 bg-white text-gray-700 border border-gray-300 font-semibold text-sm hover:bg-gray-50 transition-colors"
-          >
-            <Download size={16} /> {t('Download Form')}
+            <Printer size={16} /> {t('Print Challan')}
           </button>
         </div>
       </div>
@@ -226,16 +214,13 @@ export default function AdmissionChallan({ data, onBack }: ChallanProps) {
         animate={{ opacity: 1, y: 0 }}
         className="flex flex-col gap-10"
       >
-        <div className={`flex flex-col lg:flex-row print:flex-row h-full min-h-[297mm] print:border-2 print:border-gray-900 print:bg-white ${printMode === 'form' ? 'print:hidden' : ''}`}>
+        <div className="flex flex-col lg:flex-row print:flex-row h-full min-h-[190mm] print:border-2 print:border-gray-900 print:bg-white">
           <ChallanCopy title="JAMIA RECORD COPY" type="jamia" />
           <ChallanCopy title="BANK COPY" type="bank" />
           <ChallanCopy title="STUDENT COPY" type="student" />
         </div>
         
-        {/* Page Break for Print */}
-        <div className={`print:break-before-page ${printMode !== 'all' ? 'print:hidden' : ''}`}></div>
-        
-        <div className={`bg-white border-2 border-gray-900 print:border-none print:m-0 ${printMode === 'challan' ? 'print:hidden' : ''}`}>
+        <div className="bg-white border-2 border-gray-900 print:hidden mt-10">
            <OfficialForm />
         </div>
       </motion.div>
@@ -243,8 +228,8 @@ export default function AdmissionChallan({ data, onBack }: ChallanProps) {
       <style jsx global>{`
         @media print {
           @page {
-            size: A4 portrait;
-            margin: 0mm;
+            size: A4 landscape;
+            margin: 5mm;
           }
           body {
             margin: 0;
