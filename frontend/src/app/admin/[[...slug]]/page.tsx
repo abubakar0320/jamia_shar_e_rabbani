@@ -46,7 +46,7 @@ interface Admission {
  fees: FeeConfig;
  status?: string;
  rejectionReason?: string;
- documents?: Record<string, { name: string, size: string, type: string, url?: string }>;
+ documents?: Record<string, { name: string, size: string, type: string, url?: string, data?: string }>;
 }
 
 interface Student extends Admission {
@@ -76,7 +76,7 @@ interface Faculty {
  responsibilities?: string;
  status: string; // Active, Inactive, Retired, Visiting
  photo?: string;
- documents?: Record<string, { name: string, size: string, type: string, url?: string }>;
+ documents?: Record<string, { name: string, size: string, type: string, url?: string, data?: string }>;
  attendance?: { present: number, absent: number };
  publications?: { title: string, type: string, year: string, file?: string }[];
  isLeadership?: boolean;
