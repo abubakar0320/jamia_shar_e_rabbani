@@ -27,7 +27,7 @@ const Header = () => {
     { label: t('faculty'), href: '/faculty' },
     { label: t('research', 'Research'), href: '/islamic-research-center' },
     { label: t('news'), href: '/news' },
-    { label: t('Results'), href: '/results' },
+    { label: t('Wafaq Results', 'Wafaq Results'), href: '/wafaq-results' },
     { label: t('donations'), href: '/donations' },
     { label: t('admissions', 'Admissions'), href: '/admissions' },
     { label: t('contact'), href: '/contact' },

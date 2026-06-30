@@ -108,14 +108,19 @@ export default function AdmissionForm({ onSuccess }: { onSuccess: (data: Admissi
   const handleFileUpload = (docId: string, e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      if (file.size > 5 * 1024 * 1024) {
-        alert(t("File size should be less than 5MB"));
+      if (file.size > 1 * 1024 * 1024) {
+        alert(t("File size must be less than 1MB. Please compress your file using the link provided."));
+        e.target.value = '';
         return;
       }
-      setDocuments(prev => ({
-        ...prev,
-        [docId]: { name: file.name, size: (file.size / 1024).toFixed(1) + ' KB', type: file.type }
-      }));
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setDocuments(prev => ({
+          ...prev,
+          [docId]: { name: file.name, size: (file.size / 1024).toFixed(1) + ' KB', type: file.type, data: reader.result }
+        }));
+      };
+      reader.readAsDataURL(file);
     }
   };
 
@@ -300,10 +305,15 @@ export default function AdmissionForm({ onSuccess }: { onSuccess: (data: Admissi
         {/* Document Uploads */}
         <div className="space-y-6">
           <div className="flex justify-between items-end border-b border-slate-200 pb-2">
-            <h3 className="text-xl font-bold text-slate-800 flex items-center gap-2">
-              <Upload className="text-blue-600" /> {t("Required Documents")}
-            </h3>
-            <span className="text-xs font-bold text-slate-400 uppercase">{t("Max 5MB per file")}</span>
+            <div>
+              <h3 className="text-xl font-bold text-slate-800 flex items-center gap-2">
+                <Upload className="text-blue-600" /> {t("Required Documents")}
+              </h3>
+              <a href="https://pdf.pi7.org/compress-pdf-to-1mb" target="_blank" rel="noopener noreferrer" className="text-xs text-blue-600 hover:underline mt-1 block">
+                {t("File too large? Click here to compress PDF to 1MB")}
+              </a>
+            </div>
+            <span className="text-xs font-bold text-slate-400 uppercase">{t("Max 1MB per file")}</span>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

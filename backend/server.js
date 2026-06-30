@@ -390,6 +390,54 @@ app.post('/api/admissions', (req, res) => {
     fees: finalFees
   };
   db.get('admissions').push(newAdmission).write();
+
+  // Create Student Record Automatically upon Application
+  const studentRecord = {
+      id: Date.now() + 1,
+      studentId: `STU-${Math.floor(10000 + Math.random() * 90000)}`,
+      rollNo: `${newAdmission.classProgram ? newAdmission.classProgram.substring(0,3).toUpperCase() : 'CLS'}-${Math.floor(100 + Math.random() * 900)}`,
+      ...newAdmission
+  };
+  db.get('students').push(studentRecord).write();
+
+  // Automatically Generate Challan
+  let feeDetails = [];
+  let totalAmount = 0;
+
+  if (finalFees.registrationFee > 0) { feeDetails.push({ type: 'Registration Fee', amount: finalFees.registrationFee }); totalAmount += finalFees.registrationFee; }
+  if (finalFees.admissionFee > 0) { feeDetails.push({ type: 'Admission Fee', amount: finalFees.admissionFee }); totalAmount += finalFees.admissionFee; }
+  if (finalFees.totalLateFee > 0) { feeDetails.push({ type: `Late Fee (${finalFees.lateFeeDays} Days)`, amount: finalFees.totalLateFee }); totalAmount += finalFees.totalLateFee; }
+
+  const template = feeStructures.find(f => f.classProgram === mappedClass && f.sectionType === normalizedSection);
+  if (template) {
+      if (template.monthlyFee > 0) { feeDetails.push({ type: 'Monthly Fee', amount: template.monthlyFee }); totalAmount += template.monthlyFee; }
+      if (template.annualCharges > 0) { feeDetails.push({ type: 'Annual Charges', amount: template.annualCharges }); totalAmount += template.annualCharges; }
+      if (template.libraryFee > 0) { feeDetails.push({ type: 'Library Fee', amount: template.libraryFee }); totalAmount += template.libraryFee; }
+      if (template.hostelFee > 0) { feeDetails.push({ type: 'Hostel Fee', amount: template.hostelFee }); totalAmount += template.hostelFee; }
+      if (template.transportFee > 0) { feeDetails.push({ type: 'Transport Fee', amount: template.transportFee }); totalAmount += template.transportFee; }
+      if (template.otherCharges > 0) { feeDetails.push({ type: 'Other Charges', amount: template.otherCharges }); totalAmount += template.otherCharges; }
+  }
+
+  if (totalAmount > 0) {
+      const newChallan = {
+        id: Date.now() + 2,
+        challanNo: `CHL-${Math.floor(100000 + Math.random() * 900000)}`,
+        studentId: studentRecord.studentId,
+        rollNo: studentRecord.rollNo,
+        studentName: studentRecord.studentName,
+        fatherName: studentRecord.fatherName,
+        classProgram: studentRecord.classProgram,
+        session: finalFees.session || "2026-27",
+        feeDetails,
+        totalAmount,
+        issueDate: new Date().toISOString().split('T')[0],
+        dueDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+        status: 'Unpaid',
+        paidAmount: 0
+      };
+      db.get('challans').push(newChallan).write();
+  }
+
   res.status(201).json(newAdmission);
 });
 
@@ -486,59 +534,11 @@ app.put('/api/admin/admissions/:id/status', (req, res) => {
   const admission = db.get('admissions').find({ id: admissionId });
   if (admission.value()) {
      admission.assign({ status }).write();
-     if (status === 'Approved') {
-        const ad = admission.value();
-        const studentRecord = {
-           id: Date.now(),
-           studentId: `STU-${Math.floor(10000 + Math.random() * 90000)}`,
-           rollNo: `${ad.classProgram ? ad.classProgram.substring(0,3).toUpperCase() : 'CLS'}-${Math.floor(100 + Math.random() * 900)}`,
-           ...ad
-        };
-        db.get('students').push(studentRecord).write();
-
-        // Automatically Generate Challan using Fee Settings
-        const feeStructs = db.get('feeStructures').value() || [];
-        const template = feeStructs.find(f => f.classProgram === ad.classProgram && f.sectionType === ad.sectionType) || feeStructs.find(f => f.classProgram === ad.classProgram);
-        
-        let feeDetails = [];
-        let totalAmount = 0;
-        if (template) {
-           if (template.admissionFee > 0) { feeDetails.push({ type: 'Admission Fee', amount: template.admissionFee }); totalAmount += template.admissionFee; }
-           if (template.registrationFee > 0) { feeDetails.push({ type: 'Registration Fee', amount: template.registrationFee }); totalAmount += template.registrationFee; }
-           if (template.monthlyFee > 0) { feeDetails.push({ type: 'Monthly Fee', amount: template.monthlyFee }); totalAmount += template.monthlyFee; }
-           if (template.annualCharges > 0) { feeDetails.push({ type: 'Annual Charges', amount: template.annualCharges }); totalAmount += template.annualCharges; }
-           if (template.libraryFee > 0) { feeDetails.push({ type: 'Library Fee', amount: template.libraryFee }); totalAmount += template.libraryFee; }
-           if (template.hostelFee > 0) { feeDetails.push({ type: 'Hostel Fee', amount: template.hostelFee }); totalAmount += template.hostelFee; }
-           if (template.transportFee > 0) { feeDetails.push({ type: 'Transport Fee', amount: template.transportFee }); totalAmount += template.transportFee; }
-           if (template.otherCharges > 0) { feeDetails.push({ type: 'Other Charges', amount: template.otherCharges }); totalAmount += template.otherCharges; }
-        }
-
-        if (totalAmount > 0) {
-           const newChallan = {
-             id: Date.now() + 1,
-             challanNo: `CHL-${Math.floor(100000 + Math.random() * 900000)}`,
-             studentId: studentRecord.studentId,
-             rollNo: studentRecord.rollNo,
-             studentName: studentRecord.studentName,
-             fatherName: studentRecord.fatherName,
-             classProgram: studentRecord.classProgram,
-             session: "2026-27",
-             feeDetails,
-             totalAmount,
-             issueDate: new Date().toISOString().split('T')[0],
-             dueDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-             status: 'Unpaid',
-             paidAmount: 0
-           };
-           db.get('challans').push(newChallan).write();
-        }
-     }
      res.json({ success: true, status });
   } else {
      res.status(404).json({ error: 'Admission not found' });
   }
 });
-
 
 app.put('/api/admin/admissions/:id', (req, res) => {
   const admissionId = req.params.id;
@@ -572,28 +572,7 @@ app.put('/api/admin/students/:id', (req, res) => {
   }
 });
 
-// Results
-app.get('/api/admin/results', (req, res) => res.json(db.get('results').value() || []));
-app.post('/api/admin/results', (req, res) => {
-  const newResult = { id: Date.now(), resultId: `RES-${Math.floor(1000 + Math.random() * 9000)}`, ...req.body };
-  db.get('results').push(newResult).write();
-  res.status(201).json(newResult);
-});
-app.put('/api/admin/results/:id', (req, res) => {
-  const rid = parseInt(req.params.id) || req.params.id;
-  const result = db.get('results').find({ id: rid });
-  if (result.value()) {
-     result.assign(req.body).write();
-     res.json({ success: true });
-  } else {
-     res.status(404).json({ error: 'Result not found' });
-  }
-});
-app.delete('/api/admin/results/:id', (req, res) => {
-  const rid = parseInt(req.params.id) || req.params.id;
-  db.get('results').remove({ id: rid }).write();
-  res.json({ success: true });
-});
+
 // Challans
 app.get('/api/admin/challans', (req, res) => res.json(db.get('challans').value() || []));
 app.post('/api/admin/challans', (req, res) => {

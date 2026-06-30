@@ -15,7 +15,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import AdmissionScheduleModal from '@/components/AdmissionScheduleModal';
 import FeeManagementModule from '@/components/admin/FeeManagementModule';
-import AdmissionRequirementsModule from '@/components/admin/AdmissionRequirementsModule';
+
 import AdmissionFormBuilderModule from '@/components/admin/AdmissionFormBuilderModule';
 import ExpenseManagementModule from '@/components/admin/ExpenseManagementModule';
 import AdminGuard from '@/components/admin/AdminGuard';
@@ -167,12 +167,12 @@ interface Challan {
 const SIDEBAR_ITEMS = [
  { id: 'overview', label: 'Dashboard Overview', icon: <LayoutDashboard size={20} /> },
  { id: 'admissions', label: 'Admissions', icon: <FileText size={20} /> },
-  { id: 'admission-requirements', label: 'Admission Requirements', icon: <FileText size={20} /> },
+
   { id: 'form-builder', label: 'Form Customization', icon: <FileText size={20} /> },
  { id: 'students', label: 'Students', icon: <GraduationCap size={20} /> },
  { id: 'faculty', label: 'Faculty', icon: <Users size={20} /> },
  { id: 'courses', label: 'Courses', icon: <BookOpen size={20} /> },
- { id: 'results', label: 'Results', icon: <Award size={20} /> },
+
  { id: 'fees', label: 'Fees & Challans', icon: <DollarSign size={20} /> },
   { id: 'expenses', label: 'Accounts & Expenses', icon: <Wallet size={20} /> },
   { id: 'fee-management', label: 'Manage Fee Structures', icon: <Landmark size={20} /> },
@@ -211,7 +211,7 @@ export default function AdminDashboard() {
  const [students, setStudents] = useState<Student[]>([]);
  const [faculty, setFaculty] = useState<Faculty[]>([]);
  const [courses, setCourses] = useState<Course[]>([]);
- const [results, setResults] = useState<Result[]>([]);
+
  const [feeStructures, setFeeStructures] = useState<FeeStructure[]>([]);
  const [feeCategories, setFeeCategories] = useState<FeeCategory[]>([]);
  const [challans, setChallans] = useState<Challan[]>([]);
@@ -260,7 +260,7 @@ export default function AdminDashboard() {
  fetch('/api/admin/students').catch(() => null),
  fetch('/api/admin/faculty').catch(() => null),
  fetch('/api/admin/courses').catch(() => null),
- fetch('/api/admin/results').catch(() => null),
+
  fetch('/api/admin/fee-structures').catch(() => null),
  fetch('/api/admin/challans').catch(() => null),
  fetch('/api/admin/fee-categories').catch(() => null),
@@ -282,10 +282,7 @@ export default function AdminDashboard() {
  const data = await resCrs.json().catch(() => null);
  setCourses(data ? (data.reverse ? data.reverse() : data) : []);
  }
- if (resRes && resRes.ok) {
- const data = await resRes.json().catch(() => null);
- setResults(data ? (data.reverse ? data.reverse() : data) : []);
- }
+
  if (resFs && resFs.ok) {
  const data = await resFs.json().catch(() => null);
  setFeeStructures(data ? (data.reverse ? data.reverse() : data) : []);
@@ -691,8 +688,8 @@ export default function AdminDashboard() {
  </div>
  </div>
  <div className="flex gap-2">
- <button onClick={() => window.open('/logo.jpeg', '_blank')} className="flex-1 py-1.5 bg-white border border-slate-200 text-slate-600 rounded text-[9px] font-black uppercase hover:bg-blue-50 hover:text-blue-700">View</button>
- <button onClick={() => handleDownloadPDF(doc.name)} className="flex-1 py-1.5 bg-white border border-slate-200 text-slate-600 rounded text-[9px] font-black uppercase hover:bg-blue-50 hover:text-blue-700">Download</button>
+ <button onClick={() => window.open(doc.url || '#', '_blank')} className="flex-1 py-1.5 bg-white border border-slate-200 text-slate-600 rounded text-[9px] font-black uppercase hover:bg-blue-50 hover:text-blue-700">View</button>
+ <a href={doc.url || '#'} download={doc.name} className="flex-1 py-1.5 bg-white border border-slate-200 text-slate-600 rounded text-[9px] font-black uppercase hover:bg-blue-50 hover:text-blue-700 text-center block leading-loose">Download</a>
  {!isVerified && <button onClick={() => handleVerifyDoc(key)} className="flex-1 py-1.5 bg-blue-50 border border-blue-200 text-blue-700 rounded text-[9px] font-black uppercase hover:bg-blue-600 hover:text-white transition-colors">Verify</button>}
  </div>
  </div>
@@ -1130,7 +1127,7 @@ export default function AdminDashboard() {
  <FileCheck size={16} className="text-blue-500 shrink-0" />
  <span className="text-xs font-bold text-slate-700 block truncate">{docLabel}</span>
  </div>
- <button onClick={() => alert('Downloading document...')} className="text-[9px] px-2 py-1 bg-white border border-slate-200 rounded text-slate-600 font-black uppercase hover:text-indigo-600">DL</button>
+ <a href={doc.url || '#'} download={doc.name} className="text-[9px] px-2 py-1 bg-white border border-slate-200 rounded text-slate-600 font-black uppercase hover:text-indigo-600 block text-center leading-loose">DL</a>
  </div>
  );
  })
@@ -2150,416 +2147,6 @@ export default function AdminDashboard() {
  );
  };
 
- // --- Results Module --- //
- const renderResultsModule = () => {
- const total = results.length;
- const published = results.filter(r => r.status === 'Published').length;
- const draft = results.filter(r => !r.status || r.status === 'Draft').length;
- const passed = results.filter(r => r.outcome === 'Pass').length;
- const failed = results.filter(r => r.outcome === 'Fail').length;
- const tulba = results.filter(r => r.sectionType === 'Tulba Section').length;
- const talibat = results.filter(r => r.sectionType === 'Talibat Section').length;
-
- const filteredResults = results.filter(r => {
- const matchesSearch = r.studentName?.toLowerCase().includes(searchTerm.toLowerCase()) || r.rollNo?.toLowerCase().includes(searchTerm.toLowerCase()) || r.resultId?.toLowerCase().includes(searchTerm.toLowerCase());
- const matchesClass = classFilter === 'All' || r.classProgram === classFilter;
- const matchesStatus = statusFilter === 'All' || r.status === statusFilter || (!r.status && statusFilter === 'Draft');
- return matchesSearch && matchesClass && matchesStatus;
- });
-
- const toggleSelection = (id: number) => {
- setSelectedIds(prev => prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]);
- };
- const toggleAllSelection = () => {
- if (selectedIds.length === filteredResults.length) setSelectedIds([]);
- else setSelectedIds(filteredResults.map(s => s.id));
- };
-
- const handleCreateResult = () => {
- const rollNo = prompt("Enter Student Roll Number (e.g. KHA-201):");
- if (!rollNo) return;
- const student = students.find(s => s.rollNo === rollNo);
- if (!student) return alert("Student not found in active records!");
- 
- const marksInput = prompt(`Student Found: ${student.studentName}\n\nEnter Marks (Format -> Subject:Obtained/Total, Subject2:Obtained/Total)\nExample: Fiqh:80/100, Hadith:75/100`);
- if (!marksInput) return;
- 
- const subjects: SubjectMark[] = [];
- let totalMarks = 0;
- let obtainedMarks = 0;
- 
- try {
- marksInput.split(',').forEach(item => {
- if(!item.trim()) return;
- const [subj, marks] = item.split(':');
- const [obt, tot] = marks.split('/');
- subjects.push({ subject: subj.trim(), obtained: parseInt(obt), total: parseInt(tot) });
- obtainedMarks += parseInt(obt);
- totalMarks += parseInt(tot);
- });
- } catch (e) {
- return alert("Invalid format. Please exactly follow: Subject:Obt/Tot, Subject2:Obt/Tot");
- }
- 
- const percentage = (obtainedMarks / totalMarks) * 100;
- let grade = 'F';
- let outcome = 'Fail';
- if (percentage >= 80) { grade = 'A+'; outcome = 'Pass'; }
- else if (percentage >= 70) { grade = 'A'; outcome = 'Pass'; }
- else if (percentage >= 60) { grade = 'B'; outcome = 'Pass'; }
- else if (percentage >= 50) { grade = 'C'; outcome = 'Pass'; }
- else if (percentage >= 40) { grade = 'D'; outcome = 'Pass'; }
-
- const newResult = {
- studentId: student.studentId,
- rollNo: student.rollNo,
- studentName: student.studentName,
- fatherName: student.fatherName,
- classProgram: student.classProgram,
- session: student.fees?.session || "2026-27",
- sectionType: student.sectionType || "Tulba Section",
- subjects,
- totalMarks,
- obtainedMarks,
- percentage: parseFloat(percentage.toFixed(2)),
- grade,
- status: 'Draft',
- outcome
- };
-
- fetch('/api/admin/results', {
- method: 'POST',
- headers: { 'Content-Type': 'application/json' },
- body: JSON.stringify(newResult)
- }).then(() => {
- alert("Result Created Successfully!");
- fetchAllData();
- }).catch(() => alert("Error creating result."));
- };
-
- const handleUpdateStatus = async (id: number, status: string) => {
- try {
- await fetch(`/api/admin/results/${id}`, {
- method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ status })
- });
- alert(`Result marked as ${status}`);
- fetchAllData();
- if (selectedResult?.id === id) setSelectedResult({...selectedResult, status});
- } catch (e) { alert("Failed to update status."); }
- };
-
- const handleDelete = async (id: number) => {
- if(!confirm('Are you sure you want to permanently delete this result?')) return;
- try {
- await fetch(`/api/admin/results/${id}`, { method: 'DELETE' });
- alert('Result deleted.');
- fetchAllData();
- if (selectedResult?.id === id) setSelectedResult(null);
- } catch (err) { console.error(err); }
- };
-
- const handleBulkAction = async (action: string) => {
- if (selectedIds.length === 0) return alert('No results selected.');
- if (action === 'delete') {
- if(!confirm(`Delete ${selectedIds.length} results?`)) return;
- try {
- await Promise.all(selectedIds.map(id => fetch(`/api/admin/results/${id}`, { method: 'DELETE' })));
- alert('Deleted.');
- setSelectedIds([]); fetchAllData();
- } catch(e) {}
- } else if (action === 'export') {
- alert('Exporting results details...');
- } else {
- try {
- await Promise.all(selectedIds.map(id => fetch(`/api/admin/results/${id}`, {
- method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ status: action })
- })));
- alert(`Status updated to ${action}.`);
- setSelectedIds([]); fetchAllData();
- } catch(e) {}
- }
- };
-
- if (selectedResult) {
- return (
- <div className="bg-white rounded-sm border border-slate-200 overflow-hidden shadow-sm animate-in fade-in slide-in-from-bottom-4 duration-500 pb-20">
- <div className="p-6 border-b border-slate-100 flex flex-col md:flex-row gap-4 justify-between items-start md:items-center bg-slate-50 sticky top-0 z-10 shadow-sm print:hidden">
- <button onClick={() => setSelectedResult(null)} className="flex items-center gap-2 text-slate-500 hover:text-indigo-600 font-black uppercase text-xs tracking-widest bg-white px-4 py-2.5 rounded-sm border border-slate-200 shadow-sm"><ArrowLeft size={16}/> Back to Results</button>
- <div className="flex flex-wrap gap-2 w-full md:w-auto">
- <button onClick={() => window.print()} className="px-4 py-2.5 bg-slate-800 text-white rounded-sm text-xs font-black uppercase tracking-widest shadow-sm hover:bg-slate-700 transition-all"><Printer size={16} className="inline mr-2"/> Print Result Card</button>
- {selectedResult.status !== 'Published' ? (
- <button onClick={() => handleUpdateStatus(selectedResult.id, 'Published')} className="px-4 py-2.5 bg-blue-600 text-white rounded-sm text-xs font-black uppercase tracking-widest shadow-sm hover:bg-blue-700 transition-all"><CheckCircle2 size={16} className="inline mr-2"/> Publish to Website</button>
- ) : (
- <button onClick={() => handleUpdateStatus(selectedResult.id, 'Draft')} className="px-4 py-2.5 bg-amber-500 text-white rounded-sm text-xs font-black uppercase tracking-widest shadow-sm hover:bg-amber-600 transition-all"><AlertCircle size={16} className="inline mr-2"/> Unpublish (Draft)</button>
- )}
- <button onClick={() => handleDelete(selectedResult.id)} className="px-4 py-2.5 bg-white border border-rose-200 text-rose-600 rounded-sm text-xs font-black uppercase tracking-widest shadow-sm hover:bg-rose-50 transition-all"><Trash2 size={16} className="inline mr-2"/> Delete</button>
- </div>
- </div>
-
- {/* Printable Result Card */}
- <div className="p-10 max-w-4xl mx-auto mt-8 bg-white border border-slate-200 shadow-sm border border-gray-200 rounded-sm print:shadow-none print:border-none print:p-0 print:m-0">
- {/* Header */}
- <div className="text-center pb-8 border-b-2 border-blue-800 mb-8">
- <h1 className="text-4xl font-black text-blue-800 mb-2 font-serif">JAMIA SHER-E-RABBANI</h1>
- <p className="text-sm font-bold text-slate-600 uppercase tracking-widest">Mananwala, District Sheikhupura</p>
- <h2 className="text-2xl font-black text-slate-800 mt-6 tracking-widest border-2 border-slate-800 inline-block px-8 py-2 rounded-sm">OFFICIAL RESULT CARD</h2>
- </div>
- 
- {/* Student Info */}
- <div className="grid grid-cols-2 gap-x-12 gap-y-6 mb-10">
- <div className="flex border-b border-dashed border-slate-300 pb-2">
- <span className="w-40 font-bold text-slate-500 uppercase text-xs tracking-widest">Student Name</span>
- <span className="font-black text-slate-800">{selectedResult.studentName}</span>
- </div>
- <div className="flex border-b border-dashed border-slate-300 pb-2">
- <span className="w-40 font-bold text-slate-500 uppercase text-xs tracking-widest">Father's Name</span>
- <span className="font-black text-slate-800">{selectedResult.fatherName}</span>
- </div>
- <div className="flex border-b border-dashed border-slate-300 pb-2">
- <span className="w-40 font-bold text-slate-500 uppercase text-xs tracking-widest">Roll Number</span>
- <span className="font-black text-slate-800">{selectedResult.rollNo}</span>
- </div>
- <div className="flex border-b border-dashed border-slate-300 pb-2">
- <span className="w-40 font-bold text-slate-500 uppercase text-xs tracking-widest">Student ID</span>
- <span className="font-black text-slate-800">{selectedResult.studentId}</span>
- </div>
- <div className="flex border-b border-dashed border-slate-300 pb-2">
- <span className="w-40 font-bold text-slate-500 uppercase text-xs tracking-widest">Class / Program</span>
- <span className="font-black text-slate-800">{selectedResult.classProgram}</span>
- </div>
- <div className="flex border-b border-dashed border-slate-300 pb-2">
- <span className="w-40 font-bold text-slate-500 uppercase text-xs tracking-widest">Session</span>
- <span className="font-black text-slate-800">{selectedResult.session}</span>
- </div>
- </div>
-
- {/* Marks Table */}
- <table className="w-full text-left border-collapse border-2 border-slate-800 mb-10">
- <thead>
- <tr className="bg-slate-100">
- <th className="border-2 border-slate-800 px-4 py-3 font-black text-sm uppercase tracking-widest">Subject</th>
- <th className="border-2 border-slate-800 px-4 py-3 font-black text-sm uppercase tracking-widest text-center w-32">Total Marks</th>
- <th className="border-2 border-slate-800 px-4 py-3 font-black text-sm uppercase tracking-widest text-center w-32">Obtained</th>
- <th className="border-2 border-slate-800 px-4 py-3 font-black text-sm uppercase tracking-widest text-center w-32">Grade</th>
- </tr>
- </thead>
- <tbody>
- {selectedResult.subjects?.map((sub, idx) => {
- const subPercent = (sub.obtained / sub.total) * 100;
- let subGrade = 'F';
- if (subPercent >= 80) subGrade = 'A+';
- else if (subPercent >= 70) subGrade = 'A';
- else if (subPercent >= 60) subGrade = 'B';
- else if (subPercent >= 50) subGrade = 'C';
- else if (subPercent >= 40) subGrade = 'D';
- return (
- <tr key={idx}>
- <td className="border-2 border-slate-800 px-4 py-3 font-bold text-slate-700">{sub.subject}</td>
- <td className="border-2 border-slate-800 px-4 py-3 font-bold text-slate-700 text-center">{sub.total}</td>
- <td className="border-2 border-slate-800 px-4 py-3 font-black text-slate-800 text-center">{sub.obtained}</td>
- <td className="border-2 border-slate-800 px-4 py-3 font-black text-slate-800 text-center">{subGrade}</td>
- </tr>
- );
- })}
- </tbody>
- <tfoot>
- <tr className="bg-slate-100">
- <td className="border-2 border-slate-800 px-4 py-3 font-black text-slate-900 text-right uppercase tracking-widest">Grand Total</td>
- <td className="border-2 border-slate-800 px-4 py-3 font-black text-slate-900 text-center text-lg">{selectedResult.totalMarks}</td>
- <td className="border-2 border-slate-800 px-4 py-3 font-black text-slate-900 text-center text-lg">{selectedResult.obtainedMarks}</td>
- <td className="border-2 border-slate-800 px-4 py-3 bg-slate-200 text-center"></td>
- </tr>
- </tfoot>
- </table>
-
- {/* Summary & Signatures */}
- <div className="flex justify-between items-end mt-16 border-t-2 border-slate-800 pt-8">
- <div className="space-y-4">
- <div className="flex items-center gap-4">
- <span className="w-32 font-bold text-slate-500 uppercase text-xs tracking-widest">Percentage</span>
- <span className="font-black text-xl text-slate-800">{selectedResult.percentage}%</span>
- </div>
- <div className="flex items-center gap-4">
- <span className="w-32 font-bold text-slate-500 uppercase text-xs tracking-widest">Overall Grade</span>
- <span className="font-black text-2xl text-slate-800">{selectedResult.grade}</span>
- </div>
- <div className="flex items-center gap-4">
- <span className="w-32 font-bold text-slate-500 uppercase text-xs tracking-widest">Result Status</span>
- <span className={`font-black text-2xl uppercase tracking-widest ${selectedResult.outcome === 'Pass' ? 'text-blue-600' : 'text-rose-600'}`}>{selectedResult.outcome}</span>
- </div>
- </div>
- <div className="text-center">
- <div className="w-48 border-b-2 border-slate-800 mb-2"></div>
- <span className="font-bold text-slate-500 uppercase text-[10px] tracking-widest">Signature Controller of Exams</span>
- </div>
- </div>
- </div>
- </div>
- );
- }
-
- return (
- <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
- {/* Statistics Banner */}
- <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
- <div onClick={() => setStatusFilter('All')} className={`p-4 rounded-sm border shadow-sm text-center cursor-pointer hover:shadow-md transition-all ${statusFilter === 'All' ? 'bg-indigo-800 border-indigo-900 text-white' : 'bg-white border-slate-200 text-slate-800'}`}>
- <p className={`text-[9px] font-black uppercase tracking-widest mb-1 ${statusFilter === 'All' ? 'text-indigo-300' : 'text-slate-400'}`}>Total Results</p>
- <p className="text-2xl font-black">{total}</p>
- </div>
- <div onClick={() => setStatusFilter('Published')} className={`p-4 rounded-sm border shadow-sm text-center cursor-pointer hover:shadow-md transition-all ${statusFilter === 'Published' ? 'bg-blue-600 border-blue-700 text-white' : 'bg-blue-50 border-blue-100 text-blue-700'}`}>
- <p className={`text-[9px] font-black uppercase tracking-widest mb-1 ${statusFilter === 'Published' ? 'text-blue-200' : 'text-blue-600/70'}`}>Published</p>
- <p className="text-2xl font-black">{published}</p>
- </div>
- <div onClick={() => setStatusFilter('Draft')} className={`p-4 rounded-sm border shadow-sm text-center cursor-pointer hover:shadow-md transition-all ${statusFilter === 'Draft' ? 'bg-amber-600 border-amber-700 text-white' : 'bg-amber-50 border-amber-100 text-amber-700'}`}>
- <p className={`text-[9px] font-black uppercase tracking-widest mb-1 ${statusFilter === 'Draft' ? 'text-amber-200' : 'text-amber-600/70'}`}>Drafts</p>
- <p className="text-2xl font-black">{draft}</p>
- </div>
- <div className={`p-4 rounded-sm border shadow-sm text-center bg-blue-50 border-blue-100 text-blue-700`}>
- <p className={`text-[9px] font-black uppercase tracking-widest mb-1 text-blue-600/70`}>Passed</p>
- <p className="text-2xl font-black">{passed}</p>
- </div>
- <div className={`p-4 rounded-sm border shadow-sm text-center bg-rose-50 border-rose-100 text-rose-700`}>
- <p className={`text-[9px] font-black uppercase tracking-widest mb-1 text-rose-600/70`}>Failed</p>
- <p className="text-2xl font-black">{failed}</p>
- </div>
- <div className={`p-4 rounded-sm border shadow-sm text-center bg-slate-50 border-slate-200 text-slate-700`}>
- <p className={`text-[9px] font-black uppercase tracking-widest mb-1 text-slate-500`}>Tulba Results</p>
- <p className="text-2xl font-black">{tulba}</p>
- </div>
- <div className={`p-4 rounded-sm border shadow-sm text-center bg-pink-50 border-pink-200 text-pink-700`}>
- <p className={`text-[9px] font-black uppercase tracking-widest mb-1 text-pink-500`}>Talibat Results</p>
- <p className="text-2xl font-black">{talibat}</p>
- </div>
- </div>
-
- {/* Toolbar */}
- <div className="bg-white p-6 rounded-sm shadow-sm border border-slate-200 space-y-4">
- <div className="flex flex-col lg:flex-row justify-between gap-6">
- <div className="flex flex-1 gap-4">
- <div className="relative flex-1 max-w-lg">
- <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
- <input type="text" placeholder="Search by name, roll no, or result ID..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} className="w-full pl-12 pr-4 py-4 bg-slate-50 border-none focus:ring-2 focus:ring-indigo-500 rounded-sm text-sm transition-all font-bold text-slate-700" />
- </div>
- </div>
- <div className="flex justify-end items-center gap-2">
- <button onClick={() => alert('Opening Excel Upload...') } className="px-4 py-3 bg-white border border-slate-200 text-slate-700 rounded-sm text-xs font-black uppercase tracking-widest hover:bg-slate-50 transition-all shadow-sm"><Upload size={16} className="inline mr-2"/> CSV Upload</button>
- <button onClick={handleCreateResult} className="px-6 py-3 bg-blue-600 text-white rounded-sm text-xs font-black uppercase tracking-widest hover:bg-blue-700 transition-all shadow-sm"><Plus size={16} className="inline mr-2"/> Manual Entry</button>
- </div>
- </div>
- <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 pt-4 border-t border-slate-100">
- <div>
- <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1 block">Class Filter</label>
- <select value={classFilter} onChange={e => setClassFilter(e.target.value)} className="w-full p-3 bg-slate-50 rounded-sm text-sm font-bold border-none">
- <option value="All">All Classes</option>
- {OFFICIAL_CLASSES.map(cls => (
- <option key={cls} value={cls}>{cls}</option>
- ))}
- </select>
- </div>
- </div>
- </div>
-
- {/* Bulk Actions */}
- <AnimatePresence>
- {selectedIds.length > 0 && (
- <motion.div initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }} exit={{ opacity:0, y:20 }} className="bg-slate-800 p-4 rounded-sm flex flex-wrap items-center justify-between shadow-sm border border-gray-200 shadow-slate-900/20 z-20 sticky top-4 border border-slate-700">
- <span className="text-indigo-400 font-black text-sm px-4">{selectedIds.length} Results Selected</span>
- <div className="flex flex-wrap gap-2">
- <button onClick={() => handleBulkAction('Published')} className="px-4 py-2 bg-blue-600 text-white rounded-sm text-xs font-black uppercase tracking-widest hover:bg-blue-500">Publish All</button>
- <button onClick={() => handleBulkAction('Draft')} className="px-4 py-2 bg-amber-600 text-white rounded-sm text-xs font-black uppercase tracking-widest hover:bg-amber-500">Unpublish All</button>
- <button onClick={() => handleBulkAction('export')} className="px-4 py-2 bg-slate-700 text-white rounded-sm text-xs font-black uppercase tracking-widest hover:bg-slate-600">Export CSV</button>
- <button onClick={() => handleBulkAction('delete')} className="px-4 py-2 border border-slate-600 text-slate-300 rounded-sm text-xs font-black uppercase tracking-widest hover:bg-slate-700 hover:text-white">Delete</button>
- </div>
- </motion.div>
- )}
- </AnimatePresence>
-
- {/* Main Results Table */}
- <div className="bg-white rounded-sm shadow-sm border border-slate-200 overflow-hidden">
- <div className="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
- <h3 className="text-lg font-black text-slate-800 tracking-tight flex items-center gap-2"><Award size={20} className="text-blue-600"/> Result Records</h3>
- </div>
- <div className="overflow-x-auto min-h-[500px]">
- <table className="w-full text-left border-collapse whitespace-nowrap">
- <thead>
- <tr className="bg-slate-50 border-b border-slate-100">
- <th className="px-6 py-4 w-10">
- <button onClick={toggleAllSelection} className="text-slate-400 hover:text-indigo-600">
- {selectedIds.length === filteredResults.length && filteredResults.length > 0 ? <CheckSquareIcon size={18} className="text-indigo-600"/> : <Square size={18}/>}
- </button>
- </th>
- <th className="px-6 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Student Info</th>
- <th className="px-6 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Class & Session</th>
- <th className="px-6 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Marks & Grade</th>
- <th className="px-6 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 text-center">Status</th>
- <th className="px-6 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 text-right">Actions</th>
- </tr>
- </thead>
- <tbody className="divide-y divide-slate-100">
- {filteredResults.map((res) => {
- const isSelected = selectedIds.includes(res.id);
- const rStatus = res.status || 'Draft';
- return (
- <tr key={res.id} className={`transition-colors group ${isSelected ? 'bg-indigo-50/50' : 'hover:bg-slate-50/80'}`}>
- <td className="px-6 py-5">
- <button onClick={() => toggleSelection(res.id)} className={`${isSelected ? 'text-indigo-600' : 'text-slate-300 group-hover:text-slate-400'}`}>
- {isSelected ? <CheckSquareIcon size={18}/> : <Square size={18}/>}
- </button>
- </td>
- <td className="px-6 py-5">
- <div className="flex items-center gap-4">
- <div className="w-10 h-10 rounded-full bg-slate-100 overflow-hidden flex items-center justify-center shrink-0 border border-slate-200">
- <User size={16} className="text-slate-400" />
- </div>
- <div>
- <div className="font-black text-sm text-slate-800 tracking-tight">{res.studentName}</div>
- <div className="text-[10px] font-mono font-bold text-slate-400 mt-1">Roll: {res.rollNo}</div>
- </div>
- </div>
- </td>
- <td className="px-6 py-5">
- <div className="font-black text-xs text-slate-700">{res.classProgram}</div>
- <div className="text-[10px] font-bold text-slate-400 mt-1">{res.session} • {res.sectionType}</div>
- </td>
- <td className="px-6 py-5 font-bold text-slate-600">
- <div className="flex items-center gap-3">
- <div className="text-sm font-black text-slate-800">{res.obtainedMarks}/{res.totalMarks}</div>
- <div className={`px-2 py-0.5 rounded text-[10px] font-black ${res.outcome === 'Pass' ? 'bg-blue-100 text-blue-700' : 'bg-rose-100 text-rose-700'}`}>{res.grade}</div>
- </div>
- <div className="text-[10px] text-slate-400 mt-1">{res.percentage}%</div>
- </td>
- <td className="px-6 py-5 text-center">
- <span className={`inline-block px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest
- ${rStatus === 'Published' ? 'bg-blue-100 text-blue-700' : 'bg-amber-100 text-amber-700'}
- `}>{rStatus}</span>
- </td>
- <td className="px-6 py-5 text-right">
- <div className="flex items-center justify-end gap-2 opacity-50 group-hover:opacity-100 transition-opacity">
- <button onClick={() => setSelectedResult(res)} className="p-2 bg-white border border-slate-200 rounded-sm hover:bg-indigo-50 hover:border-indigo-200 hover:text-indigo-600 transition-all shadow-sm" title="View Result Card"><Eye size={16} /></button>
- <button onClick={() => handleDelete(res.id)} className="p-2 bg-white border border-rose-200 rounded-sm hover:bg-rose-50 hover:border-rose-200 hover:text-rose-600 transition-all shadow-sm" title="Delete"><Trash2 size={16} /></button>
- </div>
- </td>
- </tr>
- );
- })}
- {filteredResults.length === 0 && (
- <tr>
- <td colSpan={6} className="py-20 text-center">
- <div className="flex flex-col items-center justify-center">
- <Award size={40} className="text-slate-200 mb-4" />
- <p className="text-sm font-bold text-slate-500">No results found.</p>
- </div>
- </td>
- </tr>
- )}
- </tbody>
- </table>
- </div>
- </div>
- </div>
- );
- };
-
  // --- Fees & Challan Module --- //
  const renderFeesModule = () => {
  const totalCollected = challans.filter(c => c.status === 'Paid').reduce((sum, c) => sum + c.paidAmount, 0);
@@ -2937,7 +2524,7 @@ export default function AdminDashboard() {
  { label: 'Add Student', icon: <User size={20} />, onClick: () => handleNavigate('students', 'add') },
  { label: 'Add Faculty', icon: <Users size={20} />, onClick: () => handleNavigate('faculty', 'add') },
  { label: 'Add Course', icon: <BookOpen size={20} />, onClick: () => handleNavigate('courses', 'add') },
- { label: 'Upload Result', icon: <Upload size={20} />, onClick: () => handleNavigate('results', 'upload') },
+
  { label: 'Create News', icon: <Megaphone size={20} />, onClick: () => handleNavigate('news', 'create') },
  { label: 'Gen. Challan', icon: <DollarSign size={20} />, onClick: () => handleNavigate('fees', 'generate') },
  { label: 'Open Website', icon: <Globe size={20} />, onClick: () => window.open('/', '_blank') },
@@ -3081,12 +2668,12 @@ export default function AdminDashboard() {
  switch (activeTab) {
  case 'overview': return renderOverview();
  case 'admissions': return renderAdmissionsModule();
-    case 'admission-requirements': return <AdmissionRequirementsModule />;
+
     case 'form-builder': return <AdmissionFormBuilderModule />;
  case 'students': return renderStudentsModule();
  case 'faculty': return renderFacultyModule();
  case 'courses': return renderCoursesModule();
- case 'results': return renderResultsModule();
+
  case 'fees': return renderFeesModule();
     case 'expenses': return <ExpenseManagementModule />;
     case 'fee-management': return <FeeManagementModule />;
