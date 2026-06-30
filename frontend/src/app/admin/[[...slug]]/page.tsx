@@ -615,7 +615,7 @@ export default function AdminDashboard() {
  </div>
  </div>
 
- <div className="grid grid-cols-2 md:grid-cols-2 gap-4 md:gap-8 bg-slate-50 p-4 md:p-8 rounded-sm border border-slate-100 relative overflow-hidden print:bg-white print:border-black print:rounded-none">
+ <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-8 bg-slate-50 p-4 md:p-8 rounded-sm border border-slate-100 relative overflow-hidden print:bg-white print:border-black print:rounded-none">
  <div className="absolute top-0 right-0 w-32 h-32 bg-white rounded-bl-full opacity-50 blur-2xl pointer-events-none print:hidden"></div>
  <div>
  <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Father's Name</p>
@@ -638,7 +638,7 @@ export default function AdminDashboard() {
 
  <div>
  <h4 className="text-xl font-black text-slate-800 mb-6 flex items-center gap-2"><GraduationCap className="text-blue-600 print:text-black"/> Academic Information</h4>
- <div className="bg-slate-50 p-4 md:p-8 rounded-sm border border-slate-100 grid grid-cols-2 md:grid-cols-2 gap-4 md:gap-8 print:bg-white print:border-black print:rounded-none">
+ <div className="bg-slate-50 p-4 md:p-8 rounded-sm border border-slate-100 grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-8 print:bg-white print:border-black print:rounded-none">
  <div>
  <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Selected Class / Program</p>
  <p className="text-sm font-bold text-slate-800">{selectedApplication.classProgram}</p>
@@ -655,14 +655,14 @@ export default function AdminDashboard() {
  </div>
 
  {/* Admin Form Viewer Button */}
- <div className="bg-blue-50 border border-blue-200 p-6 rounded-sm flex justify-between items-center print:hidden">
+ <div className="bg-blue-50 border border-blue-200 p-6 rounded-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4 print:hidden">
  <div>
  <h4 className="font-black text-blue-800 text-sm">Official Admission Form</h4>
  <p className="text-xs text-blue-600/70 font-medium">Auto-generated printable form.</p>
  </div>
- <div className="flex gap-2">
- <button onClick={() => alert('Viewing Generated Admission Form')} className="px-4 py-2 bg-blue-600 text-white rounded-sm text-xs font-black uppercase hover:bg-blue-700">View</button>
- <button onClick={handlePrint} className="px-4 py-2 bg-white text-blue-700 border border-blue-200 rounded-sm text-xs font-black uppercase hover:bg-blue-100">Print</button>
+ <div className="flex gap-2 w-full md:w-auto">
+ <button onClick={() => alert('Viewing Generated Admission Form')} className="flex-1 md:flex-none px-4 py-2 bg-blue-600 text-white rounded-sm text-xs font-black uppercase hover:bg-blue-700 text-center">View</button>
+ <button onClick={handlePrint} className="flex-1 md:flex-none px-4 py-2 bg-white text-blue-700 border border-blue-200 rounded-sm text-xs font-black uppercase hover:bg-blue-100 text-center">Print</button>
  </div>
  </div>
  </div>
@@ -688,8 +688,8 @@ export default function AdminDashboard() {
  </div>
  </div>
  <div className="flex gap-2">
- <button onClick={() => window.open(doc.url || '#', '_blank')} className="flex-1 py-1.5 bg-white border border-slate-200 text-slate-600 rounded text-[9px] font-black uppercase hover:bg-blue-50 hover:text-blue-700">View</button>
- <a href={doc.url || '#'} download={doc.name} className="flex-1 py-1.5 bg-white border border-slate-200 text-slate-600 rounded text-[9px] font-black uppercase hover:bg-blue-50 hover:text-blue-700 text-center block leading-loose">Download</a>
+ <button onClick={() => window.open(doc.data || '#', '_blank')} className="flex-1 py-1.5 bg-white border border-slate-200 text-slate-600 rounded text-[9px] font-black uppercase hover:bg-blue-50 hover:text-blue-700">View</button>
+ <a href={doc.data || '#'} download={doc.name} className="flex-1 py-1.5 bg-white border border-slate-200 text-slate-600 rounded text-[9px] font-black uppercase hover:bg-blue-50 hover:text-blue-700 text-center block leading-loose">Download</a>
  {!isVerified && <button onClick={() => handleVerifyDoc(key)} className="flex-1 py-1.5 bg-blue-50 border border-blue-200 text-blue-700 rounded text-[9px] font-black uppercase hover:bg-blue-600 hover:text-white transition-colors">Verify</button>}
  </div>
  </div>
@@ -836,7 +836,7 @@ export default function AdminDashboard() {
        </div>
     </div>
     
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6 p-3 md:p-6 min-h-[500px] bg-slate-50/50">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6 p-3 md:p-6 min-h-[500px] bg-slate-50/50">
       {filteredAdmissions.map((adm) => {
         const isSelected = selectedIds.includes(adm.id);
         return (
@@ -1127,7 +1127,7 @@ export default function AdminDashboard() {
  <FileCheck size={16} className="text-blue-500 shrink-0" />
  <span className="text-xs font-bold text-slate-700 block truncate">{docLabel}</span>
  </div>
- <a href={doc.url || '#'} download={doc.name} className="text-[9px] px-2 py-1 bg-white border border-slate-200 rounded text-slate-600 font-black uppercase hover:text-indigo-600 block text-center leading-loose">DL</a>
+ <a href={doc.data || '#'} download={doc.name} className="text-[9px] px-2 py-1 bg-white border border-slate-200 rounded text-slate-600 font-black uppercase hover:text-indigo-600 block text-center leading-loose">DL</a>
  </div>
  );
  })
@@ -1528,7 +1528,7 @@ export default function AdminDashboard() {
  <FileCheck size={16} className="text-blue-500 shrink-0" />
  <span className="text-xs font-bold text-slate-700 block truncate">{doc.name}</span>
  </div>
- <button onClick={() => handleDownloadPDF(doc.name)} className="text-[9px] px-2 py-1 bg-white border border-slate-200 rounded text-slate-600 font-black uppercase hover:text-indigo-600">DL</button>
+ <a href={doc.data || '#'} download={doc.name} className="text-[9px] px-2 py-1 bg-white border border-slate-200 rounded text-slate-600 font-black uppercase hover:text-indigo-600 block text-center leading-loose">DL</a>
  </div>
  ))
  ) : (
