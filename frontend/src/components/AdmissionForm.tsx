@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
-import { User, Phone, CheckCircle2, Upload, Calendar, X, GraduationCap, Building2, Eye, CreditCard } from 'lucide-react';
+import { User, Phone, CheckCircle2, Upload, Calendar, X, GraduationCap, Building2, Eye, CreditCard, AlertCircle } from 'lucide-react';
 
 export interface Admission {
   id: number;
@@ -86,6 +86,7 @@ export default function AdmissionForm({ onSuccess }: { onSuccess: (data: Admissi
     classProgram: ''
   });
   const [documents, setDocuments] = useState<Record<string, any>>({});
+  const [tooLargeDocs, setTooLargeDocs] = useState<Record<string, boolean>>({});
   const [customFields, setCustomFields] = useState<any[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -109,10 +110,12 @@ export default function AdmissionForm({ onSuccess }: { onSuccess: (data: Admissi
     const file = e.target.files?.[0];
     if (file) {
       if (file.size > 1 * 1024 * 1024) {
+        setTooLargeDocs(prev => ({ ...prev, [docId]: true }));
         alert(t("File size must be less than 1MB. Please compress your file using the link provided."));
         e.target.value = '';
         return;
       }
+      setTooLargeDocs(prev => ({ ...prev, [docId]: false }));
       const reader = new FileReader();
       reader.onloadend = () => {
         setDocuments(prev => ({
@@ -309,18 +312,15 @@ export default function AdmissionForm({ onSuccess }: { onSuccess: (data: Admissi
               <h3 className="text-xl font-bold text-slate-800 flex items-center gap-2">
                 <Upload className="text-blue-600" /> {t("Required Documents")}
               </h3>
-              <a href="https://pdf.pi7.org/compress-pdf-to-1mb" target="_blank" rel="noopener noreferrer" className="text-xs text-blue-600 hover:underline mt-1 block">
-                {t("File too large? Click here to compress PDF to 1MB")}
-              </a>
             </div>
             <span className="text-xs font-bold text-slate-400 uppercase">{t("Max 1MB per file")}</span>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {currentRequiredDocs.map(doc => (
-              <div key={doc.id} className="relative">
+              <div key={doc.id} className="relative flex flex-col gap-2">
                 <input type="file" id={doc.id} accept=".jpg,.jpeg,.png,.pdf" className="hidden" onChange={(e) => handleFileUpload(doc.id, e)} />
-                <label htmlFor={doc.id} className={`flex flex-col items-center justify-center p-6 border-2 border-dashed rounded-sm cursor-pointer transition-all min-h-[160px] text-center ${documents[doc.id] ? 'bg-blue-50 border-blue-400' : 'bg-slate-50 border-slate-300 hover:border-blue-500 hover:bg-slate-100'}`}>
+                <label htmlFor={doc.id} className={`flex flex-col items-center justify-center p-6 border-2 border-dashed rounded-sm cursor-pointer transition-all min-h-[160px] text-center ${documents[doc.id] ? 'bg-blue-50 border-blue-400' : tooLargeDocs[doc.id] ? 'bg-rose-50 border-rose-400 hover:border-rose-500 hover:bg-rose-100' : 'bg-slate-50 border-slate-300 hover:border-blue-500 hover:bg-slate-100'}`}>
                   {documents[doc.id] ? (
                     <div className="w-full">
                       <CheckCircle2 size={32} className="text-blue-600 mx-auto mb-3" />
@@ -330,11 +330,17 @@ export default function AdmissionForm({ onSuccess }: { onSuccess: (data: Admissi
                     </div>
                   ) : (
                     <>
-                      <Upload size={32} className="text-slate-400 mb-3 group-hover:text-blue-600 transition-colors" />
-                      <p className="text-xs font-bold text-slate-700 uppercase tracking-wide leading-relaxed">{t(doc.label)}*</p>
+                      <Upload size={32} className={`mb-3 transition-colors ${tooLargeDocs[doc.id] ? 'text-rose-400 group-hover:text-rose-600' : 'text-slate-400 group-hover:text-blue-600'}`} />
+                      <p className={`text-xs font-bold uppercase tracking-wide leading-relaxed ${tooLargeDocs[doc.id] ? 'text-rose-700' : 'text-slate-700'}`}>{t(doc.label)}*</p>
+                      {tooLargeDocs[doc.id] && <p className="text-[10px] font-black uppercase text-rose-500 mt-2">{t("File Too Large")}</p>}
                     </>
                   )}
                 </label>
+                {tooLargeDocs[doc.id] && (
+                  <a href="https://pdf.pi7.org/compress-pdf-to-1mb" target="_blank" rel="noopener noreferrer" className="w-full py-2.5 bg-rose-600 text-white rounded-sm text-[10px] font-black uppercase tracking-widest text-center hover:bg-rose-700 shadow-sm animate-in fade-in zoom-in duration-300 flex items-center justify-center gap-2">
+                    <AlertCircle size={14}/> {t("Compress to 1MB")}
+                  </a>
+                )}
               </div>
             ))}
           </div>
