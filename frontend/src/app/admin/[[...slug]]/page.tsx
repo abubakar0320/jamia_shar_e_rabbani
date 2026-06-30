@@ -615,44 +615,44 @@ export default function AdminDashboard() {
  </div>
  </div>
 
- <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-8 bg-slate-50 p-4 md:p-8 rounded-sm border border-slate-100 relative overflow-hidden print:bg-white print:border-black print:rounded-none">
- <div className="absolute top-0 right-0 w-32 h-32 bg-white rounded-bl-full opacity-50 blur-2xl pointer-events-none print:hidden"></div>
- <div>
- <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Father's Name</p>
- <p className="text-sm font-bold text-slate-800">{selectedApplication.fatherName}</p>
- </div>
- <div>
- <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Date of Birth</p>
- <p className="text-sm font-bold text-slate-800">{selectedApplication.dob || 'Not Provided'}</p>
- </div>
- <div>
- <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">CNIC / B-Form Number</p>
- <p className="text-sm font-mono font-bold text-slate-800">{selectedApplication.cnic || 'Not Provided'}</p>
- </div>
- <div>
- <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Mobile Number</p>
- <p className="text-sm font-mono font-bold text-slate-800">{selectedApplication.mobile}</p>
- </div>
- </div>
- </div>
-
- <div>
- <h4 className="text-xl font-black text-slate-800 mb-6 flex items-center gap-2"><GraduationCap className="text-blue-600 print:text-black"/> Academic Information</h4>
- <div className="bg-slate-50 p-4 md:p-8 rounded-sm border border-slate-100 grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-8 print:bg-white print:border-black print:rounded-none">
- <div>
- <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Selected Class / Program</p>
- <p className="text-sm font-bold text-slate-800">{selectedApplication.classProgram}</p>
- </div>
- <div>
- <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Section (Gender)</p>
- <p className="text-sm font-bold text-slate-800">{selectedApplication.sectionType}</p>
- </div>
- <div>
- <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Academic Session</p>
- <p className="text-sm font-bold text-slate-800 font-mono">{selectedApplication.fees.session}</p>
- </div>
- </div>
- </div>
+  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-slate-50 p-4 md:p-6 rounded-lg border border-slate-100 relative overflow-hidden print:bg-white print:border-black print:rounded-none">
+  <div className="absolute top-0 right-0 w-32 h-32 bg-white rounded-bl-full opacity-50 blur-2xl pointer-events-none print:hidden"></div>
+  <div className="bg-white p-4 rounded-md shadow-sm border border-slate-100">
+  <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1 flex items-center gap-1"><User size={12}/> Father's Name</p>
+  <p className="text-sm font-bold text-slate-800">{selectedApplication.fatherName}</p>
+  </div>
+  <div className="bg-white p-4 rounded-md shadow-sm border border-slate-100">
+  <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1 flex items-center gap-1"><Calendar size={12}/> Date of Birth</p>
+  <p className="text-sm font-bold text-slate-800">{selectedApplication.dob || 'Not Provided'}</p>
+  </div>
+  <div className="bg-white p-4 rounded-md shadow-sm border border-slate-100">
+  <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1 flex items-center gap-1"><Shield size={12}/> CNIC / B-Form Number</p>
+  <p className="text-sm font-mono font-bold text-slate-800">{selectedApplication.cnic || 'Not Provided'}</p>
+  </div>
+  <div className="bg-white p-4 rounded-md shadow-sm border border-slate-100">
+  <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1 flex items-center gap-1"><Phone size={12}/> Mobile Number</p>
+  <p className="text-sm font-mono font-bold text-slate-800">{selectedApplication.mobile}</p>
+  </div>
+  </div>
+  </div>
+ 
+  <div>
+  <h4 className="text-xl font-black text-slate-800 mb-6 flex items-center gap-2"><GraduationCap className="text-blue-600 print:text-black"/> Academic Information</h4>
+  <div className="bg-blue-50/50 p-4 md:p-6 rounded-lg border border-blue-100 grid grid-cols-1 sm:grid-cols-2 gap-4 print:bg-white print:border-black print:rounded-none">
+  <div className="bg-white p-4 rounded-md shadow-sm border border-blue-50">
+  <p className="text-[10px] font-black uppercase tracking-widest text-blue-500 mb-1 flex items-center gap-1"><BookOpen size={12}/> Selected Class / Program</p>
+  <p className="text-sm font-bold text-slate-800">{selectedApplication.classProgram}</p>
+  </div>
+  <div className="bg-white p-4 rounded-md shadow-sm border border-blue-50">
+  <p className="text-[10px] font-black uppercase tracking-widest text-blue-500 mb-1 flex items-center gap-1"><Users size={12}/> Section (Gender)</p>
+  <p className="text-sm font-bold text-slate-800">{selectedApplication.sectionType}</p>
+  </div>
+  <div className="bg-white p-4 rounded-md shadow-sm border border-blue-50 sm:col-span-2 md:col-span-1 lg:col-span-2">
+  <p className="text-[10px] font-black uppercase tracking-widest text-blue-500 mb-1 flex items-center gap-1"><Clock size={12}/> Academic Session</p>
+  <p className="text-sm font-bold text-slate-800 font-mono">{selectedApplication.fees.session}</p>
+  </div>
+  </div>
+  </div>
 
  {/* Admin Form Viewer Button */}
  <div className="bg-blue-50 border border-blue-200 p-6 rounded-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4 print:hidden">
@@ -687,10 +687,9 @@ export default function AdminDashboard() {
  </div>
  </div>
  </div>
- <div className="flex gap-2">
- <button onClick={() => window.open(doc.data || '#', '_blank')} className="flex-1 py-1.5 bg-white border border-slate-200 text-slate-600 rounded text-[9px] font-black uppercase hover:bg-blue-50 hover:text-blue-700">View</button>
- <a href={doc.data || '#'} download={doc.name} className="flex-1 py-1.5 bg-white border border-slate-200 text-slate-600 rounded text-[9px] font-black uppercase hover:bg-blue-50 hover:text-blue-700 text-center block leading-loose">Download</a>
- {!isVerified && <button onClick={() => handleVerifyDoc(key)} className="flex-1 py-1.5 bg-blue-50 border border-blue-200 text-blue-700 rounded text-[9px] font-black uppercase hover:bg-blue-600 hover:text-white transition-colors">Verify</button>}
+ <div className="flex gap-2 mt-3">
+ <a href={doc.data || '#'} download={doc.name} className="flex-1 py-1.5 bg-blue-50 border border-blue-200 text-blue-700 rounded text-[9px] font-black uppercase hover:bg-blue-600 hover:text-white text-center block leading-loose transition-colors"><Download size={12} className="inline mr-1 mb-0.5" /> Download</a>
+ {!isVerified && <button onClick={() => handleVerifyDoc(key)} className="flex-1 py-1.5 bg-emerald-50 border border-emerald-200 text-emerald-700 rounded text-[9px] font-black uppercase hover:bg-emerald-600 hover:text-white transition-colors"><CheckCircle2 size={12} className="inline mr-1 mb-0.5"/> Verify</button>}
  </div>
  </div>
  );
