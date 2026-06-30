@@ -142,9 +142,9 @@ export default function AdmissionScheduleModal({ onClose, schedule, onUpdate }: 
 
         </div>
 
-        <div className="p-6 border-t border-slate-100 bg-white flex justify-end gap-3">
-           <button onClick={onClose} className="px-6 py-3 font-black text-xs uppercase tracking-widest text-slate-500 hover:bg-slate-100 rounded-xl transition-all">Cancel</button>
-           <button onClick={handleSave} disabled={saving} className="px-8 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-black text-xs uppercase tracking-widest shadow-lg shadow-emerald-600/30 transition-all flex items-center gap-2">
+        <div className="p-4 md:p-6 border-t border-slate-100 bg-white flex flex-col-reverse md:flex-row justify-end gap-3">
+           <button onClick={onClose} className="w-full md:w-auto px-6 py-3 font-black text-xs uppercase tracking-widest text-slate-500 hover:bg-slate-100 rounded-xl transition-all border border-slate-200 md:border-transparent">Cancel</button>
+           <button onClick={handleSave} disabled={saving} className="w-full md:w-auto justify-center px-8 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-black text-xs uppercase tracking-widest shadow-lg shadow-emerald-600/30 transition-all flex items-center gap-2">
               <Save size={16}/> {saving ? 'Saving...' : 'Save Schedule'}
            </button>
         </div>

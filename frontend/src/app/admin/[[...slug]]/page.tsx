@@ -2867,7 +2867,7 @@ export default function AdminDashboard() {
  <h2 className="text-xl font-black text-slate-800 flex items-center gap-2"><Folder className="text-indigo-600"/> Manage Fee Categories</h2>
  <button onClick={() => setShowCategoriesModal(false)} className="text-slate-400 hover:text-slate-800"><X size={24}/></button>
  </div>
- <div className="p-6 flex-1 overflow-y-auto bg-slate-50">
+ <div className="p-4 md:p-6 flex-1 overflow-y-auto bg-slate-50">
  <button onClick={() => {
  const name = prompt("Enter Category Name (e.g. Building Fund):");
  if (!name) return;
@@ -2877,20 +2877,20 @@ export default function AdminDashboard() {
  method: 'POST', headers: { 'Content-Type': 'application/json' },
  body: JSON.stringify({ name, amount, description: description || name, status: 'Active', dateCreated: new Date().toISOString().split('T')[0] })
  }).then(() => fetchAllData());
- }} className="mb-6 px-4 py-2 bg-indigo-600 text-white rounded-sm text-xs font-black uppercase tracking-widest hover:bg-indigo-700"><Plus size={16} className="inline mr-2"/> Add New Category</button>
+ }} className="mb-4 md:mb-6 w-full md:w-auto px-4 py-3 md:py-2 bg-indigo-600 text-white rounded-sm text-xs font-black uppercase tracking-widest hover:bg-indigo-700 flex justify-center items-center"><Plus size={16} className="inline mr-2"/> Add New Category</button>
  
- <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
+ <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
  {feeCategories.map(cat => (
  <div key={cat.id} className={`bg-white p-5 rounded-sm border ${cat.status === 'Active' ? 'border-indigo-200' : 'border-slate-200 opacity-60'} shadow-sm relative group`}>
- <div className="absolute top-4 right-4 flex gap-2">
- <button onClick={() => handleCategoryToggle(cat)} title={cat.status === 'Active' ? 'Deactivate' : 'Activate'} className="text-slate-300 hover:text-amber-600 opacity-0 group-hover:opacity-100 transition-opacity">
+ <div className="absolute top-3 right-3 md:top-4 md:right-4 flex gap-2">
+ <button onClick={() => handleCategoryToggle(cat)} title={cat.status === 'Active' ? 'Deactivate' : 'Activate'} className="text-slate-400 hover:text-amber-600 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity p-1 bg-slate-50 md:bg-transparent rounded">
  {cat.status === 'Active' ? <XCircle size={16}/> : <CheckCircle2 size={16}/>}
  </button>
  <button onClick={() => {
  const amt = prompt(`New amount for ${cat.name}:`, cat.amount.toString());
  if(amt) fetch(`/api/admin/fee-categories/${cat.id}`, { method: 'PUT', headers:{'Content-Type':'application/json'}, body:JSON.stringify({amount:parseInt(amt)})}).then(()=>fetchAllData());
- }} title="Edit Amount" className="text-slate-300 hover:text-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity"><Edit size={16}/></button>
- <button onClick={() => handleDeleteCategory(cat.id)} className="text-slate-300 hover:text-rose-600 opacity-0 group-hover:opacity-100 transition-opacity"><Trash2 size={16}/></button>
+ }} title="Edit Amount" className="text-slate-400 hover:text-indigo-600 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity p-1 bg-slate-50 md:bg-transparent rounded"><Edit size={16}/></button>
+ <button onClick={() => handleDeleteCategory(cat.id)} className="text-slate-400 hover:text-rose-600 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity p-1 bg-slate-50 md:bg-transparent rounded"><Trash2 size={16}/></button>
  </div>
  <h3 className="font-black text-slate-800 mb-1">{cat.name}</h3>
  <p className="text-xs text-slate-500 mb-4">{cat.description}</p>
@@ -3297,13 +3297,13 @@ function ChallanBuilderModal({ onClose, students, feeCategories, onGenerate }: a
  <button onClick={onClose} className="text-slate-400 hover:text-slate-800"><X size={24}/></button>
  </div>
  
- <div className="flex-1 overflow-y-auto p-6 flex flex-col md:flex-row gap-6">
- <div className="flex-1 space-y-6">
+ <div className="flex-1 overflow-y-auto p-4 md:p-6 flex flex-col lg:flex-row gap-4 md:gap-6">
+ <div className="flex-1 space-y-4 md:space-y-6">
  <div className="bg-white p-6 rounded-sm border border-slate-200 shadow-sm">
  <h3 className="font-black text-slate-800 mb-4 text-sm uppercase tracking-widest">1. Select Student</h3>
- <div className="flex gap-2">
- <input type="text" placeholder="Enter Roll No..." value={rollNo} onChange={(e)=>setRollNo(e.target.value)} className="flex-1 bg-slate-50 border border-slate-200 rounded-sm px-4 py-2 font-bold focus:ring-2 focus:ring-blue-500 outline-none" />
- <button onClick={handleSearch} className="px-6 py-2 bg-slate-800 text-white rounded-sm font-black text-xs uppercase tracking-widest hover:bg-slate-700 transition-all">Search</button>
+ <div className="flex flex-col md:flex-row gap-2">
+ <input type="text" placeholder="Enter Roll No..." value={rollNo} onChange={(e)=>setRollNo(e.target.value)} className="flex-1 bg-slate-50 border border-slate-200 rounded-sm px-4 py-3 md:py-2 font-bold focus:ring-2 focus:ring-blue-500 outline-none" />
+ <button onClick={handleSearch} className="w-full md:w-auto px-6 py-3 md:py-2 bg-slate-800 text-white rounded-sm font-black text-xs uppercase tracking-widest hover:bg-slate-700 transition-all">Search</button>
  </div>
  {student && (
  <div className="mt-4 p-4 bg-blue-50 border border-blue-100 rounded-sm flex items-center gap-4 animate-in fade-in zoom-in-95">
@@ -3339,7 +3339,7 @@ function ChallanBuilderModal({ onClose, students, feeCategories, onGenerate }: a
  if(!name) return;
  const amount = parseInt(prompt("Enter Amount:") || "0");
  if(name && amount > 0) setCustomEntries([...customEntries, { name, amount }]);
- }} className="px-4 py-2 bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-800 rounded-sm font-black text-xs uppercase tracking-widest border border-slate-200 transition-colors"><Plus size={14} className="inline mr-2"/> Add Custom Item</button>
+ }} className="w-full md:w-auto px-4 py-3 md:py-2 bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-800 rounded-sm font-black text-xs uppercase tracking-widest border border-slate-200 transition-colors flex justify-center items-center"><Plus size={14} className="inline mr-2"/> Add Custom Item</button>
  {customEntries.length > 0 && (
  <div className="mt-4 space-y-2">
  {customEntries.map((c, i) => (
@@ -3356,8 +3356,8 @@ function ChallanBuilderModal({ onClose, students, feeCategories, onGenerate }: a
  </div>
  </div>
 
- <div className="w-full md:w-80 bg-white p-6 rounded-sm border border-slate-200 shadow-sm flex flex-col">
- <h3 className="font-black text-slate-800 mb-6 text-sm uppercase tracking-widest border-b border-slate-100 pb-4">Summary</h3>
+ <div className="w-full lg:w-80 bg-white p-4 md:p-6 rounded-sm border border-slate-200 shadow-sm flex flex-col">
+ <h3 className="font-black text-slate-800 mb-4 md:mb-6 text-sm uppercase tracking-widest border-b border-slate-100 pb-4">Summary</h3>
  
  <div className="flex-1 space-y-4">
  {selectedCats.map((c, i) => (
@@ -3571,13 +3571,13 @@ function FeeSettingsModal({ onClose, feeStructures, onUpdate }: any) {
  ))}
  </div>
 
- <div className="p-6 flex-1 overflow-y-auto bg-slate-50">
- <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
+ <div className="p-4 md:p-6 flex-1 overflow-y-auto bg-slate-50">
+ <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
  {filteredStructures.map((fs: any) => (
  <div key={fs.id} className="bg-white p-6 rounded-sm border border-slate-200 shadow-sm relative group hover:shadow-md transition-shadow">
- <div className="absolute top-4 right-4 flex gap-2">
- <button onClick={() => setEditingTemplate(fs)} className="text-slate-400 hover:text-indigo-600 bg-slate-50 p-2 rounded-sm" title="Edit Template"><Edit size={16}/></button>
- <button onClick={() => handleCopy(fs)} className="text-slate-400 hover:text-blue-600 bg-slate-50 p-2 rounded-sm" title="Copy Structure"><Copy size={16}/></button>
+ <div className="absolute top-3 right-3 md:top-4 md:right-4 flex gap-2">
+ <button onClick={() => setEditingTemplate(fs)} className="text-slate-400 hover:text-indigo-600 bg-slate-100 md:bg-slate-50 p-2 rounded-sm shadow-sm md:shadow-none" title="Edit Template"><Edit size={16}/></button>
+ <button onClick={() => handleCopy(fs)} className="text-slate-400 hover:text-blue-600 bg-slate-100 md:bg-slate-50 p-2 rounded-sm shadow-sm md:shadow-none" title="Copy Structure"><Copy size={16}/></button>
  </div>
  <h3 className="font-black text-slate-800 text-lg pr-20">{fs.classProgram}</h3>
  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-6">Phase 1 Preset: Rs. {fs.phase1Fee + fs.registrationFee}</p>
