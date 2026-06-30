@@ -25,7 +25,7 @@ export default function WafaqResultsPage() {
 
       {/* Iframe Section */}
       <main className="flex-1 w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <div className="bg-white rounded-2xl shadow-xl shadow-gray-200/50 overflow-hidden border border-gray-200 relative" style={{ height: '700px' }}>
+        <div className="bg-white rounded-2xl shadow-xl shadow-gray-200/50 overflow-hidden border border-gray-200 relative h-[500px] md:h-[700px] w-full">
             {/* Loading Indicator (will be hidden behind the loaded iframe) */}
             <div className="absolute inset-0 flex items-center justify-center bg-gray-50 z-0">
                 <div className="flex flex-col items-center text-gray-500">
