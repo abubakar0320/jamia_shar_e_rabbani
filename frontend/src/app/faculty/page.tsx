@@ -114,52 +114,57 @@ export default function Faculty() {
                 <div className="mt-4 text-sm font-semibold text-slate-600 uppercase">{t('faculty_loading')}</div>
               </div>
             ) : (
-              <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
+              <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-8">
                 {faculty.map((member, i) => (
-                  <div key={member.id} className={`flex flex-col bg-white border md:border-2 shadow-sm transition-all duration-300 transform hover:-translate-y-1 md:hover:-translate-y-2 group rounded-xl md:rounded-2xl overflow-hidden ${i%4===0?"border-rose-100 hover:border-rose-300 hover:shadow-[0_8px_30px_rgba(244,63,94,0.15)]":i%4===1?"border-amber-100 hover:border-amber-300 hover:shadow-[0_8px_30px_rgba(245,158,11,0.15)]":i%4===2?"border-emerald-100 hover:border-emerald-300 hover:shadow-[0_8px_30px_rgba(16,185,129,0.15)]":"border-blue-100 hover:border-blue-300 hover:shadow-[0_8px_30px_rgba(59,130,246,0.15)]"}`}>
-                    <div className="aspect-[4/5] relative bg-gray-100 overflow-hidden">
+                  <div key={member.id} className={`flex flex-col bg-white border md:border-2 shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 group rounded-2xl overflow-hidden ${i%4===0?"border-rose-100 hover:border-rose-300":i%4===1?"border-amber-100 hover:border-amber-300":i%4===2?"border-emerald-100 hover:border-emerald-300":"border-blue-100 hover:border-blue-300"}`}>
+                    <div className="aspect-square relative bg-slate-50 overflow-hidden">
                       <OptimizedImage 
                         src={member.image || "/images/WhatsApp.jpeg"}
                         alt={member.name}
                         fill
                         section="faculty"
-                        className="object-cover object-top group-hover:scale-110 transition-transform duration-700"
+                        className="object-cover object-top group-hover:scale-105 transition-transform duration-700"
                         sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
                       />
                     </div>
                     
-                    <div className="p-3 md:p-6 flex flex-col flex-1">
+                    <div className="p-3 md:p-6 flex flex-col flex-1 bg-white relative z-10">
                       <h3 className={`text-sm md:text-xl font-bold mb-0.5 md:mb-1 line-clamp-1 ${i%4===0?"text-rose-600":i%4===1?"text-amber-600":i%4===2?"text-emerald-600":"text-blue-600"}`}>
                         {t(member.name)}
                       </h3>
-                      <p className="text-[9px] md:text-xs font-bold mb-2 md:mb-4 uppercase tracking-wide text-slate-500 line-clamp-1">
+                      <p className="text-[10px] md:text-xs font-bold mb-3 md:mb-5 uppercase tracking-wider text-slate-500 line-clamp-1">
                         {t(member.designation || member.role)}
                       </p>
                       
-                      <div className="hidden md:block space-y-3 mb-6 flex-1 text-sm">
-                        <div>
-                          <span className="font-semibold text-slate-900 block mb-0.5">{t('faculty_member_education_label', 'Education')}</span>
-                          <span className="text-slate-600">{t(member.education)}</span>
+                      <div className="space-y-1.5 md:space-y-3 mb-4 md:mb-6 flex-1 text-[10px] md:text-sm">
+                        <div className="bg-slate-50/80 p-2 md:p-3 rounded-xl border border-slate-100 hover:bg-slate-50 transition-colors">
+                          <span className="font-bold text-slate-800 block mb-0.5 flex items-center gap-1.5">
+                            <GraduationCap size={12} className="md:w-4 md:h-4 text-slate-400" />
+                            {t('faculty_member_education_label', 'Education')}
+                          </span>
+                          <span className="text-slate-600 line-clamp-2 leading-relaxed">{t(member.education)}</span>
                         </div>
-                        <div>
-                          <span className="font-semibold text-slate-900 block mb-0.5">{t('faculty_member_specialization_label', 'Specialization')}</span>
-                          <span className="text-slate-600">{t(member.specialization)}</span>
+                        <div className="bg-slate-50/80 p-2 md:p-3 rounded-xl border border-slate-100 hover:bg-slate-50 transition-colors">
+                          <span className="font-bold text-slate-800 block mb-0.5 flex items-center gap-1.5">
+                            <BookOpen size={12} className="md:w-4 md:h-4 text-slate-400" />
+                            {t('faculty_member_specialization_label', 'Specialization')}
+                          </span>
+                          <span className="text-slate-600 line-clamp-2 leading-relaxed">{t(member.specialization)}</span>
                         </div>
                       </div>
 
-                      <div className="flex gap-2 md:gap-4 items-center pt-2 md:pt-4 border-t border-slate-100 mt-auto">
-                        <Link href={`mailto:${member.email || 'shererabbani@gmail.com'}`} className={`transition-colors ${i%4===0?"text-rose-400 hover:text-rose-600":i%4===1?"text-amber-400 hover:text-amber-600":i%4===2?"text-emerald-400 hover:text-emerald-600":"text-blue-400 hover:text-blue-600"}`}>
-                          <Mail className="w-4 h-4 md:w-5 md:h-5" />
+                      <div className="flex gap-1.5 md:gap-3 items-center pt-3 md:pt-4 border-t border-slate-100 mt-auto">
+                        <Link href={`mailto:${member.email || 'shererabbani@gmail.com'}`} className={`p-1.5 md:p-2 rounded-full bg-slate-50 transition-colors ${i%4===0?"text-rose-500 hover:bg-rose-100":i%4===1?"text-amber-500 hover:bg-amber-100":i%4===2?"text-emerald-500 hover:bg-emerald-100":"text-blue-500 hover:bg-blue-100"}`}>
+                          <Mail className="w-3.5 h-3.5 md:w-5 md:h-5" />
                         </Link>
-                        <Link href={`tel:${member.contact || '03144081516'}`} className={`transition-colors ${i%4===0?"text-rose-400 hover:text-rose-600":i%4===1?"text-amber-400 hover:text-amber-600":i%4===2?"text-emerald-400 hover:text-emerald-600":"text-blue-400 hover:text-blue-600"}`}>
-                          <Phone className="w-4 h-4 md:w-5 md:h-5" />
+                        <Link href={`tel:${member.contact || '03144081516'}`} className={`p-1.5 md:p-2 rounded-full bg-slate-50 transition-colors ${i%4===0?"text-rose-500 hover:bg-rose-100":i%4===1?"text-amber-500 hover:bg-amber-100":i%4===2?"text-emerald-500 hover:bg-emerald-100":"text-blue-500 hover:bg-blue-100"}`}>
+                          <Phone className="w-3.5 h-3.5 md:w-5 md:h-5" />
                         </Link>
                         <Link 
                           href={`/faculty-profile?id=${(member as any)._id || member.id}`} 
-                          className={`ml-auto px-2 md:px-4 py-1 md:py-1.5 text-[9px] md:text-xs font-bold rounded-lg md:rounded-xl border md:border-2 transition-colors ${i%4===0?"border-rose-100 text-rose-600 hover:bg-rose-50":i%4===1?"border-amber-100 text-amber-600 hover:bg-amber-50":i%4===2?"border-emerald-100 text-emerald-600 hover:bg-emerald-50":"border-blue-100 text-blue-600 hover:bg-blue-50"}`}
+                          className={`ml-auto px-3 md:px-5 py-1.5 md:py-2 text-[10px] md:text-sm font-bold rounded-lg md:rounded-xl transition-colors ${i%4===0?"bg-rose-50 text-rose-600 hover:bg-rose-100":i%4===1?"bg-amber-50 text-amber-600 hover:bg-amber-100":i%4===2?"bg-emerald-50 text-emerald-600 hover:bg-emerald-100":"bg-blue-50 text-blue-600 hover:bg-blue-100"}`}
                         >
-                          <span className="hidden md:inline">{t('faculty_member_profile_link', 'View Profile')}</span>
-                          <span className="md:hidden">Profile</span>
+                          {t('faculty_member_profile_link', 'Profile')}
                         </Link>
                       </div>
                     </div>

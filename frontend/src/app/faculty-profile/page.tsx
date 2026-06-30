@@ -306,7 +306,7 @@ function FacultyProfileContent() {
                     <h3 className="text-xl font-bold text-slate-900 px-2">{t('Related Faculty')}</h3>
                      <div className="space-y-4">
                        {related.map(item => (
-                          <Link key={item.id} href={`/faculty/${item.id}`} className="flex items-center gap-4 bg-white p-4 rounded-2xl border border-slate-100 hover:shadow-lg transition-all group">
+                          <Link key={item.id} href={`/faculty-profile?id=${(item as any)._id || item.id}`} className="flex items-center gap-4 bg-white p-4 rounded-2xl border border-slate-100 hover:shadow-lg transition-all group">
                              <div className="w-14 h-14 rounded-xl overflow-hidden relative shrink-0">
                                 <OptimizedImage 
                                   src={item.image || "/images/WhatsApp.jpeg"}
