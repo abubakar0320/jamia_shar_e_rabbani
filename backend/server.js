@@ -308,10 +308,14 @@ app.post('/api/admissions', (req, res) => {
 
   const mappedClass = classMapping[rawClass] || rawClass;
   
+  // Normalize section type to match feeStructures (e.g. 'Tulba' -> 'Tulba Section')
+  const reqSection = req.body.sectionType;
+  const normalizedSection = reqSection.includes('Section') ? reqSection : reqSection + ' Section';
+  
   // Find specific fee structure for this class if exists
   const classFee = feeStructures.find(f => 
     f.classProgram === mappedClass && 
-    f.sectionType === req.body.sectionType
+    f.sectionType === normalizedSection
   ) || feeConfig;
   
   // Base fees from class-specific structure or global config

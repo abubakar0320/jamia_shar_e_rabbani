@@ -422,7 +422,8 @@
       "phase2Fee": 2550,
       "phase3Fee": 3550,
       "sectionType": "Tulba Section",
-      "id": 1782039530484
+      "id": 1782039530484,
+      "registrationFee": 1000
     },
     {
       "classProgram": "Mutawassitah",
@@ -431,7 +432,8 @@
       "phase2Fee": 2550,
       "phase3Fee": 3550,
       "sectionType": "Talibat Section",
-      "id": 1782039530152
+      "id": 1782039530152,
+      "registrationFee": 1000
     },
     {
       "classProgram": "Sanawiya Aamma Awal",
@@ -440,7 +442,8 @@
       "phase2Fee": 3550,
       "phase3Fee": 4550,
       "sectionType": "Tulba Section",
-      "id": 1782039530167
+      "id": 1782039530167,
+      "registrationFee": 1000
     },
     {
       "classProgram": "Sanawiya Aamma Awal",
@@ -449,7 +452,8 @@
       "phase2Fee": 3550,
       "phase3Fee": 4550,
       "sectionType": "Talibat Section",
-      "id": 1782039530692
+      "id": 1782039530692,
+      "registrationFee": 1000
     },
     {
       "classProgram": "Sanawiya Aamma Dom",
@@ -458,7 +462,8 @@
       "phase2Fee": 3550,
       "phase3Fee": 4550,
       "sectionType": "Tulba Section",
-      "id": 1782039531027
+      "id": 1782039531027,
+      "registrationFee": 1000
     },
     {
       "classProgram": "Sanawiya Aamma Dom",
@@ -467,7 +472,8 @@
       "phase2Fee": 3550,
       "phase3Fee": 4550,
       "sectionType": "Talibat Section",
-      "id": 1782039530608
+      "id": 1782039530608,
+      "registrationFee": 1000
     },
     {
       "classProgram": "Sanawiya Khasa Awal",
@@ -476,7 +482,8 @@
       "phase2Fee": 4050,
       "phase3Fee": 5050,
       "sectionType": "Tulba Section",
-      "id": 1782039530976
+      "id": 1782039530976,
+      "registrationFee": 1000
     },
     {
       "classProgram": "Sanawiya Khasa Awal",
@@ -485,7 +492,8 @@
       "phase2Fee": 4050,
       "phase3Fee": 5050,
       "sectionType": "Talibat Section",
-      "id": 1782039530817
+      "id": 1782039530817,
+      "registrationFee": 1000
     },
     {
       "classProgram": "Sanawiya Khasa Dom",
@@ -494,7 +502,8 @@
       "phase2Fee": 4050,
       "phase3Fee": 5050,
       "sectionType": "Tulba Section",
-      "id": 1782039531040
+      "id": 1782039531040,
+      "registrationFee": 1000
     },
     {
       "classProgram": "Sanawiya Khasa Dom",
@@ -503,7 +512,8 @@
       "phase2Fee": 4050,
       "phase3Fee": 5050,
       "sectionType": "Talibat Section",
-      "id": 1782039530731
+      "id": 1782039530731,
+      "registrationFee": 1000
     },
     {
       "classProgram": "Aliya Awal",
@@ -512,7 +522,8 @@
       "phase2Fee": 5050,
       "phase3Fee": 6050,
       "sectionType": "Tulba Section",
-      "id": 1782039530792
+      "id": 1782039530792,
+      "registrationFee": 1000
     },
     {
       "classProgram": "Aliya Awal",
@@ -521,7 +532,8 @@
       "phase2Fee": 5050,
       "phase3Fee": 6050,
       "sectionType": "Talibat Section",
-      "id": 1782039530838
+      "id": 1782039530838,
+      "registrationFee": 1000
     },
     {
       "classProgram": "Aliya Dom",
@@ -530,7 +542,8 @@
       "phase2Fee": 5050,
       "phase3Fee": 6050,
       "sectionType": "Tulba Section",
-      "id": 1782039530528
+      "id": 1782039530528,
+      "registrationFee": 1000
     },
     {
       "classProgram": "Aliya Dom",
@@ -539,7 +552,8 @@
       "phase2Fee": 5050,
       "phase3Fee": 6050,
       "sectionType": "Talibat Section",
-      "id": 1782039531032
+      "id": 1782039531032,
+      "registrationFee": 1000
     },
     {
       "classProgram": "Alamiya Awal",
@@ -548,7 +562,8 @@
       "phase2Fee": 6550,
       "phase3Fee": 7550,
       "sectionType": "Tulba Section",
-      "id": 1782039530687
+      "id": 1782039530687,
+      "registrationFee": 1000
     },
     {
       "classProgram": "Alamiya Awal",
@@ -557,7 +572,8 @@
       "phase2Fee": 6550,
       "phase3Fee": 7550,
       "sectionType": "Talibat Section",
-      "id": 1782039530896
+      "id": 1782039530896,
+      "registrationFee": 1000
     },
     {
       "classProgram": "Alamiya Dom",
@@ -566,7 +582,8 @@
       "phase2Fee": 6550,
       "phase3Fee": 7550,
       "sectionType": "Tulba Section",
-      "id": 1782039530512
+      "id": 1782039530512,
+      "registrationFee": 1000
     },
     {
       "classProgram": "Alamiya Dom",
@@ -575,7 +592,8 @@
       "phase2Fee": 6550,
       "phase3Fee": 7550,
       "sectionType": "Talibat Section",
-      "id": 1782039530671
+      "id": 1782039530671,
+      "registrationFee": 1000
     },
     {
       "classProgram": "Takhassus Awal",
@@ -584,7 +602,8 @@
       "phase2Fee": 7050,
       "phase3Fee": 8050,
       "sectionType": "Tulba Section",
-      "id": 1782039530322
+      "id": 1782039530322,
+      "registrationFee": 1000
     },
     {
       "classProgram": "Takhassus Awal",
@@ -593,7 +612,8 @@
       "phase2Fee": 7050,
       "phase3Fee": 8050,
       "sectionType": "Talibat Section",
-      "id": 1782039530237
+      "id": 1782039530237,
+      "registrationFee": 1000
     },
     {
       "classProgram": "Takhassus Dom",
@@ -602,7 +622,8 @@
       "phase2Fee": 7050,
       "phase3Fee": 8050,
       "sectionType": "Tulba Section",
-      "id": 1782039531000
+      "id": 1782039531000,
+      "registrationFee": 1000
     },
     {
       "classProgram": "Takhassus Dom",
@@ -611,7 +632,8 @@
       "phase2Fee": 7050,
       "phase3Fee": 8050,
       "sectionType": "Talibat Section",
-      "id": 1782039530626
+      "id": 1782039530626,
+      "registrationFee": 1000
     },
     {
       "classProgram": "Amma Khasusi",
@@ -620,7 +642,8 @@
       "phase2Fee": 6550,
       "phase3Fee": 7550,
       "sectionType": "Tulba Section",
-      "id": 1782039845207
+      "id": 1782039845207,
+      "registrationFee": 1000
     },
     {
       "classProgram": "Amma Khasusi",
@@ -629,7 +652,8 @@
       "phase2Fee": 6550,
       "phase3Fee": 7550,
       "sectionType": "Talibat Section",
-      "id": 1782039530854
+      "id": 1782039530854,
+      "registrationFee": 1000
     },
     {
       "classProgram": "Khasa Khasusi",
@@ -638,7 +662,8 @@
       "phase2Fee": 8050,
       "phase3Fee": 9050,
       "sectionType": "Tulba Section",
-      "id": 1782039530208
+      "id": 1782039530208,
+      "registrationFee": 1000
     },
     {
       "classProgram": "Khasa Khasusi",
@@ -647,7 +672,8 @@
       "phase2Fee": 8050,
       "phase3Fee": 9050,
       "sectionType": "Talibat Section",
-      "id": 1782039530856
+      "id": 1782039530856,
+      "registrationFee": 1000
     },
     {
       "classProgram": "Almiya Khasusi Part One",
@@ -656,7 +682,8 @@
       "phase2Fee": 17550,
       "phase3Fee": 22550,
       "sectionType": "Tulba Section",
-      "id": 1782039845208
+      "id": 1782039845208,
+      "registrationFee": 1000
     },
     {
       "classProgram": "Almiya Khasusi Part One",
@@ -665,7 +692,8 @@
       "phase2Fee": 17550,
       "phase3Fee": 22550,
       "sectionType": "Talibat Section",
-      "id": 1782039530711
+      "id": 1782039530711,
+      "registrationFee": 1000
     },
     {
       "classProgram": "Almiya Khasusi Part Two",
@@ -674,7 +702,8 @@
       "phase2Fee": 17550,
       "phase3Fee": 22550,
       "sectionType": "Tulba Section",
-      "id": 1782039530806
+      "id": 1782039530806,
+      "registrationFee": 1000
     },
     {
       "classProgram": "Almiya Khasusi Part Two",
@@ -683,7 +712,8 @@
       "phase2Fee": 17550,
       "phase3Fee": 22550,
       "sectionType": "Talibat Section",
-      "id": 1782039530971
+      "id": 1782039530971,
+      "registrationFee": 1000
     },
     {
       "classProgram": "Hifz-ul-Quran",
