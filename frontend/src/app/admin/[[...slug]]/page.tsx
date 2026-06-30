@@ -822,92 +822,84 @@ export default function AdminDashboard() {
  )}
  </AnimatePresence>
 
- {/* Main Applications Table */}
+ {/* Main Applications Directory (Card Grid) */}
  <div className="bg-white rounded-sm shadow-sm border border-slate-200 overflow-hidden">
- <div className="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
- <h3 className="text-lg font-black text-slate-800 tracking-tight flex items-center gap-2"><FileText size={20} className="text-blue-600"/> Admissions Directory</h3>
- <div className="flex gap-2">
- <button onClick={exportToCSV} className="flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 text-blue-700 rounded-sm text-[10px] font-black uppercase tracking-widest shadow-sm hover:bg-blue-50"><Download size={14}/> Excel (CSV)</button>
- <button onClick={exportToPDF} className="flex items-center gap-2 px-4 py-2 bg-slate-800 border border-slate-900 text-white rounded-sm text-[10px] font-black uppercase tracking-widest shadow-sm hover:bg-slate-700"><Printer size={14}/> PDF Report</button>
- </div>
- </div>
- <div className="overflow-x-auto min-h-[500px]">
- <table className="w-full text-left border-collapse whitespace-nowrap">
- <thead>
- <tr className="bg-slate-50 border-b border-slate-100">
- <th className="px-6 py-4 w-10">
- <button onClick={toggleAllSelection} className="text-slate-400 hover:text-blue-600">
- {selectedIds.length === filteredAdmissions.length && filteredAdmissions.length > 0 ? <CheckSquareIcon size={18} className="text-blue-600"/> : <Square size={18}/>}
- </button>
- </th>
- <th className="px-6 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">App No / Date</th>
- <th className="px-6 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Student Name</th>
- <th className="px-6 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Mobile</th>
- <th className="px-6 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Program Details</th>
- <th className="px-6 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 text-center">Status</th>
- <th className="px-6 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 text-right">Actions</th>
- </tr>
- </thead>
- <tbody className="divide-y divide-slate-100">
- {filteredAdmissions.map((adm) => {
- const isSelected = selectedIds.includes(adm.id);
- return (
- <tr key={adm.id} className={`transition-colors group ${isSelected ? 'bg-blue-50/50' : 'hover:bg-slate-50/80'}`}>
- <td className="px-6 py-5">
- <button onClick={() => toggleSelection(adm.id)} className={`${isSelected ? 'text-blue-600' : 'text-slate-300 group-hover:text-slate-400'}`}>
- {isSelected ? <CheckSquareIcon size={18}/> : <Square size={18}/>}
- </button>
- </td>
- <td className="px-6 py-5">
- <div className="font-mono text-xs font-black text-slate-700">{adm.applicationNo}</div>
- <div className="text-[10px] font-bold text-slate-400 mt-1 uppercase tracking-widest">{new Date(adm.date).toLocaleDateString()}</div>
- </td>
- <td className="px-6 py-5">
- <div className="flex items-center gap-4">
- <div className="w-10 h-10 rounded-sm bg-slate-100 group-hover:bg-blue-100 flex items-center justify-center text-slate-600 group-hover:text-blue-700 font-black transition-colors shrink-0">{adm.studentName?.charAt(0)}</div>
- <div>
- <div className="font-black text-sm text-slate-800 tracking-tight">{adm.studentName}</div>
- <div className="text-[10px] text-slate-500 font-bold uppercase tracking-wider mt-0.5">S/O {adm.fatherName}</div>
- </div>
- </div>
- </td>
- <td className="px-6 py-5 font-mono text-xs font-bold text-slate-600">{adm.mobile}</td>
- <td className="px-6 py-5">
- <div className="font-black text-xs text-slate-700">{adm.classProgram}</div>
- <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">{adm.sectionType}</div>
- </td>
- <td className="px-6 py-5 text-center">
- <span className={`inline-block px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest
- ${(adm.status === 'Pending' || !adm.status) ? 'bg-amber-100 text-amber-700' : ''}
- ${adm.status === 'Approved' ? 'bg-blue-100 text-blue-700' : ''}
- ${adm.status === 'Rejected' ? 'bg-rose-100 text-rose-700' : ''}
- ${adm.status === 'Hold' ? 'bg-indigo-100 text-indigo-700' : ''}
- `}>{adm.status || 'Pending'}</span>
- </td>
- <td className="px-6 py-5 text-right">
- <div className="flex items-center justify-end gap-2 opacity-50 group-hover:opacity-100 transition-opacity">
- <button onClick={() => setSelectedApplication(adm)} className="p-2 bg-white border border-slate-200 rounded-sm hover:bg-blue-50 hover:border-blue-200 hover:text-blue-600 transition-all shadow-sm" title="View"><Eye size={16} /></button>
- <button onClick={() => { setSelectedApplication(adm); setIsEditingApp(true); }} className="p-2 bg-white border border-slate-200 rounded-sm hover:bg-blue-50 hover:border-blue-200 hover:text-blue-600 transition-all shadow-sm" title="Edit"><Edit size={16} /></button>
- <button onClick={() => handlePrint()} className="p-2 bg-white border border-slate-200 rounded-sm hover:bg-blue-50 hover:border-blue-200 hover:text-blue-600 transition-all shadow-sm" title="Print"><Printer size={16} /></button>
- <button onClick={() => handleDelete(adm.id)} className="p-2 bg-white border border-rose-200 rounded-sm hover:bg-rose-50 hover:border-rose-200 hover:text-rose-600 transition-all shadow-sm" title="Delete"><Trash2 size={16} /></button>
- </div>
- </td>
- </tr>
- );
- })}
- {filteredAdmissions.length === 0 && (
- <tr>
- <td colSpan={7} className="py-20 text-center">
- <div className="flex flex-col items-center justify-center">
- <Search size={40} className="text-slate-200 mb-4" />
- <p className="text-sm font-bold text-slate-500">No applications match your search criteria.</p>
- </div>
- </td>
- </tr>
- )}
- </tbody>
- </table>
- </div>
+    <div className="p-4 md:p-6 border-b border-slate-100 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-slate-50/50">
+       <div className="flex items-center gap-4 flex-wrap">
+          <h3 className="text-lg font-black text-slate-800 tracking-tight flex items-center gap-2"><FileText size={20} className="text-blue-600"/> Admissions</h3>
+          <div className="h-6 w-px bg-slate-200 hidden md:block"></div>
+          <button onClick={toggleAllSelection} className="flex items-center gap-2 text-[10px] md:text-xs font-black uppercase tracking-widest text-slate-600 hover:text-blue-600 transition-colors bg-white px-3 py-1.5 rounded-md border border-slate-200 shadow-sm">
+             {selectedIds.length === filteredAdmissions.length && filteredAdmissions.length > 0 ? <CheckSquareIcon size={14} className="text-blue-600"/> : <Square size={14}/>}
+             Select All
+          </button>
+       </div>
+       <div className="flex flex-wrap gap-2 w-full md:w-auto">
+          <button onClick={exportToCSV} className="flex-1 md:flex-none justify-center items-center gap-2 px-4 py-2 bg-white border border-slate-200 text-blue-700 rounded-sm text-[10px] font-black uppercase tracking-widest shadow-sm hover:bg-blue-50"><Download size={14}/> CSV</button>
+          <button onClick={exportToPDF} className="flex-1 md:flex-none justify-center items-center gap-2 px-4 py-2 bg-slate-800 border border-slate-900 text-white rounded-sm text-[10px] font-black uppercase tracking-widest shadow-sm hover:bg-slate-700"><Printer size={14}/> PDF Report</button>
+       </div>
+    </div>
+    
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6 p-3 md:p-6 min-h-[500px] bg-slate-50/50">
+      {filteredAdmissions.map((adm) => {
+        const isSelected = selectedIds.includes(adm.id);
+        return (
+           <div key={adm.id} className={`relative p-3 md:p-5 rounded-xl md:rounded-2xl border transition-all flex flex-col ${isSelected ? 'bg-blue-50 border-blue-200 shadow-md' : 'bg-white border-slate-200 hover:border-blue-300 shadow-sm hover:shadow-md'}`}>
+              <div className="absolute top-2 right-2 md:top-4 md:right-4 z-10">
+                 <button onClick={() => toggleSelection(adm.id)} className={`p-1 rounded-md bg-white/80 backdrop-blur-sm shadow-sm border ${isSelected ? 'text-blue-600 border-blue-200' : 'text-slate-300 hover:text-slate-400 border-slate-100'}`}>
+                    {isSelected ? <CheckSquareIcon size={16} className="md:w-5 md:h-5"/> : <Square size={16} className="md:w-5 md:h-5"/>}
+                 </button>
+              </div>
+              
+              <div className="flex flex-col md:flex-row items-center md:items-start gap-2 md:gap-3 mb-3 md:mb-4 text-center md:text-left pt-4 md:pt-0">
+                 <div className="w-12 h-12 md:w-14 md:h-14 rounded-full md:rounded-xl bg-slate-100 flex items-center justify-center text-slate-600 font-black text-xl shrink-0 mx-auto md:mx-0 shadow-inner">
+                    {adm.studentName?.charAt(0)}
+                 </div>
+                 <div className="flex-1 min-w-0 px-1 md:px-0">
+                    <h4 className="font-black text-xs md:text-sm text-slate-800 line-clamp-1" title={adm.studentName}>{adm.studentName}</h4>
+                    <p className="text-[9px] md:text-[10px] text-slate-500 font-bold uppercase tracking-wider line-clamp-1">S/O {adm.fatherName}</p>
+                 </div>
+              </div>
+
+              <div className="space-y-1.5 md:space-y-2 mb-3 md:mb-5 flex-1 bg-slate-50 p-2 md:p-3 rounded-lg border border-slate-100">
+                 <div className="flex justify-between items-center text-[10px] md:text-xs">
+                    <span className="text-slate-400 font-bold uppercase tracking-widest text-[8px] md:text-[9px]">App No</span>
+                    <span className="font-mono font-black text-slate-700">{adm.applicationNo}</span>
+                 </div>
+                 <div className="flex justify-between items-center text-[10px] md:text-xs">
+                    <span className="text-slate-400 font-bold uppercase tracking-widest text-[8px] md:text-[9px]">Class</span>
+                    <span className="font-black text-slate-700 line-clamp-1 max-w-[60%] text-right">{adm.classProgram}</span>
+                 </div>
+                 <div className="flex justify-between items-center text-[10px] md:text-xs">
+                    <span className="text-slate-400 font-bold uppercase tracking-widest text-[8px] md:text-[9px]">Mobile</span>
+                    <span className="font-mono font-bold text-slate-600">{adm.mobile}</span>
+                 </div>
+                 <div className="flex justify-between items-center text-[10px] md:text-xs pt-1.5 border-t border-slate-200 mt-1.5">
+                    <span className="text-slate-400 font-bold uppercase tracking-widest text-[8px] md:text-[9px]">Status</span>
+                    <span className={`inline-block px-1.5 py-0.5 rounded-md text-[8px] md:text-[9px] font-black uppercase tracking-widest
+                     ${(adm.status === 'Pending' || !adm.status) ? 'bg-amber-100 text-amber-700' : ''}
+                     ${adm.status === 'Approved' ? 'bg-blue-100 text-blue-700' : ''}
+                     ${adm.status === 'Rejected' ? 'bg-rose-100 text-rose-700' : ''}
+                     ${adm.status === 'Hold' ? 'bg-indigo-100 text-indigo-700' : ''}
+                     `}>{adm.status || 'Pending'}</span>
+                 </div>
+              </div>
+
+              <div className="flex items-center justify-between gap-1.5 md:gap-2 mt-auto">
+                 <button onClick={() => setSelectedApplication(adm)} className="flex-1 py-1.5 md:py-2 bg-slate-50 border border-slate-200 rounded-md md:rounded-lg hover:bg-blue-50 hover:border-blue-200 hover:text-blue-600 transition-all shadow-sm flex items-center justify-center text-slate-600" title="View"><Eye size={14} className="md:w-4 md:h-4" /></button>
+                 <button onClick={() => { setSelectedApplication(adm); setIsEditingApp(true); }} className="flex-1 py-1.5 md:py-2 bg-slate-50 border border-slate-200 rounded-md md:rounded-lg hover:bg-blue-50 hover:border-blue-200 hover:text-blue-600 transition-all shadow-sm flex items-center justify-center text-slate-600" title="Edit"><Edit size={14} className="md:w-4 md:h-4" /></button>
+                 <button onClick={() => handlePrint()} className="flex-1 py-1.5 md:py-2 bg-slate-50 border border-slate-200 rounded-md md:rounded-lg hover:bg-blue-50 hover:border-blue-200 hover:text-blue-600 transition-all shadow-sm flex items-center justify-center text-slate-600" title="Print"><Printer size={14} className="md:w-4 md:h-4" /></button>
+                 <button onClick={() => handleDelete(adm.id)} className="flex-1 py-1.5 md:py-2 bg-rose-50 border border-rose-100 rounded-md md:rounded-lg hover:bg-rose-100 hover:border-rose-200 hover:text-rose-700 transition-all shadow-sm flex items-center justify-center text-rose-500" title="Delete"><Trash2 size={14} className="md:w-4 md:h-4" /></button>
+              </div>
+           </div>
+        );
+      })}
+      {filteredAdmissions.length === 0 && (
+         <div className="col-span-full py-20 text-center flex flex-col items-center justify-center">
+            <Search size={40} className="text-slate-200 mb-4" />
+            <p className="text-sm font-bold text-slate-500">No applications match your search criteria.</p>
+         </div>
+      )}
+    </div>
  </div>
  </div>
  );
