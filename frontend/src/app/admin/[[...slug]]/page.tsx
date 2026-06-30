@@ -255,7 +255,7 @@ export default function AdminDashboard() {
  const fetchAllData = async () => {
  setLoading(true);
  try {
- const [resAdm, resStu, resFac, resCrs, resRes, resFs, resCh, resCat, resSched] = await Promise.all([
+ const [resAdm, resStu, resFac, resCrs, resFs, resCh, resCat, resSched] = await Promise.all([
  fetch('/api/admin/admissions').catch(() => null),
  fetch('/api/admin/students').catch(() => null),
  fetch('/api/admin/faculty').catch(() => null),
