@@ -16,7 +16,7 @@ const Footer = () => {
 
   if (!mounted) {
     return (
-      <footer className="bg-slate-900 text-slate-300 py-10 print:hidden">
+      <footer className="bg-white text-slate-600 py-10 border-t border-slate-200 print:hidden">
         <div className="max-w-[1600px] mx-auto px-6 text-center text-xs opacity-50">
           {t('Loading footer...')}
         </div>
@@ -70,11 +70,11 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-slate-900 text-slate-300 font-sans mt-auto selection:bg-purple-500/30 border-t-4 border-transparent print:hidden" style={{ borderImage: "linear-gradient(to right, #f43f5e, #a855f7, #3b82f6) 1" }}>
+    <footer className="bg-white text-slate-600 font-sans mt-auto selection:bg-purple-500/30 border-t-4 border-transparent shadow-[0_-10px_40px_-15px_rgba(0,0,0,0.05)] print:hidden" style={{ borderImage: "linear-gradient(to right, #f43f5e, #a855f7, #3b82f6) 1" }}>
       <div className="max-w-[1600px] mx-auto px-6 md:px-12 py-6">
         
         {/* Brand & Social Section */}
-        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-6 border-b border-slate-800 pb-4">
+        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-6 border-b border-slate-200 pb-4">
           <div className="flex flex-col">
             <Link href="/" className="flex items-center mb-2 group gap-3">
               <Image 
@@ -82,7 +82,7 @@ const Footer = () => {
                 alt="Jamia Sher-e-Rabbani Logo" 
                 width={40} 
                 height={40} 
-                className="rounded-full shadow-lg border-2 border-slate-800"
+                className="rounded-full shadow-lg border-2 border-slate-100"
               />
               <div className="flex flex-col">
                 <span className="text-lg md:text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-rose-500 via-purple-500 to-blue-500 tracking-tighter leading-none transition-all group-hover:brightness-125">
@@ -102,7 +102,7 @@ const Footer = () => {
             <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500">{t('follow_jamia', 'Connect with us')}</span>
             <div className="flex gap-2">
               {[MessageCircle, Send, Video, Users].map((Icon, i) => (
-                <Link key={i} href="/contact" className={`w-8 h-8 rounded-lg bg-slate-800 flex items-center justify-center text-white transition-all transform hover:-translate-y-1 hover:shadow-lg ${i===0?"hover:bg-rose-500 hover:shadow-rose-500/50":i===1?"hover:bg-amber-500 hover:shadow-amber-500/50":i===2?"hover:bg-emerald-500 hover:shadow-emerald-500/50":"hover:bg-blue-500 hover:shadow-blue-500/50"}`}>
+                <Link key={i} href="/contact" className={`w-8 h-8 rounded-lg bg-slate-50 border border-slate-200 flex items-center justify-center text-slate-500 transition-all transform hover:-translate-y-1 hover:shadow-lg hover:text-white ${i===0?"hover:bg-rose-500 hover:border-rose-500 hover:shadow-rose-500/30":i===1?"hover:bg-amber-500 hover:border-amber-500 hover:shadow-amber-500/30":i===2?"hover:bg-emerald-500 hover:border-emerald-500 hover:shadow-emerald-500/30":"hover:bg-blue-500 hover:border-blue-500 hover:shadow-blue-500/30"}`}>
                   <Icon size={14} />
                 </Link>
               ))}
@@ -129,7 +129,7 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="flex flex-col lg:flex-row justify-between items-center pt-4 border-t border-slate-800 gap-4">
+        <div className="flex flex-col lg:flex-row justify-between items-center pt-4 border-t border-slate-200 gap-4">
           <div className="flex flex-wrap items-center gap-4">
             {/* Removed missing policy links */}
           </div>
