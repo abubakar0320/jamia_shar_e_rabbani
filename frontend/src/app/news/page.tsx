@@ -61,7 +61,7 @@ export default function News() {
       <main className="flex-1 bg-white font-sans text-slate-900">
         
         {/* --- HERO --- */}
-        <section className="relative pt-24 pb-20 bg-white border-b border-slate-100">
+        <section style={{ backgroundImage: "url('/ahmad.png')", backgroundSize: "cover", backgroundPosition: "center", backgroundBlendMode: "overlay", backgroundColor: "rgba(255,255,255,0.85)" }} className="relative pt-24 pb-20 bg-white border-b border-slate-100">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
              <motion.div 
                 initial={{ opacity: 0, y: 20 }}

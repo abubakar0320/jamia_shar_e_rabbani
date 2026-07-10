@@ -71,7 +71,7 @@ export default function IslamicResearchCenter() {
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-white font-sans text-slate-900">
+    <div style={{ backgroundImage: "url('/ahmad.png')", backgroundSize: "cover", backgroundPosition: "center", backgroundBlendMode: "overlay", backgroundColor: "rgba(255,255,255,0.85)" }} className="flex flex-col min-h-screen bg-white font-sans text-slate-900">
       <Header />
 
       <main className="flex-1">

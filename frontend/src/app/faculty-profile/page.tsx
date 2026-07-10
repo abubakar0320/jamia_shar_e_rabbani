@@ -144,7 +144,7 @@ function FacultyProfileContent() {
       <main className="flex-1 pb-24">
         
         {/* HEADER SECTION - UNIVERSITY STYLE */}
-        <section className="bg-emerald-900 text-white pt-20 pb-40 relative overflow-hidden">
+        <section style={{ backgroundImage: "url('/ahmad.png')", backgroundSize: "cover", backgroundPosition: "center", backgroundBlendMode: "overlay", backgroundColor: "rgba(255,255,255,0.85)" }} className="bg-emerald-900 text-white pt-20 pb-40 relative overflow-hidden">
            <div className="absolute inset-0 opacity-10 pointer-events-none">
               <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]" />
            </div>

@@ -111,7 +111,7 @@ export default function DeveloperProfile() {
         <div className="absolute top-[800px] left-1/2 w-[800px] h-[400px] bg-gradient-to-t from-amber-300/20 to-orange-500/20 rounded-full blur-[150px] -translate-x-1/2 pointer-events-none" />
 
         {/* SIMPLE HERO SECTION */}
-        <section className="pt-24 pb-16 md:pt-28 md:pb-20 px-6 lg:px-12 max-w-6xl mx-auto relative z-10">
+        <section style={{ backgroundImage: "url('/ahmad.png')", backgroundSize: "cover", backgroundPosition: "center", backgroundBlendMode: "overlay", backgroundColor: "rgba(255,255,255,0.85)" }} className="pt-24 pb-16 md:pt-28 md:pb-20 px-6 lg:px-12 max-w-6xl mx-auto relative z-10">
            <div className="flex flex-col md:flex-row items-center gap-12 md:gap-20">
               
               {/* Text Content */}

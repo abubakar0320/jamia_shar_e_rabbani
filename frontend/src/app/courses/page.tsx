@@ -126,7 +126,7 @@ export default function Courses() {
       <main className="flex-1 bg-white font-sans text-slate-900">
         
         {/* --- HERO SECTION --- */}
-        <section className="relative pt-24 pb-20 border-b border-slate-100 bg-white">
+        <section className="relative pt-24 pb-20 border-b border-slate-100 bg-white bg-cover bg-center" style={{ backgroundImage: "url('/ahmad.png')", backgroundBlendMode: 'overlay', backgroundColor: 'rgba(255,255,255,0.85)' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
             <motion.div 
               initial={{ opacity: 0, y: 20 }}

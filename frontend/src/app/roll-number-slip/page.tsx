@@ -46,7 +46,7 @@ export default function RollNumberSlipPage() {
       <Header />
       
       {!student && (
-        <section className="relative pt-24 pb-20 bg-slate-50 border-b border-slate-200 print:hidden">
+        <section className="relative pt-24 pb-20 bg-slate-50 border-b border-slate-200 print:hidden bg-cover bg-center" style={{ backgroundImage: "url('/ahmad.png')", backgroundBlendMode: "overlay", backgroundColor: "rgba(255,255,255,0.85)" }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
             <div className="max-w-3xl mx-auto">
               <div className="inline-block bg-white border border-slate-200 text-slate-700 text-xs font-semibold px-4 py-1.5 mb-6 uppercase tracking-wide">

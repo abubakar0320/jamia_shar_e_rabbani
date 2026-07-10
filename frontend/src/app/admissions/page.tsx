@@ -56,7 +56,7 @@ export default function Admissions() {
       <main className="flex-1 font-sans text-slate-900 bg-white">
         
         {/* --- HERO SECTION --- */}
-        <section className="relative pt-24 pb-20 bg-white border-b border-slate-100">
+        <section className="relative pt-24 pb-20 bg-white border-b border-slate-100 bg-cover bg-center" style={{ backgroundImage: "url('/ahmad.png')", backgroundBlendMode: 'overlay', backgroundColor: 'rgba(255,255,255,0.85)' }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
             <div className="max-w-3xl mx-auto">
               <motion.div 

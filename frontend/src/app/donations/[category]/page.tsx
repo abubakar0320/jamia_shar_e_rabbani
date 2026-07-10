@@ -99,7 +99,7 @@ export default function DonationPortal() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-slate-50 text-[#242424]">
+    <div style={{ backgroundImage: "url('/ahmad.png')", backgroundSize: "cover", backgroundPosition: "center", backgroundBlendMode: "overlay", backgroundColor: "rgba(255,255,255,0.85)" }} className="flex flex-col min-h-screen bg-slate-50 text-[#242424]">
       <Header />
       <main className="flex-1 py-12 px-6">
         <div className="max-w-5xl mx-auto">
