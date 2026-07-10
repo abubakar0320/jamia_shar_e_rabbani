@@ -164,7 +164,7 @@ function CourseDetailsContent() {
       <main className="flex-1 font-sans text-slate-900">
         
         {/* --- PROFESSIONAL HERO --- */}
-        <section style={{ backgroundImage: "url('/ahmad.png')", backgroundSize: "cover", backgroundPosition: "center", backgroundBlendMode: "overlay", backgroundColor: "rgba(255,255,255,0.85)" }} className="relative h-[50vh] min-h-[400px] flex items-center overflow-hidden bg-slate-900">
+        <section style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)), url('/ahmad.png')", backgroundSize: "cover", backgroundPosition: "center" }} className="relative h-[50vh] min-h-[400px] flex items-center overflow-hidden bg-slate-900">
           <div className="absolute inset-0 z-0">
             <OptimizedImage 
               src={course.image || "https://images.unsplash.com/photo-1609599006353-e629aaabfeae?auto=format&fit=crop&q=80&w=2000"} 

@@ -10,7 +10,7 @@ export default function WafaqResultsPage() {
       <Header />
       
       {/* Hero Section */}
-      <section className="relative pt-24 pb-12 bg-white border-b border-gray-200 bg-cover bg-center" style={{ backgroundImage: "url('/ahmad.png')", backgroundBlendMode: "overlay", backgroundColor: "rgba(255,255,255,0.85)" }}>
+      <section className="relative pt-24 pb-12 bg-white border-b border-gray-200 bg-cover bg-center" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)), url('/ahmad.png')", backgroundSize: "cover", backgroundPosition: "center" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
           <div className="max-w-3xl mx-auto">
             <h1 className="text-3xl md:text-4xl font-semibold text-gray-900 mb-4 leading-tight">
