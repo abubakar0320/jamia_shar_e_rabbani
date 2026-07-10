@@ -39,7 +39,7 @@ export default function WafaqResultsPage() {
             </p>
             
             <a 
-                href="https://www.wifaqulmadaris.org/result" 
+                href="https://www.wifaqulmadaris.org" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-emerald-600 to-teal-600 text-white text-lg font-bold rounded-xl shadow-lg shadow-emerald-600/30 hover:shadow-emerald-600/50 hover:-translate-y-1 transition-all"
