@@ -15,6 +15,8 @@ import {
   CheckCircle2,
   FileText
 } from "lucide-react";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 // Professional Icons
 const GithubIcon = (props: any) => (
@@ -46,7 +48,9 @@ const getTagColor = (tag: string) => {
 
 export default function EnterpriseDeveloperPage() {
   return (
-    <div className="min-h-screen bg-zinc-50 font-sans selection:bg-pink-500 selection:text-white pb-20 overflow-x-hidden">
+    <>
+      <Header />
+      <div className="min-h-screen bg-zinc-50 font-sans selection:bg-pink-500 selection:text-white pb-20 overflow-x-hidden">
 
       {/* MAIN CONTENT AREA */}
       <main className="max-w-5xl mx-auto px-6 py-12 lg:px-12 lg:py-20 space-y-24">
@@ -401,5 +405,8 @@ export default function EnterpriseDeveloperPage() {
       </main>
 
     </div>
+    <Footer />
+    </>
   );
 }
+
