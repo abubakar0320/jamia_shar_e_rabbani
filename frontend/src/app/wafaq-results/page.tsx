@@ -23,24 +23,30 @@ export default function WafaqResultsPage() {
         </div>
       </section>
 
-      {/* Iframe Section */}
-      <main className="flex-1 w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <div className="bg-white rounded-2xl shadow-xl shadow-gray-200/50 overflow-hidden border border-gray-200 relative h-[500px] md:h-[700px] w-full">
-            {/* Loading Indicator (will be hidden behind the loaded iframe) */}
-            <div className="absolute inset-0 flex items-center justify-center bg-gray-50 z-0">
-                <div className="flex flex-col items-center text-gray-500">
-                    <div className="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin mb-4"></div>
-                    <p className="font-semibold text-sm uppercase tracking-widest">Loading Wafaq Portal...</p>
-                </div>
+      {/* External Link Section */}
+      <main className="flex-1 w-full max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="bg-white rounded-2xl shadow-xl shadow-emerald-500/10 overflow-hidden border border-emerald-100 text-center p-10 md:p-16 relative">
+            <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-emerald-500 to-teal-500"></div>
+            
+            <div className="w-20 h-20 bg-emerald-50 border border-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
             </div>
             
-            {/* The actual iframe */}
-            <iframe 
-                src="https://wafaq.edu.pk/get-your-result" 
-                className="w-full h-full relative z-10 border-0"
-                title="Wafaq-ul-Madaris Results"
-                sandbox="allow-scripts allow-same-origin allow-forms"
-            ></iframe>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">Official Result Portal</h2>
+            <p className="text-gray-600 mb-10 max-w-lg mx-auto text-lg leading-relaxed">
+                For security reasons, Wafaq-ul-Madaris does not allow its result portal to be embedded directly into other websites. <br/><br/>
+                Please click the button below to securely check your result on their official website.
+            </p>
+            
+            <a 
+                href="https://www.wifaqulmadaris.org/result" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-emerald-600 to-teal-600 text-white text-lg font-bold rounded-xl shadow-lg shadow-emerald-600/30 hover:shadow-emerald-600/50 hover:-translate-y-1 transition-all"
+            >
+                Check Result Now
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+            </a>
         </div>
       </main>
 
