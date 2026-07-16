@@ -501,6 +501,13 @@ app.post('/api/admissions', (req, res) => {
       };
       db.get('challans').push(newChallan).write();
   }
+  // WhatsApp Admin Notification
+  if (process.env.WHATSAPP_ADMIN_PHONE && process.env.WHATSAPP_API_KEY) {
+    const message = `🔔 *Naya Admission Aaya Hai!*\n\n*Bachay ka Naam:* ${newAdmission.studentName}\n*Class:* ${newAdmission.classProgram}\n*Mobile:* ${newAdmission.mobile}\n\nJald az jald Admin Panel check karen.`;
+    const url = `https://api.callmebot.com/whatsapp.php?phone=${process.env.WHATSAPP_ADMIN_PHONE}&text=${encodeURIComponent(message)}&apikey=${process.env.WHATSAPP_API_KEY}`;
+    // Using global fetch (available in Node 18+)
+    fetch(url).catch(err => console.error("WhatsApp notification failed:", err));
+  }
 
   res.status(201).json(newAdmission);
 });
@@ -724,8 +731,20 @@ app.post('/api/admin/challans', (req, res) => {
 app.put('/api/admin/challans/:id', (req, res) => {
   const cid = parseInt(req.params.id) || req.params.id;
   const challan = db.get('challans').find({ id: cid });
-  if (challan.value()) {
+  const oldData = challan.value();
+  if (oldData) {
      challan.assign(req.body).write();
+     const newData = challan.value();
+     
+     // WhatsApp Admin Notification for Fee Payment
+     if (oldData.status !== 'Paid' && newData.status === 'Paid') {
+       if (process.env.WHATSAPP_ADMIN_PHONE && process.env.WHATSAPP_API_KEY) {
+         const message = `💰 *Fee Jama Ho Gayi!*\n\n*Bachay ka Naam:* ${newData.studentName}\n*Class:* ${newData.classProgram}\n*Challan No:* ${newData.challanNo}\n*Amount Paid:* Rs ${newData.paidAmount}\n\nRecord update kar diya gaya hai.`;
+         const url = `https://api.callmebot.com/whatsapp.php?phone=${process.env.WHATSAPP_ADMIN_PHONE}&text=${encodeURIComponent(message)}&apikey=${process.env.WHATSAPP_API_KEY}`;
+         fetch(url).catch(e => console.error("WhatsApp notification failed:", e));
+       }
+     }
+     
      res.json({ success: true });
   } else {
      res.status(404).json({ error: 'Challan not found' });
