@@ -68,8 +68,8 @@ if (process.env.MONGODB_URI) {
     // 1. Wait for initial DB connection if not ready
     if (!isDBReady) {
       let attempts = 0;
-      while (!isDBReady && attempts < 20) {
-        await new Promise(r => setTimeout(r, 500));
+      while (!isDBReady && attempts < 100) {
+        await new Promise(r => setTimeout(r, 50));
         attempts++;
       }
       if (!isDBReady) return res.status(500).json({ error: "Database initializing..." });
