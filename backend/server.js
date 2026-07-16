@@ -524,8 +524,60 @@ app.get('/api/admin/stats', (req, res) => {
   });
 });
 
+const xlsx = require('xlsx');
+
 app.get('/api/admin/backup', (req, res) => {
   res.download(path.join(__dirname, 'db.json'), `jamia_backup_${new Date().toISOString().split('T')[0]}.json`);
+});
+
+app.get('/api/admin/backup/excel', (req, res) => {
+  try {
+    const workbook = xlsx.utils.book_new();
+
+    const admissions = db.get('admissions').value() || [];
+    const admSheet = xlsx.utils.json_to_sheet(admissions.map(a => ({
+      'Application No': a.applicationNo,
+      'Date': a.date ? new Date(a.date).toLocaleDateString() : '',
+      'Student Name': a.studentName,
+      'Father Name': a.fatherName,
+      'CNIC/B-Form': a.cnic,
+      'Mobile': a.mobile,
+      'Class': a.classProgram,
+      'Section': a.sectionType,
+      'Status': a.status || 'Pending'
+    })));
+    xlsx.utils.book_append_sheet(workbook, admSheet, "Admissions");
+
+    const students = db.get('students').value() || [];
+    const stuSheet = xlsx.utils.json_to_sheet(students.map(s => ({
+      'Student ID': s.studentId,
+      'Roll No': s.rollNo,
+      'Student Name': s.studentName,
+      'Father Name': s.fatherName,
+      'Class': s.classProgram,
+      'Mobile': s.mobile
+    })));
+    xlsx.utils.book_append_sheet(workbook, stuSheet, "Students");
+
+    const faculty = db.get('faculty').value() || [];
+    const facSheet = xlsx.utils.json_to_sheet(faculty.map(f => ({
+      'Faculty ID': f.facultyId,
+      'Name': f.name,
+      'Designation': f.designation,
+      'Department': f.department,
+      'Phone': f.contactNumber
+    })));
+    xlsx.utils.book_append_sheet(workbook, facSheet, "Faculty");
+
+    const buf = xlsx.write(workbook, { type: 'buffer', bookType: 'xlsx' });
+    
+    res.setHeader('Content-Disposition', `attachment; filename="Jamia_Excel_Backup_${new Date().toISOString().split('T')[0]}.xlsx"`);
+    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    res.send(buf);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Failed to generate Excel backup' });
+  }
 });
 
 app.get('/api/admin/admissions', (req, res) => {
