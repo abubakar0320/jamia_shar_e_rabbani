@@ -502,7 +502,26 @@ app.post('/api/admissions', (req, res) => {
       db.get('challans').push(newChallan).write();
   }
   // Admin Notifications
-  const message = `🔔 *Naya Admission Aaya Hai!*\n\n*Bachay ka Naam:* ${newAdmission.studentName}\n*Class:* ${newAdmission.classProgram}\n*Mobile:* ${newAdmission.mobile}\n\nJald az jald Admin Panel check karen.`;
+  const message = `🔔 *Naya Admission Aaya Hai!*\n
+*📝 Talib-e-Ilm Ki Tafseelat:*
+*Naam:* ${newAdmission.studentName}
+*Walid ka Naam:* ${newAdmission.fatherName}
+*B-Form / CNIC:* ${newAdmission.cnic}
+*Date of Birth:* ${new Date(newAdmission.dob).toLocaleDateString()}
+*Mobile:* ${newAdmission.mobile}
+
+*📚 Dakhla Ki Tafseelat:*
+*Class / Program:* ${newAdmission.classProgram}
+*Section:* ${newAdmission.sectionType}
+*Processing:* ${newAdmission.processingType || 'Normal'}
+*Application No:* ${newAdmission.applicationNo}
+
+*💰 Fees Ki Tafseelat:*
+*Admission Fee:* Rs ${newAdmission.fees.admissionFee}
+*Registration Fee:* Rs ${newAdmission.fees.registrationFee}
+*Total Amount:* Rs ${newAdmission.fees.totalFee}
+
+Jald az jald Admin Panel check karen.`;
   
   if (process.env.WHATSAPP_ADMIN_PHONE && process.env.WHATSAPP_API_KEY) {
     const wUrl = `https://api.callmebot.com/whatsapp.php?phone=${process.env.WHATSAPP_ADMIN_PHONE}&text=${encodeURIComponent(message)}&apikey=${process.env.WHATSAPP_API_KEY}`;
