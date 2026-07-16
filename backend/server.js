@@ -501,12 +501,17 @@ app.post('/api/admissions', (req, res) => {
       };
       db.get('challans').push(newChallan).write();
   }
-  // WhatsApp Admin Notification
+  // Admin Notifications
+  const message = `🔔 *Naya Admission Aaya Hai!*\n\n*Bachay ka Naam:* ${newAdmission.studentName}\n*Class:* ${newAdmission.classProgram}\n*Mobile:* ${newAdmission.mobile}\n\nJald az jald Admin Panel check karen.`;
+  
   if (process.env.WHATSAPP_ADMIN_PHONE && process.env.WHATSAPP_API_KEY) {
-    const message = `🔔 *Naya Admission Aaya Hai!*\n\n*Bachay ka Naam:* ${newAdmission.studentName}\n*Class:* ${newAdmission.classProgram}\n*Mobile:* ${newAdmission.mobile}\n\nJald az jald Admin Panel check karen.`;
-    const url = `https://api.callmebot.com/whatsapp.php?phone=${process.env.WHATSAPP_ADMIN_PHONE}&text=${encodeURIComponent(message)}&apikey=${process.env.WHATSAPP_API_KEY}`;
-    // Using global fetch (available in Node 18+)
-    fetch(url).catch(err => console.error("WhatsApp notification failed:", err));
+    const wUrl = `https://api.callmebot.com/whatsapp.php?phone=${process.env.WHATSAPP_ADMIN_PHONE}&text=${encodeURIComponent(message)}&apikey=${process.env.WHATSAPP_API_KEY}`;
+    fetch(wUrl).catch(err => console.error("WhatsApp notification failed:", err));
+  }
+
+  if (process.env.TELEGRAM_BOT_TOKEN && process.env.TELEGRAM_CHAT_ID) {
+    const tUrl = `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${process.env.TELEGRAM_CHAT_ID}&text=${encodeURIComponent(message)}&parse_mode=Markdown`;
+    fetch(tUrl).catch(err => console.error("Telegram notification failed:", err));
   }
 
   res.status(201).json(newAdmission);
@@ -736,12 +741,18 @@ app.put('/api/admin/challans/:id', (req, res) => {
      challan.assign(req.body).write();
      const newData = challan.value();
      
-     // WhatsApp Admin Notification for Fee Payment
+     // Admin Notifications for Fee Payment
      if (oldData.status !== 'Paid' && newData.status === 'Paid') {
+       const message = `💰 *Fee Jama Ho Gayi!*\n\n*Bachay ka Naam:* ${newData.studentName}\n*Class:* ${newData.classProgram}\n*Challan No:* ${newData.challanNo}\n*Amount Paid:* Rs ${newData.paidAmount}\n\nRecord update kar diya gaya hai.`;
+       
        if (process.env.WHATSAPP_ADMIN_PHONE && process.env.WHATSAPP_API_KEY) {
-         const message = `💰 *Fee Jama Ho Gayi!*\n\n*Bachay ka Naam:* ${newData.studentName}\n*Class:* ${newData.classProgram}\n*Challan No:* ${newData.challanNo}\n*Amount Paid:* Rs ${newData.paidAmount}\n\nRecord update kar diya gaya hai.`;
-         const url = `https://api.callmebot.com/whatsapp.php?phone=${process.env.WHATSAPP_ADMIN_PHONE}&text=${encodeURIComponent(message)}&apikey=${process.env.WHATSAPP_API_KEY}`;
-         fetch(url).catch(e => console.error("WhatsApp notification failed:", e));
+         const wUrl = `https://api.callmebot.com/whatsapp.php?phone=${process.env.WHATSAPP_ADMIN_PHONE}&text=${encodeURIComponent(message)}&apikey=${process.env.WHATSAPP_API_KEY}`;
+         fetch(wUrl).catch(e => console.error("WhatsApp notification failed:", e));
+       }
+
+       if (process.env.TELEGRAM_BOT_TOKEN && process.env.TELEGRAM_CHAT_ID) {
+         const tUrl = `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${process.env.TELEGRAM_CHAT_ID}&text=${encodeURIComponent(message)}&parse_mode=Markdown`;
+         fetch(tUrl).catch(e => console.error("Telegram notification failed:", e));
        }
      }
      
