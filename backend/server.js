@@ -3,7 +3,14 @@ const cors = require('cors');
 const low = require('lowdb');
 const FileSync = require('lowdb/adapters/FileSync');
 const path = require('path');
+const cloudinary = require('cloudinary').v2;
 require('dotenv').config();
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
+});
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -297,7 +304,7 @@ app.post('/api/admin/bank-config', (req, res) => {
 });
 
 // Admissions with Challan generation
-app.post('/api/admissions', (req, res) => {
+app.post('/api/admissions', async (req, res) => {
   const feeConfig = db.get('feeConfig').value();
   const feeStructures = db.get('feeStructures').value() || [];
   const schedule = db.get('admissionSchedule').value();
@@ -368,6 +375,28 @@ app.post('/api/admissions', (req, res) => {
   const missingDocs = requiredDocs.filter(docId => !documents || !documents[docId]);
   if (missingDocs.length > 0) {
     return res.status(400).json({ error: `Missing required documents: ${missingDocs.join(', ')}` });
+  }
+
+  // --- Cloudinary Upload Logic ---
+  if (process.env.CLOUDINARY_CLOUD_NAME && documents) {
+    try {
+      const uploadPromises = Object.entries(documents).map(async ([docId, docData]) => {
+        if (docData && docData.data && docData.data.startsWith('data:image')) {
+          const result = await cloudinary.uploader.upload(docData.data, {
+            folder: 'jamia_admissions',
+            public_id: `${cnic}_${docId}_${Date.now()}`
+          });
+          return [docId, { ...docData, data: result.secure_url }];
+        }
+        return [docId, docData];
+      });
+      
+      const resolvedDocs = await Promise.all(uploadPromises);
+      req.body.documents = Object.fromEntries(resolvedDocs);
+    } catch (uploadErr) {
+      console.error("Cloudinary upload error:", uploadErr);
+      return res.status(500).json({ error: 'Failed to upload documents to cloud' });
+    }
   }
 
   const mappedClass = classMapping[rawClass] || rawClass;
