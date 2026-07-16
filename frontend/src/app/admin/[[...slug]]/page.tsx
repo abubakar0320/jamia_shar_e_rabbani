@@ -2524,7 +2524,7 @@ export default function AdminDashboard() {
  { label: 'Add Faculty', icon: <Users size={20} />, onClick: () => handleNavigate('faculty', 'add') },
  { label: 'Add Course', icon: <BookOpen size={20} />, onClick: () => handleNavigate('courses', 'add') },
 
- { label: 'Create News', icon: <Megaphone size={20} />, onClick: () => handleNavigate('news', 'create') },
+ { label: 'Backup DB', icon: <Download size={20} />, onClick: () => { const a = document.createElement('a'); a.href = '/api/admin/backup'; a.download = 'backup.json'; a.click(); } },
  { label: 'Gen. Challan', icon: <DollarSign size={20} />, onClick: () => handleNavigate('fees', 'generate') },
  { label: 'Open Website', icon: <Globe size={20} />, onClick: () => window.open('/', '_blank') },
  ];
@@ -2763,10 +2763,16 @@ export default function AdminDashboard() {
               Back to Dashboard
             </button>
           </div>
-          <button onClick={() => window.location.reload()} className="flex items-center gap-2 text-sm font-semibold text-gray-600 hover:text-blue-700 transition-colors">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
-            Refresh Data
-          </button>
+          <div className="flex items-center gap-4">
+            <a href="/api/admin/backup" download className="flex items-center gap-2 text-sm font-semibold text-emerald-600 hover:text-emerald-700 transition-colors">
+              <Download size={16} />
+              Backup Database
+            </a>
+            <button onClick={() => window.location.reload()} className="flex items-center gap-2 text-sm font-semibold text-gray-600 hover:text-blue-700 transition-colors">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+              Refresh Data
+            </button>
+          </div>
         </div>
 
  

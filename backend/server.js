@@ -524,6 +524,10 @@ app.get('/api/admin/stats', (req, res) => {
   });
 });
 
+app.get('/api/admin/backup', (req, res) => {
+  res.download(path.join(__dirname, 'db.json'), `jamia_backup_${new Date().toISOString().split('T')[0]}.json`);
+});
+
 app.get('/api/admin/admissions', (req, res) => {
   res.json(db.get('admissions').value());
 });
