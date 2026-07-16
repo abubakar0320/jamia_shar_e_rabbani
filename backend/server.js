@@ -725,6 +725,28 @@ app.get('/api/admin/backup/excel', (req, res) => {
   }
 });
 
+app.get('/api/admin/clean-db', (req, res) => {
+  let cleanedCount = 0;
+  const admissions = db.get('admissions').value() || [];
+  admissions.forEach(a => {
+    if (a.documents) {
+      Object.keys(a.documents).forEach(docId => {
+        const doc = a.documents[docId];
+        if (doc && doc.data && doc.data.startsWith('data:image')) {
+          delete doc.data; // Remove huge base64
+          cleanedCount++;
+        }
+      });
+    }
+  });
+  
+  if (cleanedCount > 0) {
+    db.set('admissions', admissions).write();
+  }
+  
+  res.json({ success: true, message: `Cleaned ${cleanedCount} old image data entries. Admin Panel should be fast now!` });
+});
+
 app.get('/api/admin/admissions', (req, res) => {
   res.json(db.get('admissions').value());
 });
