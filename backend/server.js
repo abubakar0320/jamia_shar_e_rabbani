@@ -534,8 +534,23 @@ app.get('/api/admin/backup/excel', (req, res) => {
   try {
     const workbook = xlsx.utils.book_new();
 
+    const autoSizeColumns = (sheet, mappedData) => {
+      if (mappedData.length === 0) return;
+      const keys = Object.keys(mappedData[0]);
+      sheet['!cols'] = keys.map(key => {
+        let max = key.length;
+        mappedData.forEach(row => {
+          if (row[key]) {
+            const len = row[key].toString().length;
+            if (len > max) max = len;
+          }
+        });
+        return { wch: Math.min(max + 2, 50) }; // Cap width at 50 chars
+      });
+    };
+
     const admissions = db.get('admissions').value() || [];
-    const admSheet = xlsx.utils.json_to_sheet(admissions.map(a => ({
+    const admData = admissions.map(a => ({
       'Application No': a.applicationNo,
       'Date': a.date ? new Date(a.date).toLocaleDateString() : '',
       'Student Name': a.studentName,
@@ -545,28 +560,34 @@ app.get('/api/admin/backup/excel', (req, res) => {
       'Class': a.classProgram,
       'Section': a.sectionType,
       'Status': a.status || 'Pending'
-    })));
+    }));
+    const admSheet = xlsx.utils.json_to_sheet(admData);
+    autoSizeColumns(admSheet, admData);
     xlsx.utils.book_append_sheet(workbook, admSheet, "Admissions");
 
     const students = db.get('students').value() || [];
-    const stuSheet = xlsx.utils.json_to_sheet(students.map(s => ({
+    const stuData = students.map(s => ({
       'Student ID': s.studentId,
       'Roll No': s.rollNo,
       'Student Name': s.studentName,
       'Father Name': s.fatherName,
       'Class': s.classProgram,
       'Mobile': s.mobile
-    })));
+    }));
+    const stuSheet = xlsx.utils.json_to_sheet(stuData);
+    autoSizeColumns(stuSheet, stuData);
     xlsx.utils.book_append_sheet(workbook, stuSheet, "Students");
 
     const faculty = db.get('faculty').value() || [];
-    const facSheet = xlsx.utils.json_to_sheet(faculty.map(f => ({
+    const facData = faculty.map(f => ({
       'Faculty ID': f.facultyId,
       'Name': f.name,
       'Designation': f.designation,
       'Department': f.department,
       'Phone': f.contactNumber
-    })));
+    }));
+    const facSheet = xlsx.utils.json_to_sheet(facData);
+    autoSizeColumns(facSheet, facData);
     xlsx.utils.book_append_sheet(workbook, facSheet, "Faculty");
 
     const buf = xlsx.write(workbook, { type: 'buffer', bookType: 'xlsx' });
