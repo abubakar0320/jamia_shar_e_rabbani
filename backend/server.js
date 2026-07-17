@@ -313,7 +313,7 @@ app.post('/api/exam-mess/apply', (req, res) => {
     feeDetails: [{ type: "Imtihaani Ta'am/Langar Fee", amount: config.fee }],
     totalAmount: config.fee,
     issueDate: new Date().toISOString(),
-    dueDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
+    dueDate: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000).toISOString(),
     status: 'Unpaid',
     paidAmount: 0,
     type: 'Mess'

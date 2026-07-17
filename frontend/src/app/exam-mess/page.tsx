@@ -11,8 +11,15 @@ interface Config {
   examName: string;
 }
 
+interface BankConfig {
+  bankName: string;
+  accountTitle: string;
+  accountNumber: string;
+}
+
 export default function ExamMessPage() {
   const [config, setConfig] = useState<Config | null>(null);
+  const [bankConfig, setBankConfig] = useState<BankConfig | null>(null);
   const [formData, setFormData] = useState({ studentName: '', fatherName: '', phone: '' });
   const [loading, setLoading] = useState(false);
   const [generatedChallan, setGeneratedChallan] = useState<any>(null);
@@ -23,16 +30,20 @@ export default function ExamMessPage() {
       if (!config) setConfig({ fee: 3000, examName: 'Salana Imtihaan 2026' });
     }, 5000);
 
-    fetch('/api/exam-mess/config')
-      .then(res => res.json())
-      .then(data => {
+    Promise.all([
+      fetch('/api/exam-mess/config').then(res => res.json()),
+      fetch('/api/bank-config').then(res => res.json())
+    ])
+      .then(([configData, bankData]) => {
         clearTimeout(timeout);
-        setConfig(data || { fee: 3000, examName: 'Salana Imtihaan 2026' });
+        setConfig(configData || { fee: 3000, examName: 'Salana Imtihaan 2026' });
+        setBankConfig(bankData || { bankName: 'Meezan Bank', accountTitle: 'Jamia Account', accountNumber: '123456789' });
       })
       .catch(err => {
         console.error(err);
         clearTimeout(timeout);
         setConfig({ fee: 3000, examName: 'Salana Imtihaan 2026' });
+        setBankConfig({ bankName: 'Meezan Bank', accountTitle: 'Jamia Account', accountNumber: '123456789' });
       });
       
     return () => clearTimeout(timeout);
@@ -179,72 +190,77 @@ export default function ExamMessPage() {
               initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}
               className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-slate-200"
             >
-              {/* Challan Header (Printable) */}
-              <div className="p-8 border-b-8 border-slate-900 bg-slate-50 flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                  <div className="w-16 h-16 relative rounded-full overflow-hidden border-4 border-white shadow-md">
-                    <Image src="/logo.jpeg" alt="Logo" fill className="object-cover" />
+              {/* Professional 3-Part Challan */}
+              <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-dashed divide-slate-300">
+                {['Bank Copy', 'Jamia Copy', 'Student Copy'].map((copyType, index) => (
+                  <div key={index} className="p-6 flex flex-col h-full bg-white relative">
+                    <div className="text-center border-b border-slate-200 pb-4 mb-4">
+                      <div className="w-12 h-12 relative mx-auto mb-2 grayscale">
+                        <Image src="/logo.jpeg" alt="Logo" fill className="object-contain" />
+                      </div>
+                      <h2 className="text-sm font-black text-slate-800 uppercase tracking-widest">Jamia Sher-e-Rabbani</h2>
+                      <p className="text-[10px] font-bold text-slate-500 mt-1 uppercase tracking-widest">{copyType}</p>
+                      <p className="text-[9px] font-bold text-slate-400 mt-1">Imtihaani Ta'am Facility</p>
+                    </div>
+
+                    <div className="space-y-4 flex-1">
+                      <div>
+                        <div className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-0.5">Challan No</div>
+                        <div className="text-sm font-black text-slate-800">{generatedChallan.challanNo}</div>
+                      </div>
+
+                      <div className="bg-slate-50 p-3 rounded-lg border border-slate-200">
+                        <div className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1">Bank Details</div>
+                        <div className="text-xs font-bold text-slate-800">{bankConfig?.bankName}</div>
+                        <div className="text-[10px] font-bold text-slate-600 truncate">{bankConfig?.accountTitle}</div>
+                        <div className="text-xs font-black text-slate-800 tracking-wider mt-1">{bankConfig?.accountNumber}</div>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-2">
+                        <div>
+                          <div className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-0.5">Issue Date</div>
+                          <div className="text-xs font-bold text-slate-800">{new Date(generatedChallan.issueDate).toLocaleDateString()}</div>
+                        </div>
+                        <div>
+                          <div className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-0.5">Due Date</div>
+                          <div className="text-xs font-bold text-rose-600">{new Date(generatedChallan.dueDate).toLocaleDateString()}</div>
+                        </div>
+                      </div>
+
+                      <div>
+                        <div className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-0.5">Student Details</div>
+                        <div className="text-sm font-black text-slate-800 truncate">{generatedChallan.studentName}</div>
+                        <div className="text-[10px] font-bold text-slate-600 truncate">S/O {generatedChallan.fatherName}</div>
+                        <div className="text-[10px] font-bold text-slate-600 mt-0.5">{generatedChallan.phone}</div>
+                      </div>
+
+                      <div className="border-t border-slate-200 pt-4 mt-4">
+                        <div className="flex justify-between items-center mb-2">
+                          <span className="text-[10px] font-bold text-slate-600">Imtihaani Mess Fee</span>
+                          <span className="text-xs font-black text-slate-800">Rs {config?.fee}</span>
+                        </div>
+                        <div className="flex justify-between items-center border-t border-slate-200 pt-2">
+                          <span className="text-xs font-black uppercase tracking-widest text-slate-800">Total</span>
+                          <span className="text-sm font-black text-slate-800">Rs {config?.fee}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="mt-8 pt-4 border-t border-slate-200 grid grid-cols-2 gap-4">
+                      <div className="text-center">
+                        <div className="border-b border-slate-300 h-6 mb-1"></div>
+                        <div className="text-[8px] font-black uppercase tracking-widest text-slate-400">Cashier Sign</div>
+                      </div>
+                      <div className="text-center">
+                        <div className="border-b border-slate-300 h-6 mb-1"></div>
+                        <div className="text-[8px] font-black uppercase tracking-widest text-slate-400">Depositor Sign</div>
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <h2 className="text-2xl font-black text-slate-900 tracking-tight">Jamia Sher-e-Rabbani</h2>
-                    <p className="text-xs font-bold uppercase tracking-widest text-slate-500 mt-1">Imtihaani Ta'am Challan</p>
-                  </div>
-                </div>
-                <div className="text-right">
-                  <div className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-1">Challan No</div>
-                  <div className="text-xl font-black text-slate-800 tracking-wider bg-white px-3 py-1 rounded-lg border border-slate-200 inline-block">
-                    {generatedChallan.challanNo}
-                  </div>
-                </div>
+                ))}
               </div>
 
-              {/* Challan Body */}
-              <div className="p-8">
-                <div className="grid grid-cols-2 gap-8 mb-8">
-                  <div>
-                    <div className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-1">Student Details</div>
-                    <div className="text-lg font-black text-slate-800">{generatedChallan.studentName}</div>
-                    <div className="text-sm font-bold text-slate-500">S/O {generatedChallan.fatherName}</div>
-                    <div className="text-sm font-medium text-slate-500 mt-1">{generatedChallan.phone}</div>
-                  </div>
-                  <div className="text-right">
-                    <div className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-1">Dates</div>
-                    <div className="text-sm font-bold text-slate-800 mb-1">Issue: {new Date(generatedChallan.issueDate).toLocaleDateString()}</div>
-                    <div className="text-sm font-bold text-rose-600">Due: {new Date(generatedChallan.dueDate).toLocaleDateString()}</div>
-                  </div>
-                </div>
-
-                <div className="bg-slate-50 rounded-xl border border-slate-200 overflow-hidden mb-8">
-                  <table className="w-full text-left">
-                    <thead className="bg-slate-100 border-b border-slate-200">
-                      <tr>
-                        <th className="py-3 px-6 text-xs font-black uppercase tracking-widest text-slate-500">Description</th>
-                        <th className="py-3 px-6 text-xs font-black uppercase tracking-widest text-slate-500 text-right">Amount</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {generatedChallan.feeDetails.map((fee: any, idx: number) => (
-                        <tr key={idx} className="border-b border-slate-100 last:border-0">
-                          <td className="py-4 px-6 text-sm font-bold text-slate-800">{fee.type}</td>
-                          <td className="py-4 px-6 text-sm font-black text-slate-800 text-right">Rs {fee.amount}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                    <tfoot className="bg-slate-900 text-white">
-                      <tr>
-                        <td className="py-4 px-6 text-sm font-black uppercase tracking-widest">Total Payable</td>
-                        <td className="py-4 px-6 text-xl font-black text-right">Rs {generatedChallan.totalAmount}</td>
-                      </tr>
-                    </tfoot>
-                  </table>
-                </div>
-
-                <div className="flex items-center gap-3 bg-amber-50 text-amber-800 p-4 rounded-xl border border-amber-200 mb-8 print:border-none print:bg-transparent print:p-0">
-                  <CheckCircle size={24} className="shrink-0" />
-                  <p className="text-sm font-bold">Please pay this challan at the Jamia's accounts office or designated bank before the due date to confirm your mess facility.</p>
-                </div>
-
-                <div className="flex gap-4 print:hidden">
+                <div className="p-8 bg-slate-50 border-t border-slate-200 flex gap-4 print:hidden">
                   <button 
                     onClick={() => window.print()}
                     className="flex-1 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-black uppercase tracking-widest text-sm transition-colors flex items-center justify-center gap-2"
@@ -253,12 +269,11 @@ export default function ExamMessPage() {
                   </button>
                   <button 
                     onClick={() => setGeneratedChallan(null)}
-                    className="py-4 px-8 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-black uppercase tracking-widest text-sm transition-colors"
+                    className="py-4 px-8 bg-slate-200 hover:bg-slate-300 text-slate-800 rounded-xl font-black uppercase tracking-widest text-sm transition-colors"
                   >
                     Apply Another
                   </button>
                 </div>
-              </div>
             </motion.div>
           )}
         </AnimatePresence>
