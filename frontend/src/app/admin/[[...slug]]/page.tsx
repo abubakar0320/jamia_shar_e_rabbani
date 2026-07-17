@@ -9,8 +9,9 @@ import {
   Wallet,
   LogOut, Printer, ArrowLeft, FileText, Award, Heart, Megaphone, Library, 
  Globe, Image as ImageIcon, Folder, Shield, Languages, Bell, BarChart2, Lock, Menu, X,
- CheckCircle2, XCircle, Trash2, Edit, Download, ArrowUpRight, ArrowDownRight, Clock, Activity, FileCheck, CheckSquare, Upload, AlertCircle, TrendingUp, CheckSquare as CheckSquareIcon, Square, Copy, Archive, Star, PlaySquare, Play, Book, ArrowRightCircle, Landmark
+ CheckCircle2, XCircle, Trash2, Edit, Download, ArrowUpRight, ArrowDownRight, Clock, Activity, FileCheck, CheckSquare, Upload, AlertCircle, TrendingUp, CheckSquare as CheckSquareIcon, Square, Copy, Archive, Star, PlaySquare, Play, Book, ArrowRightCircle, Landmark, PieChart as PieChartIcon
 } from 'lucide-react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import AdmissionScheduleModal from '@/components/AdmissionScheduleModal';
@@ -2530,6 +2531,18 @@ export default function AdminDashboard() {
  { label: 'Open Website', icon: <Globe size={20} />, onClick: () => window.open('/', '_blank') },
  ];
 
+ const classCount: Record<string, number> = {};
+ admissions.forEach(a => {
+   const cls = a.classProgram || 'Unknown';
+   classCount[cls] = (classCount[cls] || 0) + 1;
+ });
+ const classChartData = Object.entries(classCount).map(([name, count]) => ({ name: name.split(' ').slice(0,2).join(' '), count })).sort((a,b)=> b.count - a.count).slice(0, 6);
+
+ let paid = 0; let unpaid = 0;
+ challans.forEach(c => c.status === 'Paid' ? paid++ : unpaid++);
+ const feeChartData = [{ name: 'Paid', value: paid }, { name: 'Unpaid', value: unpaid }];
+ const COLORS = ['#10b981', '#ef4444'];
+
  return (
  <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500 pb-20">
  
@@ -2592,6 +2605,51 @@ export default function AdminDashboard() {
  </button>
  </div>
  ))}
+ </div>
+
+ {/* Analytical Charts Section */}
+ <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+  <div className="lg:col-span-2 bg-white p-6 rounded-sm border border-slate-200 shadow-sm flex flex-col">
+    <div className="flex items-center justify-between mb-6">
+      <h3 className="text-lg font-black text-slate-800 tracking-tight flex items-center gap-2"><BarChart2 size={20} className="text-blue-600"/> Admissions per Program</h3>
+    </div>
+    <div className="flex-1 min-h-[300px]">
+      <ResponsiveContainer width="100%" height="100%">
+        <BarChart data={classChartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
+          <XAxis dataKey="name" tick={{fontSize: 10, fill: '#64748b', fontWeight: 'bold'}} axisLine={false} tickLine={false} />
+          <YAxis tick={{fontSize: 10, fill: '#64748b', fontWeight: 'bold'}} axisLine={false} tickLine={false} />
+          <Tooltip cursor={{fill: '#f1f5f9'}} contentStyle={{borderRadius: '4px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)'}} />
+          <Bar dataKey="count" fill="#3b82f6" radius={[4, 4, 0, 0]} maxBarSize={50} />
+        </BarChart>
+      </ResponsiveContainer>
+    </div>
+  </div>
+
+  <div className="bg-white p-6 rounded-sm border border-slate-200 shadow-sm flex flex-col">
+    <div className="flex items-center justify-between mb-6">
+      <h3 className="text-lg font-black text-slate-800 tracking-tight flex items-center gap-2"><PieChartIcon size={20} className="text-amber-500"/> Fee Collection Status</h3>
+    </div>
+    <div className="flex-1 min-h-[300px] flex items-center justify-center relative">
+      {challans.length > 0 ? (
+        <ResponsiveContainer width="100%" height="100%">
+          <PieChart>
+            <Pie data={feeChartData} cx="50%" cy="50%" innerRadius={60} outerRadius={80} paddingAngle={5} dataKey="value" stroke="none">
+              {feeChartData.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)}
+            </Pie>
+            <Tooltip contentStyle={{borderRadius: '4px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)'}} />
+            <Legend verticalAlign="bottom" height={36} iconType="circle" wrapperStyle={{fontSize: '12px', fontWeight: 'bold', color: '#64748b'}}/>
+          </PieChart>
+        </ResponsiveContainer>
+      ) : (
+        <p className="text-slate-400 text-sm font-bold uppercase tracking-wider text-center">No Fee Data Available</p>
+      )}
+      <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none mt-[-36px]">
+        <span className="text-2xl font-black text-slate-800">{challans.length}</span>
+        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Challans</span>
+      </div>
+    </div>
+  </div>
  </div>
 
  {/* Middle Section: Recent Admissions & Timeline */}
