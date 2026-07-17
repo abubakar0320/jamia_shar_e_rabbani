@@ -207,6 +207,7 @@ export default function AdminDashboard() {
  const [currentTime, setCurrentTime] = useState<Date | null>(null);
 
  const [stats, setStats] = useState({ courses: 18, faculty: 45, news: 112, contacts: 8, admissions: 450, tulba: 820, talibat: 420, donations: 1200000, visitorsToday: 0 });
+ const [analyticsData, setAnalyticsData] = useState<Record<string, number>>({});
  const [admissions, setAdmissions] = useState<Admission[]>([]);
  const [students, setStudents] = useState<Student[]>([]);
  const [faculty, setFaculty] = useState<Faculty[]>([]);
@@ -304,6 +305,7 @@ export default function AdminDashboard() {
   if (resAnalytics && resAnalytics.ok) {
     const data = await resAnalytics.json().catch(() => null);
     if (data && data.visits) {
+      setAnalyticsData(data.visits);
       const today = new Date().toLocaleDateString('en-CA');
       setStats(prev => ({ ...prev, visitorsToday: data.visits[today] || 0 }));
     }
@@ -2544,7 +2546,7 @@ export default function AdminDashboard() {
  // --- Overview Module --- //
  const renderOverview = () => {
  const STATS = [
- { id: 'visitors', label: "Today's Visitors", value: stats.visitorsToday.toString(), growth: 'Live', trend: 'up', icon: <Eye size={24} />, bg: 'bg-emerald-50', text: 'text-emerald-600' },
+ { id: 'reports', label: "Today's Visitors", value: stats.visitorsToday.toString(), growth: 'Live', trend: 'up', icon: <Eye size={24} />, bg: 'bg-emerald-50', text: 'text-emerald-600' },
  { id: 'admissions', label: 'Total Admissions', value: stats.admissions.toString(), growth: '+15%', trend: 'up', icon: <FileText size={24} />, bg: 'bg-blue-50', text: 'text-blue-600' },
  { id: 'students', label: 'Total Students', value: (stats.tulba + stats.talibat).toString(), growth: '+5%', trend: 'up', icon: <GraduationCap size={24} />, bg: 'bg-blue-50', text: 'text-blue-600' },
  { id: 'students', label: 'Total Tulba', value: stats.tulba.toString(), growth: '+2%', trend: 'up', icon: <User size={24} />, bg: 'bg-indigo-50', text: 'text-indigo-600' },
@@ -2746,7 +2748,43 @@ export default function AdminDashboard() {
  );
  };
 
- const renderContent = () => {
+  const renderReportsModule = () => {
+    const data = Object.entries(analyticsData || {}).map(([date, count]) => ({ date, count }));
+    return (
+      <div className="space-y-6 animate-in fade-in zoom-in-95 duration-500 pb-20">
+        <div className="bg-white p-8 rounded-sm shadow-sm border border-slate-200">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-10 h-10 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center">
+              <Eye size={20} />
+            </div>
+            <div>
+              <h2 className="text-xl font-black text-slate-800 tracking-tight">Website Visitors History</h2>
+              <p className="text-xs text-slate-500 font-bold uppercase tracking-widest mt-1">Daily unique visitors to your website</p>
+            </div>
+          </div>
+          <div className="h-[400px]">
+            {data.length > 0 ? (
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={data} margin={{ top: 20, right: 30, left: -20, bottom: 5 }}>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
+                  <XAxis dataKey="date" tick={{fontSize: 10, fill: '#64748b', fontWeight: 'bold'}} axisLine={false} tickLine={false} />
+                  <YAxis tick={{fontSize: 10, fill: '#64748b', fontWeight: 'bold'}} axisLine={false} tickLine={false} />
+                  <Tooltip cursor={{fill: '#f1f5f9'}} contentStyle={{borderRadius: '4px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)'}} />
+                  <Bar dataKey="count" fill="#10b981" radius={[4, 4, 0, 0]} maxBarSize={60} />
+                </BarChart>
+              </ResponsiveContainer>
+            ) : (
+              <div className="flex items-center justify-center h-full text-slate-400 font-bold uppercase tracking-widest text-sm">
+                No visitor data available yet
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  const renderContent = () => {
  switch (activeTab) {
  case 'overview': return renderOverview();
  case 'admissions': return renderAdmissionsModule();
@@ -2759,6 +2797,7 @@ export default function AdminDashboard() {
  case 'fees': return renderFeesModule();
     case 'expenses': return <ExpenseManagementModule />;
     case 'fee-management': return <FeeManagementModule />;
+    case 'reports': return renderReportsModule();
  default:
  const moduleDetails = SIDEBAR_ITEMS.find(i => i.id === activeTab);
  return (
