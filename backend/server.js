@@ -331,6 +331,21 @@ app.post('/api/exam-mess/apply', (req, res) => {
   };
   db.get('messApplications').push(appData).write();
   
+  // Send Telegram Notification
+  const message = `🍲 *New Imtihaani Qayam-o-Ta'am Application* 🍲
+  
+*Student:* ${studentName}
+*Father:* ${fatherName}
+*Phone:* ${phone}
+*Challan No:* ${challanNo}
+*Amount:* Rs ${config.fee}
+*Date:* ${new Date().toLocaleString()}`;
+
+  if (process.env.TELEGRAM_BOT_TOKEN && process.env.TELEGRAM_CHAT_ID) {
+    const tUrl = `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${process.env.TELEGRAM_CHAT_ID}&text=${encodeURIComponent(message)}&parse_mode=Markdown`;
+    fetch(tUrl).catch(e => console.error("Telegram notification failed:", e));
+  }
+  
   res.json({ success: true, challan, application: appData });
 });
 
