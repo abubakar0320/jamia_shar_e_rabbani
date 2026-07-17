@@ -206,8 +206,7 @@ export default function AdminDashboard() {
  const [isSidebarOpen, setSidebarOpen] = useState(true);
  const [currentTime, setCurrentTime] = useState<Date | null>(null);
 
- // Stats & Data State
- const [stats, setStats] = useState({ courses: 18, faculty: 45, news: 112, contacts: 8, admissions: 450, tulba: 820, talibat: 420, donations: 1200000 });
+ const [stats, setStats] = useState({ courses: 18, faculty: 45, news: 112, contacts: 8, admissions: 450, tulba: 820, talibat: 420, donations: 1200000, visitorsToday: 0 });
  const [admissions, setAdmissions] = useState<Admission[]>([]);
  const [students, setStudents] = useState<Student[]>([]);
  const [faculty, setFaculty] = useState<Faculty[]>([]);
@@ -297,9 +296,18 @@ export default function AdminDashboard() {
  setFeeCategories(data ? (data.reverse ? data.reverse() : data) : []);
  }
  if (resSched && resSched.ok) {
- const data = await resSched.json().catch(() => null);
- setAdmissionSchedule(data);
- }
+  const data = await resSched.json().catch(() => null);
+  setAdmissionSchedule(data);
+  }
+
+  const resAnalytics = await fetch('/api/admin/analytics').catch(() => null);
+  if (resAnalytics && resAnalytics.ok) {
+    const data = await resAnalytics.json().catch(() => null);
+    if (data && data.visits) {
+      const today = new Date().toLocaleDateString('en-CA');
+      setStats(prev => ({ ...prev, visitorsToday: data.visits[today] || 0 }));
+    }
+  }
  } catch (err) {
  console.error(err);
  } finally {
@@ -2536,13 +2544,13 @@ export default function AdminDashboard() {
  // --- Overview Module --- //
  const renderOverview = () => {
  const STATS = [
+ { id: 'visitors', label: "Today's Visitors", value: stats.visitorsToday.toString(), growth: 'Live', trend: 'up', icon: <Eye size={24} />, bg: 'bg-emerald-50', text: 'text-emerald-600' },
  { id: 'admissions', label: 'Total Admissions', value: stats.admissions.toString(), growth: '+15%', trend: 'up', icon: <FileText size={24} />, bg: 'bg-blue-50', text: 'text-blue-600' },
  { id: 'students', label: 'Total Students', value: (stats.tulba + stats.talibat).toString(), growth: '+5%', trend: 'up', icon: <GraduationCap size={24} />, bg: 'bg-blue-50', text: 'text-blue-600' },
  { id: 'students', label: 'Total Tulba', value: stats.tulba.toString(), growth: '+2%', trend: 'up', icon: <User size={24} />, bg: 'bg-indigo-50', text: 'text-indigo-600' },
  { id: 'students', label: 'Total Talibat', value: stats.talibat.toString(), growth: '+8%', trend: 'up', icon: <Users size={24} />, bg: 'bg-violet-50', text: 'text-violet-600' },
  { id: 'faculty', label: 'Faculty Members', value: stats.faculty.toString(), growth: 'Stable', trend: 'neutral', icon: <Award size={24} />, bg: 'bg-amber-50', text: 'text-amber-600' },
  { id: 'courses', label: 'Total Courses', value: stats.courses.toString(), growth: '+2', trend: 'up', icon: <BookOpen size={24} />, bg: 'bg-cyan-50', text: 'text-cyan-600' },
- { id: 'news', label: 'News & Posts', value: stats.news.toString(), growth: '+12', trend: 'up', icon: <Megaphone size={24} />, bg: 'bg-rose-50', text: 'text-rose-600' },
  { id: 'donations', label: 'Donations', value: `Rs ${(stats.donations/1000000).toFixed(1)}M`, growth: '+25%', trend: 'up', icon: <Heart size={24} />, bg: 'bg-pink-50', text: 'text-pink-600' },
  ];
 

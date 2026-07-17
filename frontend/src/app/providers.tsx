@@ -10,6 +10,10 @@ export function Providers({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     setMounted(true);
+    if (typeof window !== 'undefined' && !sessionStorage.getItem('has_visited')) {
+      sessionStorage.setItem('has_visited', 'true');
+      fetch('/api/visit', { method: 'POST' }).catch(() => null);
+    }
   }, []);
 
   useEffect(() => {

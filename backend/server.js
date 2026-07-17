@@ -265,7 +265,22 @@ db.defaults({
     bankName: "Meezan Bank",
     accountTitle: "Muhammad Ahmad (Asaan Account)",
     accountNumber: "98690112101313"
-  }
+  },
+  analytics: { visits: {} }
+});
+
+// Analytics Routes
+app.post('/api/visit', (req, res) => {
+  const dateStr = new Date().toLocaleDateString('en-CA'); // YYYY-MM-DD
+  const analytics = db.get('analytics').value() || { visits: {} };
+  const currentVisits = analytics.visits[dateStr] || 0;
+  analytics.visits[dateStr] = currentVisits + 1;
+  db.set('analytics', analytics).write();
+  res.json({ success: true });
+});
+
+app.get('/api/admin/analytics', (req, res) => {
+  res.json(db.get('analytics').value() || { visits: {} });
 });
 
 // Fee Config Routes
