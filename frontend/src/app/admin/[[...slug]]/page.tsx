@@ -11,7 +11,7 @@ import {
  Globe, Image as ImageIcon, Folder, Shield, Languages, Bell, BarChart2, Lock, Menu, X,
  CheckCircle2, XCircle, Trash2, Edit, Download, ArrowUpRight, ArrowDownRight, Clock, Activity, FileCheck, CheckSquare, Upload, AlertCircle, TrendingUp, CheckSquare as CheckSquareIcon, Square, Copy, Archive, Star, PlaySquare, Play, Book, ArrowRightCircle, Landmark, PieChart as PieChartIcon
 } from 'lucide-react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line } from 'recharts';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import AdmissionScheduleModal from '@/components/AdmissionScheduleModal';
@@ -2569,6 +2569,20 @@ export default function AdminDashboard() {
  challans.forEach(c => c.status === 'Paid' ? paid++ : unpaid++);
  const feeChartData = [{ name: 'Paid', value: paid }, { name: 'Unpaid', value: unpaid }];
  const COLORS = ['#10b981', '#ef4444'];
+ const GENDER_COLORS = ['#3b82f6', '#8b5cf6'];
+
+ const trendCount: Record<string, number> = {};
+ admissions.forEach(a => {
+   if (!a.date) return;
+   const dateStr = new Date(a.date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short' });
+   trendCount[dateStr] = (trendCount[dateStr] || 0) + 1;
+ });
+ const trendChartData = Object.entries(trendCount).map(([date, count]) => ({ date, count })).slice(-10); // Last 10 days
+
+ const genderChartData = [
+   { name: 'Tulba', value: stats.tulba },
+   { name: 'Talibat', value: stats.talibat }
+ ];
 
  return (
  <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500 pb-20">
@@ -2679,70 +2693,45 @@ export default function AdminDashboard() {
   </div>
  </div>
 
- {/* Middle Section: Recent Admissions & Timeline */}
+ {/* Additional Analytics Section */}
  <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
- <div className="lg:col-span-2 bg-white rounded-sm border border-slate-200 shadow-sm overflow-hidden flex flex-col">
- <div className="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
- <h3 className="text-lg font-black text-slate-800 tracking-tight flex items-center gap-2"><Clock size={20} className="text-blue-600"/> Recent Admissions</h3>
- <button onClick={() => handleNavigate('admissions')} className="text-xs font-black text-blue-600 uppercase tracking-widest hover:underline">View All</button>
- </div>
- <div className="flex-1 overflow-x-auto">
- <table className="w-full text-left border-collapse">
- <thead>
- <tr className="bg-slate-50">
- <th className="px-6 py-4 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Student Name</th>
- <th className="px-6 py-4 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Class</th>
- <th className="px-6 py-4 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Type</th>
- <th className="px-6 py-4 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Date</th>
- <th className="px-6 py-4 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Status</th>
- </tr>
- </thead>
- <tbody className="divide-y divide-slate-100">
- {admissions.slice(0, 4).map((row, i) => (
- <tr key={i} className="hover:bg-slate-50 transition-colors cursor-pointer" onClick={() => { handleNavigate('admissions'); setSelectedApplication(row); }}>
- <td className="px-6 py-4">
- <div className="font-black text-sm text-slate-800">{row.studentName}</div>
- <div className="text-[10px] text-slate-500 font-bold uppercase tracking-wider mt-0.5">S/O {row.fatherName}</div>
- </td>
- <td className="px-6 py-4"><span className="text-xs font-bold text-slate-600 bg-slate-100 px-3 py-1 rounded-full">{row.classProgram}</span></td>
- <td className="px-6 py-4 text-xs font-bold text-slate-600">{row.sectionType}</td>
- <td className="px-6 py-4 text-xs font-bold text-slate-500">{new Date(row.date).toLocaleDateString()}</td>
- <td className="px-6 py-4">
- <span className={`px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest bg-amber-50 text-amber-600`}>Pending</span>
- </td>
- </tr>
- ))}
- </tbody>
- </table>
- </div>
- </div>
+  <div className="lg:col-span-2 bg-white p-6 rounded-sm border border-slate-200 shadow-sm flex flex-col">
+    <div className="flex items-center justify-between mb-6">
+      <h3 className="text-lg font-black text-slate-800 tracking-tight flex items-center gap-2"><TrendingUp size={20} className="text-indigo-600"/> Admissions Trend</h3>
+    </div>
+    <div className="flex-1 min-h-[300px]">
+      <ResponsiveContainer width="100%" height="100%">
+        <LineChart data={trendChartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
+          <XAxis dataKey="date" tick={{fontSize: 10, fill: '#64748b', fontWeight: 'bold'}} axisLine={false} tickLine={false} />
+          <YAxis tick={{fontSize: 10, fill: '#64748b', fontWeight: 'bold'}} axisLine={false} tickLine={false} />
+          <Tooltip cursor={{stroke: '#cbd5e1', strokeWidth: 2}} contentStyle={{borderRadius: '4px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)'}} />
+          <Line type="monotone" dataKey="count" stroke="#6366f1" strokeWidth={4} dot={{r: 6, fill: '#6366f1', stroke: '#fff', strokeWidth: 2}} activeDot={{r: 8}} />
+        </LineChart>
+      </ResponsiveContainer>
+    </div>
+  </div>
 
- <div className="bg-white rounded-sm border border-slate-200 shadow-sm overflow-hidden flex flex-col">
- <div className="p-6 border-b border-slate-100 bg-slate-50/50">
- <h3 className="text-lg font-black text-slate-800 tracking-tight flex items-center gap-2"><Activity size={20} className="text-indigo-600"/> Recent Activities</h3>
- </div>
- <div className="p-6 flex-1 overflow-y-auto">
- <div className="space-y-6 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before: before:from-transparent before:via-slate-200 before:to-transparent">
- {[
- { text: 'New admission application submitted by Usama', time: '10 mins ago', icon: <FileText size={12} />, color: 'bg-blue-500', act: () => handleNavigate('admissions') },
- { text: 'Prof. Qasim updated Khasa syllabus', time: '1 hour ago', icon: <BookOpen size={12} />, color: 'bg-blue-500', act: () => handleNavigate('courses') },
- { text: 'Challan generated for Aliya Part 1', time: '3 hours ago', icon: <DollarSign size={12} />, color: 'bg-amber-500', act: () => handleNavigate('fees') },
- { text: 'News article "Annual Results" published', time: 'Yesterday', icon: <Megaphone size={12} />, color: 'bg-rose-500', act: () => handleNavigate('news') },
- { text: 'Almiya result uploaded successfully', time: 'Yesterday', icon: <Award size={12} />, color: 'bg-indigo-500', act: () => handleNavigate('results') },
- ].map((act, i) => (
- <div key={i} onClick={act.act} className="cursor-pointer relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active hover:-translate-y-1 transition-transform">
- <div className={`flex items-center justify-center w-6 h-6 rounded-full border-4 border-white ${act.color} text-white shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 shadow-sm relative z-10`}>
- {act.icon}
- </div>
- <div className="w-[calc(100%-3rem)] md:w-[calc(50%-2rem)] p-4 rounded-sm bg-slate-50 border border-slate-100 shadow-sm group-hover:border-slate-300">
- <p className="text-xs font-bold text-slate-700 leading-snug">{act.text}</p>
- <span className="text-[9px] font-black uppercase tracking-wider text-slate-400 mt-2 block">{act.time}</span>
- </div>
- </div>
- ))}
- </div>
- </div>
- </div>
+  <div className="bg-white p-6 rounded-sm border border-slate-200 shadow-sm flex flex-col">
+    <div className="flex items-center justify-between mb-6">
+      <h3 className="text-lg font-black text-slate-800 tracking-tight flex items-center gap-2"><Users size={20} className="text-rose-500"/> Gender Distribution</h3>
+    </div>
+    <div className="flex-1 min-h-[300px] flex items-center justify-center relative">
+      <ResponsiveContainer width="100%" height="100%">
+        <PieChart>
+          <Pie data={genderChartData} cx="50%" cy="50%" innerRadius={60} outerRadius={80} paddingAngle={5} dataKey="value" stroke="none">
+            {genderChartData.map((entry, index) => <Cell key={`cell-${index}`} fill={GENDER_COLORS[index % GENDER_COLORS.length]} />)}
+          </Pie>
+          <Tooltip contentStyle={{borderRadius: '4px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)'}} />
+          <Legend verticalAlign="bottom" height={36} iconType="circle" wrapperStyle={{fontSize: '12px', fontWeight: 'bold', color: '#64748b'}}/>
+        </PieChart>
+      </ResponsiveContainer>
+      <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none mt-[-36px]">
+        <span className="text-2xl font-black text-slate-800">{stats.tulba + stats.talibat}</span>
+        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Students</span>
+      </div>
+    </div>
+  </div>
  </div>
 
  </div>
