@@ -106,14 +106,14 @@ export default function ExamMessPage() {
                 <div className="absolute top-0 right-0 p-8 opacity-10">
                   <Landmark size={120} />
                 </div>
-                <h1 className="text-3xl font-black text-white tracking-tight relative z-10">Imtihaani Ta'am Facility</h1>
-                <p className="text-blue-200 mt-2 text-sm font-medium relative z-10">Apply for Exam Mess / Food Facility & Generate Challan</p>
+                <h1 className="text-3xl font-black text-white tracking-tight relative z-10">Imtihaani Qayam-o-Ta'am</h1>
+                <p className="text-blue-200 mt-2 text-sm font-medium relative z-10">Zar-e-Ta'awun (Contribution) for Exam Stay & Food</p>
               </div>
 
               <div className="p-8">
                 <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 mb-8 flex items-center justify-between">
                   <div>
-                    <h3 className="text-sm font-black text-blue-900 uppercase tracking-widest">Total Fee</h3>
+                    <h3 className="text-sm font-black text-blue-900 uppercase tracking-widest">Hadiya / Ta'awun</h3>
                     <p className="text-xs text-blue-600 font-medium mt-1">For complete exam duration</p>
                   </div>
                   <div className="text-3xl font-black text-blue-600">
@@ -197,7 +197,7 @@ export default function ExamMessPage() {
                     <Image src="/logo.jpeg" alt="Logo" fill className="object-contain" />
                   </div>
                   <h2 className="text-2xl font-black text-slate-900 uppercase tracking-widest">Jamia Sher-e-Rabbani</h2>
-                  <p className="text-sm font-bold text-slate-500 mt-1 uppercase tracking-widest">Imtihaani Ta'am Facility</p>
+                  <p className="text-sm font-bold text-slate-500 mt-1 uppercase tracking-widest">Imtihaani Qayam-o-Ta'am</p>
                   <div className="mt-4 inline-block bg-slate-900 text-white px-6 py-2 rounded-full">
                     <span className="text-xs font-black uppercase tracking-widest">Challan No: </span>
                     <span className="text-lg font-black tracking-wider">{generatedChallan.challanNo}</span>
@@ -263,7 +263,7 @@ export default function ExamMessPage() {
 
                 <div className="flex items-center gap-3 bg-amber-50 text-amber-800 p-4 rounded-xl border border-amber-200 mb-8 print:border-none print:bg-transparent print:p-0">
                   <CheckCircle size={24} className="shrink-0" />
-                  <p className="text-sm font-bold">Please pay this challan before the due date and submit the receipt to confirm your mess facility.</p>
+                  <p className="text-sm font-bold">Baraye meharbani ye zar-e-ta'awun due date se pehle bank mein jama karwayen taake apka qayam-o-ta'am confirm ho sakay. JazakAllah!</p>
                 </div>
               </div>
 
