@@ -266,7 +266,12 @@ db.defaults({
     accountTitle: "Muhammad Ahmad (Asaan Account)",
     accountNumber: "98690112101313"
   },
-  analytics: { visits: {} }
+  analytics: { visits: {} },
+  messApplications: [],
+  messConfig: {
+    fee: 3000,
+    examName: "Salana Imtihaan 2026"
+  }
 });
 
 // Analytics Routes
@@ -281,6 +286,52 @@ app.post('/api/visit', (req, res) => {
 
 app.get('/api/admin/analytics', (req, res) => {
   res.json(db.get('analytics').value() || { visits: {} });
+});
+
+// Exam Mess Routes
+app.get('/api/exam-mess/config', (req, res) => {
+  res.json(db.get('messConfig').value());
+});
+
+app.get('/api/admin/mess-applications', (req, res) => {
+  res.json(db.get('messApplications').value() || []);
+});
+
+app.post('/api/exam-mess/apply', (req, res) => {
+  const { studentName, fatherName, phone } = req.body;
+  const config = db.get('messConfig').value() || { fee: 3000, examName: 'Salana Imtihaan 2026' };
+  
+  const challanNo = 'MESS' + Date.now().toString().slice(-6);
+  
+  const challan = {
+    id: Date.now(),
+    challanNo,
+    studentName,
+    fatherName,
+    phone,
+    classProgram: config.examName + ' Mess',
+    feeDetails: [{ type: "Imtihaani Ta'am/Langar Fee", amount: config.fee }],
+    totalAmount: config.fee,
+    issueDate: new Date().toISOString(),
+    dueDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
+    status: 'Unpaid',
+    paidAmount: 0,
+    type: 'Mess'
+  };
+  
+  db.get('challans').push(challan).write();
+  
+  const appData = {
+    id: Date.now(),
+    studentName,
+    fatherName,
+    phone,
+    challanNo,
+    date: new Date().toISOString()
+  };
+  db.get('messApplications').push(appData).write();
+  
+  res.json({ success: true, challan, application: appData });
 });
 
 // Fee Config Routes

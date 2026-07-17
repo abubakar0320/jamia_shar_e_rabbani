@@ -177,6 +177,7 @@ const SIDEBAR_ITEMS = [
  { id: 'fees', label: 'Fees & Challans', icon: <DollarSign size={20} /> },
   { id: 'expenses', label: 'Accounts & Expenses', icon: <Wallet size={20} /> },
   { id: 'fee-management', label: 'Manage Fee Structures', icon: <Landmark size={20} /> },
+  { id: 'exam-mess', label: 'Exam Mess / Food', icon: <Landmark size={20} /> },
  { id: 'donations', label: 'Donations', icon: <Heart size={20} /> },
  { id: 'news', label: 'News & Events', icon: <Megaphone size={20} /> },
  { id: 'research', label: 'Research', icon: <Library size={20} /> },
@@ -208,6 +209,7 @@ export default function AdminDashboard() {
 
  const [stats, setStats] = useState({ courses: 18, faculty: 45, news: 112, contacts: 8, admissions: 450, tulba: 820, talibat: 420, donations: 1200000, visitorsToday: 0 });
  const [analyticsData, setAnalyticsData] = useState<Record<string, number>>({});
+ const [messApps, setMessApps] = useState<any[]>([]);
  const [admissions, setAdmissions] = useState<Admission[]>([]);
  const [students, setStudents] = useState<Student[]>([]);
  const [faculty, setFaculty] = useState<Faculty[]>([]);
@@ -299,6 +301,12 @@ export default function AdminDashboard() {
  if (resSched && resSched.ok) {
   const data = await resSched.json().catch(() => null);
   setAdmissionSchedule(data);
+  }
+
+  const resMess = await fetch('/api/admin/mess-applications').catch(() => null);
+  if (resMess && resMess.ok) {
+    const data = await resMess.json().catch(() => null);
+    setMessApps(data || []);
   }
 
   const resAnalytics = await fetch('/api/admin/analytics').catch(() => null);
@@ -2784,6 +2792,46 @@ export default function AdminDashboard() {
     );
   };
 
+  const renderMessModule = () => {
+    return (
+      <div className="space-y-6 animate-in fade-in zoom-in-95 duration-500 pb-20">
+        <div className="bg-white rounded-sm shadow-sm border border-slate-200 overflow-hidden">
+          <div className="p-6 border-b border-slate-100 flex items-center gap-3">
+            <Landmark className="text-amber-600" size={24} />
+            <h2 className="text-xl font-black text-slate-800 tracking-tight">Imtihaani Mess Applications</h2>
+          </div>
+          <div className="overflow-x-auto">
+            <table className="w-full text-left">
+              <thead>
+                <tr className="bg-slate-50 border-b border-slate-200">
+                  <th className="py-4 px-6 text-xs font-black uppercase tracking-widest text-slate-500">Student Info</th>
+                  <th className="py-4 px-6 text-xs font-black uppercase tracking-widest text-slate-500">Challan No</th>
+                  <th className="py-4 px-6 text-xs font-black uppercase tracking-widest text-slate-500">Date Applied</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                {messApps.length > 0 ? messApps.map((app, i) => (
+                  <tr key={i} className="hover:bg-slate-50 transition-colors">
+                    <td className="py-4 px-6">
+                      <div className="font-black text-sm text-slate-800">{app.studentName}</div>
+                      <div className="text-xs text-slate-500 font-bold">S/O {app.fatherName} • {app.phone}</div>
+                    </td>
+                    <td className="py-4 px-6"><span className="bg-blue-50 text-blue-700 px-3 py-1 rounded-md text-xs font-bold">{app.challanNo}</span></td>
+                    <td className="py-4 px-6 text-sm text-slate-600 font-medium">{new Date(app.date).toLocaleDateString()}</td>
+                  </tr>
+                )) : (
+                  <tr>
+                    <td colSpan={3} className="py-12 text-center text-slate-400 font-bold uppercase tracking-widest text-sm">No applications yet</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   const renderContent = () => {
  switch (activeTab) {
  case 'overview': return renderOverview();
@@ -2798,6 +2846,7 @@ export default function AdminDashboard() {
     case 'expenses': return <ExpenseManagementModule />;
     case 'fee-management': return <FeeManagementModule />;
     case 'reports': return renderReportsModule();
+    case 'exam-mess': return renderMessModule();
  default:
  const moduleDetails = SIDEBAR_ITEMS.find(i => i.id === activeTab);
  return (
