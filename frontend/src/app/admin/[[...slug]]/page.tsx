@@ -307,9 +307,36 @@ export default function AdminDashboard() {
  }
  };
 
- useEffect(() => {
- fetchAllData();
- }, []);
+  useEffect(() => {
+  fetchAllData();
+  }, []);
+
+  useEffect(() => {
+    let tulba = 0;
+    let talibat = 0;
+    students.forEach(s => {
+      if (s.sectionType?.toLowerCase().includes('talibat')) talibat++;
+      else if (s.sectionType?.toLowerCase().includes('tulba')) tulba++;
+    });
+
+    let totalDonations = 0;
+    challans.forEach(c => {
+      if (c.status === 'Paid') {
+        totalDonations += (c.totalAmount || 0);
+      }
+    });
+
+    setStats(prev => ({
+      ...prev,
+      admissions: admissions.length,
+      students: students.length,
+      tulba: tulba,
+      talibat: talibat,
+      courses: courses.length,
+      faculty: faculty.length,
+      donations: totalDonations
+    }));
+  }, [admissions, students, courses, faculty, challans]);
 
  const handleNavigate = (tab: string, sub?: string) => {
  if (tab === 'donations') {
