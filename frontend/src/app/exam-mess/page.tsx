@@ -18,10 +18,24 @@ export default function ExamMessPage() {
   const [generatedChallan, setGeneratedChallan] = useState<any>(null);
 
   useEffect(() => {
+    // Set a timeout to prevent infinite loading if backend is asleep
+    const timeout = setTimeout(() => {
+      if (!config) setConfig({ fee: 3000, examName: 'Salana Imtihaan 2026' });
+    }, 5000);
+
     fetch('/api/exam-mess/config')
       .then(res => res.json())
-      .then(data => setConfig(data))
-      .catch(err => console.error(err));
+      .then(data => {
+        clearTimeout(timeout);
+        setConfig(data || { fee: 3000, examName: 'Salana Imtihaan 2026' });
+      })
+      .catch(err => {
+        console.error(err);
+        clearTimeout(timeout);
+        setConfig({ fee: 3000, examName: 'Salana Imtihaan 2026' });
+      });
+      
+    return () => clearTimeout(timeout);
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
