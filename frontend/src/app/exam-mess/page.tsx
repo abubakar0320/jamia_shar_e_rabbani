@@ -190,74 +190,81 @@ export default function ExamMessPage() {
               initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}
               className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-slate-200"
             >
-              {/* Professional 3-Part Challan */}
-              <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-dashed divide-slate-300">
-                {['Bank Copy', 'Jamia Copy', 'Student Copy'].map((copyType, index) => (
-                  <div key={index} className="p-6 flex flex-col h-full bg-white relative">
-                    <div className="text-center border-b border-slate-200 pb-4 mb-4">
-                      <div className="w-12 h-12 relative mx-auto mb-2 grayscale">
-                        <Image src="/logo.jpeg" alt="Logo" fill className="object-contain" />
-                      </div>
-                      <h2 className="text-sm font-black text-slate-800 uppercase tracking-widest">Jamia Sher-e-Rabbani</h2>
-                      <p className="text-[10px] font-bold text-slate-500 mt-1 uppercase tracking-widest">{copyType}</p>
-                      <p className="text-[9px] font-bold text-slate-400 mt-1">Imtihaani Ta'am Facility</p>
+              {/* Professional Single Receipt */}
+              <div className="p-8 bg-white relative">
+                <div className="text-center border-b-2 border-slate-900 pb-6 mb-6">
+                  <div className="w-16 h-16 relative mx-auto mb-3">
+                    <Image src="/logo.jpeg" alt="Logo" fill className="object-contain" />
+                  </div>
+                  <h2 className="text-2xl font-black text-slate-900 uppercase tracking-widest">Jamia Sher-e-Rabbani</h2>
+                  <p className="text-sm font-bold text-slate-500 mt-1 uppercase tracking-widest">Imtihaani Ta'am Facility</p>
+                  <div className="mt-4 inline-block bg-slate-900 text-white px-6 py-2 rounded-full">
+                    <span className="text-xs font-black uppercase tracking-widest">Challan No: </span>
+                    <span className="text-lg font-black tracking-wider">{generatedChallan.challanNo}</span>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-8 mb-8">
+                  <div>
+                    <div className="text-xs font-black uppercase tracking-widest text-slate-400 mb-2">Student Details</div>
+                    <div className="text-xl font-black text-slate-800">{generatedChallan.studentName}</div>
+                    <div className="text-sm font-bold text-slate-600">S/O {generatedChallan.fatherName}</div>
+                    <div className="text-sm font-medium text-slate-500 mt-1">{generatedChallan.phone}</div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-xs font-black uppercase tracking-widest text-slate-400 mb-2">Important Dates</div>
+                    <div className="text-sm font-bold text-slate-800 mb-1">Issue Date: {new Date(generatedChallan.issueDate).toLocaleDateString()}</div>
+                    <div className="text-sm font-black text-rose-600 bg-rose-50 inline-block px-3 py-1 rounded-md">Due Date: {new Date(generatedChallan.dueDate).toLocaleDateString()}</div>
+                  </div>
+                </div>
+
+                <div className="bg-blue-50/50 p-6 rounded-xl border border-blue-100 mb-8">
+                  <div className="text-xs font-black uppercase tracking-widest text-blue-800 mb-4 flex items-center gap-2">
+                    <Landmark size={16} /> Bank Details for Payment
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                      <div className="text-[10px] font-bold text-blue-600 uppercase tracking-widest mb-1">Bank Name</div>
+                      <div className="text-sm font-black text-slate-800">Meezan Bank</div>
                     </div>
-
-                    <div className="space-y-4 flex-1">
-                      <div>
-                        <div className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-0.5">Challan No</div>
-                        <div className="text-sm font-black text-slate-800">{generatedChallan.challanNo}</div>
-                      </div>
-
-                      <div className="bg-slate-50 p-3 rounded-lg border border-slate-200">
-                        <div className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1">Bank Details</div>
-                        <div className="text-xs font-bold text-slate-800">{bankConfig?.bankName}</div>
-                        <div className="text-[10px] font-bold text-slate-600 truncate">{bankConfig?.accountTitle}</div>
-                        <div className="text-xs font-black text-slate-800 tracking-wider mt-1">{bankConfig?.accountNumber}</div>
-                      </div>
-
-                      <div className="grid grid-cols-2 gap-2">
-                        <div>
-                          <div className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-0.5">Issue Date</div>
-                          <div className="text-xs font-bold text-slate-800">{new Date(generatedChallan.issueDate).toLocaleDateString()}</div>
-                        </div>
-                        <div>
-                          <div className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-0.5">Due Date</div>
-                          <div className="text-xs font-bold text-rose-600">{new Date(generatedChallan.dueDate).toLocaleDateString()}</div>
-                        </div>
-                      </div>
-
-                      <div>
-                        <div className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-0.5">Student Details</div>
-                        <div className="text-sm font-black text-slate-800 truncate">{generatedChallan.studentName}</div>
-                        <div className="text-[10px] font-bold text-slate-600 truncate">S/O {generatedChallan.fatherName}</div>
-                        <div className="text-[10px] font-bold text-slate-600 mt-0.5">{generatedChallan.phone}</div>
-                      </div>
-
-                      <div className="border-t border-slate-200 pt-4 mt-4">
-                        <div className="flex justify-between items-center mb-2">
-                          <span className="text-[10px] font-bold text-slate-600">Imtihaani Mess Fee</span>
-                          <span className="text-xs font-black text-slate-800">Rs {config?.fee}</span>
-                        </div>
-                        <div className="flex justify-between items-center border-t border-slate-200 pt-2">
-                          <span className="text-xs font-black uppercase tracking-widest text-slate-800">Total</span>
-                          <span className="text-sm font-black text-slate-800">Rs {config?.fee}</span>
-                        </div>
-                      </div>
+                    <div>
+                      <div className="text-[10px] font-bold text-blue-600 uppercase tracking-widest mb-1">Account Title</div>
+                      <div className="text-sm font-black text-slate-800">MUHAMMAD AHMAD</div>
                     </div>
-
-                    <div className="mt-8 pt-4 border-t border-slate-200 grid grid-cols-2 gap-4">
-                      <div className="text-center">
-                        <div className="border-b border-slate-300 h-6 mb-1"></div>
-                        <div className="text-[8px] font-black uppercase tracking-widest text-slate-400">Cashier Sign</div>
-                      </div>
-                      <div className="text-center">
-                        <div className="border-b border-slate-300 h-6 mb-1"></div>
-                        <div className="text-[8px] font-black uppercase tracking-widest text-slate-400">Depositor Sign</div>
-                      </div>
+                    <div>
+                      <div className="text-[10px] font-bold text-blue-600 uppercase tracking-widest mb-1">Account Number</div>
+                      <div className="text-sm font-black text-slate-800 tracking-wider">98690112101313</div>
                     </div>
                   </div>
-                ))}
+                </div>
+
+                <table className="w-full text-left mb-8">
+                  <thead className="bg-slate-100 border-b border-slate-200">
+                    <tr>
+                      <th className="py-4 px-6 text-xs font-black uppercase tracking-widest text-slate-500">Description</th>
+                      <th className="py-4 px-6 text-xs font-black uppercase tracking-widest text-slate-500 text-right">Amount</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {generatedChallan.feeDetails.map((fee: any, idx: number) => (
+                      <tr key={idx} className="border-b border-slate-100">
+                        <td className="py-6 px-6 text-base font-bold text-slate-800">{fee.type}</td>
+                        <td className="py-6 px-6 text-base font-black text-slate-800 text-right">Rs {fee.amount}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                  <tfoot className="bg-slate-900 text-white rounded-b-xl">
+                    <tr>
+                      <td className="py-6 px-6 text-sm font-black uppercase tracking-widest">Total Payable</td>
+                      <td className="py-6 px-6 text-2xl font-black text-right">Rs {config?.fee}</td>
+                    </tr>
+                  </tfoot>
+                </table>
+
+                <div className="flex items-center gap-3 bg-amber-50 text-amber-800 p-4 rounded-xl border border-amber-200 mb-8 print:border-none print:bg-transparent print:p-0">
+                  <CheckCircle size={24} className="shrink-0" />
+                  <p className="text-sm font-bold">Please pay this challan before the due date and submit the receipt to confirm your mess facility.</p>
+                </div>
               </div>
 
                 <div className="p-8 bg-slate-50 border-t border-slate-200 flex gap-4 print:hidden">
