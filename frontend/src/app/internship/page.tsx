@@ -117,8 +117,8 @@ export default function Internship() {
                 <div className="relative w-full aspect-square max-w-md mx-auto">
                   {/* Central Main Card */}
                   <div className="absolute inset-0 bg-white/60 border border-white/80 backdrop-blur-xl rounded-3xl p-8 flex flex-col justify-center shadow-[0_20px_50px_-12px_rgba(0,0,0,0.05)] transform rotate-3">
-                    <div className="w-16 h-16 bg-gradient-to-br from-rose-100 to-orange-100 rounded-2xl flex items-center justify-center mb-6 border border-rose-200/50">
-                      <GraduationCap className="text-rose-600 w-8 h-8" />
+                    <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mb-6 border border-slate-100 shadow-sm overflow-hidden">
+                      <img src="/logo.jpeg" alt="Jamia Logo" className="w-12 h-12 object-contain" />
                     </div>
                     <h3 className="text-2xl font-bold text-slate-800 mb-2">{t("For Students")}</h3>
                     <p className="text-slate-600 text-sm leading-relaxed">
@@ -170,27 +170,110 @@ export default function Internship() {
         </section>
 
         {/* --- BENEFITS SECTION --- */}
-        <section className="py-16 bg-slate-50 border-b border-slate-100">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-3xl mx-auto mb-12">
-              <h2 className="text-3xl font-semibold text-slate-900 mb-4">{t("Why Intern With Us?")}</h2>
-              <p className="text-slate-600 text-lg">{t("We provide a comprehensive learning environment that rewards your dedication and hard work.")}</p>
+        <section className="py-24 bg-white border-b border-slate-100 relative">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-amber-50 rounded-full blur-3xl opacity-50 pointer-events-none"></div>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="text-center max-w-3xl mx-auto mb-16">
+              <span className="text-rose-500 font-bold tracking-widest uppercase text-sm mb-2 block">{t("Exclusive Perks")}</span>
+              <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-4">{t("Why Intern With Us?")}</h2>
+              <p className="text-slate-600 text-lg leading-relaxed">{t("We don't just offer an internship; we offer a launchpad for your career. Experience a comprehensive learning environment that rewards your hard work.")}</p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {[
+                { title: t("Internship Letter"), desc: t("Receive an official joining letter to validate your professional start."), icon: <FileText className="w-6 h-6" />, color: "rose" },
+                { title: t("Experience Certificate"), desc: t("Get a verified completion certificate to boost your resume."), icon: <Award className="w-6 h-6" />, color: "orange" },
+                { title: t("Recommendation"), desc: t("Earn a letter of recommendation based on exceptional performance."), icon: <CheckCircle2 className="w-6 h-6" />, color: "amber" },
+                { title: t("Real Projects"), desc: t("Work on live projects instead of just simulated tasks."), icon: <Code className="w-6 h-6" />, color: "emerald" }
+              ].map((item, idx) => (
+                <div key={idx} className="group bg-white p-8 border border-slate-100 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] rounded-2xl hover:shadow-[0_15px_30px_-15px_rgba(244,63,94,0.15)] transition-all duration-300 transform hover:-translate-y-2 relative overflow-hidden">
+                  <div className={`absolute top-0 right-0 w-24 h-24 bg-${item.color}-50 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110 z-0`}></div>
+                  <div className="relative z-10">
+                    <div className={`inline-flex items-center justify-center w-14 h-14 rounded-xl bg-${item.color}-50 text-${item.color}-500 mb-6 border border-${item.color}-100 shadow-sm group-hover:scale-110 transition-transform duration-300`}>
+                      {item.icon}
+                    </div>
+                    <h3 className="text-xl font-bold text-slate-800 mb-3">{item.title}</h3>
+                    <p className="text-slate-500 text-sm leading-relaxed">{item.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* --- AVAILABLE DOMAINS SECTION --- */}
+        <section className="py-24 bg-slate-50/50 border-b border-slate-100 relative overflow-hidden">
+          <div className="absolute bottom-0 left-0 w-full h-full bg-[url('/tajweed.jpeg')] bg-cover bg-center opacity-[0.02] mix-blend-multiply pointer-events-none"></div>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+              <div className="max-w-2xl">
+                <span className="text-orange-500 font-bold tracking-widest uppercase text-sm mb-2 block">{t("Explore Fields")}</span>
+                <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-4">{t("Available Internship Domains")}</h2>
+                <p className="text-slate-600 text-lg leading-relaxed">{t("Choose a department that aligns with your passion. We offer multiple disciplines to help you master the skills that matter most in today's industry.")}</p>
+              </div>
+              <a href="#apply" className="shrink-0 px-6 py-3 bg-white border border-slate-200 text-slate-800 font-bold rounded-full hover:bg-slate-50 transition-colors shadow-sm hidden md:inline-flex items-center gap-2">
+                {t("Apply for a Domain")} <span className="text-orange-500">→</span>
+              </a>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {[
-                { title: t("Internship Letter"), desc: t("Receive an official internship joining letter at the start of your program."), icon: <FileText className="w-8 h-8" /> },
-                { title: t("Completion Certificate"), desc: t("Get a verified internship certificate upon successful completion."), icon: <Award className="w-8 h-8" /> },
-                { title: t("Letter of Recommendation"), desc: t("Earn a letter of recommendation based on your exceptional performance."), icon: <CheckCircle2 className="w-8 h-8" /> }
-              ].map((item, idx) => (
-                <div key={idx} className="bg-white p-8 border border-slate-200 shadow-sm rounded-2xl text-center hover:border-blue-300 transition-colors">
-                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-50 text-blue-600 mb-6">
-                    {item.icon}
+                { 
+                  category: t("Information Technology"), 
+                  icon: <Laptop className="w-5 h-5" />,
+                  color: "blue",
+                  bg: "bg-blue-50",
+                  border: "border-blue-100",
+                  text: "text-blue-600",
+                  skills: [t("Web Development"), t("Graphic Designing"), t("Social Media Mgt"), t("IT Support")] 
+                },
+                { 
+                  category: t("Academic & Research"), 
+                  icon: <Briefcase className="w-5 h-5" />,
+                  color: "emerald",
+                  bg: "bg-emerald-50",
+                  border: "border-emerald-100",
+                  text: "text-emerald-600",
+                  skills: [t("Content Writing"), t("Islamic Research"), t("Translation Services"), t("Teaching Assistance")] 
+                },
+                { 
+                  category: t("Management & Admin"), 
+                  icon: <GraduationCap className="w-5 h-5" />,
+                  color: "purple",
+                  bg: "bg-purple-50",
+                  border: "border-purple-100",
+                  text: "text-purple-600",
+                  skills: [t("Event Management"), t("Student Affairs"), t("Data Entry & Records"), t("Public Relations")] 
+                }
+              ].map((domain, idx) => (
+                <div key={idx} className="bg-white rounded-3xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden group">
+                  <div className={`p-6 md:p-8 border-b border-slate-100 relative overflow-hidden`}>
+                     <div className={`absolute -right-6 -top-6 w-32 h-32 rounded-full ${domain.bg} opacity-50 group-hover:scale-150 transition-transform duration-500 ease-out`}></div>
+                     <div className="relative z-10">
+                        <div className={`inline-flex items-center justify-center w-12 h-12 rounded-full ${domain.bg} ${domain.text} mb-4 shadow-sm`}>
+                          {domain.icon}
+                        </div>
+                        <h3 className="text-2xl font-black text-slate-800">{domain.category}</h3>
+                     </div>
                   </div>
-                  <h3 className="text-xl font-semibold text-slate-900 mb-3">{item.title}</h3>
-                  <p className="text-slate-600">{item.desc}</p>
+                  <div className="p-6 md:p-8 bg-slate-50/50">
+                    <ul className="space-y-4">
+                      {domain.skills.map((skill, sIdx) => (
+                        <li key={sIdx} className="flex items-center gap-3">
+                          <CheckCircle2 className={`w-5 h-5 ${domain.text} shrink-0`} />
+                          <span className="text-slate-600 font-medium">{skill}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
               ))}
+            </div>
+            
+            <div className="mt-10 text-center md:hidden">
+              <a href="#apply" className="inline-flex px-6 py-3 bg-white border border-slate-200 text-slate-800 font-bold rounded-full hover:bg-slate-50 transition-colors shadow-sm items-center gap-2">
+                {t("Apply for a Domain")} <span className="text-orange-500">→</span>
+              </a>
             </div>
           </div>
         </section>
