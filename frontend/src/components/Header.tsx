@@ -31,6 +31,7 @@ const Header = () => {
     { label: t('exam_mess', 'Exam Mess'), href: '/exam-mess' },
     { label: t('donations'), href: '/donations' },
     { label: t('admissions', 'Admissions'), href: '/admissions' },
+    { label: t('Internship', 'Internship'), href: '/internship' },
     { label: t('contact'), href: '/contact' },
   ];
 

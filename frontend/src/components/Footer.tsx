@@ -42,6 +42,7 @@ const Footer = () => {
         { label: t('apply_now', 'Apply Online'), href: '/admissions' },
         { label: t('fee_structure', 'Fee Structure'), href: '/admissions' },
         { label: t('scholarships', 'Scholarships'), href: '/admissions' },
+        { label: t('Internship', 'Internship Program'), href: '/internship' },
         { label: t('library', 'Library'), href: '/about' },
         { label: t('boarding', 'Boarding & Hostel'), href: '/about' },
         { label: t('mosque', 'Jamia Mosque'), href: '/about' },
