@@ -168,6 +168,7 @@ interface Challan {
 const SIDEBAR_ITEMS = [
  { id: 'overview', label: 'Dashboard Overview', icon: <LayoutDashboard size={20} /> },
  { id: 'admissions', label: 'Admissions', icon: <FileText size={20} /> },
+ { id: 'internships', label: 'Internships', icon: <Award size={20} /> },
 
   { id: 'form-builder', label: 'Form Customization', icon: <FileText size={20} /> },
  { id: 'students', label: 'Students', icon: <GraduationCap size={20} /> },
@@ -211,6 +212,7 @@ export default function AdminDashboard() {
  const [analyticsData, setAnalyticsData] = useState<Record<string, number>>({});
  const [messApps, setMessApps] = useState<any[]>([]);
  const [admissions, setAdmissions] = useState<Admission[]>([]);
+  const [internships, setInternships] = useState<any[]>([]);
  const [students, setStudents] = useState<Student[]>([]);
  const [faculty, setFaculty] = useState<Faculty[]>([]);
  const [courses, setCourses] = useState<Course[]>([]);
@@ -258,7 +260,7 @@ export default function AdminDashboard() {
  const fetchAllData = async () => {
  setLoading(true);
  try {
- const [resAdm, resStu, resFac, resCrs, resFs, resCh, resCat, resSched] = await Promise.all([
+ const [resAdm, resStu, resFac, resCrs, resFs, resCh, resCat, resSched, resInt] = await Promise.all([
  fetch('/api/admin/admissions').catch(() => null),
  fetch('/api/admin/students').catch(() => null),
  fetch('/api/admin/faculty').catch(() => null),
@@ -267,9 +269,14 @@ export default function AdminDashboard() {
  fetch('/api/admin/fee-structures').catch(() => null),
  fetch('/api/admin/challans').catch(() => null),
  fetch('/api/admin/fee-categories').catch(() => null),
- fetch('/api/admission-schedule').catch(() => null)
+ fetch('/api/admission-schedule').catch(() => null),
+  fetch('/api/admin/internships').catch(() => null)
  ]);
- if (resAdm && resAdm.ok) {
+ if (resInt && resInt.ok) {
+    const data = await resInt.json().catch(() => null);
+    setInternships(data ? (data.reverse ? data.reverse() : data) : []);
+  }
+  if (resAdm && resAdm.ok) {
  const data = await resAdm.json().catch(() => null);
  setAdmissions(data ? (data.reverse ? data.reverse() : data) : []);
  }
@@ -424,7 +431,84 @@ export default function AdminDashboard() {
  );
 
  // --- Admissions Module --- //
- const renderAdmissionsModule = () => {
+ 
+  const renderInternshipsModule = () => {
+    return (
+      <div className="space-y-6 animate-in fade-in zoom-in-95 duration-300">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+          <div>
+            <h2 className="text-2xl font-bold text-slate-800">Internship Applications</h2>
+            <p className="text-slate-500 text-sm">View all students who applied for the internship program.</p>
+          </div>
+          <div className="flex items-center gap-3">
+             <div className="px-4 py-2 bg-blue-50 text-blue-700 rounded-lg font-medium text-sm flex items-center gap-2">
+               <Award size={16} /> Total: {internships.length}
+             </div>
+          </div>
+        </div>
+        
+        <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="bg-slate-50/50 border-b border-slate-100 text-xs uppercase tracking-wider text-slate-500 font-semibold">
+                  <th className="p-4">App ID</th>
+                  <th className="p-4">Applicant Info</th>
+                  <th className="p-4">Institution & Edu</th>
+                  <th className="p-4">Domain</th>
+                  <th className="p-4">Date</th>
+                  <th className="p-4">Status</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                {internships.map((int, i) => (
+                  <tr key={i} className="hover:bg-slate-50/50 transition-colors">
+                    <td className="p-4">
+                      <span className="font-mono text-sm font-semibold text-slate-700">{int.applicationNo}</span>
+                    </td>
+                    <td className="p-4">
+                      <div className="font-semibold text-slate-800">{int.fullName}</div>
+                      <div className="text-xs text-slate-500">{int.email}</div>
+                      <div className="text-xs text-slate-500">{int.phone}</div>
+                    </td>
+                    <td className="p-4">
+                      <div className="text-sm text-slate-700 font-medium">{int.institution}</div>
+                      <div className="text-xs text-slate-500">{int.education}</div>
+                    </td>
+                    <td className="p-4">
+                      <span className="px-2.5 py-1 bg-amber-50 text-amber-700 text-xs font-semibold rounded-md border border-amber-100 whitespace-nowrap">
+                        {int.fieldOfInterest}
+                      </span>
+                    </td>
+                    <td className="p-4 text-sm text-slate-600">
+                      {new Date(int.date).toLocaleDateString()}
+                    </td>
+                    <td className="p-4">
+                       <span className="px-2.5 py-1 bg-slate-100 text-slate-600 text-xs font-semibold rounded-full border border-slate-200">
+                          {int.status || 'Pending'}
+                       </span>
+                    </td>
+                  </tr>
+                ))}
+                {internships.length === 0 && (
+                  <tr>
+                    <td colSpan={6} className="p-12 text-center text-slate-500">
+                      <div className="flex flex-col items-center justify-center gap-3">
+                        <FileText size={32} className="text-slate-300" />
+                        <p>No internship applications yet.</p>
+                      </div>
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  const renderAdmissionsModule = () => {
 
  const total = admissions.length;
  const pending = admissions.filter(a => a.status === 'Pending' || !a.status).length;
@@ -2835,7 +2919,8 @@ export default function AdminDashboard() {
   const renderContent = () => {
  switch (activeTab) {
  case 'overview': return renderOverview();
- case 'admissions': return renderAdmissionsModule();
+ case 'internships': return renderInternshipsModule();
+  case 'admissions': return renderAdmissionsModule();
 
     case 'form-builder': return <AdmissionFormBuilderModule />;
  case 'students': return renderStudentsModule();

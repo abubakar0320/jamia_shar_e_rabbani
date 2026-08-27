@@ -38,14 +38,32 @@ export default function Internship() {
     setMounted(true);
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Simulate API call
-    setTimeout(() => {
+    
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/api/internships`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      });
+
+      if(res.ok) {
+        setSubmitted(true);
+        setFormData({ fullName: '', fatherName: '', phone: '', email: '', institution: '', education: '', fieldOfInterest: '' });
+      } else {
+        console.error('Failed to submit application');
+        alert(t("Failed to submit application. Please try again."));
+      }
+    } catch (error) {
+      console.error('Error submitting application:', error);
+      alert(t("An error occurred. Please check your connection and try again."));
+    } finally {
       setIsSubmitting(false);
-      setSubmitted(true);
-    }, 1500);
+    }
   };
 
   if (!mounted) {
