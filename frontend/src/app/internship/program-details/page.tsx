@@ -157,10 +157,10 @@ export default function ProgramDetailsPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
-                className={\`bg-white rounded-[2rem] overflow-hidden border border-slate-200 shadow-sm flex flex-col md:flex-row \${index % 2 !== 0 ? 'md:flex-row-reverse' : ''}\`}
+                className={`bg-white rounded-[2rem] overflow-hidden border border-slate-200 shadow-sm flex flex-col md:flex-row ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}
               >
                 {/* Visual Side */}
-                <div className={\`w-full md:w-2/5 p-12 flex flex-col items-center justify-center text-center \${domain.bgLight}\`}>
+                <div className={`w-full md:w-2/5 p-12 flex flex-col items-center justify-center text-center ${domain.bgLight}`}>
                   <div className="w-24 h-24 bg-white rounded-2xl shadow-lg flex items-center justify-center mb-6 transform -rotate-3 hover:rotate-0 transition-transform duration-300">
                     {domain.icon}
                   </div>
@@ -173,7 +173,7 @@ export default function ProgramDetailsPage() {
                 {/* Content Side */}
                 <div className="w-full md:w-3/5 p-8 md:p-12">
                   <h3 className="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">
-                    <span className={\`w-2 h-6 rounded-full bg-gradient-to-b \${domain.theme}\`}></span>
+                    <span className={`w-2 h-6 rounded-full bg-gradient-to-b ${domain.theme}`}></span>
                     {t('Available Roles')}
                   </h3>
                   
@@ -181,7 +181,7 @@ export default function ProgramDetailsPage() {
                     {domain.roles.map((role, rIndex) => (
                       <div key={rIndex} className="group p-5 rounded-xl border border-slate-100 hover:border-slate-200 hover:shadow-md transition-all bg-slate-50/50 hover:bg-white">
                         <h4 className="font-bold text-slate-800 mb-2 flex items-center gap-2">
-                          <ChevronRight size={16} className={\`opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all text-slate-400\`} />
+                          <ChevronRight size={16} className={`opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all text-slate-400`} />
                           {t(role.name)}
                         </h4>
                         <p className="text-sm text-slate-500 leading-relaxed">
@@ -192,7 +192,7 @@ export default function ProgramDetailsPage() {
                   </div>
                   
                   <div className="mt-8 pt-8 border-t border-slate-100">
-                    <a href="/internship#apply" className={\`inline-flex items-center gap-2 px-6 py-3 rounded-lg text-white font-bold bg-gradient-to-r \${domain.theme} shadow-lg shadow-current/20 hover:shadow-xl hover:-translate-y-0.5 transition-all\`}>
+                    <a href="/internship#apply" className={`inline-flex items-center gap-2 px-6 py-3 rounded-lg text-white font-bold bg-gradient-to-r ${domain.theme} shadow-lg shadow-current/20 hover:shadow-xl hover:-translate-y-0.5 transition-all`}>
                       {t('Apply for')} {t(domain.title)} <ArrowRight size={18} />
                     </a>
                   </div>
