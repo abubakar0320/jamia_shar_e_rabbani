@@ -17,7 +17,7 @@ export default function InternshipCertificatePage() {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await fetch(\`/api/internship-certificates/\${slug}\`);
+        const res = await fetch(`/api/internship-certificates/${slug}`);
         if (res.ok) {
           const data = await res.json();
           setProfile(data);
