@@ -118,7 +118,7 @@ export default function Internship() {
                   <a href="#apply" className="px-8 py-4 bg-gradient-to-r from-rose-500 to-orange-500 hover:from-rose-600 hover:to-orange-600 text-white font-black rounded-xl transition-all shadow-[0_10px_40px_-10px_rgba(244,63,94,0.5)] hover:shadow-[0_15px_50px_-10px_rgba(244,63,94,0.6)] transform hover:-translate-y-1">
                     {t("Apply Now")}
                   </a>
-                  <a href="#details" className="px-8 py-4 bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-bold rounded-xl transition-all shadow-sm">
+                  <a href="/internship/program-details" className="px-8 py-4 bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-bold rounded-xl transition-all shadow-sm">
                     {t("Program Details")}
                   </a>
                 </div>
