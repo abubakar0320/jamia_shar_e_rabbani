@@ -43,7 +43,7 @@ export default function Internship() {
     setIsSubmitting(true);
     
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/api/internships`, {
+      const res = await fetch('/api/internships', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
