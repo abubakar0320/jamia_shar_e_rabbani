@@ -181,15 +181,71 @@ export default function Internship() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {[
-                { title: t("Internship Letter"), desc: t("Receive an official joining letter to validate your professional start."), icon: <FileText className="w-6 h-6" />, color: "rose" },
-                { title: t("Experience Certificate"), desc: t("Get a verified completion certificate to boost your resume."), icon: <Award className="w-6 h-6" />, color: "orange" },
-                { title: t("Recommendation"), desc: t("Earn a letter of recommendation based on exceptional performance."), icon: <CheckCircle2 className="w-6 h-6" />, color: "amber" },
-                { title: t("Real Projects"), desc: t("Work on live projects instead of just simulated tasks."), icon: <Code className="w-6 h-6" />, color: "emerald" }
+                { 
+                  title: t("Internship Letter"), 
+                  desc: t("Receive an official joining letter to validate your professional start."), 
+                  icon: (
+                    <svg viewBox="0 0 64 64" width="44" height="44" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M10 16h44v32H10z" fill="#E2E8F0" />
+                      <path d="M10 16l22 18 22-18" fill="#CBD5E1" />
+                      <path d="M14 10h36v20H14z" fill="#FFFFFF" />
+                      <path d="M20 16h24M20 22h24M20 28h16" stroke="#94A3B8" strokeWidth="2" strokeLinecap="round" />
+                      <circle cx="32" cy="40" r="6" fill="#EF4444" />
+                      <circle cx="32" cy="40" r="4" fill="#DC2626" />
+                      <path d="M30 46l-4 8h12l-4-8" fill="#EF4444" />
+                    </svg>
+                  ), 
+                  color: "rose" 
+                },
+                { 
+                  title: t("Experience Certificate"), 
+                  desc: t("Get a verified completion certificate to boost your resume."), 
+                  icon: (
+                    <svg viewBox="0 0 64 64" width="44" height="44" xmlns="http://www.w3.org/2000/svg">
+                      <rect x="8" y="12" width="48" height="40" rx="2" fill="#FEF3C7" />
+                      <path d="M12 16h40v32H12z" fill="#FFFBEB" />
+                      <path d="M16 22h32M16 28h24M16 34h28M16 40h16" stroke="#D97706" strokeWidth="2" strokeLinecap="round" />
+                      <circle cx="44" cy="38" r="8" fill="#F59E0B" />
+                      <circle cx="44" cy="38" r="6" fill="#FBBF24" />
+                      <path d="M40 44l-4 10h16l-4-10" fill="#B45309" />
+                    </svg>
+                  ), 
+                  color: "orange" 
+                },
+                { 
+                  title: t("Recommendation"), 
+                  desc: t("Earn a letter of recommendation based on exceptional performance."), 
+                  icon: (
+                    <svg viewBox="0 0 64 64" width="44" height="44" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M14 10h36v44H14z" fill="#F8FAFC" />
+                      <path d="M14 10h36v44H14z" fill="none" stroke="#CBD5E1" strokeWidth="2" />
+                      <path d="M22 20h20M22 26h20M22 32h12" stroke="#94A3B8" strokeWidth="2" strokeLinecap="round" />
+                      <polygon points="32,38 35,44 42,44 37,49 39,56 32,52 25,56 27,49 22,44 29,44" fill="#FBBF24" />
+                    </svg>
+                  ), 
+                  color: "amber" 
+                },
+                { 
+                  title: t("Real Projects"), 
+                  desc: t("Work on live projects instead of just simulated tasks."), 
+                  icon: (
+                    <svg viewBox="0 0 64 64" width="44" height="44" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M32 10c0 0 14 6 14 24 0 6-6 10-14 14-8-4-14-8-14-14 0-18 14-24 14-24z" fill="#38BDF8" />
+                      <path d="M32 10c0 0-14 6-14 24 0 6 6 10 14 14V10z" fill="#0EA5E9" />
+                      <circle cx="32" cy="28" r="6" fill="#F0F9FF" />
+                      <path d="M22 34l-8 8v6h6l8-8" fill="#94A3B8" />
+                      <path d="M42 34l8 8v6h-6l-8-8" fill="#94A3B8" />
+                      <path d="M28 48l4 10 4-10z" fill="#F97316" />
+                      <path d="M30 48l2 6 2-6z" fill="#FBBF24" />
+                    </svg>
+                  ), 
+                  color: "emerald" 
+                }
               ].map((item, idx) => (
                 <div key={idx} className="group bg-white p-8 border border-slate-100 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] rounded-2xl hover:shadow-[0_15px_30px_-15px_rgba(244,63,94,0.15)] transition-all duration-300 transform hover:-translate-y-2 relative overflow-hidden">
                   <div className={`absolute top-0 right-0 w-24 h-24 bg-${item.color}-50 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110 z-0`}></div>
                   <div className="relative z-10">
-                    <div className={`inline-flex items-center justify-center w-14 h-14 rounded-xl bg-${item.color}-50 text-${item.color}-500 mb-6 border border-${item.color}-100 shadow-sm group-hover:scale-110 transition-transform duration-300`}>
+                    <div className="mb-6 group-hover:scale-110 transition-transform duration-300 drop-shadow-md">
                       {item.icon}
                     </div>
                     <h3 className="text-xl font-bold text-slate-800 mb-3">{item.title}</h3>
@@ -220,28 +276,51 @@ export default function Internship() {
               {[
                 { 
                   category: t("Information Technology"), 
-                  icon: <Laptop className="w-5 h-5" />,
+                  icon: (
+                    <svg viewBox="0 0 64 64" width="56" height="56" xmlns="http://www.w3.org/2000/svg">
+                      <rect x="8" y="16" width="48" height="32" rx="4" fill="#1E293B" />
+                      <circle cx="14" cy="22" r="2" fill="#EF4444" />
+                      <circle cx="20" cy="22" r="2" fill="#F59E0B" />
+                      <circle cx="26" cy="22" r="2" fill="#10B981" />
+                      <path d="M20 32l-4 4 4 4M28 32l4 4-4 4M36 40l4-16" stroke="#38BDF8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+                      <path d="M24 48h16v4H24z" fill="#64748B" />
+                    </svg>
+                  ),
                   color: "blue",
                   bg: "bg-blue-50",
-                  border: "border-blue-100",
                   text: "text-blue-600",
                   skills: [t("Web Development"), t("Graphic Designing"), t("Social Media Mgt"), t("IT Support")] 
                 },
                 { 
                   category: t("Academic & Research"), 
-                  icon: <Briefcase className="w-5 h-5" />,
+                  icon: (
+                    <svg viewBox="0 0 64 64" width="56" height="56" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12 40V24L32 12l20 12v16" fill="none" stroke="#F59E0B" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
+                      <path d="M32 12l20 12-20 12-20-12z" fill="#FCD34D" />
+                      <path d="M24 48h16v-8l-8 4-8-4v8z" fill="#B45309" />
+                      <rect x="12" y="48" width="40" height="4" fill="#D97706" />
+                      <path d="M52 24v16M52 40a4 4 0 100 8 4 4 0 000-8z" fill="#F59E0B" />
+                    </svg>
+                  ),
                   color: "emerald",
                   bg: "bg-emerald-50",
-                  border: "border-emerald-100",
                   text: "text-emerald-600",
                   skills: [t("Content Writing"), t("Islamic Research"), t("Translation Services"), t("Teaching Assistance")] 
                 },
                 { 
                   category: t("Management & Admin"), 
-                  icon: <GraduationCap className="w-5 h-5" />,
+                  icon: (
+                    <svg viewBox="0 0 64 64" width="56" height="56" xmlns="http://www.w3.org/2000/svg">
+                      <rect x="12" y="24" width="40" height="28" rx="4" fill="#8B5CF6" />
+                      <rect x="12" y="24" width="40" height="10" fill="#7C3AED" />
+                      <path d="M26 24V16h12v8" fill="none" stroke="#C4B5FD" strokeWidth="4" strokeLinecap="round" />
+                      <circle cx="32" cy="38" r="4" fill="#FDE047" />
+                      <path d="M12 30h40" stroke="#6D28D9" strokeWidth="2" />
+                      <path d="M28 16h8v4h-8z" fill="#A78BFA" />
+                    </svg>
+                  ),
                   color: "purple",
                   bg: "bg-purple-50",
-                  border: "border-purple-100",
                   text: "text-purple-600",
                   skills: [t("Event Management"), t("Student Affairs"), t("Data Entry & Records"), t("Public Relations")] 
                 }
@@ -250,7 +329,7 @@ export default function Internship() {
                   <div className={`p-6 md:p-8 border-b border-slate-100 relative overflow-hidden`}>
                      <div className={`absolute -right-6 -top-6 w-32 h-32 rounded-full ${domain.bg} opacity-50 group-hover:scale-150 transition-transform duration-500 ease-out`}></div>
                      <div className="relative z-10">
-                        <div className={`inline-flex items-center justify-center w-12 h-12 rounded-full ${domain.bg} ${domain.text} mb-4 shadow-sm`}>
+                        <div className="mb-6 drop-shadow-sm group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-300">
                           {domain.icon}
                         </div>
                         <h3 className="text-2xl font-black text-slate-800">{domain.category}</h3>
