@@ -529,7 +529,13 @@ export default function AdminDashboard() {
         <form onSubmit={async (e) => {
           e.preventDefault();
           const target = e.target as any;
-          const formData = {
+          const submitBtn = target.querySelector('button[type="submit"]');
+          const originalText = submitBtn.innerText;
+          submitBtn.innerText = 'Creating Profile... Please wait';
+          submitBtn.disabled = true;
+
+          try {
+            const formData = {
             name: target.name.value,
             slug: target.slug.value,
             cnic: target.cnic.value,
@@ -566,6 +572,15 @@ export default function AdminDashboard() {
             target.reset();
             const newData = await fetch('/api/admin/internship-certificates').then(r=>r.json());
             setCertProfiles(newData.reverse());
+          } else {
+            const errorText = await res.text();
+            alert('Error creating profile: ' + errorText);
+          }
+          } catch (err: any) {
+             alert('Network Error: ' + err.message);
+          } finally {
+             submitBtn.innerText = originalText;
+             submitBtn.disabled = false;
           }
         }} className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
           <h3 className="font-bold text-slate-800 mb-4">Create New Profile</h3>
