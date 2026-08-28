@@ -20,7 +20,8 @@ import {
   MapPin,
   MessageCircle,
   Clock,
-  Users
+  Users,
+  User
 } from 'lucide-react';
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
