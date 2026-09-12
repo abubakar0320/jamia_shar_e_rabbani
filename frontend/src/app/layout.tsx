@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import { Providers } from "./providers";
 
@@ -25,7 +26,10 @@ export const metadata: Metadata = {
     icon: '/logo.jpeg',
     shortcut: '/logo.jpeg',
     apple: '/logo.jpeg',
-  }
+  },
+  other: {
+    "google-adsense-account": "ca-pub-5810661605612266",
+  },
 };
 
 export default function RootLayout({
@@ -35,6 +39,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5810661605612266"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
+      </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}>
         <Providers>
           {children}
