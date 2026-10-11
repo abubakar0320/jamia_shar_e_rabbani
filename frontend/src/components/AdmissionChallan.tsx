@@ -1,10 +1,11 @@
 'use client';
 
 import React from 'react';
-import { Printer, Download, ArrowLeft, CheckCircle2 } from 'lucide-react';
+import { Printer, Download, ArrowLeft, CheckCircle2, Smartphone, ShieldCheck, Clock } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import OnlinePaymentModal from '@/components/OnlinePaymentModal';
 
 interface ChallanProps {
   data: {
@@ -36,14 +37,30 @@ interface ChallanProps {
 export default function AdmissionChallan({ data, onBack }: ChallanProps) {
   const { t } = useTranslation();
   const [printMode, setPrintMode] = React.useState<'all' | 'challan' | 'form'>('all');
-  const [bankConfig, setBankConfig] = React.useState({ bankName: '', accountTitle: '', accountNumber: '' });
+  const [bankConfig, setBankConfig] = React.useState<any>({ bankName: '', accountTitle: '', accountNumber: '' });
+  const [showPaymentModal, setShowPaymentModal] = React.useState(false);
+  const [challanStatus, setChallanStatus] = React.useState<string>('Unpaid');
 
   React.useEffect(() => {
-    fetch('/api/bank-config')
+    fetch('/api/payment-accounts')
       .then(res => res.json())
-      .then(data => setBankConfig(data))
-      .catch(console.error);
-  }, []);
+      .then(d => setBankConfig(d))
+      .catch(() => {
+        fetch('/api/bank-config')
+          .then(res => res.json())
+          .then(d => setBankConfig(d))
+          .catch(console.error);
+      });
+
+    if (data.challanNo) {
+      fetch(`/api/public/challan-status/${data.challanNo}`)
+        .then(res => res.json())
+        .then(resData => {
+          if (resData?.status) setChallanStatus(resData.status);
+        })
+        .catch(console.error);
+    }
+  }, [data.challanNo]);
 
   const totalClassFee = data.fees.totalFee || (data.fees.admissionFee + data.fees.registrationFee);
   const grandTotal = totalClassFee + (data.fees.totalLateFee || 0);
@@ -90,6 +107,21 @@ export default function AdmissionChallan({ data, onBack }: ChallanProps) {
     return (
       <div className={`flex-1 p-6 relative overflow-hidden flex flex-col h-full bg-white border-2 ${theme.border} rounded-sm m-2 shadow-sm print:p-2 print:m-0 print:border-y-0 print:border-l-0 print:border-r-2 print:border-dashed print:border-slate-400 print:rounded-none print:shadow-none last:print:border-r-0`}>
         <div className={`absolute top-0 right-0 ${theme.bg} ${theme.text} px-4 py-1 rounded-bl-xl font-black text-[10px] uppercase tracking-widest print:py-0 print:text-[8px] print:border print:border-gray-300`}>{title}</div>
+        
+        {/* Paid Stamp or Pending Verification Badge */}
+        {challanStatus === 'Paid' && (
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -rotate-12 pointer-events-none select-none z-20 border-4 border-emerald-600 rounded-2xl px-6 py-2 text-center bg-white/70 backdrop-blur-[1px] shadow-sm">
+            <span className="block text-2xl font-black text-emerald-700 tracking-widest uppercase">★ PAID ★</span>
+            <span className="block text-[8px] font-bold text-emerald-800 tracking-wider uppercase">JAMIA SHER-E-RABBANI</span>
+          </div>
+        )}
+
+        {challanStatus === 'Pending Verification' && (
+          <div className="absolute top-10 right-2 bg-amber-100 border border-amber-300 text-amber-800 px-2 py-0.5 rounded text-[8px] font-black uppercase tracking-wider z-10 print:hidden flex items-center gap-1">
+            <Clock size={10} /> Pending Verification
+          </div>
+        )}
+
         {/* Header */}
         <div className="text-center mb-6 pb-4 border-b-2 border-gray-800 mt-4 print:mb-2 print:pb-2 print:mt-1">
            <h1 className="font-bold text-lg leading-none tracking-tight uppercase text-gray-900 print:text-base">{t('JAMIA SHER-E-RABBANI')}</h1>
@@ -139,23 +171,28 @@ export default function AdmissionChallan({ data, onBack }: ChallanProps) {
           </table>
         </div>
 
-        {/* Bank Account Details */}
-        <div className="mb-6 p-4 border border-gray-300 bg-gray-50 print:mb-2 print:p-2">
-          <div className="text-[10px] font-semibold uppercase tracking-wide text-gray-900 border-b border-gray-300 pb-2 mb-3 print:pb-1 print:mb-1 print:text-[8px]">
-            BANK ACCOUNT DETAILS
+        {/* Bank & Online Account Details */}
+        <div className="mb-6 p-3 border border-gray-300 bg-gray-50 print:mb-2 print:p-2">
+          <div className="text-[10px] font-semibold uppercase tracking-wide text-gray-900 border-b border-gray-300 pb-1.5 mb-2 print:pb-1 print:mb-1 print:text-[8px] flex justify-between items-center">
+            <span>OFFICIAL PAYMENT ACCOUNTS</span>
+            <span className="text-[8px] text-slate-500 font-normal">Meezan • JazzCash • NayaPay</span>
           </div>
-          <div className="space-y-1.5 print:space-y-0.5">
-            <div className="flex justify-between">
-              <span className="text-[9px] font-semibold text-gray-500 uppercase print:text-[7px]">Bank Name:</span>
-              <span className="font-semibold text-[10px] uppercase text-gray-900 print:text-[8px]">{bankConfig.bankName}</span>
+          <div className="space-y-1 print:space-y-0.5 text-[9px] print:text-[7.5px]">
+            <div className="flex justify-between border-b border-gray-200/60 pb-0.5">
+              <span className="font-semibold text-gray-500 uppercase">Meezan Bank:</span>
+              <span className="font-mono font-bold text-gray-900">{bankConfig.meezan?.accountNumber || bankConfig.accountNumber || '9869 0112 1013 13'}</span>
             </div>
-            <div className="flex justify-between">
-              <span className="text-[9px] font-semibold text-gray-500 uppercase print:text-[7px]">Account Title:</span>
-              <span className="font-semibold text-[10px] uppercase text-gray-900 print:text-[8px]">{bankConfig.accountTitle}</span>
+            <div className="flex justify-between border-b border-gray-200/60 pb-0.5">
+              <span className="font-semibold text-gray-500 uppercase">JazzCash:</span>
+              <span className="font-mono font-bold text-gray-900">{bankConfig.jazzcash?.accountNumber || '0328 4381 312'}</span>
             </div>
-            <div className="flex justify-between">
-              <span className="text-[9px] font-semibold text-gray-500 uppercase print:text-[7px]">Account Number:</span>
-              <span className="font-semibold text-[10px] uppercase text-gray-900 print:text-[8px]">{bankConfig.accountNumber}</span>
+            <div className="flex justify-between border-b border-gray-200/60 pb-0.5">
+              <span className="font-semibold text-gray-500 uppercase">NayaPay / Raast:</span>
+              <span className="font-mono font-bold text-gray-900">{bankConfig.nayapay?.accountNumber || '0316 4415 465'}</span>
+            </div>
+            <div className="flex justify-between pt-0.5">
+              <span className="font-semibold text-gray-500 uppercase">Title:</span>
+              <span className="font-semibold text-gray-900 uppercase">{bankConfig.accountTitle || 'Muhammad Ahmad'}</span>
             </div>
           </div>
         </div>
@@ -201,6 +238,25 @@ export default function AdmissionChallan({ data, onBack }: ChallanProps) {
         
         <div className="flex flex-wrap gap-4">
           <button 
+            type="button"
+            onClick={() => setShowPaymentModal(true)}
+            className={`flex items-center gap-2 px-6 py-3 font-black text-sm transition-all shadow-md rounded-sm ${
+              challanStatus === 'Paid'
+                ? 'bg-emerald-700 text-white hover:bg-emerald-800 shadow-emerald-700/20'
+                : 'bg-gradient-to-r from-emerald-600 to-teal-700 text-white hover:from-emerald-700 hover:to-teal-800 shadow-emerald-600/30 ring-2 ring-emerald-400/30'
+            }`}
+          >
+            {challanStatus === 'Paid' ? (
+              <CheckCircle2 size={18} className="text-emerald-200" />
+            ) : (
+              <Smartphone size={18} />
+            )}
+            {challanStatus === 'Paid' 
+              ? 'Fee Paid / فیس ادا ہو چکی ہے' 
+              : 'Pay Online / موبائل سے فیس ادا کریں'}
+          </button>
+
+          <button 
             onClick={() => { window.print(); }}
             className="flex items-center gap-2 px-6 py-3 bg-blue-700 text-white font-semibold text-sm transition-colors hover:bg-blue-800"
           >
@@ -224,6 +280,19 @@ export default function AdmissionChallan({ data, onBack }: ChallanProps) {
            <OfficialForm />
         </div>
       </motion.div>
+
+      {/* Online Payment Modal */}
+      <OnlinePaymentModal 
+        isOpen={showPaymentModal}
+        onClose={() => setShowPaymentModal(false)}
+        challanNo={data.challanNo}
+        studentName={data.studentName}
+        amount={grandTotal}
+        initialStatus={challanStatus}
+        onPaymentSuccess={(updated) => {
+          if (updated?.status) setChallanStatus(updated.status);
+        }}
+      />
       
       <style jsx global>{`
         @media print {

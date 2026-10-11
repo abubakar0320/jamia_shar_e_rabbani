@@ -1,9 +1,12 @@
 node_modules/
 .env
-.env.local
+.env.*
 .DS_Store
 .next/
 dist/
 build/
 coverage/
 *.log
+*.backup.*
+backend/uploads/*
+!backend/uploads/**/.gitkeep

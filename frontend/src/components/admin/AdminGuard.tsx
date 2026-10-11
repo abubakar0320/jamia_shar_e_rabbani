@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Lock, User, KeyRound, AlertCircle } from 'lucide-react';
+import { Lock, User, KeyRound, AlertCircle, ShieldCheck } from 'lucide-react';
 import Image from 'next/image';
 
 export default function AdminGuard({ children }: { children: React.ReactNode }) {
@@ -13,12 +13,67 @@ export default function AdminGuard({ children }: { children: React.ReactNode }) 
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    // Intercept fetches to /api/admin/ to automatically inject Bearer token
+    const originalFetch = window.fetch;
+    window.fetch = async (input, init = {}) => {
+      const url = typeof input === 'string' 
+        ? input 
+        : input instanceof URL 
+          ? input.toString() 
+          : (input as Request).url;
+
+      if (url.includes('/api/admin/')) {
+        const token = localStorage.getItem('admin_token');
+        if (token) {
+          const headers = new Headers(init.headers || {});
+          if (!headers.has('Authorization')) {
+            headers.set('Authorization', `Bearer ${token}`);
+          }
+          init.headers = headers;
+        }
+      }
+
+      const res = await originalFetch(input, init);
+      // If unauthorized, auto-logout
+      if (res.status === 401 && url.includes('/api/admin/') && !url.includes('/api/admin/login')) {
+        localStorage.removeItem('admin_token');
+        localStorage.removeItem('admin_user');
+        setIsAuthenticated(false);
+      }
+      return res;
+    };
+
+    // Verify existing token on initial load
     const token = localStorage.getItem('admin_token');
-    if (token) {
-      setIsAuthenticated(true);
-    } else {
+    if (!token) {
       setIsAuthenticated(false);
+    } else {
+      originalFetch('/api/admin/me', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            setIsAuthenticated(true);
+          } else {
+            localStorage.removeItem('admin_token');
+            localStorage.removeItem('admin_user');
+            setIsAuthenticated(false);
+          }
+        })
+        .catch(() => {
+          // If offline / network error, allow temporary access if token format is valid
+          if (token.startsWith('ey')) {
+            setIsAuthenticated(true);
+          } else {
+            setIsAuthenticated(false);
+          }
+        });
     }
+
+    return () => {
+      window.fetch = originalFetch;
+    };
   }, []);
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -48,7 +103,11 @@ export default function AdminGuard({ children }: { children: React.ReactNode }) 
   };
 
   if (isAuthenticated === null) {
-    return <div className="min-h-screen flex items-center justify-center bg-slate-50"><div className="w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div></div>;
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-slate-50">
+        <div className="w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    );
   }
 
   if (!isAuthenticated) {

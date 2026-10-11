@@ -1,11 +1,17 @@
+const dns = require('dns');
+dns.setServers(['8.8.8.8', '1.1.1.1']);
+
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const low = require('lowdb');
-const FileSync = require('lowdb/adapters/FileSync');
 const path = require('path');
+const mongoose = require('mongoose');
 const cloudinary = require('cloudinary').v2;
-require('dotenv').config();
+const xlsx = require('xlsx');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 
+// Cloudinary Setup
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
@@ -18,585 +24,476 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json({ limit: "20mb" }));
 app.use(express.urlencoded({ limit: "20mb", extended: true }));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// Database Setup
-const fs = require('fs');
-let dbPath = path.join(__dirname, 'db.json');
-if (process.env.VERCEL) {
-  const tmpPath = path.join('/tmp', 'db.json');
-  if (!fs.existsSync(tmpPath) && fs.existsSync(dbPath)) {
-    fs.copyFileSync(dbPath, tmpPath);
+// --- Mongoose Models ---
+const Course = require('./models/Course');
+const Admission = require('./models/Admission');
+const Student = require('./models/Student');
+const Challan = require('./models/Challan');
+const Faculty = require('./models/Faculty');
+const News = require('./models/News');
+const Expense = require('./models/Expense');
+const FeeStructure = require('./models/FeeStructure');
+const InternshipCertificate = require('./models/InternshipCertificate');
+const Internship = require('./models/Internship');
+const Donation = require('./models/Donation');
+const FormField = require('./models/FormField');
+const AdmissionRequirement = require('./models/AdmissionRequirement');
+const SystemSetting = require('./models/SystemSetting');
+const User = require('./models/User');
+
+// --- Auth Middleware & Uploads ---
+const { requireAdminAuth } = require('./middleware/auth');
+const { upload, saveBase64ToFile } = require('./middleware/upload');
+
+// ----------------------------------------------------
+// File Upload Routes (Multer Multipart)
+// ----------------------------------------------------
+app.post('/api/upload', upload.single('file'), (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ error: 'No file provided' });
   }
-  dbPath = tmpPath;
+  const subfolder = req.query.folder || req.body.folder || 'general';
+  const fileUrl = `/uploads/${subfolder}/${req.file.filename}`;
+  res.json({
+    success: true,
+    url: fileUrl,
+    name: req.file.originalname,
+    size: (req.file.size / 1024).toFixed(1) + ' KB',
+    type: req.file.mimetype
+  });
+});
+
+app.post('/api/upload/multiple', upload.array('files', 10), (req, res) => {
+  if (!req.files || req.files.length === 0) {
+    return res.status(400).json({ error: 'No files provided' });
+  }
+  const subfolder = req.query.folder || req.body.folder || 'general';
+  const results = req.files.map(file => ({
+    url: `/uploads/${subfolder}/${file.filename}`,
+    name: file.originalname,
+    size: (file.size / 1024).toFixed(1) + ' KB',
+    type: file.mimetype
+  }));
+  res.json({ success: true, files: results });
+});
+
+// MongoDB Connection
+mongoose.connect(process.env.MONGODB_URI, {
+  serverSelectionTimeoutMS: 10000
+}).then(() => {
+  console.log('MongoDB connected successfully with Mongoose Models & Security!');
+}).catch(err => {
+  console.error('MongoDB connection error:', err.message);
+});
+
+// Settings Helpers
+async function getSetting(key, defaultValue = {}) {
+  try {
+    const doc = await SystemSetting.findOne({ key }).lean();
+    return doc ? doc.value : defaultValue;
+  } catch (e) {
+    return defaultValue;
+  }
 }
-const adapter = new FileSync(dbPath);
-const db = low(adapter);
 
-// --- MongoDB Cloud Sync Logic ---
-const mongoose = require('mongoose');
-const CloudDB = mongoose.model('CloudDB', new mongoose.Schema({ data: Object }, { strict: false }));
+async function setSetting(key, value) {
+  try {
+    return await SystemSetting.findOneAndUpdate(
+      { key },
+      { key, value },
+      { upsert: true, returnDocument: 'after' }
+    );
+  } catch (e) {
+    console.error(`Error saving setting ${key}:`, e.message);
+  }
+}
 
-let isDBReady = false;
-let pendingCloudSync = null;
+// ----------------------------------------------------
+// Analytics Routes
+// ----------------------------------------------------
+app.post('/api/visit', async (req, res) => {
+  try {
+    const dateStr = new Date().toLocaleDateString('en-CA'); // YYYY-MM-DD
+    const analytics = await getSetting('analytics', { visits: {} });
+    if (!analytics.visits) analytics.visits = {};
+    analytics.visits[dateStr] = (analytics.visits[dateStr] || 0) + 1;
+    await setSetting('analytics', analytics);
+    res.json({ success: true });
+  } catch (err) {
+    res.json({ success: true });
+  }
+});
 
-if (process.env.MONGODB_URI) {
-  mongoose.connect(process.env.MONGODB_URI)
-    .then(async () => {
-      console.log('Connected to MongoDB Cloud');
-      const doc = await CloudDB.findOne();
-      if (doc && doc.data) {
-        db.setState(doc.data);
-        db.write(); // Write fetched cloud data to local JSON
-      } else {
-        await CloudDB.create({ data: db.getState() });
-      }
-      isDBReady = true;
-    })
-    .catch(err => console.error('MongoDB connection error:', err));
+app.get('/api/admin/analytics', requireAdminAuth, async (req, res) => {
+  const analytics = await getSetting('analytics', { visits: {} });
+  res.json(analytics);
+});
 
-  const originalWrite = db.write.bind(db);
-  db.write = function() {
-    originalWrite();
-    if (isDBReady) {
-      pendingCloudSync = CloudDB.updateOne({}, { data: db.getState() }, { upsert: true }).exec().catch(err => console.error(err));
-    }
-    return this;
-  };
+// ----------------------------------------------------
+// Exam Mess Routes
+// ----------------------------------------------------
+app.get('/api/exam-mess/config', async (req, res) => {
+  const config = await getSetting('messConfig', { fee: 3000, examName: 'Salana Imtihaan 2026' });
+  res.json(config);
+});
 
-  // Middleware to ensure DB is connected and writes are awaited
-  app.use(async (req, res, next) => {
-    // 1. Wait for initial DB connection if not ready
-    if (!isDBReady) {
-      let attempts = 0;
-      while (!isDBReady && attempts < 100) {
-        await new Promise(r => setTimeout(r, 50));
-        attempts++;
-      }
-      if (!isDBReady) return res.status(500).json({ error: "Database initializing..." });
-    }
+app.get('/api/admin/mess-applications', requireAdminAuth, async (req, res) => {
+  const applications = await getSetting('messApplications', []);
+  res.json(applications);
+});
 
-    // 2. Intercept response to await pending writes (crucial for Vercel)
-    const originalJson = res.json.bind(res);
-    const originalSend = res.send.bind(res);
+app.post('/api/exam-mess/apply', async (req, res) => {
+  try {
+    const { studentName, fatherName, phone } = req.body;
+    const config = await getSetting('messConfig', { fee: 3000, examName: 'Salana Imtihaan 2026' });
+    const challanNo = 'MESS' + Date.now().toString().slice(-6);
 
-    const waitForSyncAndRespond = async (data, isJson) => {
-      if (pendingCloudSync) {
-        try { await pendingCloudSync; } catch(e) {}
-        pendingCloudSync = null;
-      }
-      if (isJson) originalJson(data);
-      else originalSend(data);
+    const challan = await Challan.create({
+      id: Date.now(),
+      challanNo,
+      studentName,
+      fatherName,
+      phone,
+      classProgram: config.examName + ' Qayam-o-Ta\'am',
+      feeDetails: [{ type: "Zar-e-Ta'awun (Qayam-o-Ta'am)", amount: config.fee }],
+      totalAmount: config.fee,
+      issueDate: new Date().toISOString(),
+      dueDate: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000).toISOString(),
+      status: 'Unpaid',
+      paidAmount: 0,
+      type: 'Mess'
+    });
+
+    const appData = {
+      id: Date.now(),
+      studentName,
+      fatherName,
+      phone,
+      challanNo,
+      date: new Date().toISOString()
     };
 
-    res.json = (data) => waitForSyncAndRespond(data, true);
-    res.send = (data) => waitForSyncAndRespond(data, false);
+    const messApps = await getSetting('messApplications', []);
+    messApps.push(appData);
+    await setSetting('messApplications', messApps);
 
-    next();
-  });
-}
-// --- End MongoDB Cloud Sync Logic ---
-
-// Set default data
-db.defaults({ 
-  courses: [
-    { 
-      id: 1, 
-      title: "Hifz-ul-Quran", 
-      duration: "3-4 Years", 
-      level: "Primary", 
-      desc: "Complete memorization of the Holy Quran with Tajweed rules.",
-      programDetailsImage: "/images/h.jpeg",
-      playlists: [
-        {
-          id: "hifz-urdu",
-          title: "Quran Recitation with Urdu Translation",
-          category: "Quranic Studies",
-          listId: "PLfty3tvJoMC3aAIYP7AfF2tiZXS5VIS6i",
-          videoId: "dXxh8tmUimc",
-          badge: "Urdu",
-          description: "Complete Quran recitation with authentic Urdu translation for better understanding of the Holy Book.",
-          icon: "video"
-        },
-        {
-          id: "hifz-arabic",
-          title: "Quran Recitation (Arabic Only)",
-          category: "Quranic Studies",
-          listId: "PL7pGH6oFXtc5aldXNh7MicDh20dG5PGJG",
-          videoId: "6XyuiBAKf5s",
-          badge: "Arabic",
-          description: "Beautiful recitation of the Holy Quran in Arabic, focusing on Tajweed and proper pronunciation.",
-          icon: "award"
-        },
-        {
-          id: "hifz-english",
-          title: "Quran Recitation with English Translation",
-          category: "Quranic Studies",
-          listId: "PL95kNBEuhY4a4LU7ph8RXDYdh2MvUvVYr",
-          videoId: "yjdqH0T7SUU",
-          badge: "English",
-          description: "Quran recitation paired with English translation for students and researchers worldwide.",
-          icon: "book"
-        }
-      ]
-    },
-    { 
-      id: 2, 
-      title: "Dars-e-Nizami", 
-      duration: "8 Years", 
-      level: "Advanced", 
-      desc: "Comprehensive Islamic scholarship program covering Fiqh, Hadith, Tafseer, and Arabic Literature.",
-      image: "/hadith.jpg",
-      gallery: [
-        "/images/1.jpeg",
-        "/images/2.jpeg",
-        "/images/3.jpeg",
-        "/images/4.jpeg"
-      ],
-      syllabus: [
-        { title: "Nisab Baraye Dars-e-Nizami (Tulba)", file: "/syllabus/nisab-dars-e-nizami-tulba.pdf" },
-        { title: "Nisab Baraye Dars-e-Nizami (Talibat)", file: "/syllabus/nisab-dars-e-nizami-talibat.pdf" }
-      ]
-    },
-    { 
-      id: 3, 
-      title: "Tajweed-o-Qira'at", 
-      duration: "1 Year", 
-      level: "Intermediate", 
-      desc: "Specialized course in the art of Quranic recitation.", 
-      image: "/tajweed-o-qirat.jpg",
-      programDetailsImage: "/images/t.jpeg",
-      playlists: [
-        {
-          id: "tajweed-lessons",
-          title: "Advanced Tajweed-o-Qira'at Video Lessons",
-          category: "Quranic Studies",
-          listId: "PLz_oGF0kwgM4GVAdWdD7KavI3PDAtEc28",
-          videoId: "GrwrpA2H97A",
-          badge: "Specialized",
-          description: "A comprehensive collection of Tajweed and Qira'at lessons designed to help students improve Quran recitation, pronunciation, Makharij, and practical Tajweed rules.",
-          icon: "award"
-        }
-      ]
-    },
-    { 
-      id: 4, 
-      title: "Arabic Language", 
-      duration: "2 Years", 
-      level: "Beginner/Intermediate", 
-      desc: "Intensive course focusing on classical and modern Arabic grammar and conversation.",
-      image: "/arabic-language.jpg",
-      playlistTitle: "Arabic Language Video Lessons",
-      playlistUrl: "https://www.youtube.com/watch?v=i0lQZHnvAUc&list=PL7ryrm4bCxy8Hkdco9fRz3LGffuQqeMD4",
-      playlistId: "PL7ryrm4bCxy8Hkdco9fRz3LGffuQqeMD4",
-      videoId: "i0lQZHnvAUc",
-      playlists: [
-        {
-          id: "arabic-lessons",
-          title: "Arabic Language Video Lessons",
-          category: "Education",
-          listId: "PL7ryrm4bCxy8Hkdco9fRz3LGffuQqeMD4",
-          videoId: "i0lQZHnvAUc",
-          badge: "Full Course",
-          description: "A comprehensive Arabic language learning series designed to help students develop Arabic reading, writing, speaking, grammar, and comprehension skills.",
-          icon: "book"
-        }
-      ]
-    },
-    { 
-      id: 5, 
-      title: "Takhassus", 
-      duration: "2 Years", 
-      level: "Specialized", 
-      desc: "Advanced specialization course in specific branches of Islamic Jurisprudence (Fiqh) or Hadith.",
-      image: "/takhasus.jpeg",
-      gallery: [
-        "/images/a.jpeg",
-        "/images/b.jpeg",
-        "/images/c.jpeg"
-      ],
-      syllabus: [
-        { title: "Nisab Baraye Takhassus", file: "/syllabus/nisab-Takhassus.pdf" }
-      ]
-    },
-    { 
-      id: 6, 
-      title: "Khasusi Dars-e-Nizami", 
-      duration: "Variable", 
-      level: "Advanced", 
-      desc: "An advanced and specialized Dars-e-Nizami program designed for students seeking deeper understanding of classical Islamic sciences, Fiqh, Hadith, Tafsir, Arabic language, and scholarly research.",
-      image: "/hadith.jpg",
-      gallery: [
-        "/images/1.jpeg",
-        "/images/2.jpeg",
-        "/images/3.jpeg",
-        "/images/4.jpeg"
-      ],
-      syllabus: [
-        { title: "Nisab Baraye Almiya Khasusi", file: "/syllabus/nisab-almiya-khasusi.pdf" },
-        { title: "Nisab Baraye Amma wa Khasa Khasusi", file: "/syllabus/nisab-amma-khasa-khasusi.pdf" }
-      ]
+    // Send Telegram Notification
+    const message = `🍲 *New Imtihaani Qayam-o-Ta'am Application* 🍲\n\n*Student:* ${studentName}\n*Father:* ${fatherName}\n*Phone:* ${phone}\n*Challan No:* ${challanNo}\n*Amount:* Rs ${config.fee}\n*Date:* ${new Date().toLocaleString()}`;
+    if (process.env.TELEGRAM_BOT_TOKEN && process.env.TELEGRAM_CHAT_ID) {
+      const tUrl = `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${process.env.TELEGRAM_CHAT_ID}&text=${encodeURIComponent(message)}&parse_mode=Markdown`;
+      fetch(tUrl).catch(e => console.error("Telegram notification failed:", e));
     }
-  ], 
-  faculty: [], 
-  news: [], 
-  contacts: [], 
-  admissions: [], 
-  internships: [],
-  internshipCertificates: [],
-  messages: [],
-  students: [],
-  results: [],
-  feeStructures: [],
-  feeCategories: [],
-  admissionRequirements: [    { id: 1, text: 'Completed application form' },    { id: 2, text: 'Previous academic records and certificates' },    { id: 3, text: 'Recent passport size photographs (4 copies)' },    { id: 4, text: 'Copy of B-Form / CNIC' },    { id: 5, text: 'Character certificate from previous institution' }  ],
-  challans: [],
-  feeConfig: {
+
+    res.json({ success: true, challan, application: appData });
+  } catch (err) {
+    console.error("Exam mess error:", err);
+    res.status(500).json({ error: "Failed to submit exam mess application" });
+  }
+});
+
+// ----------------------------------------------------
+// Fee & Admission Configurations
+// ----------------------------------------------------
+app.get('/api/fee-config', async (req, res) => {
+  const feeConfig = await getSetting('feeConfig', {
     admissionFee: 2000,
     registrationFee: 1000,
     session: "2026-27"
-  },
-  admissionSchedule: {
+  });
+  res.json(feeConfig);
+});
+
+app.post('/api/admin/fee-config', requireAdminAuth, async (req, res) => {
+  await setSetting('feeConfig', req.body);
+  res.json({ success: true });
+});
+
+app.get('/api/admission-schedule', async (req, res) => {
+  const schedule = await getSetting('admissionSchedule', {
     enabled: true,
     dailyLateFee: 170,
-    phases: [
-      { id: 1, startDate: "2026-06-01", endDate: "2026-06-30", admissionFee: 3000 },
-      { id: 2, startDate: "2026-07-01", endDate: "2026-07-31", admissionFee: 4000 },
-      { id: 3, startDate: "2026-08-01", endDate: "2026-08-31", admissionFee: 5000 }
-    ]
-  },
-  bankConfig: {
-    bankName: "Meezan Bank",
-    accountTitle: "Muhammad Ahmad (Asaan Account)",
-    accountNumber: "98690112101313"
-  },
-  analytics: { visits: {} },
-  messApplications: [],
-  messConfig: {
-    fee: 3000,
-    examName: "Salana Imtihaan 2026"
-  }
-});
-
-// Analytics Routes
-app.post('/api/visit', (req, res) => {
-  const dateStr = new Date().toLocaleDateString('en-CA'); // YYYY-MM-DD
-  const analytics = db.get('analytics').value() || { visits: {} };
-  const currentVisits = analytics.visits[dateStr] || 0;
-  analytics.visits[dateStr] = currentVisits + 1;
-  db.set('analytics', analytics).write();
-  res.json({ success: true });
-});
-
-app.get('/api/admin/analytics', (req, res) => {
-  res.json(db.get('analytics').value() || { visits: {} });
-});
-
-// Exam Mess Routes
-app.get('/api/exam-mess/config', (req, res) => {
-  res.json(db.get('messConfig').value());
-});
-
-app.get('/api/admin/mess-applications', (req, res) => {
-  res.json(db.get('messApplications').value() || []);
-});
-
-app.post('/api/exam-mess/apply', (req, res) => {
-  const { studentName, fatherName, phone } = req.body;
-  const config = db.get('messConfig').value() || { fee: 3000, examName: 'Salana Imtihaan 2026' };
-  
-  const challanNo = 'MESS' + Date.now().toString().slice(-6);
-  
-  const challan = {
-    id: Date.now(),
-    challanNo,
-    studentName,
-    fatherName,
-    phone,
-    classProgram: config.examName + ' Qayam-o-Ta\'am',
-    feeDetails: [{ type: "Zar-e-Ta'awun (Qayam-o-Ta'am)", amount: config.fee }],
-    totalAmount: config.fee,
-    issueDate: new Date().toISOString(),
-    dueDate: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000).toISOString(),
-    status: 'Unpaid',
-    paidAmount: 0,
-    type: 'Mess'
-  };
-  
-  db.get('challans').push(challan).write();
-  
-  const appData = {
-    id: Date.now(),
-    studentName,
-    fatherName,
-    phone,
-    challanNo,
-    date: new Date().toISOString()
-  };
-  db.get('messApplications').push(appData).write();
-  
-  // Send Telegram Notification
-  const message = `🍲 *New Imtihaani Qayam-o-Ta'am Application* 🍲
-  
-*Student:* ${studentName}
-*Father:* ${fatherName}
-*Phone:* ${phone}
-*Challan No:* ${challanNo}
-*Amount:* Rs ${config.fee}
-*Date:* ${new Date().toLocaleString()}`;
-
-  if (process.env.TELEGRAM_BOT_TOKEN && process.env.TELEGRAM_CHAT_ID) {
-    const tUrl = `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${process.env.TELEGRAM_CHAT_ID}&text=${encodeURIComponent(message)}&parse_mode=Markdown`;
-    fetch(tUrl).catch(e => console.error("Telegram notification failed:", e));
-  }
-  
-  res.json({ success: true, challan, application: appData });
-});
-
-// Fee Config Routes
-app.get('/api/fee-config', (req, res) => {
-  res.json(db.get('feeConfig').value());
-});
-
-app.post('/api/admin/fee-config', (req, res) => {
-  db.set('feeConfig', req.body).write();
-  res.json({ success: true });
-});
-
-// Admission Schedule Routes
-app.get('/api/admission-schedule', (req, res) => {
-  res.json(db.get('admissionSchedule').value());
-});
-
-app.post('/api/admin/admission-schedule', (req, res) => {
-  db.set('admissionSchedule', req.body).write();
-  res.json({ success: true });
-});
-
-// Bank Config Routes
-app.get('/api/bank-config', (req, res) => {
-  const bankConfig = db.get('bankConfig').value();
-  res.json(bankConfig || {
-    bankName: "Meezan Bank",
-    accountTitle: "Muhammad Ahmad (Asaan Account)",
-    accountNumber: "98690112101313"
+    phases: []
   });
+  res.json(schedule);
 });
 
-app.post('/api/admin/bank-config', (req, res) => {
-  db.set('bankConfig', req.body).write();
+app.post('/api/admin/admission-schedule', requireAdminAuth, async (req, res) => {
+  await setSetting('admissionSchedule', req.body);
   res.json({ success: true });
 });
 
-// Admissions with Challan generation
+// --- Dynamic 3-Accounts Payment Configuration ---
+const DEFAULT_PAYMENT_ACCOUNTS = {
+  meezan: {
+    bankName: "Meezan Bank",
+    accountTitle: "Muhammad Ahmad (Asaan Account)",
+    accountNumber: "98690112101313",
+    branch: "Mananwala",
+    iban: "PK12MEZN0098690112101313"
+  },
+  jazzcash: {
+    accountTitle: "Muhammad Ahmad",
+    accountNumber: "03284381312",
+    instructions: "Send via JazzCash App -> Money Transfer / Mobile Account"
+  },
+  nayapay: {
+    accountTitle: "Muhammad Ahmad",
+    accountNumber: "03164415465",
+    instructions: "Send via NayaPay / Raast (Instant & 0% fee)"
+  },
+  // Backward compatibility fields:
+  bankName: "Meezan Bank",
+  accountTitle: "Muhammad Ahmad (Asaan Account)",
+  accountNumber: "98690112101313"
+};
+
+app.get('/api/payment-accounts', async (req, res) => {
+  const accounts = await getSetting('paymentAccounts', DEFAULT_PAYMENT_ACCOUNTS);
+  res.json({ ...DEFAULT_PAYMENT_ACCOUNTS, ...accounts });
+});
+
+app.get('/api/bank-config', async (req, res) => {
+  const accounts = await getSetting('paymentAccounts', DEFAULT_PAYMENT_ACCOUNTS);
+  res.json({ ...DEFAULT_PAYMENT_ACCOUNTS, ...accounts });
+});
+
+app.post('/api/admin/payment-accounts', requireAdminAuth, async (req, res) => {
+  await setSetting('paymentAccounts', req.body);
+  res.json({ success: true, message: 'Payment accounts updated successfully' });
+});
+
+app.post('/api/admin/bank-config', requireAdminAuth, async (req, res) => {
+  await setSetting('paymentAccounts', req.body);
+  res.json({ success: true });
+});
+
+// ----------------------------------------------------
+// Admissions Routes
+// ----------------------------------------------------
 app.post('/api/admissions', async (req, res) => {
-  const feeConfig = db.get('feeConfig').value();
-  const feeStructures = db.get('feeStructures').value() || [];
-  const schedule = db.get('admissionSchedule').value();
-  const classMapping = {
-    "Amma Part One": "Mutawassitah",
-    "Amma Part Two": "Mutawassitah",
-    "Khasa Part One": "Sanawiya Aamma Awal",
-    "Khasa Part Two": "Sanawiya Aamma Dom",
-    "Aliya Part One": "Sanawiya Khasa Awal",
-    "Aliya Part Two": "Sanawiya Khasa Dom",
-    "Almiya Part One": "Aliya Awal",
-    "Almiya Part Two": "Aliya Dom",
-    "Takhassus": "Takhassus Awal",
-    "Amma Khasusi": "Amma Khasusi",
-    "Khasa Khasusi": "Khasa Khasusi",
-    "Almiya Khasusi Part One": "Almiya Khasusi Part One",
-    "Almiya Khasusi Part Two": "Almiya Khasusi Part Two",
-    // Base classes for fallback
-    "Mutawassitah": "Mutawassitah",
-    "Hifz-ul-Quran": "Hifz-ul-Quran",
-    "Tajweed-o-Qira'at": "Tajweed-o-Qira'at",
-    "Sanawiya Aamma Awal": "Sanawiya Aamma Awal",
-    "Sanawiya Aamma Dom": "Sanawiya Aamma Dom",
-    "Sanawiya Khasa Awal": "Sanawiya Khasa Awal",
-    "Sanawiya Khasa Dom": "Sanawiya Khasa Dom",
-    "Aliya Awal": "Aliya Awal",
-    "Aliya Dom": "Aliya Dom",
-    "Alamiya Awal": "Alamiya Awal",
-    "Alamiya Dom": "Alamiya Dom",
-    "Takhassus Awal": "Takhassus Awal",
-    "Takhassus Dom": "Takhassus Dom"
-  };
+  try {
+    const feeConfig = await getSetting('feeConfig', { admissionFee: 2000, registrationFee: 1000, session: "2026-27" });
+    const feeStructures = await FeeStructure.find().lean();
+    const schedule = await getSetting('admissionSchedule', { enabled: true, dailyLateFee: 170, phases: [] });
 
-  // Clean the class name (remove " (Tulba)" or " (Talibat)" if appended by frontend)
-  let rawClass = req.body.classProgram || "";
-  rawClass = rawClass.replace(/\s*\([^)]*\)\s*$/, '').trim();
+    const classMapping = {
+      "Amma Part One": "Mutawassitah",
+      "Amma Part Two": "Mutawassitah",
+      "Khasa Part One": "Sanawiya Aamma Awal",
+      "Khasa Part Two": "Sanawiya Aamma Dom",
+      "Aliya Part One": "Sanawiya Khasa Awal",
+      "Aliya Part Two": "Sanawiya Khasa Dom",
+      "Almiya Part One": "Aliya Awal",
+      "Almiya Part Two": "Aliya Dom",
+      "Takhassus": "Takhassus Awal",
+      "Amma Khasusi": "Amma Khasusi",
+      "Khasa Khasusi": "Khasa Khasusi",
+      "Almiya Khasusi Part One": "Almiya Khasusi Part One",
+      "Almiya Khasusi Part Two": "Almiya Khasusi Part Two",
+      "Mutawassitah": "Mutawassitah",
+      "Hifz-ul-Quran": "Hifz-ul-Quran",
+      "Tajweed-o-Qira'at": "Tajweed-o-Qira'at",
+      "Sanawiya Aamma Awal": "Sanawiya Aamma Awal",
+      "Sanawiya Aamma Dom": "Sanawiya Aamma Dom",
+      "Sanawiya Khasa Awal": "Sanawiya Khasa Awal",
+      "Sanawiya Khasa Dom": "Sanawiya Khasa Dom",
+      "Aliya Awal": "Aliya Awal",
+      "Aliya Dom": "Aliya Dom",
+      "Alamiya Awal": "Alamiya Awal",
+      "Alamiya Dom": "Alamiya Dom",
+      "Takhassus Awal": "Takhassus Awal",
+      "Takhassus Dom": "Takhassus Dom"
+    };
 
-  // --- Backend Validation ---
-  const { studentName, fatherName, dob, cnic, mobile, sectionType, documents } = req.body;
-  
-  if (!studentName || !fatherName || !dob || !cnic || !mobile || !sectionType || !rawClass) {
-    return res.status(400).json({ error: 'Missing required fields' });
-  }
+    let rawClass = req.body.classProgram || "";
+    rawClass = rawClass.replace(/\s*\([^)]*\)\s*$/, '').trim();
 
-  // CNIC Validation
-  if (!/^\d{5}-\d{7}-\d{1}$/.test(cnic)) {
-    return res.status(400).json({ error: 'Invalid CNIC format' });
-  }
-
-  // DOB Validation (Age 5-80)
-  const birthDate = new Date(dob);
-  const today = new Date();
-  const age = today.getFullYear() - birthDate.getFullYear();
-  if (isNaN(birthDate.getTime()) || birthDate > today || age < 5 || age > 80) {
-    return res.status(400).json({ error: 'Invalid Date of Birth or Age' });
-  }
-
-  // Dynamic Document Validation
-  const KHASUSI_DOCS_REQ = {
-    "Amma Khasusi": ['student_cnic', 'father_cnic', 'photo', 'matric_result'],
-    "Khasa Khasusi": ['student_cnic', 'father_cnic', 'photo', 'matric_result', 'inter_result'],
-    "Almiya Khasusi Part One": ['student_cnic', 'father_cnic', 'photo', 'matric_result', 'inter_result', 'grad_result'],
-    "Almiya Khasusi Part Two": ['student_cnic', 'father_cnic', 'photo', 'almiya_p1_result']
-  };
-  const DEFAULT_DOCS_REQ = ['photo', 'student_cnic', 'father_cnic', 'result_card'];
-  const requiredDocs = KHASUSI_DOCS_REQ[rawClass] || DEFAULT_DOCS_REQ;
-
-  const missingDocs = requiredDocs.filter(docId => !documents || !documents[docId]);
-  if (missingDocs.length > 0) {
-    return res.status(400).json({ error: `Missing required documents: ${missingDocs.join(', ')}` });
-  }
-
-  // --- Cloudinary Upload Logic ---
-  if (process.env.CLOUDINARY_CLOUD_NAME && documents) {
-    try {
-      const uploadPromises = Object.entries(documents).map(async ([docId, docData]) => {
-        if (docData && docData.data && docData.data.startsWith('data:image')) {
-          const result = await cloudinary.uploader.upload(docData.data, {
-            folder: 'jamia_admissions',
-            public_id: `${cnic}_${docId}_${Date.now()}`
-          });
-          return [docId, { ...docData, data: result.secure_url }];
-        }
-        return [docId, docData];
-      });
-      
-      const resolvedDocs = await Promise.all(uploadPromises);
-      req.body.documents = Object.fromEntries(resolvedDocs);
-    } catch (uploadErr) {
-      console.error("Cloudinary upload error:", uploadErr);
-      return res.status(500).json({ error: 'Failed to upload documents to cloud' });
+    const { studentName, fatherName, dob, cnic, mobile, sectionType, documents } = req.body;
+    if (!studentName || !fatherName || !dob || !cnic || !mobile || !sectionType || !rawClass) {
+      return res.status(400).json({ error: 'Missing required fields' });
     }
-  }
 
-  const mappedClass = classMapping[rawClass] || rawClass;
-  
-  // Normalize section type to match feeStructures (e.g. 'Tulba' -> 'Tulba Section')
-  const reqSection = req.body.sectionType;
-  const normalizedSection = reqSection.includes('Section') ? reqSection : reqSection + ' Section';
-  
-  // Find specific fee structure for this class if exists
-  const classFee = feeStructures.find(f => 
-    f.classProgram === mappedClass && 
-    f.sectionType === normalizedSection
-  ) || feeConfig;
-  
-  // Base fees from class-specific structure or global config
-  let finalFees = {
-    admissionFee: classFee.admissionFee,
-    registrationFee: classFee.registrationFee,
-    session: feeConfig.session,
-    lateFeeDays: 0,
-    dailyLateFeeRate: 0,
-    totalLateFee: 0
-  };
-
-  // Determine Dynamic Admission Fee & Late Fee
-  const isSpecialCourse = ["Hifz-ul-Quran", "Tajweed-o-Qira'at"].includes(rawClass);
-
-  if (isSpecialCourse) {
-    const procType = req.body.processingType || 'Normal';
-    const sFeeConfig = schedule?.specialFees?.[rawClass];
-    if (sFeeConfig) {
-      finalFees.admissionFee = procType === 'Urgent' ? sFeeConfig.urgent : sFeeConfig.normal;
+    if (!/^\d{5}-\d{7}-\d{1}$/.test(cnic)) {
+      return res.status(400).json({ error: 'Invalid CNIC format' });
     }
-  } else if (schedule && schedule.enabled && schedule.phases && schedule.phases.length > 0) {
+
+    const birthDate = new Date(dob);
     const today = new Date();
-    today.setHours(0, 0, 0, 0); // Normalize to midnight
-
-    const sortedPhases = [...schedule.phases].sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime());
-    let phaseIndex = -1;
-
-    for (let i = 0; i < sortedPhases.length; i++) {
-      const pStart = new Date(sortedPhases[i].startDate); pStart.setHours(0,0,0,0);
-      const pEnd = new Date(sortedPhases[i].endDate); pEnd.setHours(23,59,59,999);
-      if (today >= pStart && today <= pEnd) { phaseIndex = i; break; }
+    const age = today.getFullYear() - birthDate.getFullYear();
+    if (isNaN(birthDate.getTime()) || birthDate > today || age < 5 || age > 80) {
+      return res.status(400).json({ error: 'Invalid Date of Birth or Age' });
     }
 
-    if (phaseIndex !== -1) {
-      if (phaseIndex === 0) finalFees.admissionFee = classFee.phase1Fee || classFee.admissionFee;
-      else if (phaseIndex === 1) finalFees.admissionFee = classFee.phase2Fee || classFee.admissionFee;
-      else finalFees.admissionFee = classFee.phase3Fee || classFee.admissionFee;
-    } else {
-      const lastPhaseEnd = new Date(sortedPhases[sortedPhases.length - 1].endDate);
-      lastPhaseEnd.setHours(23,59,59,999);
-      const firstPhaseStart = new Date(sortedPhases[0].startDate);
-      firstPhaseStart.setHours(0,0,0,0);
+    const KHASUSI_DOCS_REQ = {
+      "Amma Khasusi": ['student_cnic', 'father_cnic', 'photo', 'matric_result'],
+      "Khasa Khasusi": ['student_cnic', 'father_cnic', 'photo', 'matric_result', 'inter_result'],
+      "Almiya Khasusi Part One": ['student_cnic', 'father_cnic', 'photo', 'matric_result', 'inter_result', 'grad_result'],
+      "Almiya Khasusi Part Two": ['student_cnic', 'father_cnic', 'photo', 'almiya_p1_result']
+    };
+    const DEFAULT_DOCS_REQ = ['photo', 'student_cnic', 'father_cnic', 'result_card'];
+    const requiredDocs = KHASUSI_DOCS_REQ[rawClass] || DEFAULT_DOCS_REQ;
 
-      if (today > lastPhaseEnd) {
-        finalFees.admissionFee = classFee.phase3Fee || classFee.admissionFee;
-        const diffTime = Math.abs(today.getTime() - lastPhaseEnd.getTime());
-        const lateDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-        
-        finalFees.lateFeeDays = lateDays;
-        finalFees.dailyLateFeeRate = schedule.dailyLateFee || 170;
-        finalFees.totalLateFee = lateDays * finalFees.dailyLateFeeRate;
-      } else if (today < firstPhaseStart) {
-        finalFees.admissionFee = classFee.phase1Fee || classFee.admissionFee;
+    const missingDocs = requiredDocs.filter(docId => !documents || !documents[docId]);
+    if (missingDocs.length > 0) {
+      return res.status(400).json({ error: `Missing required documents: ${missingDocs.join(', ')}` });
+    }
+
+    // Document Upload Logic: Cloudinary if configured, otherwise save to disk uploads/admissions/
+    if (documents) {
+      try {
+        const uploadPromises = Object.entries(documents).map(async ([docId, docData]) => {
+          if (!docData) return [docId, docData];
+
+          // If docData has data URI (Base64)
+          if (docData.data && docData.data.startsWith('data:')) {
+            if (process.env.CLOUDINARY_CLOUD_NAME) {
+              try {
+                const result = await cloudinary.uploader.upload(docData.data, {
+                  folder: 'jamia_admissions',
+                  public_id: `${cnic.replace(/[^0-9]/g, '')}_${docId}_${Date.now()}`
+                });
+                return [docId, { ...docData, data: result.secure_url, url: result.secure_url }];
+              } catch (cErr) {
+                console.warn("Cloudinary upload failed, falling back to local disk:", cErr.message);
+              }
+            }
+            // Fallback / Local disk upload
+            const fileUrl = saveBase64ToFile(docData.data, 'admissions', `${cnic.replace(/[^0-9]/g, '')}_${docId}`);
+            return [docId, { ...docData, data: fileUrl, url: fileUrl }];
+          }
+
+          // If docData is direct string that is base64
+          if (typeof docData === 'string' && docData.startsWith('data:')) {
+            const fileUrl = saveBase64ToFile(docData, 'admissions', `${cnic.replace(/[^0-9]/g, '')}_${docId}`);
+            return [docId, { name: `${docId}.jpg`, data: fileUrl, url: fileUrl }];
+          }
+
+          return [docId, docData];
+        });
+        const resolvedDocs = await Promise.all(uploadPromises);
+        req.body.documents = Object.fromEntries(resolvedDocs);
+      } catch (uploadErr) {
+        console.error("Document upload processing error:", uploadErr);
       }
     }
-  }
 
-  // Automatic Division Rule
-  const globalRegistrationFee = feeConfig.registrationFee || 1000;
-  finalFees.totalFee = finalFees.admissionFee;
-  finalFees.registrationFee = globalRegistrationFee;
-  finalFees.admissionFee = Math.max(0, finalFees.totalFee - globalRegistrationFee);
+    const mappedClass = classMapping[rawClass] || rawClass;
+    const reqSection = req.body.sectionType;
+    const normalizedSection = reqSection.includes('Section') ? reqSection : reqSection + ' Section';
 
-  const newAdmission = { 
-    id: Date.now(), 
-    ...req.body, 
-    challanNo: `JS-${Math.floor(1000 + Math.random() * 9000)}`,
-    applicationNo: `APP-${Math.floor(10000 + Math.random() * 90000)}`,
-    date: new Date().toISOString(),
-    status: 'Pending',
-    fees: finalFees
-  };
-  db.get('admissions').push(newAdmission).write();
+    const classFee = feeStructures.find(f => 
+      f.classProgram === mappedClass && 
+      f.sectionType === normalizedSection
+    ) || feeConfig;
 
-  // Create Student Record Automatically upon Application
-  const studentRecord = {
+    let finalFees = {
+      admissionFee: classFee.admissionFee,
+      registrationFee: classFee.registrationFee,
+      session: feeConfig.session,
+      lateFeeDays: 0,
+      dailyLateFeeRate: 0,
+      totalLateFee: 0
+    };
+
+    const isSpecialCourse = ["Hifz-ul-Quran", "Tajweed-o-Qira'at"].includes(rawClass);
+
+    if (isSpecialCourse) {
+      const procType = req.body.processingType || 'Normal';
+      const sFeeConfig = schedule?.specialFees?.[rawClass];
+      if (sFeeConfig) {
+        finalFees.admissionFee = procType === 'Urgent' ? sFeeConfig.urgent : sFeeConfig.normal;
+      }
+    } else if (schedule && schedule.enabled && schedule.phases && schedule.phases.length > 0) {
+      const todayDate = new Date();
+      todayDate.setHours(0, 0, 0, 0);
+
+      const sortedPhases = [...schedule.phases].sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime());
+      let phaseIndex = -1;
+
+      for (let i = 0; i < sortedPhases.length; i++) {
+        const pStart = new Date(sortedPhases[i].startDate); pStart.setHours(0,0,0,0);
+        const pEnd = new Date(sortedPhases[i].endDate); pEnd.setHours(23,59,59,999);
+        if (todayDate >= pStart && todayDate <= pEnd) { phaseIndex = i; break; }
+      }
+
+      if (phaseIndex !== -1) {
+        if (phaseIndex === 0) finalFees.admissionFee = classFee.phase1Fee || classFee.admissionFee;
+        else if (phaseIndex === 1) finalFees.admissionFee = classFee.phase2Fee || classFee.admissionFee;
+        else finalFees.admissionFee = classFee.phase3Fee || classFee.admissionFee;
+      } else {
+        const lastPhaseEnd = new Date(sortedPhases[sortedPhases.length - 1].endDate);
+        lastPhaseEnd.setHours(23,59,59,999);
+        const firstPhaseStart = new Date(sortedPhases[0].startDate);
+        firstPhaseStart.setHours(0,0,0,0);
+
+        if (todayDate > lastPhaseEnd) {
+          finalFees.admissionFee = classFee.phase3Fee || classFee.admissionFee;
+          const diffTime = Math.abs(todayDate.getTime() - lastPhaseEnd.getTime());
+          const lateDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+          finalFees.lateFeeDays = lateDays;
+          finalFees.dailyLateFeeRate = schedule.dailyLateFee || 170;
+          finalFees.totalLateFee = lateDays * finalFees.dailyLateFeeRate;
+        } else if (todayDate < firstPhaseStart) {
+          finalFees.admissionFee = classFee.phase1Fee || classFee.admissionFee;
+        }
+      }
+    }
+
+    const globalRegistrationFee = feeConfig.registrationFee || 1000;
+    finalFees.totalFee = finalFees.admissionFee;
+    finalFees.registrationFee = globalRegistrationFee;
+    finalFees.admissionFee = Math.max(0, finalFees.totalFee - globalRegistrationFee);
+
+    const admissionId = Date.now();
+    const newAdmission = await Admission.create({
+      id: admissionId,
+      ...req.body,
+      challanNo: `JS-${Math.floor(1000 + Math.random() * 9000)}`,
+      applicationNo: `APP-${Math.floor(10000 + Math.random() * 90000)}`,
+      date: new Date().toISOString(),
+      status: 'Pending',
+      fees: finalFees
+    });
+
+    // Create Student Record
+    const studentRecord = await Student.create({
       id: Date.now() + 1,
       studentId: `STU-${Math.floor(10000 + Math.random() * 90000)}`,
       rollNo: `${newAdmission.classProgram ? newAdmission.classProgram.substring(0,3).toUpperCase() : 'CLS'}-${Math.floor(100 + Math.random() * 900)}`,
-      ...newAdmission
-  };
-  db.get('students').push(studentRecord).write();
+      studentName: newAdmission.studentName,
+      fatherName: newAdmission.fatherName,
+      dob: newAdmission.dob,
+      cnic: newAdmission.cnic,
+      mobile: newAdmission.mobile,
+      whatsapp: newAdmission.whatsapp,
+      sectionType: newAdmission.sectionType,
+      classProgram: newAdmission.classProgram,
+      fees: finalFees,
+      documents: newAdmission.documents
+    });
 
-  // Automatically Generate Challan
-  let feeDetails = [];
-  let totalAmount = 0;
+    // Automatically Generate Challan
+    let feeDetails = [];
+    let totalAmount = 0;
 
-  if (finalFees.registrationFee > 0) { feeDetails.push({ type: 'Registration Fee', amount: finalFees.registrationFee }); totalAmount += finalFees.registrationFee; }
-  if (finalFees.admissionFee > 0) { feeDetails.push({ type: 'Admission Fee', amount: finalFees.admissionFee }); totalAmount += finalFees.admissionFee; }
-  if (finalFees.totalLateFee > 0) { feeDetails.push({ type: `Late Fee (${finalFees.lateFeeDays} Days)`, amount: finalFees.totalLateFee }); totalAmount += finalFees.totalLateFee; }
+    if (finalFees.registrationFee > 0) { feeDetails.push({ type: 'Registration Fee', amount: finalFees.registrationFee }); totalAmount += finalFees.registrationFee; }
+    if (finalFees.admissionFee > 0) { feeDetails.push({ type: 'Admission Fee', amount: finalFees.admissionFee }); totalAmount += finalFees.admissionFee; }
+    if (finalFees.totalLateFee > 0) { feeDetails.push({ type: `Late Fee (${finalFees.lateFeeDays} Days)`, amount: finalFees.totalLateFee }); totalAmount += finalFees.totalLateFee; }
 
-  const template = feeStructures.find(f => f.classProgram === mappedClass && f.sectionType === normalizedSection);
-  if (template) {
+    const template = feeStructures.find(f => f.classProgram === mappedClass && f.sectionType === normalizedSection);
+    if (template) {
       if (template.monthlyFee > 0) { feeDetails.push({ type: 'Monthly Fee', amount: template.monthlyFee }); totalAmount += template.monthlyFee; }
       if (template.annualCharges > 0) { feeDetails.push({ type: 'Annual Charges', amount: template.annualCharges }); totalAmount += template.annualCharges; }
       if (template.libraryFee > 0) { feeDetails.push({ type: 'Library Fee', amount: template.libraryFee }); totalAmount += template.libraryFee; }
       if (template.hostelFee > 0) { feeDetails.push({ type: 'Hostel Fee', amount: template.hostelFee }); totalAmount += template.hostelFee; }
       if (template.transportFee > 0) { feeDetails.push({ type: 'Transport Fee', amount: template.transportFee }); totalAmount += template.transportFee; }
       if (template.otherCharges > 0) { feeDetails.push({ type: 'Other Charges', amount: template.otherCharges }); totalAmount += template.otherCharges; }
-  }
+    }
 
-  if (totalAmount > 0) {
-      const newChallan = {
+    if (totalAmount > 0) {
+      await Challan.create({
         id: Date.now() + 2,
         challanNo: `CHL-${Math.floor(100000 + Math.random() * 900000)}`,
         studentId: studentRecord.studentId,
@@ -611,254 +508,446 @@ app.post('/api/admissions', async (req, res) => {
         dueDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
         status: 'Unpaid',
         paidAmount: 0
-      };
-      db.get('challans').push(newChallan).write();
-  }
-  // Admin Notifications
-  const message = `🔔 *Naya Admission Aaya Hai!*\n
-*📝 Talib-e-Ilm Ki Tafseelat:*
-*Naam:* ${newAdmission.studentName}
-*Walid ka Naam:* ${newAdmission.fatherName}
-*B-Form / CNIC:* ${newAdmission.cnic}
-*Date of Birth:* ${new Date(newAdmission.dob).toLocaleDateString()}
-*Mobile:* ${newAdmission.mobile}
-
-*📚 Dakhla Ki Tafseelat:*
-*Class / Program:* ${newAdmission.classProgram}
-*Section:* ${newAdmission.sectionType}
-*Processing:* ${newAdmission.processingType || 'Normal'}
-*Application No:* ${newAdmission.applicationNo}
-
-*💰 Fees Ki Tafseelat:*
-*Admission Fee:* Rs ${newAdmission.fees.admissionFee}
-*Registration Fee:* Rs ${newAdmission.fees.registrationFee}
-*Total Amount:* Rs ${newAdmission.fees.totalFee}
-
-Jald az jald Admin Panel check karen.`;
-  
-  if (process.env.WHATSAPP_ADMIN_PHONE && process.env.WHATSAPP_API_KEY) {
-    const wUrl = `https://api.callmebot.com/whatsapp.php?phone=${process.env.WHATSAPP_ADMIN_PHONE}&text=${encodeURIComponent(message)}&apikey=${process.env.WHATSAPP_API_KEY}`;
-    fetch(wUrl).catch(err => console.error("WhatsApp notification failed:", err));
-  }
-
-  if (process.env.TELEGRAM_BOT_TOKEN && process.env.TELEGRAM_CHAT_ID) {
-    const tUrl = `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${process.env.TELEGRAM_CHAT_ID}&text=${encodeURIComponent(message)}&parse_mode=Markdown`;
-    fetch(tUrl).catch(err => console.error("Telegram notification failed:", err));
-  }
-
-  res.status(201).json(newAdmission);
-});
-
-
-// Internships
-app.post('/api/internships', async (req, res) => {
-  const newInternship = {
-    id: Date.now(),
-    ...req.body,
-    applicationNo: `INT-${Math.floor(10000 + Math.random() * 90000)}`,
-    date: new Date().toISOString(),
-    status: 'Pending'
-  };
-  
-  // Ensure internships array exists
-  if(!db.get('internships').value()) {
-     db.set('internships', []).write();
-  }
-  
-  db.get('internships').push(newInternship).write();
-
-  const message = `🌟 *Nayi Internship Application Mosool Hui Hai!* 🌟
-
-*🧑‍🎓 Talib-e-Ilm Ki Tafseelat:*
-*Naam:* ${newInternship.fullName}
-*Walid ka Naam:* ${newInternship.fatherName}
-*Phone:* ${newInternship.phone}
-*Email:* ${newInternship.email}
-
-*📚 Education & Domain:*
-*Institution:* ${newInternship.institution}
-*Education:* ${newInternship.education}
-*Field of Interest:* ${newInternship.fieldOfInterest}
-
-*Application No:* ${newInternship.applicationNo}
-
-Jald az jald Admin Panel check karen.`;
-
-  if (process.env.WHATSAPP_ADMIN_PHONE && process.env.WHATSAPP_API_KEY) {
-    const wUrl = `https://api.callmebot.com/whatsapp.php?phone=${process.env.WHATSAPP_ADMIN_PHONE}&text=${encodeURIComponent(message)}&apikey=${process.env.WHATSAPP_API_KEY}`;
-    fetch(wUrl).catch(err => console.error("WhatsApp notification failed:", err));
-  }
-
-  if (process.env.TELEGRAM_BOT_TOKEN && process.env.TELEGRAM_CHAT_ID) {
-    const tUrl = `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${process.env.TELEGRAM_CHAT_ID}&text=${encodeURIComponent(message)}&parse_mode=Markdown`;
-    fetch(tUrl).catch(err => console.error("Telegram notification failed:", err));
-  }
-
-  res.status(201).json(newInternship);
-});
-
-app.get('/api/admin/internships', (req, res) => {
-  res.json(db.get('internships').value() || []);
-});
-
-
-
-// Internship Certificates (Public Profiles)
-app.post('/api/admin/internship-certificates', async (req, res) => {
-  try {
-    const { name, slug, cnic, phone, university, domain, issueDate, documents } = req.body;
-    
-    // Ensure array exists
-    if(!db.get('internshipCertificates').value()) {
-       db.set('internshipCertificates', []).write();
-    }
-    
-    // Upload documents to Cloudinary if they are base64
-    let uploadedDocs = { ...documents };
-    if (process.env.CLOUDINARY_CLOUD_NAME && documents) {
-      const uploadPromises = Object.entries(documents).map(async ([docId, docData]) => {
-        if (docData && typeof docData === 'string' && docData.startsWith('data:image')) {
-          const result = await cloudinary.uploader.upload(docData, {
-            folder: 'jamia_internships',
-            public_id: `${slug}_${docId}_${Date.now()}`
-          });
-          return [docId, result.secure_url];
-        }
-        return [docId, docData];
       });
-      
-      const resolvedDocs = await Promise.all(uploadPromises);
-      uploadedDocs = Object.fromEntries(resolvedDocs);
     }
-    
-    const newCert = {
-      id: Date.now(),
-      name,
-      slug: slug.toLowerCase().replace(/\s+/g, '-'),
-      cnic,
-      phone,
-      university,
-      domain,
-      issueDate,
-      documents: uploadedDocs,
-      createdAt: new Date().toISOString()
-    };
-    
-    db.get('internshipCertificates').push(newCert).write();
-    res.status(201).json(newCert);
-  } catch (error) {
-    console.error("Error creating certificate profile:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+
+    // Admin Notifications
+    const message = `🔔 *Naya Admission Aaya Hai!*\n\n*📝 Talib-e-Ilm Ki Tafseelat:*\n*Naam:* ${newAdmission.studentName}\n*Walid ka Naam:* ${newAdmission.fatherName}\n*B-Form / CNIC:* ${newAdmission.cnic}\n*Date of Birth:* ${new Date(newAdmission.dob).toLocaleDateString()}\n*Mobile:* ${newAdmission.mobile}\n\n*📚 Dakhla Ki Tafseelat:*\n*Class / Program:* ${newAdmission.classProgram}\n*Section:* ${newAdmission.sectionType}\n*Processing:* ${newAdmission.processingType || 'Normal'}\n*Application No:* ${newAdmission.applicationNo}\n\n*💰 Fees Ki Tafseelat:*\n*Admission Fee:* Rs ${newAdmission.fees.admissionFee}\n*Registration Fee:* Rs ${newAdmission.fees.registrationFee}\n*Total Amount:* Rs ${newAdmission.fees.totalFee}\n\nJald az jald Admin Panel check karen.`;
+
+    if (process.env.WHATSAPP_ADMIN_PHONE && process.env.WHATSAPP_API_KEY) {
+      const wUrl = `https://api.callmebot.com/whatsapp.php?phone=${process.env.WHATSAPP_ADMIN_PHONE}&text=${encodeURIComponent(message)}&apikey=${process.env.WHATSAPP_API_KEY}`;
+      fetch(wUrl).catch(err => console.error("WhatsApp notification failed:", err));
+    }
+
+    if (process.env.TELEGRAM_BOT_TOKEN && process.env.TELEGRAM_CHAT_ID) {
+      const tUrl = `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${process.env.TELEGRAM_CHAT_ID}&text=${encodeURIComponent(message)}&parse_mode=Markdown`;
+      fetch(tUrl).catch(err => console.error("Telegram notification failed:", err));
+    }
+
+    res.status(201).json(newAdmission);
+  } catch (err) {
+    console.error("Admissions error:", err);
+    res.status(500).json({ error: "Failed to submit admission" });
   }
 });
 
-app.get('/api/admin/internship-certificates', (req, res) => {
-  res.json(db.get('internshipCertificates').value() || []);
+app.get('/api/admin/admissions', requireAdminAuth, async (req, res) => {
+  const admissions = await Admission.find().sort({ createdAt: -1 }).lean();
+  res.json(admissions);
 });
 
-app.delete('/api/admin/internship-certificates/:id', (req, res) => {
-  const id = parseInt(req.params.id);
-  db.get('internshipCertificates').remove({ id }).write();
+app.put('/api/admin/admissions/:id/status', requireAdminAuth, async (req, res) => {
+  const { status } = req.body;
+  const id = parseInt(req.params.id) || req.params.id;
+  const admission = await Admission.findOneAndUpdate({ id }, { status }, { returnDocument: 'after' });
+  if (admission) {
+    res.json({ success: true, status });
+  } else {
+    res.status(404).json({ error: 'Admission not found' });
+  }
+});
+
+app.put('/api/admin/admissions/:id', requireAdminAuth, async (req, res) => {
+  const id = parseInt(req.params.id) || req.params.id;
+  const admission = await Admission.findOneAndUpdate({ id }, req.body, { returnDocument: 'after' });
+  if (admission) {
+    res.json({ success: true });
+  } else {
+    res.status(404).json({ error: 'Admission not found' });
+  }
+});
+
+app.delete('/api/admin/admissions/:id', requireAdminAuth, async (req, res) => {
+  const id = parseInt(req.params.id) || req.params.id;
+  await Admission.findOneAndDelete({ id });
   res.json({ success: true });
 });
 
-app.get('/api/internship-certificates/:slug', (req, res) => {
-  const cert = db.get('internshipCertificates').find({ slug: req.params.slug }).value();
-  if (cert) res.json(cert);
-  else res.status(404).json({ error: 'Not found' });
+// ----------------------------------------------------
+// Students Routes
+// ----------------------------------------------------
+app.get('/api/admin/students', requireAdminAuth, async (req, res) => {
+  const students = await Student.find().sort({ createdAt: -1 }).lean();
+  res.json(students);
 });
 
+app.put('/api/admin/students/:id', requireAdminAuth, async (req, res) => {
+  const id = parseInt(req.params.id) || req.params.id;
+  const student = await Student.findOneAndUpdate({ id }, req.body, { returnDocument: 'after' });
+  if (student) {
+    res.json({ success: true });
+  } else {
+    res.status(404).json({ error: 'Student not found' });
+  }
+});
 
-// Other Routes
-app.get('/api/courses', (req, res) => res.json(db.get('courses').value()));
-app.get('/api/courses/:id', (req, res) => {
-  const course = db.get('courses').find({ id: parseInt(req.params.id) }).value() || db.get('courses').find({ id: req.params.id }).value();
+app.delete('/api/admin/students/:id', requireAdminAuth, async (req, res) => {
+  const id = parseInt(req.params.id) || req.params.id;
+  await Student.findOneAndDelete({ id });
+  res.json({ success: true });
+});
+
+// ----------------------------------------------------
+// Challans & Online Payment Routes
+// ----------------------------------------------------
+app.get('/api/admin/challans', requireAdminAuth, async (req, res) => {
+  const challans = await Challan.find().sort({ createdAt: -1 }).lean();
+  res.json(challans);
+});
+
+app.post('/api/admin/challans', requireAdminAuth, async (req, res) => {
+  const newChallan = await Challan.create({
+    id: Date.now(),
+    challanNo: `CHL-${Math.floor(100000 + Math.random() * 900000)}`,
+    ...req.body
+  });
+  res.status(201).json(newChallan);
+});
+
+app.put('/api/admin/challans/:id', requireAdminAuth, async (req, res) => {
+  const id = parseInt(req.params.id) || req.params.id;
+  const oldData = await Challan.findOne({ id }).lean();
+  if (oldData) {
+    const updated = await Challan.findOneAndUpdate({ id }, req.body, { returnDocument: 'after' }).lean();
+    if (oldData.status !== 'Paid' && updated.status === 'Paid') {
+      const message = `💰 *Fee Jama Ho Gayi!*\n\n*Bachay ka Naam:* ${updated.studentName}\n*Class:* ${updated.classProgram}\n*Challan No:* ${updated.challanNo}\n*Method:* ${updated.paymentMethod || 'Bank Deposit'}\n*Amount Paid:* Rs ${updated.paidAmount}\n\nRecord update kar diya gaya hai.`;
+      if (process.env.WHATSAPP_ADMIN_PHONE && process.env.WHATSAPP_API_KEY) {
+        const wUrl = `https://api.callmebot.com/whatsapp.php?phone=${process.env.WHATSAPP_ADMIN_PHONE}&text=${encodeURIComponent(message)}&apikey=${process.env.WHATSAPP_API_KEY}`;
+        fetch(wUrl).catch(e => console.error("WhatsApp notification failed:", e));
+      }
+      if (process.env.TELEGRAM_BOT_TOKEN && process.env.TELEGRAM_CHAT_ID) {
+        const tUrl = `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${process.env.TELEGRAM_CHAT_ID}&text=${encodeURIComponent(message)}&parse_mode=Markdown`;
+        fetch(tUrl).catch(e => console.error("Telegram notification failed:", e));
+      }
+    }
+    res.json({ success: true });
+  } else {
+    res.status(404).json({ error: 'Challan not found' });
+  }
+});
+
+app.delete('/api/admin/challans/:id', requireAdminAuth, async (req, res) => {
+  const id = parseInt(req.params.id) || req.params.id;
+  await Challan.findOneAndDelete({ id });
+  res.json({ success: true });
+});
+
+// --- Public Submit Payment via JazzCash / NayaPay / Meezan ---
+app.post('/api/public/submit-challan-payment', async (req, res) => {
+  try {
+    const { challanNo, paymentMethod, transactionId, senderPhone, receiptImage } = req.body;
+    if (!challanNo || !paymentMethod || !transactionId) {
+      return res.status(400).json({ error: 'Challan number, payment method, and Transaction ID (TID) are required.' });
+    }
+
+    const challan = await Challan.findOne({ challanNo });
+    if (!challan) {
+      return res.status(404).json({ error: 'Challan not found. Please verify challan number.' });
+    }
+
+    let paymentProofUrl = '';
+    if (receiptImage && receiptImage.startsWith('data:')) {
+      if (process.env.CLOUDINARY_CLOUD_NAME) {
+        try {
+          const result = await cloudinary.uploader.upload(receiptImage, {
+            folder: 'jamia_payment_proofs',
+            public_id: `${challanNo}_${Date.now()}`
+          });
+          paymentProofUrl = result.secure_url;
+        } catch (uploadErr) {
+          console.warn('Receipt upload to Cloudinary failed, falling back to local disk:', uploadErr.message);
+        }
+      }
+      if (!paymentProofUrl) {
+        paymentProofUrl = saveBase64ToFile(receiptImage, 'receipts', `receipt_${challanNo}`);
+      }
+    } else if (receiptImage && (receiptImage.startsWith('http') || receiptImage.startsWith('/uploads/'))) {
+      paymentProofUrl = receiptImage;
+    }
+
+    challan.status = 'Pending Verification';
+    challan.paymentMethod = paymentMethod;
+    challan.transactionId = transactionId.trim();
+    challan.senderPhone = senderPhone || '';
+    if (paymentProofUrl) challan.paymentProofUrl = paymentProofUrl;
+    challan.paymentSubmittedAt = new Date().toISOString();
+    await challan.save();
+
+    // Telegram Notification
+    const message = `💳 *Nayi Online Fee Payment Submit Hui Hai!* 💳\n\n*Student:* ${challan.studentName}\n*Father:* ${challan.fatherName || 'N/A'}\n*Challan No:* \`${challan.challanNo}\`\n*Amount:* Rs ${challan.totalAmount}\n*Payment Method:* ${paymentMethod}\n*Transaction ID (TID):* \`${transactionId.trim()}\`\n*Sender Mobile:* ${senderPhone || 'Not provided'}\n*Date:* ${new Date().toLocaleString()}\n\nBaraye meharbani Admin Panel se check kar ke verify karen.`;
+    if (process.env.TELEGRAM_BOT_TOKEN && process.env.TELEGRAM_CHAT_ID) {
+      const tUrl = `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${process.env.TELEGRAM_CHAT_ID}&text=${encodeURIComponent(message)}&parse_mode=Markdown`;
+      fetch(tUrl).catch(e => console.error("Telegram alert error:", e));
+    }
+
+    res.json({
+      success: true,
+      message: 'Payment details submitted successfully! Your receipt is now under verification.',
+      challan
+    });
+  } catch (err) {
+    console.error('Payment submission error:', err);
+    res.status(500).json({ error: 'Failed to submit payment details' });
+  }
+});
+
+// --- Admin One-Click Payment Verification ---
+app.post('/api/admin/verify-challan-payment/:id', requireAdminAuth, async (req, res) => {
+  try {
+    const id = parseInt(req.params.id) || req.params.id;
+    const challan = await Challan.findOne({ id });
+    if (!challan) {
+      return res.status(404).json({ error: 'Challan not found' });
+    }
+
+    challan.status = 'Paid';
+    challan.paidAmount = challan.totalAmount;
+    challan.paidDate = new Date().toISOString();
+    challan.verifiedBy = req.user.username;
+    challan.verifiedAt = new Date().toISOString();
+    await challan.save();
+
+    // Update associated admission status
+    await Admission.findOneAndUpdate(
+      { challanNo: challan.challanNo, status: 'Pending' },
+      { status: 'Approved' }
+    );
+
+    // Update student fee status
+    await Student.findOneAndUpdate(
+      { rollNo: challan.rollNo },
+      { 'fees.status': 'Paid' }
+    );
+
+    // Notifications
+    const message = `💰 *Fee Payment Verified & Approved!*\n\n*Student:* ${challan.studentName}\n*Class:* ${challan.classProgram}\n*Challan No:* ${challan.challanNo}\n*Method:* ${challan.paymentMethod || 'Online'}\n*TID:* ${challan.transactionId || 'N/A'}\n*Amount:* Rs ${challan.totalAmount}\n\nRecord marked as PAID. Official receipt generated.`;
+    if (process.env.WHATSAPP_ADMIN_PHONE && process.env.WHATSAPP_API_KEY) {
+      const wUrl = `https://api.callmebot.com/whatsapp.php?phone=${process.env.WHATSAPP_ADMIN_PHONE}&text=${encodeURIComponent(message)}&apikey=${process.env.WHATSAPP_API_KEY}`;
+      fetch(wUrl).catch(e => console.error("WhatsApp alert error:", e));
+    }
+    if (process.env.TELEGRAM_BOT_TOKEN && process.env.TELEGRAM_CHAT_ID) {
+      const tUrl = `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${process.env.TELEGRAM_CHAT_ID}&text=${encodeURIComponent(message)}&parse_mode=Markdown`;
+      fetch(tUrl).catch(e => console.error("Telegram alert error:", e));
+    }
+
+    res.json({ success: true, message: 'Challan marked as Paid successfully', challan });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to verify payment' });
+  }
+});
+
+// --- Public Challan Status Check ---
+app.get('/api/public/challan-status/:challanNo', async (req, res) => {
+  const challan = await Challan.findOne({ challanNo: req.params.challanNo }).lean();
+  if (challan) {
+    res.json(challan);
+  } else {
+    res.status(404).json({ error: 'Challan not found' });
+  }
+});
+
+// ----------------------------------------------------
+// Fee Structures Routes
+// ----------------------------------------------------
+app.get('/api/admin/fee-structures', requireAdminAuth, async (req, res) => {
+  const feeStructures = await FeeStructure.find().lean();
+  res.json(feeStructures);
+});
+
+app.post('/api/admin/fee-structures', requireAdminAuth, async (req, res) => {
+  const newFS = await FeeStructure.create({ id: Date.now(), ...req.body });
+  res.status(201).json(newFS);
+});
+
+app.put('/api/admin/fee-structures/:id', requireAdminAuth, async (req, res) => {
+  const id = parseInt(req.params.id) || req.params.id;
+  const fs = await FeeStructure.findOneAndUpdate({ id }, req.body, { returnDocument: 'after' });
+  if (fs) res.json({ success: true });
+  else res.status(404).json({ error: 'Fee Structure not found' });
+});
+
+app.delete('/api/admin/fee-structures/:id', requireAdminAuth, async (req, res) => {
+  const id = parseInt(req.params.id) || req.params.id;
+  await FeeStructure.findOneAndDelete({ id });
+  res.json({ success: true });
+});
+
+// Fee Categories
+app.get('/api/admin/fee-categories', requireAdminAuth, async (req, res) => {
+  res.json(await getSetting('feeCategories', []));
+});
+
+app.post('/api/admin/fee-categories', requireAdminAuth, async (req, res) => {
+  const cats = await getSetting('feeCategories', []);
+  const newCat = { id: Date.now(), ...req.body };
+  cats.push(newCat);
+  await setSetting('feeCategories', cats);
+  res.status(201).json(newCat);
+});
+
+app.put('/api/admin/fee-categories/:id', requireAdminAuth, async (req, res) => {
+  const id = parseInt(req.params.id) || req.params.id;
+  const cats = await getSetting('feeCategories', []);
+  const idx = cats.findIndex(c => c.id === id);
+  if (idx !== -1) {
+    cats[idx] = { ...cats[idx], ...req.body };
+    await setSetting('feeCategories', cats);
+    res.json({ success: true });
+  } else {
+    res.status(404).json({ error: 'Fee Category not found' });
+  }
+});
+
+app.delete('/api/admin/fee-categories/:id', requireAdminAuth, async (req, res) => {
+  const id = parseInt(req.params.id) || req.params.id;
+  let cats = await getSetting('feeCategories', []);
+  cats = cats.filter(c => c.id !== id);
+  await setSetting('feeCategories', cats);
+  res.json({ success: true });
+});
+
+app.get('/api/results', async (req, res) => {
+  res.json(await getSetting('results', []));
+});
+
+// ----------------------------------------------------
+// Courses Routes
+// ----------------------------------------------------
+app.get('/api/courses', async (req, res) => {
+  const courses = await Course.find().sort({ id: 1 }).lean();
+  res.json(courses);
+});
+
+app.get('/api/courses/:id', async (req, res) => {
+  const id = parseInt(req.params.id) || req.params.id;
+  const course = await Course.findOne({ id }).lean();
   if (course) res.json(course);
   else res.status(404).json({ error: 'Course not found' });
 });
 
-app.get('/api/admin/courses', (req, res) => res.json(db.get('courses').value()));
+app.get('/api/admin/courses', requireAdminAuth, async (req, res) => {
+  const courses = await Course.find().sort({ id: 1 }).lean();
+  res.json(courses);
+});
 
-app.post('/api/admin/courses', (req, res) => {
-  const newCourse = { id: Date.now(), courseId: `CRS-${Math.floor(1000 + Math.random() * 9000)}`, ...req.body };
-  db.get('courses').push(newCourse).write();
+app.post('/api/admin/courses', requireAdminAuth, async (req, res) => {
+  const newCourse = await Course.create({
+    id: Date.now(),
+    courseId: `CRS-${Math.floor(1000 + Math.random() * 9000)}`,
+    ...req.body
+  });
   res.status(201).json(newCourse);
 });
 
-app.put('/api/admin/courses/:id', (req, res) => {
-  const cid = parseInt(req.params.id) || req.params.id;
-  const course = db.get('courses').find({ id: cid });
-  if (course.value()) {
-     course.assign(req.body).write();
-     res.json({ success: true });
-  } else {
-     res.status(404).json({ error: 'Course not found' });
-  }
+app.put('/api/admin/courses/:id', requireAdminAuth, async (req, res) => {
+  const id = parseInt(req.params.id) || req.params.id;
+  const course = await Course.findOneAndUpdate({ id }, req.body, { returnDocument: 'after' });
+  if (course) res.json({ success: true });
+  else res.status(404).json({ error: 'Course not found' });
 });
 
-app.delete('/api/admin/courses/:id', (req, res) => {
-  const cid = parseInt(req.params.id) || req.params.id;
-  db.get('courses').remove({ id: cid }).write();
+app.delete('/api/admin/courses/:id', requireAdminAuth, async (req, res) => {
+  const id = parseInt(req.params.id) || req.params.id;
+  await Course.findOneAndDelete({ id });
   res.json({ success: true });
 });
 
-app.get('/api/faculty', (req, res) => res.json(db.get('faculty').value()));
-app.get('/api/faculty/:id', (req, res) => {
-  const member = db.get('faculty').find({ id: parseInt(req.params.id) }).value() || db.get('faculty').find({ id: req.params.id }).value();
+// ----------------------------------------------------
+// Faculty Routes
+// ----------------------------------------------------
+app.get('/api/faculty', async (req, res) => {
+  const faculty = await Faculty.find().sort({ id: 1 }).lean();
+  res.json(faculty);
+});
+
+app.get('/api/faculty/:id', async (req, res) => {
+  const id = parseInt(req.params.id) || req.params.id;
+  const member = await Faculty.findOne({ id }).lean();
   if (member) res.json(member);
   else res.status(404).json({ error: 'Faculty member not found' });
 });
 
-app.get('/api/admin/faculty', (req, res) => res.json(db.get('faculty').value()));
+app.get('/api/admin/faculty', requireAdminAuth, async (req, res) => {
+  const faculty = await Faculty.find().sort({ id: 1 }).lean();
+  res.json(faculty);
+});
 
-app.post('/api/admin/faculty', (req, res) => {
-  const newFaculty = { id: Date.now(), facultyId: `FAC-${Math.floor(1000 + Math.random() * 9000)}`, ...req.body };
-  db.get('faculty').push(newFaculty).write();
+app.post('/api/admin/faculty', requireAdminAuth, async (req, res) => {
+  const newFaculty = await Faculty.create({
+    id: Date.now(),
+    facultyId: `FAC-${Math.floor(1000 + Math.random() * 9000)}`,
+    ...req.body
+  });
   res.status(201).json(newFaculty);
 });
 
-app.put('/api/admin/faculty/:id', (req, res) => {
-  const fid = parseInt(req.params.id) || req.params.id;
-  const fac = db.get('faculty').find({ id: fid });
-  if (fac.value()) {
-     fac.assign(req.body).write();
-     res.json({ success: true });
-  } else {
-     res.status(404).json({ error: 'Faculty not found' });
-  }
+app.put('/api/admin/faculty/:id', requireAdminAuth, async (req, res) => {
+  const id = parseInt(req.params.id) || req.params.id;
+  const fac = await Faculty.findOneAndUpdate({ id }, req.body, { returnDocument: 'after' });
+  if (fac) res.json({ success: true });
+  else res.status(404).json({ error: 'Faculty not found' });
 });
 
-app.delete('/api/admin/faculty/:id', (req, res) => {
-  const fid = parseInt(req.params.id) || req.params.id;
-  db.get('faculty').remove({ id: fid }).write();
+app.delete('/api/admin/faculty/:id', requireAdminAuth, async (req, res) => {
+  const id = parseInt(req.params.id) || req.params.id;
+  await Faculty.findOneAndDelete({ id });
   res.json({ success: true });
 });
 
-app.get('/api/news', (req, res) => res.json(db.get('news').value()));
-app.get('/api/news/:id', (req, res) => {
-  const article = db.get('news').find({ id: parseInt(req.params.id) }).value() || db.get('news').find({ id: req.params.id }).value();
+// ----------------------------------------------------
+// News Routes
+// ----------------------------------------------------
+app.get('/api/news', async (req, res) => {
+  const news = await News.find().sort({ createdAt: -1 }).lean();
+  res.json(news);
+});
+
+app.get('/api/news/:id', async (req, res) => {
+  const id = parseInt(req.params.id) || req.params.id;
+  const article = await News.findOne({ id }).lean();
   if (article) res.json(article);
   else res.status(404).json({ error: 'News article not found' });
 });
 
-// Admin Stats
-app.get('/api/admin/stats', (req, res) => {
+// ----------------------------------------------------
+// Admin Stats & Backup
+// ----------------------------------------------------
+app.get('/api/admin/stats', requireAdminAuth, async (req, res) => {
   res.json({
-    courses: db.get('courses').size().value(),
-    faculty: db.get('faculty').size().value(),
-    news: db.get('news').size().value(),
-    contacts: db.get('contacts').size().value(),
-    admissions: db.get('admissions').size().value(),
+    courses: await Course.countDocuments(),
+    faculty: await Faculty.countDocuments(),
+    news: await News.countDocuments(),
+    contacts: await getSetting('contacts', []).then(c => Array.isArray(c) ? c.length : 0),
+    admissions: await Admission.countDocuments(),
   });
 });
 
-const xlsx = require('xlsx');
-
-app.get('/api/admin/backup', (req, res) => {
-  res.download(path.join(__dirname, 'db.json'), `jamia_backup_${new Date().toISOString().split('T')[0]}.json`);
+app.get('/api/admin/backup', requireAdminAuth, async (req, res) => {
+  try {
+    const backupData = {
+      courses: await Course.find().lean(),
+      admissions: await Admission.find().lean(),
+      students: await Student.find().lean(),
+      challans: await Challan.find().lean(),
+      faculty: await Faculty.find().lean(),
+      feeStructures: await FeeStructure.find().lean(),
+      expenses: await Expense.find().lean(),
+      internshipCertificates: await InternshipCertificate.find().lean(),
+      internships: await Internship.find().lean(),
+      donations: await Donation.find().lean(),
+      customFormFields: await FormField.find().lean(),
+      admissionRequirements: await AdmissionRequirement.find().lean(),
+      systemSettings: await SystemSetting.find().lean()
+    };
+    res.setHeader('Content-Disposition', `attachment; filename="jamia_backup_${new Date().toISOString().split('T')[0]}.json"`);
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify(backupData, null, 2));
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to generate JSON backup' });
+  }
 });
 
-app.get('/api/admin/backup/excel', (req, res) => {
+app.get('/api/admin/backup/excel', requireAdminAuth, async (req, res) => {
   try {
     const workbook = xlsx.utils.book_new();
 
@@ -873,11 +962,11 @@ app.get('/api/admin/backup/excel', (req, res) => {
             if (len > max) max = len;
           }
         });
-        return { wch: Math.min(max + 2, 50) }; // Cap width at 50 chars
+        return { wch: Math.min(max + 2, 50) };
       });
     };
 
-    const admissions = db.get('admissions').value() || [];
+    const admissions = await Admission.find().lean();
     const admData = admissions.map(a => ({
       'Application No': a.applicationNo,
       'Date': a.date ? new Date(a.date).toLocaleDateString() : '',
@@ -893,7 +982,7 @@ app.get('/api/admin/backup/excel', (req, res) => {
     autoSizeColumns(admSheet, admData);
     xlsx.utils.book_append_sheet(workbook, admSheet, "Admissions");
 
-    const students = db.get('students').value() || [];
+    const students = await Student.find().lean();
     const stuData = students.map(s => ({
       'Student ID': s.studentId,
       'Roll No': s.rollNo,
@@ -906,7 +995,7 @@ app.get('/api/admin/backup/excel', (req, res) => {
     autoSizeColumns(stuSheet, stuData);
     xlsx.utils.book_append_sheet(workbook, stuSheet, "Students");
 
-    const faculty = db.get('faculty').value() || [];
+    const faculty = await Faculty.find().lean();
     const facData = faculty.map(f => ({
       'Faculty ID': f.facultyId,
       'Name': f.name,
@@ -919,7 +1008,6 @@ app.get('/api/admin/backup/excel', (req, res) => {
     xlsx.utils.book_append_sheet(workbook, facSheet, "Faculty");
 
     const buf = xlsx.write(workbook, { type: 'buffer', bookType: 'xlsx' });
-    
     res.setHeader('Content-Disposition', `attachment; filename="Jamia_Excel_Backup_${new Date().toISOString().split('T')[0]}.xlsx"`);
     res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
     res.send(buf);
@@ -929,185 +1017,215 @@ app.get('/api/admin/backup/excel', (req, res) => {
   }
 });
 
-app.get('/api/admin/clean-db', (req, res) => {
+app.get('/api/admin/clean-db', requireAdminAuth, async (req, res) => {
   let cleanedCount = 0;
-  const admissions = db.get('admissions').value() || [];
-  admissions.forEach(a => {
+  const admissions = await Admission.find();
+  for (const a of admissions) {
+    let modified = false;
     if (a.documents) {
       Object.keys(a.documents).forEach(docId => {
         const doc = a.documents[docId];
         if (doc && doc.data && doc.data.startsWith('data:image')) {
-          delete doc.data; // Remove huge base64
+          delete doc.data;
           cleanedCount++;
+          modified = true;
         }
       });
     }
-  });
-  
-  if (cleanedCount > 0) {
-    db.set('admissions', admissions).write();
+    if (modified) {
+      a.markModified('documents');
+      await a.save();
+    }
   }
-  
   res.json({ success: true, message: `Cleaned ${cleanedCount} old image data entries. Admin Panel should be fast now!` });
 });
 
-app.get('/api/admin/admissions', (req, res) => {
-  res.json(db.get('admissions').value());
-});
+app.post('/api/admin/migrate-images-to-disk', requireAdminAuth, async (req, res) => {
+  try {
+    let migratedCount = 0;
 
-app.put('/api/admin/admissions/:id/status', (req, res) => {
-  const { status } = req.body;
-  const admissionId = parseInt(req.params.id) || req.params.id;
-  const admission = db.get('admissions').find({ id: admissionId });
-  if (admission.value()) {
-     admission.assign({ status }).write();
-     res.json({ success: true, status });
-  } else {
-     res.status(404).json({ error: 'Admission not found' });
+    // 1. Migrate Admissions
+    const admissions = await Admission.find();
+    for (const a of admissions) {
+      let modified = false;
+      if (a.documents) {
+        Object.keys(a.documents).forEach(docId => {
+          const doc = a.documents[docId];
+          if (doc && doc.data && doc.data.startsWith('data:')) {
+            const fileUrl = saveBase64ToFile(doc.data, 'admissions', `${(a.cnic || 'adm').replace(/[^0-9]/g, '')}_${docId}`);
+            doc.data = fileUrl;
+            doc.url = fileUrl;
+            migratedCount++;
+            modified = true;
+          }
+        });
+      }
+      if (modified) {
+        a.markModified('documents');
+        await a.save();
+      }
+    }
+
+    // 2. Migrate Internship Certificates
+    const certs = await InternshipCertificate.find();
+    for (const c of certs) {
+      let modified = false;
+      if (c.documents) {
+        Object.keys(c.documents).forEach(docId => {
+          const docData = c.documents[docId];
+          if (docData && typeof docData === 'string' && docData.startsWith('data:')) {
+            const fileUrl = saveBase64ToFile(docData, 'internships', `${c.slug || 'cert'}_${docId}`);
+            c.documents[docId] = fileUrl;
+            migratedCount++;
+            modified = true;
+          }
+        });
+      }
+      if (modified) {
+        c.markModified('documents');
+        await c.save();
+      }
+    }
+
+    // 3. Migrate Challan Payment Proofs
+    const challans = await Challan.find();
+    for (const ch of challans) {
+      if (ch.paymentProofUrl && ch.paymentProofUrl.startsWith('data:')) {
+        const fileUrl = saveBase64ToFile(ch.paymentProofUrl, 'receipts', `receipt_${ch.challanNo}`);
+        ch.paymentProofUrl = fileUrl;
+        migratedCount++;
+        await ch.save();
+      }
+    }
+
+    res.json({
+      success: true,
+      message: `Successfully migrated ${migratedCount} files to disk storage (/uploads/)! Database is now lightweight.`,
+      migratedCount
+    });
+  } catch (err) {
+    console.error('Migration error:', err);
+    res.status(500).json({ error: 'Failed to migrate images to disk' });
   }
 });
 
-app.put('/api/admin/admissions/:id', (req, res) => {
-  const admissionId = req.params.id;
-  const admission = db.get('admissions').find({ id: admissionId });
-  if (admission.value()) {
-     admission.assign(req.body).write();
-     res.json({ success: true });
-  } else {
-     res.status(404).json({ error: 'Admission not found' });
+// ----------------------------------------------------
+// Internships Routes
+// ----------------------------------------------------
+app.post('/api/internships', async (req, res) => {
+  try {
+    const newInternship = await Internship.create({
+      id: Date.now(),
+      ...req.body,
+      applicationNo: `INT-${Math.floor(10000 + Math.random() * 90000)}`,
+      date: new Date().toISOString(),
+      status: 'Pending'
+    });
+
+    const message = `🌟 *Nayi Internship Application Mosool Hui Hai!* 🌟\n\n*🧑‍🎓 Talib-e-Ilm Ki Tafseelat:*\n*Naam:* ${newInternship.fullName}\n*Walid ka Naam:* ${newInternship.fatherName}\n*Phone:* ${newInternship.phone}\n*Email:* ${newInternship.email}\n\n*📚 Education & Domain:*\n*Institution:* ${newInternship.institution}\n*Education:* ${newInternship.education}\n*Field of Interest:* ${newInternship.fieldOfInterest}\n\n*Application No:* ${newInternship.applicationNo}\n\nJald az jald Admin Panel check karen.`;
+
+    if (process.env.WHATSAPP_ADMIN_PHONE && process.env.WHATSAPP_API_KEY) {
+      const wUrl = `https://api.callmebot.com/whatsapp.php?phone=${process.env.WHATSAPP_ADMIN_PHONE}&text=${encodeURIComponent(message)}&apikey=${process.env.WHATSAPP_API_KEY}`;
+      fetch(wUrl).catch(err => console.error("WhatsApp notification failed:", err));
+    }
+
+    if (process.env.TELEGRAM_BOT_TOKEN && process.env.TELEGRAM_CHAT_ID) {
+      const tUrl = `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${process.env.TELEGRAM_CHAT_ID}&text=${encodeURIComponent(message)}&parse_mode=Markdown`;
+      fetch(tUrl).catch(err => console.error("Telegram notification failed:", err));
+    }
+
+    res.status(201).json(newInternship);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to submit internship" });
   }
 });
 
-app.delete('/api/admin/admissions/:id', (req, res) => {
-  const admissionId = parseInt(req.params.id) || req.params.id;
-  db.get('admissions').remove({ id: admissionId }).write();
+app.get('/api/admin/internships', requireAdminAuth, async (req, res) => {
+  const list = await Internship.find().sort({ createdAt: -1 }).lean();
+  res.json(list);
+});
+
+// ----------------------------------------------------
+// Internship Certificates Routes
+// ----------------------------------------------------
+app.post('/api/admin/internship-certificates', requireAdminAuth, async (req, res) => {
+  try {
+    const { name, slug, cnic, phone, university, domain, issueDate, documents } = req.body;
+    let uploadedDocs = { ...documents };
+
+    if (documents) {
+      const uploadPromises = Object.entries(documents).map(async ([docId, docData]) => {
+        if (docData && typeof docData === 'string' && docData.startsWith('data:')) {
+          if (process.env.CLOUDINARY_CLOUD_NAME) {
+            try {
+              const result = await cloudinary.uploader.upload(docData, {
+                folder: 'jamia_internships',
+                public_id: `${slug}_${docId}_${Date.now()}`
+              });
+              return [docId, result.secure_url];
+            } catch (cErr) {
+              console.warn("Cloudinary upload failed for certificate, falling back to local disk:", cErr.message);
+            }
+          }
+          // Fallback to local disk
+          const fileUrl = saveBase64ToFile(docData, 'internships', `${slug}_${docId}`);
+          return [docId, fileUrl];
+        }
+        return [docId, docData];
+      });
+      const resolvedDocs = await Promise.all(uploadPromises);
+      uploadedDocs = Object.fromEntries(resolvedDocs);
+    }
+
+    const newCert = await InternshipCertificate.create({
+      id: Date.now(),
+      name,
+      studentName: name || req.body.studentName,
+      slug: (slug || '').toLowerCase().replace(/\s+/g, '-'),
+      cnic,
+      phone,
+      university,
+      domain,
+      issueDate,
+      documents: uploadedDocs,
+      details: req.body
+    });
+
+    res.status(201).json(newCert);
+  } catch (error) {
+    console.error("Error creating certificate profile:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+app.get('/api/admin/internship-certificates', requireAdminAuth, async (req, res) => {
+  const certs = await InternshipCertificate.find().sort({ createdAt: -1 }).lean();
+  res.json(certs);
+});
+
+app.delete('/api/admin/internship-certificates/:id', requireAdminAuth, async (req, res) => {
+  const id = parseInt(req.params.id) || req.params.id;
+  await InternshipCertificate.findOneAndDelete({ id });
   res.json({ success: true });
 });
 
-app.get('/api/admin/students', (req, res) => {
-  res.json(db.get('students').value() || []);
+app.get('/api/internship-certificates/:slug', async (req, res) => {
+  const cert = await InternshipCertificate.findOne({ slug: req.params.slug }).lean();
+  if (cert) res.json(cert);
+  else res.status(404).json({ error: 'Not found' });
 });
 
-app.put('/api/admin/students/:id', (req, res) => {
-  const sid = parseInt(req.params.id) || req.params.id;
-  const student = db.get('students').find({ id: sid });
-  if (student.value()) {
-     student.assign(req.body).write();
-     res.json({ success: true });
-  } else {
-     res.status(404).json({ error: 'Student not found' });
-  }
-});
-
-
-// Challans
-app.get('/api/admin/challans', (req, res) => res.json(db.get('challans').value() || []));
-app.post('/api/admin/challans', (req, res) => {
-  const newChallan = { id: Date.now(), challanNo: `CHL-${Math.floor(100000 + Math.random() * 900000)}`, ...req.body };
-  db.get('challans').push(newChallan).write();
-  res.status(201).json(newChallan);
-});
-app.put('/api/admin/challans/:id', (req, res) => {
-  const cid = parseInt(req.params.id) || req.params.id;
-  const challan = db.get('challans').find({ id: cid });
-  const oldData = challan.value();
-  if (oldData) {
-     challan.assign(req.body).write();
-     const newData = challan.value();
-     
-     // Admin Notifications for Fee Payment
-     if (oldData.status !== 'Paid' && newData.status === 'Paid') {
-       const message = `💰 *Fee Jama Ho Gayi!*\n\n*Bachay ka Naam:* ${newData.studentName}\n*Class:* ${newData.classProgram}\n*Challan No:* ${newData.challanNo}\n*Amount Paid:* Rs ${newData.paidAmount}\n\nRecord update kar diya gaya hai.`;
-       
-       if (process.env.WHATSAPP_ADMIN_PHONE && process.env.WHATSAPP_API_KEY) {
-         const wUrl = `https://api.callmebot.com/whatsapp.php?phone=${process.env.WHATSAPP_ADMIN_PHONE}&text=${encodeURIComponent(message)}&apikey=${process.env.WHATSAPP_API_KEY}`;
-         fetch(wUrl).catch(e => console.error("WhatsApp notification failed:", e));
-       }
-
-       if (process.env.TELEGRAM_BOT_TOKEN && process.env.TELEGRAM_CHAT_ID) {
-         const tUrl = `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${process.env.TELEGRAM_CHAT_ID}&text=${encodeURIComponent(message)}&parse_mode=Markdown`;
-         fetch(tUrl).catch(e => console.error("Telegram notification failed:", e));
-       }
-     }
-     
-     res.json({ success: true });
-  } else {
-     res.status(404).json({ error: 'Challan not found' });
-  }
-});
-app.delete('/api/admin/challans/:id', (req, res) => {
-  const cid = parseInt(req.params.id) || req.params.id;
-  db.get('challans').remove({ id: cid }).write();
-  res.json({ success: true });
-});
-
-// Fee Structures
-app.get('/api/admin/fee-structures', (req, res) => res.json(db.get('feeStructures').value() || []));
-app.post('/api/admin/fee-structures', (req, res) => {
-  const newFS = { id: Date.now(), ...req.body };
-  db.get('feeStructures').push(newFS).write();
-  res.status(201).json(newFS);
-});
-app.put('/api/admin/fee-structures/:id', (req, res) => {
-  const fsid = parseInt(req.params.id) || req.params.id;
-  const fs = db.get('feeStructures').find({ id: fsid });
-  if (fs.value()) {
-     fs.assign(req.body).write();
-     res.json({ success: true });
-  } else {
-     res.status(404).json({ error: 'Fee Structure not found' });
-  }
-});
-app.delete('/api/admin/fee-structures/:id', (req, res) => {
-  const fsid = parseInt(req.params.id) || req.params.id;
-  db.get('feeStructures').remove({ id: fsid }).write();
-  res.json({ success: true });
-});
-
-// Fee Categories
-app.get('/api/admin/fee-categories', (req, res) => res.json(db.get('feeCategories').value() || []));
-app.post('/api/admin/fee-categories', (req, res) => {
-  const newCat = { id: Date.now(), ...req.body };
-  db.get('feeCategories').push(newCat).write();
-  res.status(201).json(newCat);
-});
-app.put('/api/admin/fee-categories/:id', (req, res) => {
-  const cid = parseInt(req.params.id) || req.params.id;
-  const cat = db.get('feeCategories').find({ id: cid });
-  if (cat.value()) {
-     cat.assign(req.body).write();
-     res.json({ success: true });
-  } else {
-     res.status(404).json({ error: 'Fee Category not found' });
-  }
-});
-app.delete('/api/admin/fee-categories/:id', (req, res) => {
-  const cid = parseInt(req.params.id) || req.params.id;
-  db.get('feeCategories').remove({ id: cid }).write();
-  res.json({ success: true });
-});
-
-app.get('/api/results', (req, res) => res.json(db.get('results').value() || []));
-
-app.delete('/api/admin/students/:id', (req, res) => {
-  const studentId = parseInt(req.params.id) || req.params.id;
-  db.get('students').remove({ id: studentId }).write();
-  res.json({ success: true });
-});
-
-
-// --- DONATIONS API ---
-app.post('/api/donations', (req, res) => {
+// ----------------------------------------------------
+// Donations Routes
+// ----------------------------------------------------
+app.post('/api/donations', async (req, res) => {
   try {
     const data = req.body;
-    const dbDonations = db.get('donations');
-    
-    // Generate reference number
     const year = new Date().getFullYear();
-    const count = dbDonations.value().length + 1;
+    const count = await Donation.countDocuments() + 1;
     const refNo = `JSR-DON-${year}-${count.toString().padStart(4, '0')}`;
-    
-    const newDonation = {
+
+    const newDonation = await Donation.create({
       id: Date.now().toString(),
       refNo: refNo,
       fullName: data.fullName,
@@ -1119,11 +1237,10 @@ app.post('/api/donations', (req, res) => {
       purpose: data.purpose,
       remarks: data.remarks || '',
       category: data.category,
-      receiptImage: data.receiptImage, // base64 string
+      receiptImage: data.receiptImage,
       submissionDate: new Date().toISOString()
-    };
-    
-    dbDonations.push(newDonation).write();
+    });
+
     res.json({ success: true, refNo: refNo, message: 'Donation submitted successfully' });
   } catch (error) {
     console.error('Error saving donation:', error);
@@ -1131,138 +1248,222 @@ app.post('/api/donations', (req, res) => {
   }
 });
 
-app.get('/api/donations', (req, res) => {
-  const donations = db.get('donations').value() || [];
-  // Sort by submission date desc
-  const sorted = [...donations].sort((a, b) => new Date(b.submissionDate) - new Date(a.submissionDate));
-  res.json(sorted);
+app.get('/api/donations', async (req, res) => {
+  const donations = await Donation.find().sort({ submissionDate: -1, createdAt: -1 }).lean();
+  res.json(donations);
 });
 
-app.get('/api/donation-portals', (req, res) => {
-  res.json(db.get('donationPortals').value() || []);
+app.get('/api/donation-portals', async (req, res) => {
+  res.json(await getSetting('donationPortals', []));
 });
 
-app.get('/api/page-configs', (req, res) => {
-  res.json(db.get('pageConfigs').value() || []);
+app.get('/api/page-configs', async (req, res) => {
+  res.json(await getSetting('pageConfigs', []));
 });
 
-// --- POPUP ANNOUNCEMENT API ---
-app.get('/api/popup-announcement', (req, res) => {
-  res.json(db.get('popupAnnouncement').value() || { enabled: false });
+// ----------------------------------------------------
+// Popup Announcement
+// ----------------------------------------------------
+app.get('/api/popup-announcement', async (req, res) => {
+  res.json(await getSetting('popupAnnouncement', { enabled: false }));
 });
 
-// --- Admission Requirements ---
-app.get('/api/admin/admission-requirements', (req, res) => {
-  res.json(db.get('admissionRequirements').value() || []);
+// ----------------------------------------------------
+// Admission Requirements
+// ----------------------------------------------------
+app.get('/api/admin/admission-requirements', requireAdminAuth, async (req, res) => {
+  const list = await AdmissionRequirement.find().sort({ id: 1 }).lean();
+  res.json(list);
 });
-app.get('/api/admission-requirements', (req, res) => {
-  res.json(db.get('admissionRequirements').value() || []);
+app.get('/api/admission-requirements', async (req, res) => {
+  const list = await AdmissionRequirement.find().sort({ id: 1 }).lean();
+  res.json(list);
 });
-app.post('/api/admin/admission-requirements', (req, res) => {
-  const newReq = { id: Date.now() + Math.floor(Math.random() * 1000), title: req.body.title, text: req.body.text };
-  db.get('admissionRequirements').push(newReq).write();
+app.post('/api/admin/admission-requirements', requireAdminAuth, async (req, res) => {
+  const newReq = await AdmissionRequirement.create({
+    id: Date.now() + Math.floor(Math.random() * 1000),
+    title: req.body.title,
+    text: req.body.text
+  });
   res.status(201).json(newReq);
 });
-app.put('/api/admin/admission-requirements/:id', (req, res) => {
-  const id = parseInt(req.params.id);
-  db.get('admissionRequirements').find({ id }).assign({ title: req.body.title, text: req.body.text }).write();
+app.put('/api/admin/admission-requirements/:id', requireAdminAuth, async (req, res) => {
+  const id = parseInt(req.params.id) || req.params.id;
+  await AdmissionRequirement.findOneAndUpdate({ id }, { title: req.body.title, text: req.body.text });
   res.json({ success: true });
 });
-app.delete('/api/admin/admission-requirements/:id', (req, res) => {
-  const id = parseInt(req.params.id);
-  db.get('admissionRequirements').remove({ id }).write();
+app.delete('/api/admin/admission-requirements/:id', requireAdminAuth, async (req, res) => {
+  const id = parseInt(req.params.id) || req.params.id;
+  await AdmissionRequirement.findOneAndDelete({ id });
   res.json({ success: true });
 });
 
-
-// --- Custom Form Fields API ---
-app.get('/api/admin/form-fields', (req, res) => {
-  res.json(db.get('customFormFields').value() || []);
+// ----------------------------------------------------
+// Custom Form Fields
+// ----------------------------------------------------
+app.get('/api/admin/form-fields', requireAdminAuth, async (req, res) => {
+  const fields = await FormField.find().sort({ createdAt: 1 }).lean();
+  res.json(fields);
 });
-app.get('/api/form-fields', (req, res) => {
-  res.json(db.get('customFormFields').value() || []);
+app.get('/api/form-fields', async (req, res) => {
+  const fields = await FormField.find().sort({ createdAt: 1 }).lean();
+  res.json(fields);
 });
-app.post('/api/admin/form-fields', (req, res) => {
-  const newField = { 
-    id: Date.now().toString(), 
-    title: req.body.title, 
-    type: req.body.type, 
-    required: req.body.required, 
-    options: req.body.options || '' 
-  };
-  db.get('customFormFields').push(newField).write();
+app.post('/api/admin/form-fields', requireAdminAuth, async (req, res) => {
+  const newField = await FormField.create({
+    id: Date.now().toString(),
+    title: req.body.title,
+    type: req.body.type,
+    required: req.body.required,
+    options: req.body.options || ''
+  });
   res.status(201).json(newField);
 });
-app.put('/api/admin/form-fields/:id', (req, res) => {
+app.put('/api/admin/form-fields/:id', requireAdminAuth, async (req, res) => {
   const id = req.params.id;
-  db.get('customFormFields').find({ id }).assign({ 
-    title: req.body.title, 
-    type: req.body.type, 
-    required: req.body.required, 
-    options: req.body.options 
-  }).write();
+  await FormField.findOneAndUpdate(
+    { id },
+    {
+      title: req.body.title,
+      type: req.body.type,
+      required: req.body.required,
+      options: req.body.options
+    }
+  );
   res.json({ success: true });
 });
-app.delete('/api/admin/form-fields/:id', (req, res) => {
+app.delete('/api/admin/form-fields/:id', requireAdminAuth, async (req, res) => {
   const id = req.params.id;
-  db.get('customFormFields').remove({ id }).write();
+  await FormField.findOneAndDelete({ id });
   res.json({ success: true });
 });
 
+// ----------------------------------------------------
+// Admin Authentication (JWT + Bcrypt)
+// ----------------------------------------------------
+app.post('/api/admin/login', async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    if (!username || !password) {
+      return res.status(400).json({ success: false, error: 'Username and password are required' });
+    }
 
-// --- Admin Authentication ---
-app.post('/api/admin/login', (req, res) => {
-  const { username, password } = req.body;
-  // Hardcoded default admin for now (Can be moved to DB later)
-  if (username === 'ahmad' && password === '2004@2003@') {
-    // Generate a simple token (In production, use JWT)
-    const token = 'admin_auth_token_' + Date.now();
-    res.json({ success: true, token, user: { name: 'Admin', role: 'Principal' } });
-  } else {
-    res.status(401).json({ success: false, error: 'Invalid username or password' });
+    const cleanUser = username.toLowerCase().trim();
+    const user = await User.findOne({ username: cleanUser });
+    if (!user) {
+      return res.status(401).json({ success: false, error: 'Invalid username or password' });
+    }
+
+    const isMatch = await user.comparePassword(password);
+    if (!isMatch) {
+      return res.status(401).json({ success: false, error: 'Invalid username or password' });
+    }
+
+    const secret = process.env.JWT_SECRET || 'jamia_sher_e_rabbani_secure_jwt_token_secret_key_2026_987654';
+    const token = jwt.sign(
+      { id: user._id, username: user.username, role: user.role, name: user.name },
+      secret,
+      { expiresIn: '7d' }
+    );
+
+    res.json({
+      success: true,
+      token,
+      user: { name: user.name, role: user.role, username: user.username }
+    });
+  } catch (err) {
+    console.error('Login error:', err);
+    res.status(500).json({ success: false, error: 'Internal server error during login' });
   }
 });
 
-
-// --- Expenses Management ---
-app.get('/api/admin/expenses', (req, res) => {
-  res.json(db.get('expenses').value() || []);
+app.get('/api/admin/me', requireAdminAuth, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select('-password').lean();
+    if (user) {
+      res.json({ success: true, user });
+    } else {
+      res.status(404).json({ success: false, error: 'User not found' });
+    }
+  } catch (err) {
+    res.status(500).json({ success: false, error: 'Server error' });
+  }
 });
-app.post('/api/admin/expenses', (req, res) => {
-  const newExpense = { 
-    id: Date.now().toString(), 
+
+app.post('/api/admin/change-password', requireAdminAuth, async (req, res) => {
+  try {
+    const { currentPassword, newPassword } = req.body;
+    if (!currentPassword || !newPassword) {
+      return res.status(400).json({ success: false, error: 'Current password and new password are required' });
+    }
+    if (newPassword.length < 6) {
+      return res.status(400).json({ success: false, error: 'New password must be at least 6 characters long' });
+    }
+
+    const user = await User.findById(req.user.id);
+    if (!user) {
+      return res.status(404).json({ success: false, error: 'User not found' });
+    }
+
+    const isMatch = await user.comparePassword(currentPassword);
+    if (!isMatch) {
+      return res.status(400).json({ success: false, error: 'Current password does not match' });
+    }
+
+    user.password = await bcrypt.hash(newPassword, 10);
+    await user.save();
+    res.json({ success: true, message: 'Password changed successfully!' });
+  } catch (err) {
+    res.status(500).json({ success: false, error: 'Failed to change password' });
+  }
+});
+
+// ----------------------------------------------------
+// Expenses Management
+// ----------------------------------------------------
+app.get('/api/admin/expenses', requireAdminAuth, async (req, res) => {
+  const expenses = await Expense.find().sort({ createdAt: -1 }).lean();
+  res.json(expenses);
+});
+
+app.post('/api/admin/expenses', requireAdminAuth, async (req, res) => {
+  const newExpense = await Expense.create({
+    id: Date.now().toString(),
     ...req.body,
     dateCreated: new Date().toISOString()
-  };
-  if (!db.get('expenses').value()) db.set('expenses', []).write();
-  db.get('expenses').push(newExpense).write();
+  });
   res.status(201).json(newExpense);
 });
-app.put('/api/admin/expenses/:id', (req, res) => {
+
+app.put('/api/admin/expenses/:id', requireAdminAuth, async (req, res) => {
   const id = req.params.id;
-  db.get('expenses').find({ id }).assign({ ...req.body }).write();
-  res.json({ success: true });
-});
-app.delete('/api/admin/expenses/:id', (req, res) => {
-  const id = req.params.id;
-  db.get('expenses').remove({ id }).write();
+  await Expense.findOneAndUpdate({ id }, req.body);
   res.json({ success: true });
 });
 
+app.delete('/api/admin/expenses/:id', requireAdminAuth, async (req, res) => {
+  const id = req.params.id;
+  await Expense.findOneAndDelete({ id });
+  res.json({ success: true });
+});
 
-// --- Public Student Search (For Roll Number Slips) ---
-app.post('/api/public/student-search', (req, res) => {
+// ----------------------------------------------------
+// Public Student Search (For Roll Number Slips)
+// ----------------------------------------------------
+app.post('/api/public/student-search', async (req, res) => {
   const { query } = req.body;
   if (!query) return res.status(400).json({ error: 'Query is required' });
-  
-  const students = db.get('students').value() || [];
-  const student = students.find(s => 
-    (s.rollNo && s.rollNo.toLowerCase() === query.toLowerCase()) || 
-    (s.cnic && s.cnic.replace(/-/g, '') === query.replace(/-/g, ''))
-  );
-  
+
+  const cleanQuery = query.trim();
+  const student = await Student.findOne({
+    $or: [
+      { rollNo: { $regex: new RegExp(`^${cleanQuery}$`, 'i') } },
+      { cnic: cleanQuery },
+      { cnic: cleanQuery.replace(/-/g, '') }
+    ]
+  }).lean();
+
   if (student) {
-    // Only return safe public info for slip
     res.json({
       rollNo: student.rollNo,
       studentName: student.studentName,
@@ -1277,5 +1478,5 @@ app.post('/api/public/student-search', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`Server is running securely on port ${PORT}`);
 });

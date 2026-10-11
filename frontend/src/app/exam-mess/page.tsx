@@ -2,9 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { User, Phone, CheckCircle, Download, FileText, ArrowLeft, Loader2, Landmark } from 'lucide-react';
+import { User, Phone, CheckCircle, Download, FileText, ArrowLeft, Loader2, Landmark, Smartphone, Clock } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
+import OnlinePaymentModal from '@/components/OnlinePaymentModal';
 
 interface Config {
   fee: number;
@@ -15,6 +16,9 @@ interface BankConfig {
   bankName: string;
   accountTitle: string;
   accountNumber: string;
+  meezan?: any;
+  jazzcash?: any;
+  nayapay?: any;
 }
 
 export default function ExamMessPage() {
@@ -23,6 +27,8 @@ export default function ExamMessPage() {
   const [formData, setFormData] = useState({ studentName: '', fatherName: '', phone: '' });
   const [loading, setLoading] = useState(false);
   const [generatedChallan, setGeneratedChallan] = useState<any>(null);
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [challanStatus, setChallanStatus] = useState('Unpaid');
 
   useEffect(() => {
     // Set a timeout to prevent infinite loading if backend is asleep
@@ -32,18 +38,18 @@ export default function ExamMessPage() {
 
     Promise.all([
       fetch('/api/exam-mess/config').then(res => res.json()),
-      fetch('/api/bank-config').then(res => res.json())
+      fetch('/api/payment-accounts').then(res => res.json()).catch(() => fetch('/api/bank-config').then(res => res.json()))
     ])
       .then(([configData, bankData]) => {
         clearTimeout(timeout);
         setConfig(configData || { fee: 3000, examName: 'Salana Imtihaan 2026' });
-        setBankConfig(bankData || { bankName: 'Meezan Bank', accountTitle: 'Jamia Account', accountNumber: '123456789' });
+        setBankConfig(bankData || { bankName: 'Meezan Bank', accountTitle: 'Muhammad Ahmad', accountNumber: '98690112101313' });
       })
       .catch(err => {
         console.error(err);
         clearTimeout(timeout);
         setConfig({ fee: 3000, examName: 'Salana Imtihaan 2026' });
-        setBankConfig({ bankName: 'Meezan Bank', accountTitle: 'Jamia Account', accountNumber: '123456789' });
+        setBankConfig({ bankName: 'Meezan Bank', accountTitle: 'Muhammad Ahmad', accountNumber: '98690112101313' });
       });
       
     return () => clearTimeout(timeout);
@@ -198,10 +204,22 @@ export default function ExamMessPage() {
                   </div>
                   <h2 className="text-2xl font-black text-slate-900 uppercase tracking-widest">Jamia Sher-e-Rabbani</h2>
                   <p className="text-sm font-bold text-slate-500 mt-1 uppercase tracking-widest">Imtihaani Qayam-o-Ta'am</p>
-                  <div className="mt-4 inline-block bg-slate-900 text-white px-6 py-2 rounded-full">
+                  <div className="mt-4 inline-flex items-center gap-2 bg-slate-900 text-white px-6 py-2 rounded-full">
                     <span className="text-xs font-black uppercase tracking-widest">Challan No: </span>
                     <span className="text-lg font-black tracking-wider">{generatedChallan.challanNo}</span>
                   </div>
+
+                  {challanStatus === 'Paid' && (
+                    <div className="mt-3 inline-block bg-emerald-100 text-emerald-800 border border-emerald-300 px-4 py-1 rounded-full text-xs font-black uppercase tracking-widest">
+                      ★ PAID ★ Fee Confirmed
+                    </div>
+                  )}
+
+                  {challanStatus === 'Pending Verification' && (
+                    <div className="mt-3 inline-flex items-center gap-1.5 bg-amber-100 text-amber-800 border border-amber-300 px-4 py-1 rounded-full text-xs font-black uppercase tracking-widest">
+                      <Clock size={14} /> Verification Pending
+                    </div>
+                  )}
                 </div>
 
                 <div className="grid grid-cols-2 gap-8 mb-8">
@@ -218,22 +236,27 @@ export default function ExamMessPage() {
                   </div>
                 </div>
 
-                <div className="bg-blue-50/50 p-6 rounded-xl border border-blue-100 mb-8">
-                  <div className="text-xs font-black uppercase tracking-widest text-blue-800 mb-4 flex items-center gap-2">
-                    <Landmark size={16} /> Bank Details for Payment
+                {/* 3 Payment Accounts Grid */}
+                <div className="bg-slate-50 p-5 rounded-xl border border-slate-200 mb-8">
+                  <div className="text-xs font-black uppercase tracking-widest text-slate-800 mb-3 flex items-center justify-between">
+                    <span className="flex items-center gap-2"><Landmark size={16} className="text-blue-600" /> Official Accounts for Payment</span>
+                    <span className="text-[10px] text-slate-500 font-bold uppercase">Muhammad Ahmad</span>
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div>
-                      <div className="text-[10px] font-bold text-blue-600 uppercase tracking-widest mb-1">Bank Name</div>
-                      <div className="text-sm font-black text-slate-800">Meezan Bank</div>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                    <div className="bg-white p-3 rounded-lg border border-slate-200">
+                      <div className="text-[10px] font-bold text-indigo-600 uppercase tracking-widest mb-1">Meezan Bank</div>
+                      <div className="font-mono font-black text-slate-900 tracking-wider">98690112101313</div>
+                      <div className="text-[10px] text-slate-500 mt-0.5">Title: Muhammad Ahmad</div>
                     </div>
-                    <div>
-                      <div className="text-[10px] font-bold text-blue-600 uppercase tracking-widest mb-1">Account Title</div>
-                      <div className="text-sm font-black text-slate-800">MUHAMMAD AHMAD</div>
+                    <div className="bg-white p-3 rounded-lg border border-slate-200">
+                      <div className="text-[10px] font-bold text-rose-600 uppercase tracking-widest mb-1">JazzCash</div>
+                      <div className="font-mono font-black text-slate-900 tracking-wider">03284381312</div>
+                      <div className="text-[10px] text-slate-500 mt-0.5">Title: Muhammad Ahmad</div>
                     </div>
-                    <div>
-                      <div className="text-[10px] font-bold text-blue-600 uppercase tracking-widest mb-1">Account Number</div>
-                      <div className="text-sm font-black text-slate-800 tracking-wider">98690112101313</div>
+                    <div className="bg-white p-3 rounded-lg border border-slate-200">
+                      <div className="text-[10px] font-bold text-emerald-600 uppercase tracking-widest mb-1">NayaPay / Raast</div>
+                      <div className="font-mono font-black text-slate-900 tracking-wider">03164415465</div>
+                      <div className="text-[10px] text-emerald-600 font-bold mt-0.5">Instant • 0% Charges</div>
                     </div>
                   </div>
                 </div>
@@ -263,20 +286,27 @@ export default function ExamMessPage() {
 
                 <div className="flex items-center gap-3 bg-amber-50 text-amber-800 p-4 rounded-xl border border-amber-200 mb-8 print:border-none print:bg-transparent print:p-0">
                   <CheckCircle size={24} className="shrink-0" />
-                  <p className="text-sm font-bold">Baraye meharbani ye zar-e-ta'awun due date se pehle bank mein jama karwayen taake apka qayam-o-ta'am confirm ho sakay. JazakAllah!</p>
+                  <p className="text-sm font-bold">Baraye meharbani ye zar-e-ta'awun due date se pehle JazzCash, NayaPay ya Meezan Bank mein jama karwa kar online submit karein. JazakAllah!</p>
                 </div>
               </div>
 
-                <div className="p-8 bg-slate-50 border-t border-slate-200 flex gap-4 print:hidden">
+                <div className="p-8 bg-slate-50 border-t border-slate-200 flex flex-wrap gap-4 print:hidden">
+                  <button 
+                    type="button"
+                    onClick={() => setShowPaymentModal(true)}
+                    className="flex-1 min-w-[200px] py-4 bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white rounded-xl font-black uppercase tracking-widest text-sm transition-all flex items-center justify-center gap-2 shadow-lg shadow-emerald-700/20"
+                  >
+                    <Smartphone size={18} /> {challanStatus === 'Paid' ? 'Fee Paid / ادا شدہ' : 'Pay Online / موبائل سے ادا کریں'}
+                  </button>
                   <button 
                     onClick={() => window.print()}
-                    className="flex-1 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-black uppercase tracking-widest text-sm transition-colors flex items-center justify-center gap-2"
+                    className="flex-1 min-w-[180px] py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-black uppercase tracking-widest text-sm transition-colors flex items-center justify-center gap-2"
                   >
                     <Download size={18} /> Print / Save PDF
                   </button>
                   <button 
-                    onClick={() => setGeneratedChallan(null)}
-                    className="py-4 px-8 bg-slate-200 hover:bg-slate-300 text-slate-800 rounded-xl font-black uppercase tracking-widest text-sm transition-colors"
+                    onClick={() => { setGeneratedChallan(null); setChallanStatus('Unpaid'); }}
+                    className="py-4 px-6 bg-slate-200 hover:bg-slate-300 text-slate-800 rounded-xl font-black uppercase tracking-widest text-sm transition-colors"
                   >
                     Apply Another
                   </button>
@@ -284,6 +314,20 @@ export default function ExamMessPage() {
             </motion.div>
           )}
         </AnimatePresence>
+
+        {generatedChallan && (
+          <OnlinePaymentModal 
+            isOpen={showPaymentModal}
+            onClose={() => setShowPaymentModal(false)}
+            challanNo={generatedChallan.challanNo}
+            studentName={generatedChallan.studentName}
+            amount={config?.fee || 3000}
+            initialStatus={challanStatus}
+            onPaymentSuccess={(updated) => {
+              if (updated?.status) setChallanStatus(updated.status);
+            }}
+          />
+        )}
       </div>
     </div>
   );

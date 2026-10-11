@@ -1,0 +1,10 @@
+export * from './types';
+export { default as OverviewModule } from './OverviewModule';
+export * from './AdmissionsModule';
+export { default as StudentsModule } from './StudentsModule';
+export { default as FacultyModule } from './FacultyModule';
+export { default as CoursesModule } from './CoursesModule';
+export { default as FeesChallansModule } from './FeesChallansModule';
+export * from './InternshipsModule';
+export * from './ReportsModule';
+export * from './ExamMessModule';
