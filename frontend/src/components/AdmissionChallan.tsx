@@ -1,11 +1,12 @@
 'use client';
 
 import React from 'react';
-import { Printer, Download, ArrowLeft, CheckCircle2, Smartphone, ShieldCheck, Clock } from 'lucide-react';
+import { Printer, Download, ArrowLeft, CheckCircle2, Smartphone, ShieldCheck, Clock, Share2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import OnlinePaymentModal from '@/components/OnlinePaymentModal';
+import AdmissionReceiptModal from '@/components/AdmissionReceiptModal';
 
 interface ChallanProps {
   data: {
@@ -39,6 +40,7 @@ export default function AdmissionChallan({ data, onBack }: ChallanProps) {
   const [printMode, setPrintMode] = React.useState<'all' | 'challan' | 'form'>('all');
   const [bankConfig, setBankConfig] = React.useState<any>({ bankName: '', accountTitle: '', accountNumber: '' });
   const [showPaymentModal, setShowPaymentModal] = React.useState(false);
+  const [showReceiptModal, setShowReceiptModal] = React.useState(false);
   const [challanStatus, setChallanStatus] = React.useState<string>('Unpaid');
 
   React.useEffect(() => {
@@ -257,6 +259,14 @@ export default function AdmissionChallan({ data, onBack }: ChallanProps) {
           </button>
 
           <button 
+            type="button"
+            onClick={() => setShowReceiptModal(true)}
+            className="flex items-center gap-2 px-5 py-3 bg-purple-700 hover:bg-purple-800 text-white font-bold text-sm transition-colors shadow-md rounded-sm"
+          >
+            <Share2 size={16} /> Receipt & WhatsApp / رسید
+          </button>
+
+          <button 
             onClick={() => { window.print(); }}
             className="flex items-center gap-2 px-6 py-3 bg-blue-700 text-white font-semibold text-sm transition-colors hover:bg-blue-800"
           >
@@ -293,6 +303,23 @@ export default function AdmissionChallan({ data, onBack }: ChallanProps) {
           if (updated?.status) setChallanStatus(updated.status);
         }}
       />
+
+      {showReceiptModal && (
+        <AdmissionReceiptModal
+          data={{
+            studentName: data.studentName,
+            fatherName: data.fatherName,
+            applicationNo: data.applicationNo,
+            challanNo: data.challanNo,
+            classProgram: data.classProgram,
+            sectionType: data.sectionType,
+            mobile: data.mobile,
+            fees: data.fees,
+            date: data.date
+          }}
+          onClose={() => setShowReceiptModal(false)}
+        />
+      )}
       
       <style jsx global>{`
         @media print {

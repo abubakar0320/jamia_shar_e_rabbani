@@ -1486,6 +1486,140 @@ app.post('/api/public/student-search', async (req, res) => {
   }
 });
 
+// ----------------------------------------------------
+// Public Live Application Status Tracker
+// ----------------------------------------------------
+app.post('/api/public/track-application', async (req, res) => {
+  try {
+    const { query } = req.body;
+    if (!query || !query.trim()) {
+      return res.status(400).json({ error: 'Application number, CNIC, or Mobile number is required' });
+    }
+
+    const clean = query.trim();
+    const cleanDigits = clean.replace(/[^0-9]/g, '');
+
+    // Search Admissions
+    const admission = await Admission.findOne({
+      $or: [
+        { applicationNo: { $regex: new RegExp(`^${clean}$`, 'i') } },
+        { challanNo: { $regex: new RegExp(`^${clean}$`, 'i') } },
+        { cnic: clean },
+        { cnic: cleanDigits },
+        { mobile: clean },
+        { mobile: cleanDigits }
+      ]
+    }).lean();
+
+    if (!admission) {
+      // Check Internship if applicable
+      const internship = await Internship.findOne({
+        $or: [
+          { applicationNo: { $regex: new RegExp(`^${clean}$`, 'i') } },
+          { phone: clean },
+          { phone: cleanDigits }
+        ]
+      }).lean();
+
+      if (internship) {
+        return res.json({
+          type: 'internship',
+          applicationNo: internship.applicationNo,
+          studentName: internship.fullName,
+          fatherName: internship.fatherName || 'N/A',
+          program: internship.fieldOfInterest,
+          institution: internship.institution,
+          date: internship.date,
+          status: internship.status || 'Pending',
+          timeline: [
+            { step: 1, title: 'Application Submitted', desc: 'Internship form submitted', completed: true, date: internship.date },
+            { step: 2, title: 'Profile Review', desc: 'Department evaluation', completed: internship.status === 'Approved', status: internship.status || 'Under Review' },
+            { step: 3, title: 'Selection Decision', desc: internship.status === 'Approved' ? 'Selected for internship' : 'Pending', completed: internship.status === 'Approved', status: internship.status || 'Pending' }
+          ]
+        });
+      }
+
+      return res.status(404).json({ error: 'No application found with the provided details. Please verify your Application No, CNIC, or Mobile.' });
+    }
+
+    // Look up associated Challan
+    const challan = await Challan.findOne({ challanNo: admission.challanNo }).lean();
+
+    // Look up enrolled Student if approved
+    const student = await Student.findOne({
+      $or: [
+        { applicationNo: admission.applicationNo },
+        { cnic: admission.cnic },
+        { rollNo: admission.applicationNo }
+      ]
+    }).lean();
+
+    const currentStatus = admission.status || 'Pending';
+    const feeStatus = challan?.status || (currentStatus === 'Approved' ? 'Paid' : 'Unpaid');
+
+    const totalFee = challan?.totalAmount || 
+                     ((admission.fees?.admissionFee || 2000) + (admission.fees?.registrationFee || 1000) + (admission.fees?.totalLateFee || 0));
+
+    res.json({
+      type: 'admission',
+      applicationNo: admission.applicationNo,
+      challanNo: admission.challanNo,
+      studentName: admission.studentName,
+      fatherName: admission.fatherName,
+      cnic: admission.cnic,
+      mobile: admission.mobile,
+      classProgram: admission.classProgram,
+      sectionType: admission.sectionType,
+      session: admission.fees?.session || '2026-27',
+      date: admission.date,
+      status: currentStatus,
+      rejectionReason: admission.rejectionReason || null,
+      rollNo: student?.rollNo || null,
+      studentId: student?.studentId || null,
+      fees: {
+        totalAmount: totalFee,
+        status: feeStatus,
+        transactionId: challan?.transactionId || null,
+        paymentMethod: challan?.paymentMethod || null,
+        paidDate: challan?.paymentDate || challan?.verifiedAt || null
+      },
+      timeline: [
+        {
+          step: 1,
+          title: 'Form Submitted',
+          desc: 'Online application submitted successfully.',
+          completed: true,
+          date: admission.date
+        },
+        {
+          step: 2,
+          title: 'Document Review',
+          desc: 'Academic records & identity verification.',
+          completed: currentStatus === 'Approved' || currentStatus === 'Under Review',
+          status: currentStatus === 'Rejected' ? 'Rejected' : (currentStatus === 'Approved' ? 'Verified' : 'In Review')
+        },
+        {
+          step: 3,
+          title: 'Fee Payment',
+          desc: feeStatus === 'Paid' ? 'Payment verified & cleared' : (feeStatus === 'Pending Verification' ? 'TID submitted - verification in progress' : 'Awaiting payment verification'),
+          completed: feeStatus === 'Paid',
+          status: feeStatus
+        },
+        {
+          step: 4,
+          title: 'Admission Confirmation',
+          desc: currentStatus === 'Approved' ? `Approved! Official Roll No: ${student?.rollNo || 'Issued'}` : (currentStatus === 'Rejected' ? 'Application Rejected' : 'Final enrollment pending fee verification'),
+          completed: currentStatus === 'Approved',
+          status: currentStatus
+        }
+      ]
+    });
+  } catch (err) {
+    console.error('Track application error:', err);
+    res.status(500).json({ error: 'Server error while tracking application' });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running securely on port ${PORT}`);
 });

@@ -12,7 +12,8 @@ import {
   CheckCircle2,
   Phone,
   Mail,
-  Award
+  Award,
+  Search,
 } from 'lucide-react';
 import React, { useState, useEffect, Suspense } from 'react';
 import { motion } from 'framer-motion';
@@ -81,6 +82,17 @@ export default function Admissions() {
                    <div className="flex items-center gap-2 text-indigo-700 text-sm font-bold bg-indigo-50 border border-indigo-100 rounded-full shadow-sm px-6 py-3">
                       <FileText size={18} className="text-indigo-500" /> {t("Digital Document Review")}
                    </div>
+                </div>
+                <div className="mt-8 pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-center gap-3">
+                  <span className="text-slate-600 text-sm font-medium">{t("Already applied for admission?")}</span>
+                  <a
+                    href="/admissions/status"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm shadow-md transition-all hover:scale-105"
+                  >
+                    <Search size={15} className="text-emerald-400" />
+                    <span>{t("Track Application Status")} / درخواست کا اسٹیٹس چیک کریں</span>
+                    <span className="text-emerald-400 font-bold ml-1">➔</span>
+                  </a>
                 </div>
               </motion.div>
             </div>
