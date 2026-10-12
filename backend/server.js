@@ -55,6 +55,7 @@ const User = require('./models/User');
 // --- Auth Middleware & Uploads ---
 const { requireAdminAuth } = require('./middleware/auth');
 const { upload, saveBase64ToFile } = require('./middleware/upload');
+const backupService = require('./services/backupService');
 
 // ----------------------------------------------------
 // File Upload Routes (Multer Multipart)
@@ -93,6 +94,7 @@ mongoose.connect(process.env.MONGODB_URI, {
   serverSelectionTimeoutMS: 10000
 }).then(() => {
   console.log('MongoDB connected successfully with Mongoose Models & Security!');
+  backupService.initScheduledBackups();
 }).catch(err => {
   console.error('MongoDB connection error:', err.message);
 });
@@ -933,26 +935,78 @@ app.get('/api/admin/stats', requireAdminAuth, async (req, res) => {
 
 app.get('/api/admin/backup', requireAdminAuth, async (req, res) => {
   try {
-    const backupData = {
-      courses: await Course.find().lean(),
-      admissions: await Admission.find().lean(),
-      students: await Student.find().lean(),
-      challans: await Challan.find().lean(),
-      faculty: await Faculty.find().lean(),
-      feeStructures: await FeeStructure.find().lean(),
-      expenses: await Expense.find().lean(),
-      internshipCertificates: await InternshipCertificate.find().lean(),
-      internships: await Internship.find().lean(),
-      donations: await Donation.find().lean(),
-      customFormFields: await FormField.find().lean(),
-      admissionRequirements: await AdmissionRequirement.find().lean(),
-      systemSettings: await SystemSetting.find().lean()
-    };
+    const backupObj = await backupService.generateBackupData();
     res.setHeader('Content-Disposition', `attachment; filename="jamia_backup_${new Date().toISOString().split('T')[0]}.json"`);
     res.setHeader('Content-Type', 'application/json');
-    res.send(JSON.stringify(backupData, null, 2));
+    res.send(JSON.stringify(backupObj, null, 2));
   } catch (err) {
-    res.status(500).json({ error: 'Failed to generate JSON backup' });
+    res.status(500).json({ error: 'Failed to generate JSON backup: ' + err.message });
+  }
+});
+
+// List Stored Server Snapshots
+app.get('/api/admin/backups/list', requireAdminAuth, (req, res) => {
+  try {
+    const snapshotInfo = backupService.listSnapshots();
+    res.json(snapshotInfo);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to list snapshots: ' + err.message });
+  }
+});
+
+// Trigger Instant Manual Snapshot
+app.post('/api/admin/backups/create', requireAdminAuth, async (req, res) => {
+  try {
+    const result = await backupService.createSnapshotFile('jamia_backup_manual');
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to create snapshot: ' + err.message });
+  }
+});
+
+// Download a Specific Stored Snapshot
+app.get('/api/admin/backups/download/:filename', requireAdminAuth, (req, res) => {
+  try {
+    const filename = path.basename(req.params.filename);
+    const filePath = path.join(backupService.BACKUPS_DIR, filename);
+    if (!fs.existsSync(filePath)) {
+      return res.status(404).json({ error: 'Backup snapshot not found' });
+    }
+    res.download(filePath, filename);
+  } catch (err) {
+    res.status(500).json({ error: 'Download failed: ' + err.message });
+  }
+});
+
+// Safe Database Restore (Disaster Recovery with Pre-restore safety snapshot)
+app.post('/api/admin/restore', requireAdminAuth, async (req, res) => {
+  try {
+    const { mode = 'replace', snapshotFilename, data } = req.body;
+    let payload = data;
+
+    if (!payload && snapshotFilename) {
+      const filename = path.basename(snapshotFilename);
+      const filePath = path.join(backupService.BACKUPS_DIR, filename);
+      if (!fs.existsSync(filePath)) {
+        return res.status(404).json({ error: 'Selected snapshot file does not exist' });
+      }
+      const rawText = fs.readFileSync(filePath, 'utf8');
+      payload = JSON.parse(rawText);
+    }
+
+    if (!payload || typeof payload !== 'object') {
+      return res.status(400).json({ error: 'Invalid backup payload or snapshot file' });
+    }
+
+    const restoreSummary = await backupService.restoreData(payload, mode);
+    res.json({
+      success: true,
+      message: 'Database restored successfully!',
+      ...restoreSummary
+    });
+  } catch (err) {
+    console.error('[Restore Error]', err);
+    res.status(500).json({ error: 'Database restore failed: ' + err.message });
   }
 });
 

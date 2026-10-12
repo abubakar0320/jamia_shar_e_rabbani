@@ -8,13 +8,14 @@ import {
   LayoutDashboard, BookOpen, Users, LogOut, FileText, Award, Heart, 
   Menu, X, RefreshCcw, Bell, ArrowUpRight, DollarSign, Wallet, Landmark,
   BarChart2, GraduationCap, FileCheck, Download, Settings, Lock, Megaphone,
-  Library, Globe, Image as ImageIcon, Folder, Shield, Languages
+  Library, Globe, Image as ImageIcon, Folder, Shield, Languages, Database
 } from 'lucide-react';
 
 import AdminGuard from '@/components/admin/AdminGuard';
 import AdmissionFormBuilderModule from '@/components/admin/AdmissionFormBuilderModule';
 import ExpenseManagementModule from '@/components/admin/ExpenseManagementModule';
 import FeeManagementModule from '@/components/admin/FeeManagementModule';
+import DataBackupModal from '@/components/admin/DataBackupModal';
 
 import {
   Admission,
@@ -88,6 +89,7 @@ export default function AdminDashboard() {
     visitorsToday: 0
   });
   const [analyticsData, setAnalyticsData] = useState<Record<string, number>>({});
+  const [showBackupModal, setShowBackupModal] = useState(false);
   const [messApps, setMessApps] = useState<any[]>([]);
   const [admissions, setAdmissions] = useState<Admission[]>([]);
   const [internships, setInternships] = useState<InternshipApplication[]>([]);
@@ -404,6 +406,14 @@ export default function AdminDashboard() {
               </button>
             </div>
             <div className="flex items-center gap-4">
+              <button
+                type="button"
+                onClick={() => setShowBackupModal(true)}
+                className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 text-xs font-bold transition-all shadow-sm"
+              >
+                <Database size={15} />
+                <span>Backup & Recovery</span>
+              </button>
               <a href="/api/admin/backup" download className="flex items-center gap-2 text-sm font-semibold text-emerald-600 hover:text-emerald-700 transition-colors">
                 <Download size={16} />
                 JSON
@@ -465,6 +475,10 @@ export default function AdminDashboard() {
             .custom-scrollbar { overflow: visible !important; }
           }
         `}</style>
+        <DataBackupModal
+          isOpen={showBackupModal}
+          onClose={() => setShowBackupModal(false)}
+        />
       </div>
     </AdminGuard>
   );

@@ -10,3 +10,5 @@ coverage/
 *.backup.*
 backend/uploads/*
 !backend/uploads/**/.gitkeep
+backend/backups/*
+!backend/backups/**/.gitkeep
