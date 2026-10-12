@@ -10,6 +10,8 @@ const cloudinary = require('cloudinary').v2;
 const xlsx = require('xlsx');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+const helmet = require('helmet');
+const { apiLimiter, authLimiter, submissionLimiter, sanitizeInput } = require('./middleware/rateLimiter');
 
 // Cloudinary Setup
 cloudinary.config({
@@ -21,10 +23,17 @@ cloudinary.config({
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// Security Middlewares
+app.use(helmet({
+  crossOriginResourcePolicy: { policy: "cross-origin" },
+  contentSecurityPolicy: false
+}));
 app.use(cors());
 app.use(express.json({ limit: "20mb" }));
 app.use(express.urlencoded({ limit: "20mb", extended: true }));
+app.use(sanitizeInput);
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/api', apiLimiter);
 
 // --- Mongoose Models ---
 const Course = require('./models/Course');
@@ -272,7 +281,7 @@ app.post('/api/admin/bank-config', requireAdminAuth, async (req, res) => {
 // ----------------------------------------------------
 // Admissions Routes
 // ----------------------------------------------------
-app.post('/api/admissions', async (req, res) => {
+app.post('/api/admissions', submissionLimiter, async (req, res) => {
   try {
     const feeConfig = await getSetting('feeConfig', { admissionFee: 2000, registrationFee: 1000, session: "2026-27" });
     const feeStructures = await FeeStructure.find().lean();
@@ -633,7 +642,7 @@ app.delete('/api/admin/challans/:id', requireAdminAuth, async (req, res) => {
 });
 
 // --- Public Submit Payment via JazzCash / NayaPay / Meezan ---
-app.post('/api/public/submit-challan-payment', async (req, res) => {
+app.post('/api/public/submit-challan-payment', submissionLimiter, async (req, res) => {
   try {
     const { challanNo, paymentMethod, transactionId, senderPhone, receiptImage } = req.body;
     if (!challanNo || !paymentMethod || !transactionId) {
@@ -1112,7 +1121,7 @@ app.post('/api/admin/migrate-images-to-disk', requireAdminAuth, async (req, res)
 // ----------------------------------------------------
 // Internships Routes
 // ----------------------------------------------------
-app.post('/api/internships', async (req, res) => {
+app.post('/api/internships', submissionLimiter, async (req, res) => {
   try {
     const newInternship = await Internship.create({
       id: Date.now(),
@@ -1341,7 +1350,7 @@ app.delete('/api/admin/form-fields/:id', requireAdminAuth, async (req, res) => {
 // ----------------------------------------------------
 // Admin Authentication (JWT + Bcrypt)
 // ----------------------------------------------------
-app.post('/api/admin/login', async (req, res) => {
+app.post('/api/admin/login', authLimiter, async (req, res) => {
   try {
     const { username, password } = req.body;
     if (!username || !password) {
