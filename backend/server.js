@@ -580,7 +580,7 @@ app.post('/api/admissions', submissionLimiter, async (req, res) => {
     if (totalAmount > 0) {
       await Challan.create({
         id: Date.now() + 2,
-        challanNo: `CHL-${Math.floor(100000 + Math.random() * 900000)}`,
+        challanNo: newAdmission.challanNo,
         studentId: studentRecord.studentId,
         rollNo: studentRecord.rollNo,
         studentName: studentRecord.studentName,
@@ -717,6 +717,65 @@ app.delete('/api/admin/challans/:id', requireAdminAuth, async (req, res) => {
   res.json({ success: true });
 });
 
+// Robust Helper: Look up Challan by challanNo, with fallback to Admission records
+async function findChallanByNo(rawChallanNo) {
+  if (!rawChallanNo) return null;
+  const cleanNo = String(rawChallanNo).trim();
+
+  // 1. Direct or case-insensitive search in Challans collection
+  let challan = await Challan.findOne({
+    $or: [
+      { challanNo: cleanNo },
+      { challanNo: new RegExp(`^${cleanNo}$`, 'i') }
+    ]
+  });
+  if (challan) return challan;
+
+  // 2. Fallback search via Admissions collection (by challanNo or applicationNo)
+  const admission = await Admission.findOne({
+    $or: [
+      { challanNo: cleanNo },
+      { challanNo: new RegExp(`^${cleanNo}$`, 'i') },
+      { applicationNo: cleanNo },
+      { applicationNo: new RegExp(`^${cleanNo}$`, 'i') }
+    ]
+  });
+
+  if (admission) {
+    // Check if Challan was previously recorded with student info
+    challan = await Challan.findOne({
+      studentName: admission.studentName,
+      fatherName: admission.fatherName
+    }).sort({ createdAt: -1 });
+
+    if (challan) {
+      challan.challanNo = admission.challanNo;
+      await challan.save();
+      return challan;
+    }
+
+    // Auto-create Challan if none existed
+    const totalFee = admission.fees?.totalFee || ((admission.fees?.admissionFee || 0) + (admission.fees?.registrationFee || 0) + (admission.fees?.totalLateFee || 0));
+    challan = await Challan.create({
+      id: Date.now(),
+      challanNo: admission.challanNo,
+      studentName: admission.studentName,
+      fatherName: admission.fatherName,
+      classProgram: admission.classProgram,
+      session: admission.fees?.session || "2026-27",
+      feeDetails: [{ type: 'Admission Fee', amount: totalFee }],
+      totalAmount: totalFee,
+      issueDate: new Date().toISOString().split('T')[0],
+      dueDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+      status: 'Unpaid',
+      paidAmount: 0
+    });
+    return challan;
+  }
+
+  return null;
+}
+
 // --- Public Submit Payment via JazzCash / NayaPay / Meezan ---
 app.post('/api/public/submit-challan-payment', submissionLimiter, async (req, res) => {
   try {
@@ -725,7 +784,7 @@ app.post('/api/public/submit-challan-payment', submissionLimiter, async (req, re
       return res.status(400).json({ error: 'Challan number, payment method, and Transaction ID (TID) are required.' });
     }
 
-    const challan = await Challan.findOne({ challanNo });
+    const challan = await findChallanByNo(challanNo);
     if (!challan) {
       return res.status(404).json({ error: 'Challan not found. Please verify challan number.' });
     }
@@ -823,11 +882,16 @@ app.post('/api/admin/verify-challan-payment/:id', requireAdminAuth, async (req, 
 
 // --- Public Challan Status Check ---
 app.get('/api/public/challan-status/:challanNo', async (req, res) => {
-  const challan = await Challan.findOne({ challanNo: req.params.challanNo }).lean();
-  if (challan) {
-    res.json(challan);
-  } else {
-    res.status(404).json({ error: 'Challan not found' });
+  try {
+    const challan = await findChallanByNo(req.params.challanNo);
+    if (challan) {
+      res.json(challan);
+    } else {
+      res.status(404).json({ error: 'Challan not found. Please verify challan number.' });
+    }
+  } catch (err) {
+    console.error('Challan status error:', err);
+    res.status(500).json({ error: 'Failed to fetch challan status' });
   }
 });
 
