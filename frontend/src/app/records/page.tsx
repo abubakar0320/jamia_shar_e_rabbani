@@ -37,16 +37,12 @@ interface StudentRecord {
   fatherName: string;
   mobile: string;
   cnic?: string;
+  fatherCnic?: string;
   classProgram: string;
   sectionType: string;
   studentStatus?: string;
   status?: string;
   challanNo?: string;
-  fees?: {
-    totalFee: number;
-    status: string;
-    session?: string;
-  };
   documents?: {
     fileUrl?: string;
     fileName?: string;
@@ -70,7 +66,6 @@ export default function RecordsPortalPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedClass, setSelectedClass] = useState('All');
   const [selectedSection, setSelectedSection] = useState<'All' | 'Tulba' | 'Talibat'>('All');
-  const [feeFilter, setFeeFilter] = useState<'All' | 'Paid' | 'Unpaid'>('All');
 
   // Modals
   const [showAddModal, setShowAddModal] = useState(false);
@@ -78,7 +73,7 @@ export default function RecordsPortalPage() {
   const [showPinModal, setShowPinModal] = useState(false);
   const [previewDoc, setPreviewDoc] = useState<{ url: string; name: string; type?: string } | null>(null);
 
-  // Form states
+  // Form states (No Fee Fields)
   const [formData, setFormData] = useState({
     studentName: '',
     fatherName: '',
@@ -86,8 +81,7 @@ export default function RecordsPortalPage() {
     sectionType: 'Tulba Section',
     mobile: '',
     cnic: '',
-    feeAmount: '3000',
-    feeStatus: 'Unpaid',
+    fatherCnic: '',
     studentStatus: 'Active'
   });
   const [docFile, setDocFile] = useState<{ name: string; data: string; type: string; size: string } | null>(null);
@@ -165,6 +159,7 @@ export default function RecordsPortalPage() {
         (s.rollNo && s.rollNo.toLowerCase().includes(q)) ||
         (s.mobile && s.mobile.includes(q)) ||
         (s.cnic && s.cnic.includes(q)) ||
+        (s.fatherCnic && s.fatherCnic.includes(q)) ||
         (s.studentId && s.studentId.toLowerCase().includes(q));
 
       const matchesClass = selectedClass === 'All' || s.classProgram === selectedClass;
@@ -173,21 +168,18 @@ export default function RecordsPortalPage() {
         (selectedSection === 'Tulba' && s.sectionType?.toLowerCase().includes('tulba')) ||
         (selectedSection === 'Talibat' && s.sectionType?.toLowerCase().includes('talibat'));
 
-      const currentFeeStatus = s.fees?.status || 'Unpaid';
-      const matchesFee = feeFilter === 'All' || currentFeeStatus === feeFilter;
-
-      return matchesSearch && matchesClass && matchesSection && matchesFee;
+      return matchesSearch && matchesClass && matchesSection;
     });
-  }, [students, searchTerm, selectedClass, selectedSection, feeFilter]);
+  }, [students, searchTerm, selectedClass, selectedSection]);
 
   // Stats
   const stats = useMemo(() => {
     const total = students.length;
     const tulba = students.filter(s => s.sectionType?.toLowerCase().includes('tulba')).length;
     const talibat = students.filter(s => s.sectionType?.toLowerCase().includes('talibat')).length;
-    const paid = students.filter(s => s.fees?.status === 'Paid').length;
-    const unpaid = students.filter(s => s.fees?.status !== 'Paid').length;
-    return { total, tulba, talibat, paid, unpaid };
+    const withDocs = students.filter(s => s.documents && (s.documents.fileUrl || s.documents.photo || s.documents.data)).length;
+    const classesCount = new Set(students.map(s => s.classProgram)).size;
+    return { total, tulba, talibat, withDocs, classesCount };
   }, [students]);
 
   // Handle Document / File Selection (Compresses Image to base64)
@@ -273,8 +265,7 @@ export default function RecordsPortalPage() {
         sectionType: formData.sectionType,
         mobile: formData.mobile.trim(),
         cnic: formData.cnic.trim(),
-        feeAmount: formData.feeAmount || '0',
-        feeStatus: formData.feeStatus,
+        fatherCnic: formData.fatherCnic.trim(),
         studentStatus: 'Active',
         status: 'Approved'
       };
@@ -310,8 +301,7 @@ export default function RecordsPortalPage() {
           sectionType: formData.sectionType,
           mobile: '',
           cnic: '',
-          feeAmount: '3000',
-          feeStatus: 'Unpaid',
+          fatherCnic: '',
           studentStatus: 'Active'
         });
         alert(`Mubarak! ${data.student.studentName} ka dakhla kamyabi se save ho gaya.\nRoll No: ${data.student.rollNo}`);
@@ -322,32 +312,6 @@ export default function RecordsPortalPage() {
       alert('Network error: ' + err.message);
     } finally {
       setSubmitting(false);
-    }
-  };
-
-  // Toggle Fee Status (Paid / Unpaid)
-  const toggleFeeStatus = async (student: StudentRecord) => {
-    const newStatus = student.fees?.status === 'Paid' ? 'Unpaid' : 'Paid';
-    const activePin = pin || sessionStorage.getItem('jamia_staff_pin') || '';
-    try {
-      const res = await fetch(`/api/records/students/${student.id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-staff-pin': activePin
-        },
-        body: JSON.stringify({
-          fees: {
-            ...(student.fees || {}),
-            status: newStatus
-          }
-        })
-      });
-      if (res.ok) {
-        setStudents(prev => prev.map(s => s.id === student.id ? { ...s, fees: { ...(s.fees || { totalFee: 3000 }), status: newStatus } } : s));
-      }
-    } catch (err) {
-      alert('Status update failed');
     }
   };
 
@@ -375,18 +339,18 @@ export default function RecordsPortalPage() {
       alert('Koi data mojood nahi hai export karne ke liye.');
       return;
     }
-    const headers = ['Sr', 'Roll No', 'Student ID', 'Student Name', 'Father Name', 'Class', 'Section', 'Mobile', 'CNIC', 'Fee Status', 'Document Attached'];
+    const headers = ['Sr', 'Roll No', 'Student ID', 'Student Name', 'Student CNIC', 'Father Name', 'Father CNIC', 'Class', 'Section', 'Mobile', 'Document Attached'];
     const rows = filteredStudents.map((s, idx) => [
       idx + 1,
       s.rollNo,
       s.studentId,
       s.studentName,
+      s.cnic || 'N/A',
       s.fatherName,
+      s.fatherCnic || 'N/A',
       s.classProgram,
       s.sectionType,
       s.mobile || 'N/A',
-      s.cnic || 'N/A',
-      s.fees?.status || 'Unpaid',
       (s.documents?.fileUrl || s.documents?.photo || s.documents?.data) ? 'Yes' : 'No'
     ]);
     const csvContent = [headers.join(','), ...rows.map(r => r.map(c => `"${String(c).replace(/"/g, '""')}"`).join(','))].join('\n');
@@ -579,8 +543,8 @@ export default function RecordsPortalPage() {
 
       <main className="max-w-7xl mx-auto px-4 py-6 space-y-6">
         
-        {/* Live Counters */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 print:hidden">
+        {/* Live Academic Counters */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 print:hidden">
           <div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
             <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 block mb-1">کل طلباء و طالبات</span>
             <div className="text-2xl md:text-3xl font-black text-slate-900">{stats.total}</div>
@@ -594,12 +558,8 @@ export default function RecordsPortalPage() {
             <div className="text-2xl md:text-3xl font-black text-purple-900">{stats.talibat}</div>
           </div>
           <div className="bg-emerald-50/70 p-4 rounded-2xl border border-emerald-100">
-            <span className="text-[10px] font-black uppercase tracking-widest text-emerald-700 block mb-1">فیس ادا شدہ (Paid)</span>
-            <div className="text-2xl md:text-3xl font-black text-emerald-900">{stats.paid}</div>
-          </div>
-          <div className="bg-rose-50/70 p-4 rounded-2xl border border-rose-100">
-            <span className="text-[10px] font-black uppercase tracking-widest text-rose-700 block mb-1">فیس باقی (Unpaid)</span>
-            <div className="text-2xl md:text-3xl font-black text-rose-900">{stats.unpaid}</div>
+            <span className="text-[10px] font-black uppercase tracking-widest text-emerald-700 block mb-1">دستاویزات منسلک</span>
+            <div className="text-2xl md:text-3xl font-black text-emerald-900">{stats.withDocs}</div>
           </div>
         </div>
 
@@ -683,23 +643,9 @@ export default function RecordsPortalPage() {
             </div>
           </div>
 
-          {/* Quick Filters: Fee Status & Counts */}
-          <div className="flex flex-wrap items-center gap-4 text-xs font-bold pt-2 text-slate-600">
-            <div className="flex items-center gap-1.5">
-              <span className="text-slate-400">فیس فلٹر:</span>
-              <select
-                value={feeFilter}
-                onChange={e => setFeeFilter(e.target.value as any)}
-                className="bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1 text-xs font-semibold focus:outline-none"
-              >
-                <option value="All">سب (All)</option>
-                <option value="Paid">صرف ادا شدہ (Paid)</option>
-                <option value="Unpaid">صرف غیر ادا شدہ (Unpaid)</option>
-              </select>
-            </div>
-
-            <span className="ml-auto text-[11px] font-black text-slate-400">
-              نمایاں ریکارڈز: <span className="text-slate-800">{filteredStudents.length}</span> / {students.length}
+          <div className="flex justify-end text-xs font-bold text-slate-500 pt-1">
+            <span>
+              نمایاں ریکارڈز: <span className="text-slate-900 font-black">{filteredStudents.length}</span> / {students.length}
             </span>
           </div>
         </div>
@@ -716,7 +662,6 @@ export default function RecordsPortalPage() {
                   <th className="py-3 px-4 text-right">والد کا نام</th>
                   <th className="py-3 px-4 text-right">کلاس و شعبہ</th>
                   <th className="py-3 px-4 text-center">رابطہ / فون</th>
-                  <th className="py-3 px-4 text-center">فیس اسٹیٹس</th>
                   <th className="py-3 px-4 text-center">دستاویز / تصویر</th>
                   <th className="py-3 px-4 text-center print:hidden">ایکشن</th>
                 </tr>
@@ -724,20 +669,19 @@ export default function RecordsPortalPage() {
               <tbody className="divide-y divide-slate-100">
                 {loading ? (
                   <tr>
-                    <td colSpan={9} className="py-16 text-center text-slate-400 font-bold">
+                    <td colSpan={8} className="py-16 text-center text-slate-400 font-bold">
                       <RefreshCw className="animate-spin inline-block mr-2" size={20} />
                       ریکارڈز لوڈ ہو رہے ہیں...
                     </td>
                   </tr>
                 ) : filteredStudents.length === 0 ? (
                   <tr>
-                    <td colSpan={9} className="py-16 text-center text-slate-400 font-bold">
+                    <td colSpan={8} className="py-16 text-center text-slate-400 font-bold">
                       کوئی ریکارڈ نہیں ملا۔ نیا داخلہ کرنے کے لیے اوپر &quot;+ نیا طالب علم داخل کریں&quot; بٹن دبائیں۔
                     </td>
                   </tr>
                 ) : (
                   filteredStudents.map((std, idx) => {
-                    const isPaid = std.fees?.status === 'Paid';
                     const doc = getStudentDoc(std);
 
                     return (
@@ -761,14 +705,21 @@ export default function RecordsPortalPage() {
                             {std.studentName}
                           </span>
                           {std.cnic && (
-                            <span className="text-[10px] text-slate-400 font-mono block">
-                              شناختی کارڈ: {std.cnic}
+                            <span className="text-[10px] text-slate-500 font-mono block">
+                              ب فارم: {std.cnic}
                             </span>
                           )}
                         </td>
 
-                        <td className="py-3 px-4 font-semibold text-slate-700">
-                          {std.fatherName}
+                        <td className="py-3 px-4">
+                          <span className="font-semibold text-slate-800 block">
+                            {std.fatherName}
+                          </span>
+                          {std.fatherCnic && (
+                            <span className="text-[10px] text-slate-400 font-mono block">
+                              شناختی کارڈ: {std.fatherCnic}
+                            </span>
+                          )}
                         </td>
 
                         <td className="py-3 px-4">
@@ -799,21 +750,7 @@ export default function RecordsPortalPage() {
                           )}
                         </td>
 
-                        <td className="py-3 px-4 text-center">
-                          <button
-                            onClick={() => toggleFeeStatus(std)}
-                            className={`px-2.5 py-1 rounded-full text-[10px] font-black tracking-wide inline-flex items-center gap-1 cursor-pointer transition-all ${
-                              isPaid
-                                ? 'bg-emerald-100 text-emerald-800 hover:bg-emerald-200'
-                                : 'bg-rose-100 text-rose-800 hover:bg-rose-200'
-                            }`}
-                            title="Click to toggle Paid/Unpaid"
-                          >
-                            {isPaid ? '✓ ادا شدہ (Paid)' : '✕ غیر ادا شدہ'}
-                          </button>
-                        </td>
-
-                        {/* Document / Photo Column (As requested) */}
+                        {/* Document / Photo Column */}
                         <td className="py-3 px-4 text-center">
                           {doc ? (
                             doc.url.startsWith('data:image') || doc.url.match(/\.(jpg|jpeg|png|webp)/i) ? (
@@ -878,7 +815,7 @@ export default function RecordsPortalPage() {
       </main>
 
       {/* ---------------------------------------------------- */}
-      {/* QUICK ADD STUDENT MODAL */}
+      {/* QUICK ADD STUDENT MODAL (Fee Fields Completely Removed) */}
       {/* ---------------------------------------------------- */}
       {showAddModal && (
         <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
@@ -902,10 +839,10 @@ export default function RecordsPortalPage() {
             </div>
 
             <form onSubmit={handleAddStudent} className="space-y-4 mt-5 text-right">
-              {/* Name */}
+              {/* Student Name */}
               <div>
                 <label className="block text-xs font-black uppercase text-slate-700 mb-1">
-                  طالب علم کا نام * (Student Name)
+                  طالب علم کا مکمل نام * (Student Name)
                 </label>
                 <input
                   type="text"
@@ -964,22 +901,23 @@ export default function RecordsPortalPage() {
                 </div>
               </div>
 
-              {/* Phone & CNIC (CNIC is strictly Optional) */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <div>
-                  <label className="block text-xs font-black uppercase text-slate-700 mb-1">
-                    موبائل / فون نمبر * (Phone Number)
-                  </label>
-                  <input
-                    type="tel"
-                    required
-                    placeholder="03001234567"
-                    value={formData.mobile}
-                    onChange={e => setFormData({ ...formData, mobile: e.target.value })}
-                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold focus:outline-none focus:ring-2 focus:ring-emerald-500 text-left font-mono"
-                  />
-                </div>
+              {/* Phone Number */}
+              <div>
+                <label className="block text-xs font-black uppercase text-slate-700 mb-1">
+                  رابطہ نمبر * (Phone Number)
+                </label>
+                <input
+                  type="tel"
+                  required
+                  placeholder="03001234567"
+                  value={formData.mobile}
+                  onChange={e => setFormData({ ...formData, mobile: e.target.value })}
+                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold focus:outline-none focus:ring-2 focus:ring-emerald-500 text-left font-mono"
+                />
+              </div>
 
+              {/* Student CNIC & Father CNIC (Both strictly Optional) */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <div>
                   <label className="block text-xs font-black uppercase text-slate-700 mb-1">
                     شناختی کارڈ / ب فارم <span className="text-emerald-600 font-bold">(اختیاری / Optional)</span>
@@ -989,6 +927,19 @@ export default function RecordsPortalPage() {
                     placeholder="35404-XXXXXXX-X (Optional)"
                     value={formData.cnic}
                     onChange={e => setFormData({ ...formData, cnic: e.target.value })}
+                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold focus:outline-none focus:ring-2 focus:ring-emerald-500 text-left font-mono"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-black uppercase text-slate-700 mb-1">
+                    والد کا شناختی کارڈ <span className="text-emerald-600 font-bold">(اختیاری / Optional)</span>
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="35404-XXXXXXX-X (Optional)"
+                    value={formData.fatherCnic}
+                    onChange={e => setFormData({ ...formData, fatherCnic: e.target.value })}
                     className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold focus:outline-none focus:ring-2 focus:ring-emerald-500 text-left font-mono"
                   />
                 </div>
@@ -1048,35 +999,6 @@ export default function RecordsPortalPage() {
                     </label>
                   </div>
                 )}
-              </div>
-
-              {/* Fee Details */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
-                <div>
-                  <label className="block text-xs font-black uppercase text-slate-700 mb-1">
-                    داخلہ فیس (Admission Fee)
-                  </label>
-                  <input
-                    type="number"
-                    value={formData.feeAmount}
-                    onChange={e => setFormData({ ...formData, feeAmount: e.target.value })}
-                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold focus:outline-none focus:ring-2 focus:ring-emerald-500 text-left font-mono"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-black uppercase text-slate-700 mb-1">
-                    فیس ادائیگی کی حالت (Fee Status)
-                  </label>
-                  <select
-                    value={formData.feeStatus}
-                    onChange={e => setFormData({ ...formData, feeStatus: e.target.value })}
-                    className="w-full px-3 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                  >
-                    <option value="Unpaid">غیر ادا شدہ (Unpaid)</option>
-                    <option value="Paid">ادا شدہ (Paid)</option>
-                  </select>
-                </div>
               </div>
 
               {/* Buttons */}
@@ -1166,15 +1088,20 @@ export default function RecordsPortalPage() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <div className="bg-slate-50 p-3 rounded-xl border border-slate-100">
-                  <span className="text-[10px] font-black uppercase text-slate-400 block mb-0.5">موبائل نمبر</span>
+                  <span className="text-[10px] font-black uppercase text-slate-400 block mb-0.5">رابطہ نمبر (Phone)</span>
                   <span className="font-mono font-bold text-slate-800">{showDetailModal.mobile || 'درج نہیں'}</span>
                 </div>
                 <div className="bg-slate-50 p-3 rounded-xl border border-slate-100">
-                  <span className="text-[10px] font-black uppercase text-slate-400 block mb-0.5">شناختی کارڈ / ب فارم</span>
+                  <span className="text-[10px] font-black uppercase text-slate-400 block mb-0.5">طالب علم کا شناختی کارڈ / ب فارم</span>
                   <span className="font-mono font-bold text-slate-800">{showDetailModal.cnic || 'درج نہیں'}</span>
                 </div>
+              </div>
+
+              <div className="bg-slate-50 p-3 rounded-xl border border-slate-100">
+                <span className="text-[10px] font-black uppercase text-slate-400 block mb-0.5">والد کا شناختی کارڈ (Father CNIC)</span>
+                <span className="font-mono font-bold text-slate-800">{showDetailModal.fatherCnic || 'درج نہیں'}</span>
               </div>
 
               {/* Document in Detail Modal */}
@@ -1206,7 +1133,7 @@ export default function RecordsPortalPage() {
                         </div>
                         <button
                           onClick={() => setPreviewDoc(doc)}
-                          className="px-3 py-1 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 rounded-lg text-xs font-bold"
+                          className="px-3 py-1 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 rounded-lg text-xs font-bold cursor-pointer"
                         >
                           اوپن کریں
                         </button>
@@ -1215,21 +1142,6 @@ export default function RecordsPortalPage() {
                   </div>
                 );
               })()}
-
-              <div className="flex items-center justify-between p-3.5 bg-emerald-50 rounded-xl border border-emerald-100">
-                <div>
-                  <span className="text-[10px] font-black uppercase text-emerald-700 block mb-0.5">فیس تفصیلات</span>
-                  <span className="text-sm font-black text-emerald-950 font-mono">
-                    Rs. {showDetailModal.fees?.totalFee || 3000} ({showDetailModal.fees?.status === 'Paid' ? 'ادا شدہ' : 'غیر ادا شدہ'})
-                  </span>
-                </div>
-                <button
-                  onClick={() => toggleFeeStatus(showDetailModal)}
-                  className="px-3 py-1.5 bg-white border border-emerald-300 text-emerald-800 rounded-lg text-xs font-black shadow-sm hover:bg-emerald-100 cursor-pointer"
-                >
-                  فیس تبدیل کریں
-                </button>
-              </div>
             </div>
 
             <div className="flex gap-2">

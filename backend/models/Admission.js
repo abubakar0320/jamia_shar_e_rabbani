@@ -7,6 +7,7 @@ const AdmissionSchema = new mongoose.Schema({
   fatherName: { type: String, required: true },
   dob: { type: String },
   cnic: { type: String },
+  fatherCnic: { type: String },
   mobile: { type: String },
   whatsapp: { type: String },
   gender: { type: String },

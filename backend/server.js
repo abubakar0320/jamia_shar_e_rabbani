@@ -1885,7 +1885,7 @@ app.get('/api/records/students', checkRecordsPin, async (req, res) => {
 // Quick Add Student
 app.post('/api/records/students', checkRecordsPin, async (req, res) => {
   try {
-    const { studentName, fatherName, classProgram, sectionType, mobile, cnic, feeStatus, feeAmount, studentStatus, documents } = req.body;
+    const { studentName, fatherName, classProgram, sectionType, mobile, cnic, fatherCnic, feeStatus, feeAmount, studentStatus, documents } = req.body;
     if (!studentName || !fatherName || !classProgram) {
       return res.status(400).json({ error: 'Talib-e-Ilm ka naam, Walid ka naam, aur Class lazmi hain.' });
     }
@@ -1908,6 +1908,7 @@ app.post('/api/records/students', checkRecordsPin, async (req, res) => {
       fatherName: fatherName.trim(),
       mobile: mobile ? mobile.trim() : '',
       cnic: cnic ? cnic.trim() : '',
+      fatherCnic: fatherCnic ? fatherCnic.trim() : '',
       classProgram: cleanClass,
       sectionType: cleanSection,
       studentStatus: studentStatus || 'Active',
@@ -1917,7 +1918,7 @@ app.post('/api/records/students', checkRecordsPin, async (req, res) => {
         totalFee: numericFee,
         admissionFee: numericFee,
         registrationFee: 0,
-        status: feeStatus || 'Unpaid',
+        status: feeStatus || 'Paid',
         session: '2026-27'
       },
       documents: cleanDocs
@@ -1930,6 +1931,7 @@ app.post('/api/records/students', checkRecordsPin, async (req, res) => {
       fatherName: newStudent.fatherName,
       mobile: newStudent.mobile,
       cnic: newStudent.cnic,
+      fatherCnic: newStudent.fatherCnic,
       classProgram: cleanClass,
       sectionType: cleanSection,
       status: 'Approved',
