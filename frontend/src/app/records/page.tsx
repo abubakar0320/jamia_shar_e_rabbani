@@ -3,9 +3,10 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { 
   Users, Search, Plus, Lock, Unlock, KeyRound, CheckCircle2, 
-  Clock, Phone, MessageSquare, Printer, Download, Eye, Edit3, 
-  Trash2, ShieldCheck, RefreshCw, X, ArrowUpDown, ChevronRight,
-  GraduationCap, Sparkles, AlertCircle
+  Phone, MessageSquare, Printer, Download, Eye, 
+  Trash2, RefreshCw, X, ArrowUpDown, ChevronRight,
+  GraduationCap, AlertCircle, FileText, Image as ImageIcon,
+  ExternalLink, Paperclip
 } from 'lucide-react';
 import Image from 'next/image';
 
@@ -46,6 +47,14 @@ interface StudentRecord {
     status: string;
     session?: string;
   };
+  documents?: {
+    fileUrl?: string;
+    fileName?: string;
+    fileType?: string;
+    photo?: string;
+    data?: string;
+    [key: string]: any;
+  };
   createdAt?: string;
 }
 
@@ -62,12 +71,12 @@ export default function RecordsPortalPage() {
   const [selectedClass, setSelectedClass] = useState('All');
   const [selectedSection, setSelectedSection] = useState<'All' | 'Tulba' | 'Talibat'>('All');
   const [feeFilter, setFeeFilter] = useState<'All' | 'Paid' | 'Unpaid'>('All');
-  const [statusFilter, setStatusFilter] = useState<'All' | 'Approved' | 'Pending'>('All');
 
   // Modals
   const [showAddModal, setShowAddModal] = useState(false);
   const [showDetailModal, setShowDetailModal] = useState<StudentRecord | null>(null);
   const [showPinModal, setShowPinModal] = useState(false);
+  const [previewDoc, setPreviewDoc] = useState<{ url: string; name: string; type?: string } | null>(null);
 
   // Form states
   const [formData, setFormData] = useState({
@@ -79,9 +88,9 @@ export default function RecordsPortalPage() {
     cnic: '',
     feeAmount: '3000',
     feeStatus: 'Unpaid',
-    studentStatus: 'Active',
-    status: 'Approved'
+    studentStatus: 'Active'
   });
+  const [docFile, setDocFile] = useState<{ name: string; data: string; type: string; size: string } | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
   // PIN Change Form
@@ -155,6 +164,7 @@ export default function RecordsPortalPage() {
         (s.fatherName && s.fatherName.toLowerCase().includes(q)) ||
         (s.rollNo && s.rollNo.toLowerCase().includes(q)) ||
         (s.mobile && s.mobile.includes(q)) ||
+        (s.cnic && s.cnic.includes(q)) ||
         (s.studentId && s.studentId.toLowerCase().includes(q));
 
       const matchesClass = selectedClass === 'All' || s.classProgram === selectedClass;
@@ -166,12 +176,9 @@ export default function RecordsPortalPage() {
       const currentFeeStatus = s.fees?.status || 'Unpaid';
       const matchesFee = feeFilter === 'All' || currentFeeStatus === feeFilter;
 
-      const currentApproval = s.status || 'Approved';
-      const matchesStatus = statusFilter === 'All' || currentApproval === statusFilter;
-
-      return matchesSearch && matchesClass && matchesSection && matchesFee && matchesStatus;
+      return matchesSearch && matchesClass && matchesSection && matchesFee;
     });
-  }, [students, searchTerm, selectedClass, selectedSection, feeFilter, statusFilter]);
+  }, [students, searchTerm, selectedClass, selectedSection, feeFilter]);
 
   // Stats
   const stats = useMemo(() => {
@@ -179,33 +186,122 @@ export default function RecordsPortalPage() {
     const tulba = students.filter(s => s.sectionType?.toLowerCase().includes('tulba')).length;
     const talibat = students.filter(s => s.sectionType?.toLowerCase().includes('talibat')).length;
     const paid = students.filter(s => s.fees?.status === 'Paid').length;
-    const verified = students.filter(s => s.status === 'Approved').length;
-    return { total, tulba, talibat, paid, verified };
+    const unpaid = students.filter(s => s.fees?.status !== 'Paid').length;
+    return { total, tulba, talibat, paid, unpaid };
   }, [students]);
+
+  // Handle Document / File Selection (Compresses Image to base64)
+  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (file.size > 8 * 1024 * 1024) {
+      alert('File size 8MB se kam honi chahiye.');
+      e.target.value = '';
+      return;
+    }
+
+    if (file.type.startsWith('image/')) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const img = document.createElement('img');
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          let width = img.width;
+          let height = img.height;
+          const maxDim = 1200;
+          if (width > maxDim || height > maxDim) {
+            if (width > height) {
+              height = Math.round((height * maxDim) / width);
+              width = maxDim;
+            } else {
+              width = Math.round((width * maxDim) / height);
+              height = height > maxDim ? maxDim : height;
+            }
+          }
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          if (ctx) {
+            ctx.drawImage(img, 0, 0, width, height);
+            const compressed = canvas.toDataURL('image/jpeg', 0.78);
+            setDocFile({
+              name: file.name,
+              data: compressed,
+              type: 'image/jpeg',
+              size: `${Math.round((compressed.length * 0.75) / 1024)} KB`
+            });
+          }
+        };
+        img.src = reader.result as string;
+      };
+      reader.readAsDataURL(file);
+    } else {
+      // PDF or other documents
+      const reader = new FileReader();
+      reader.onload = () => {
+        setDocFile({
+          name: file.name,
+          data: reader.result as string,
+          type: file.type || 'application/octet-stream',
+          size: `${(file.size / 1024).toFixed(1)} KB`
+        });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   // Quick Add Student
   const handleAddStudent = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.studentName || !formData.fatherName) {
+    if (!formData.studentName.trim() || !formData.fatherName.trim()) {
       alert('Student Name aur Father Name lazmi hain.');
+      return;
+    }
+    if (!formData.mobile.trim()) {
+      alert('Mobile / Phone number lazmi hai.');
       return;
     }
 
     setSubmitting(true);
     const activePin = pin || sessionStorage.getItem('jamia_staff_pin') || '';
     try {
+      const payload: any = {
+        studentName: formData.studentName.trim(),
+        fatherName: formData.fatherName.trim(),
+        classProgram: formData.classProgram,
+        sectionType: formData.sectionType,
+        mobile: formData.mobile.trim(),
+        cnic: formData.cnic.trim(),
+        feeAmount: formData.feeAmount || '0',
+        feeStatus: formData.feeStatus,
+        studentStatus: 'Active',
+        status: 'Approved'
+      };
+
+      if (docFile) {
+        payload.documents = {
+          fileUrl: docFile.data,
+          fileName: docFile.name,
+          fileType: docFile.type,
+          photo: docFile.type.startsWith('image') ? docFile.data : undefined,
+          uploadedAt: new Date().toISOString()
+        };
+      }
+
       const res = await fetch('/api/records/students', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'x-staff-pin': activePin
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(payload)
       });
       const data = await res.json();
       if (res.ok && data.success) {
         setStudents(prev => [data.student, ...prev]);
         setShowAddModal(false);
+        setDocFile(null);
         // Reset form
         setFormData({
           studentName: '',
@@ -216,10 +312,9 @@ export default function RecordsPortalPage() {
           cnic: '',
           feeAmount: '3000',
           feeStatus: 'Unpaid',
-          studentStatus: 'Active',
-          status: 'Approved'
+          studentStatus: 'Active'
         });
-        alert(`Mubarak! ${data.student.studentName} ka dakhla kamyabi se save ho gaya. Roll No: ${data.student.rollNo}`);
+        alert(`Mubarak! ${data.student.studentName} ka dakhla kamyabi se save ho gaya.\nRoll No: ${data.student.rollNo}`);
       } else {
         alert(data.error || 'Failed to add student');
       }
@@ -256,27 +351,6 @@ export default function RecordsPortalPage() {
     }
   };
 
-  // Toggle Approval / Verification Status
-  const toggleVerification = async (student: StudentRecord) => {
-    const newStatus = student.status === 'Approved' ? 'Pending' : 'Approved';
-    const activePin = pin || sessionStorage.getItem('jamia_staff_pin') || '';
-    try {
-      const res = await fetch(`/api/records/students/${student.id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-staff-pin': activePin
-        },
-        body: JSON.stringify({ status: newStatus })
-      });
-      if (res.ok) {
-        setStudents(prev => prev.map(s => s.id === student.id ? { ...s, status: newStatus } : s));
-      }
-    } catch (err) {
-      alert('Verification update failed');
-    }
-  };
-
   // Delete Student
   const handleDeleteStudent = async (student: StudentRecord) => {
     if (!confirm(`Kia aap waqai ${student.studentName} (Roll No: ${student.rollNo}) ka record delete karna chahte hain?`)) return;
@@ -301,7 +375,7 @@ export default function RecordsPortalPage() {
       alert('Koi data mojood nahi hai export karne ke liye.');
       return;
     }
-    const headers = ['Sr', 'Roll No', 'Student ID', 'Student Name', 'Father Name', 'Class', 'Section', 'Mobile', 'CNIC', 'Fee Status', 'Verification'];
+    const headers = ['Sr', 'Roll No', 'Student ID', 'Student Name', 'Father Name', 'Class', 'Section', 'Mobile', 'CNIC', 'Fee Status', 'Document Attached'];
     const rows = filteredStudents.map((s, idx) => [
       idx + 1,
       s.rollNo,
@@ -313,7 +387,7 @@ export default function RecordsPortalPage() {
       s.mobile || 'N/A',
       s.cnic || 'N/A',
       s.fees?.status || 'Unpaid',
-      s.status || 'Approved'
+      (s.documents?.fileUrl || s.documents?.photo || s.documents?.data) ? 'Yes' : 'No'
     ]);
     const csvContent = [headers.join(','), ...rows.map(r => r.map(c => `"${String(c).replace(/"/g, '""')}"`).join(','))].join('\n');
     const blob = new Blob(['\uFEFF' + csvContent], { type: 'text/csv;charset=utf-8;' });
@@ -348,35 +422,40 @@ export default function RecordsPortalPage() {
         setPinChangeMsg({ type: 'error', text: data.error || 'PIN update fail ho gaya.' });
       }
     } catch (err: any) {
-      setPinChangeMsg({ type: 'error', text: 'Server error: ' + err.message });
+      setPinChangeMsg({ type: 'error', text: 'Server error while updating PIN.' });
     }
   };
 
+  // Helper to extract student document URL
+  const getStudentDoc = (s: StudentRecord) => {
+    if (!s.documents) return null;
+    const url = s.documents.fileUrl || s.documents.photo || s.documents.data || null;
+    const name = s.documents.fileName || `${s.studentName}_doc`;
+    const type = s.documents.fileType || (url && url.startsWith('data:image') ? 'image/jpeg' : 'file');
+    return url ? { url, name, type } : null;
+  };
+
   // ----------------------------------------------------
-  // LOCK SCREEN VIEW (If PIN not entered)
+  // PIN LOCKED SCREEN
   // ----------------------------------------------------
   if (!isUnlocked) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 flex items-center justify-center p-4">
-        <div className="w-full max-w-md bg-white/95 backdrop-blur-md rounded-3xl shadow-2xl p-8 border border-white/20 text-center animate-in fade-in zoom-in-95 duration-300">
-          <div className="w-20 h-20 relative mx-auto mb-4 bg-emerald-50 rounded-2xl p-3 border border-emerald-100 shadow-inner flex items-center justify-center">
-            <Lock size={36} className="text-emerald-700 animate-pulse" />
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-emerald-950 flex items-center justify-center p-4 font-sans">
+        <div className="bg-white/95 backdrop-blur-md rounded-3xl shadow-2xl max-w-md w-full p-8 border border-white/20 text-center animate-in fade-in zoom-in-95 duration-200">
+          <div className="w-16 h-16 bg-emerald-100 text-emerald-800 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-inner">
+            <Lock size={32} />
           </div>
 
-          <span className="text-[11px] font-black tracking-widest text-emerald-800 uppercase bg-emerald-100 px-3 py-1 rounded-full">
-            محفوظ اسٹاف پورٹل • Staff Access Only
-          </span>
-
-          <h1 className="text-2xl font-black text-slate-900 mt-4 tracking-tight">
-            مرکزِ ریکارڈز طلباء
-          </h1>
-          <p className="text-xs font-semibold text-slate-500 mt-1 mb-6">
-            Jamia Sher-e-Rabbani • Live Class Records Portal
+          <h2 className="text-2xl font-black text-slate-900 tracking-tight">
+            مرکزِ ریکارڈز جامعہ شیرِ ربانی
+          </h2>
+          <p className="text-xs text-slate-500 mt-1 mb-6">
+            Jamia Staff Live Records Portal • برائے عملہ و اساتذہ
           </p>
 
           <form onSubmit={handlePinSubmit} className="space-y-4">
             <div>
-              <label className="block text-[11px] font-black uppercase tracking-widest text-slate-600 mb-2 text-right">
+              <label className="block text-xs font-black uppercase tracking-wider text-slate-700 mb-2">
                 4-Digit Staff PIN Code درج کریں
               </label>
               <div className="relative">
@@ -438,13 +517,16 @@ export default function RecordsPortalPage() {
                 <h1 className="text-base md:text-lg font-black tracking-tight text-white">جامعہ شیرِ ربانی • مرکزِ ریکارڈز</h1>
                 <span className="bg-emerald-600 text-white text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full">Live Portal</span>
               </div>
-              <p className="text-[11px] font-medium text-emerald-300">All Classes Live Student Records & Direct Management</p>
+              <p className="text-[11px] font-medium text-emerald-300">All Classes Student Records & Management</p>
             </div>
           </div>
 
           <div className="flex items-center gap-2">
             <button
-              onClick={() => setShowAddModal(true)}
+              onClick={() => {
+                setDocFile(null);
+                setShowAddModal(true);
+              }}
               className="bg-emerald-600 hover:bg-emerald-700 text-white px-3.5 py-2 rounded-xl text-xs font-black uppercase tracking-wider flex items-center gap-1.5 shadow-md shadow-emerald-700/20 transition-all cursor-pointer"
             >
               <Plus size={16} /> + نیا طالب علم داخل کریں
@@ -512,12 +594,12 @@ export default function RecordsPortalPage() {
             <div className="text-2xl md:text-3xl font-black text-purple-900">{stats.talibat}</div>
           </div>
           <div className="bg-emerald-50/70 p-4 rounded-2xl border border-emerald-100">
-            <span className="text-[10px] font-black uppercase tracking-widest text-emerald-700 block mb-1">تصدیق شدہ (Approved)</span>
-            <div className="text-2xl md:text-3xl font-black text-emerald-900">{stats.verified}</div>
+            <span className="text-[10px] font-black uppercase tracking-widest text-emerald-700 block mb-1">فیس ادا شدہ (Paid)</span>
+            <div className="text-2xl md:text-3xl font-black text-emerald-900">{stats.paid}</div>
           </div>
-          <div className="bg-amber-50/70 p-4 rounded-2xl border border-amber-100">
-            <span className="text-[10px] font-black uppercase tracking-widest text-amber-700 block mb-1">فیس ادا شدہ (Fees Paid)</span>
-            <div className="text-2xl md:text-3xl font-black text-amber-900">{stats.paid}</div>
+          <div className="bg-rose-50/70 p-4 rounded-2xl border border-rose-100">
+            <span className="text-[10px] font-black uppercase tracking-widest text-rose-700 block mb-1">فیس باقی (Unpaid)</span>
+            <div className="text-2xl md:text-3xl font-black text-rose-900">{stats.unpaid}</div>
           </div>
         </div>
 
@@ -526,22 +608,22 @@ export default function RecordsPortalPage() {
           <div className="flex flex-col md:flex-row gap-3 items-stretch md:items-center justify-between">
             {/* Search Input */}
             <div className="relative flex-1">
-              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+              <Search className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
               <input
                 type="text"
-                placeholder="طالب علم کا نام، والد کا نام، رول نمبر، یا موبائل نمبر تلاش کریں..."
+                placeholder="تلاش کریں: نام، ولدیت، رول نمبر، فون نمبر، یا شناختی کارڈ..."
                 value={searchTerm}
                 onChange={e => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all"
+                className="w-full pl-4 pr-10 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs md:text-sm font-semibold text-right focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white transition-all"
               />
               {searchTerm && (
-                <button onClick={() => setSearchTerm('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
-                  <X size={16} />
+                <button onClick={() => setSearchTerm('')} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
+                  <X size={15} />
                 </button>
               )}
             </div>
 
-            {/* Section Pills */}
+            {/* Section Switcher Tabs */}
             <div className="flex bg-slate-100 p-1 rounded-xl shrink-0 self-start md:self-auto">
               {(['All', 'Tulba', 'Talibat'] as const).map(sec => (
                 <button
@@ -601,31 +683,18 @@ export default function RecordsPortalPage() {
             </div>
           </div>
 
-          {/* Quick Filters: Fee & Approval Status */}
+          {/* Quick Filters: Fee Status & Counts */}
           <div className="flex flex-wrap items-center gap-4 text-xs font-bold pt-2 text-slate-600">
             <div className="flex items-center gap-1.5">
-              <span className="text-slate-400">فیس اسٹیٹس:</span>
+              <span className="text-slate-400">فیس فلٹر:</span>
               <select
                 value={feeFilter}
                 onChange={e => setFeeFilter(e.target.value as any)}
-                className="bg-slate-50 border border-slate-200 rounded-lg px-2 py-1 text-xs font-semibold focus:outline-none"
+                className="bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1 text-xs font-semibold focus:outline-none"
               >
                 <option value="All">سب (All)</option>
-                <option value="Paid">ادا شدہ (Paid)</option>
-                <option value="Unpaid">غیر ادا شدہ (Unpaid)</option>
-              </select>
-            </div>
-
-            <div className="flex items-center gap-1.5">
-              <span className="text-slate-400">تصدیق (Approval):</span>
-              <select
-                value={statusFilter}
-                onChange={e => setStatusFilter(e.target.value as any)}
-                className="bg-slate-50 border border-slate-200 rounded-lg px-2 py-1 text-xs font-semibold focus:outline-none"
-              >
-                <option value="All">سب (All)</option>
-                <option value="Approved">تصدیق شدہ (Approved)</option>
-                <option value="Pending">زیرِ جائزہ (Pending)</option>
+                <option value="Paid">صرف ادا شدہ (Paid)</option>
+                <option value="Unpaid">صرف غیر ادا شدہ (Unpaid)</option>
               </select>
             </div>
 
@@ -648,7 +717,7 @@ export default function RecordsPortalPage() {
                   <th className="py-3 px-4 text-right">کلاس و شعبہ</th>
                   <th className="py-3 px-4 text-center">رابطہ / فون</th>
                   <th className="py-3 px-4 text-center">فیس اسٹیٹس</th>
-                  <th className="py-3 px-4 text-center">تصدیق</th>
+                  <th className="py-3 px-4 text-center">دستاویز / تصویر</th>
                   <th className="py-3 px-4 text-center print:hidden">ایکشن</th>
                 </tr>
               </thead>
@@ -669,7 +738,7 @@ export default function RecordsPortalPage() {
                 ) : (
                   filteredStudents.map((std, idx) => {
                     const isPaid = std.fees?.status === 'Paid';
-                    const isApproved = std.status === 'Approved';
+                    const doc = getStudentDoc(std);
 
                     return (
                       <tr key={std.id} className="hover:bg-slate-50/80 transition-colors">
@@ -685,10 +754,17 @@ export default function RecordsPortalPage() {
                         </td>
 
                         <td className="py-3 px-4">
-                          <span className="font-black text-slate-900 text-sm block cursor-pointer hover:text-emerald-700" onClick={() => setShowDetailModal(std)}>
+                          <span 
+                            className="font-black text-slate-900 text-sm block cursor-pointer hover:text-emerald-700" 
+                            onClick={() => setShowDetailModal(std)}
+                          >
                             {std.studentName}
                           </span>
-                          {std.cnic && <span className="text-[10px] text-slate-400 font-mono">{std.cnic}</span>}
+                          {std.cnic && (
+                            <span className="text-[10px] text-slate-400 font-mono block">
+                              شناختی کارڈ: {std.cnic}
+                            </span>
+                          )}
                         </td>
 
                         <td className="py-3 px-4 font-semibold text-slate-700">
@@ -737,18 +813,40 @@ export default function RecordsPortalPage() {
                           </button>
                         </td>
 
+                        {/* Document / Photo Column (As requested) */}
                         <td className="py-3 px-4 text-center">
-                          <button
-                            onClick={() => toggleVerification(std)}
-                            className={`px-2.5 py-1 rounded-full text-[10px] font-black tracking-wide inline-flex items-center gap-1 cursor-pointer transition-all ${
-                              isApproved
-                                ? 'bg-blue-100 text-blue-800 hover:bg-blue-200'
-                                : 'bg-amber-100 text-amber-800 hover:bg-amber-200'
-                            }`}
-                            title="Click to toggle Verified/Pending"
-                          >
-                            {isApproved ? '★ تصدیق شدہ' : '⏳ زیرِ جائزہ'}
-                          </button>
+                          {doc ? (
+                            doc.url.startsWith('data:image') || doc.url.match(/\.(jpg|jpeg|png|webp)/i) ? (
+                              <button
+                                onClick={() => setPreviewDoc(doc)}
+                                className="group relative inline-block cursor-pointer"
+                                title="تصویر بڑی کر کے دیکھیں"
+                              >
+                                <div className="w-10 h-10 rounded-xl overflow-hidden border-2 border-emerald-500/40 shadow-sm relative mx-auto group-hover:scale-105 transition-transform bg-slate-100">
+                                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                                  <img 
+                                    src={doc.url} 
+                                    alt={doc.name} 
+                                    className="w-full h-full object-cover" 
+                                  />
+                                  <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white transition-opacity">
+                                    <Eye size={13} />
+                                  </div>
+                                </div>
+                              </button>
+                            ) : (
+                              <button
+                                onClick={() => setPreviewDoc(doc)}
+                                className="inline-flex items-center gap-1 px-2.5 py-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 rounded-lg text-xs font-bold transition-colors cursor-pointer border border-indigo-200"
+                                title="دستاویز دیکھیں"
+                              >
+                                <FileText size={13} />
+                                <span>دستاویز</span>
+                              </button>
+                            )
+                          ) : (
+                            <span className="text-slate-300 text-xs">-</span>
+                          )}
                         </td>
 
                         <td className="py-3 px-4 text-center print:hidden">
@@ -792,15 +890,22 @@ export default function RecordsPortalPage() {
                 </h3>
                 <p className="text-xs text-slate-500 mt-0.5">Quick Direct Entry into Class Register</p>
               </div>
-              <button onClick={() => setShowAddModal(false)} className="text-slate-400 hover:text-slate-600 p-1 rounded-lg">
+              <button 
+                onClick={() => {
+                  setShowAddModal(false);
+                  setDocFile(null);
+                }} 
+                className="text-slate-400 hover:text-slate-600 p-1 rounded-lg cursor-pointer"
+              >
                 <X size={20} />
               </button>
             </div>
 
             <form onSubmit={handleAddStudent} className="space-y-4 mt-5 text-right">
+              {/* Name */}
               <div>
-                <label className="block text-xs font-black uppercase text-slate-600 mb-1">
-                  طالب علم کا مکمل نام * (Student Name)
+                <label className="block text-xs font-black uppercase text-slate-700 mb-1">
+                  طالب علم کا نام * (Student Name)
                 </label>
                 <input
                   type="text"
@@ -812,8 +917,9 @@ export default function RecordsPortalPage() {
                 />
               </div>
 
+              {/* Father Name */}
               <div>
-                <label className="block text-xs font-black uppercase text-slate-600 mb-1">
+                <label className="block text-xs font-black uppercase text-slate-700 mb-1">
                   والد کا نام * (Father&apos;s Name)
                 </label>
                 <input
@@ -826,9 +932,10 @@ export default function RecordsPortalPage() {
                 />
               </div>
 
+              {/* Class & Section */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-black uppercase text-slate-600 mb-1">
+                  <label className="block text-xs font-black uppercase text-slate-700 mb-1">
                     کلاس / درجہ * (Class Program)
                   </label>
                   <select
@@ -843,7 +950,7 @@ export default function RecordsPortalPage() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-black uppercase text-slate-600 mb-1">
+                  <label className="block text-xs font-black uppercase text-slate-700 mb-1">
                     شعبہ * (Section / Gender)
                   </label>
                   <select
@@ -857,13 +964,15 @@ export default function RecordsPortalPage() {
                 </div>
               </div>
 
+              {/* Phone & CNIC (CNIC is strictly Optional) */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-black uppercase text-slate-600 mb-1">
-                    رابطہ نمبر (Phone Number)
+                  <label className="block text-xs font-black uppercase text-slate-700 mb-1">
+                    موبائل / فون نمبر * (Phone Number)
                   </label>
                   <input
                     type="tel"
+                    required
                     placeholder="03001234567"
                     value={formData.mobile}
                     onChange={e => setFormData({ ...formData, mobile: e.target.value })}
@@ -872,12 +981,12 @@ export default function RecordsPortalPage() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-black uppercase text-slate-600 mb-1">
-                    شناختی کارڈ / ب فارم (CNIC/B-Form)
+                  <label className="block text-xs font-black uppercase text-slate-700 mb-1">
+                    شناختی کارڈ / ب فارم <span className="text-emerald-600 font-bold">(اختیاری / Optional)</span>
                   </label>
                   <input
                     type="text"
-                    placeholder="35404-XXXXXXX-X"
+                    placeholder="35404-XXXXXXX-X (Optional)"
                     value={formData.cnic}
                     onChange={e => setFormData({ ...formData, cnic: e.target.value })}
                     className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold focus:outline-none focus:ring-2 focus:ring-emerald-500 text-left font-mono"
@@ -885,9 +994,66 @@ export default function RecordsPortalPage() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2">
+              {/* Optional Documents / Photo Upload */}
+              <div className="p-4 bg-slate-50 border border-slate-200 rounded-2xl space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-bold text-slate-400">سائز 8MB تک</span>
+                  <label className="text-xs font-black uppercase text-slate-800 flex items-center gap-1.5">
+                    <Paperclip size={14} className="text-emerald-600" />
+                    دستاویز / تصویر <span className="text-emerald-600 font-bold">(اختیاری / Optional)</span>
+                  </label>
+                </div>
+                
+                {docFile ? (
+                  <div className="flex items-center justify-between bg-white p-3 rounded-xl border border-emerald-200 shadow-sm">
+                    <div className="flex items-center gap-3">
+                      {docFile.type.startsWith('image') ? (
+                        <div className="w-12 h-12 rounded-lg overflow-hidden border border-slate-200 relative shrink-0">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img src={docFile.data} alt="Doc preview" className="w-full h-full object-cover" />
+                        </div>
+                      ) : (
+                        <div className="w-10 h-10 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
+                          <FileText size={20} />
+                        </div>
+                      )}
+                      <div className="text-right">
+                        <span className="text-xs font-black text-slate-900 block truncate max-w-[200px]">{docFile.name}</span>
+                        <span className="text-[10px] text-slate-400 font-mono">{docFile.size}</span>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setDocFile(null)}
+                      className="p-1.5 text-rose-500 hover:bg-rose-50 rounded-lg transition-colors cursor-pointer"
+                      title="فائل ہٹائیں"
+                    >
+                      <X size={16} />
+                    </button>
+                  </div>
+                ) : (
+                  <div>
+                    <label className="flex flex-col items-center justify-center p-4 border-2 border-dashed border-slate-300 hover:border-emerald-500 rounded-xl bg-white cursor-pointer transition-colors group">
+                      <ImageIcon size={24} className="text-slate-400 group-hover:text-emerald-600 mb-1 transition-colors" />
+                      <span className="text-xs font-bold text-slate-600 group-hover:text-emerald-700">
+                        تصویر، ب فارم یا کوئی بھی دستاویز منتخب کریں
+                      </span>
+                      <span className="text-[10px] text-slate-400 mt-0.5">JPG, PNG, PDF قبول ہیں (اختیاری ہے)</span>
+                      <input
+                        type="file"
+                        accept="image/*,.pdf"
+                        onChange={handleFileSelect}
+                        className="hidden"
+                      />
+                    </label>
+                  </div>
+                )}
+              </div>
+
+              {/* Fee Details */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
                 <div>
-                  <label className="block text-xs font-black uppercase text-slate-600 mb-1">
+                  <label className="block text-xs font-black uppercase text-slate-700 mb-1">
                     داخلہ فیس (Admission Fee)
                   </label>
                   <input
@@ -899,7 +1065,7 @@ export default function RecordsPortalPage() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-black uppercase text-slate-600 mb-1">
+                  <label className="block text-xs font-black uppercase text-slate-700 mb-1">
                     فیس ادائیگی کی حالت (Fee Status)
                   </label>
                   <select
@@ -913,6 +1079,7 @@ export default function RecordsPortalPage() {
                 </div>
               </div>
 
+              {/* Buttons */}
               <div className="pt-4 flex gap-3">
                 <button
                   type="submit"
@@ -924,7 +1091,10 @@ export default function RecordsPortalPage() {
                 </button>
                 <button
                   type="button"
-                  onClick={() => setShowAddModal(false)}
+                  onClick={() => {
+                    setShowAddModal(false);
+                    setDocFile(null);
+                  }}
                   className="px-6 py-3.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-bold text-sm transition-colors cursor-pointer"
                 >
                   منسوخ
@@ -940,18 +1110,35 @@ export default function RecordsPortalPage() {
       {/* ---------------------------------------------------- */}
       {showDetailModal && (
         <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl shadow-2xl max-w-lg w-full p-6 md:p-8 animate-in fade-in zoom-in-95">
+          <div className="bg-white rounded-3xl shadow-2xl max-w-lg w-full p-6 md:p-8 animate-in fade-in zoom-in-95 max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between pb-4 border-b border-slate-100">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-emerald-100 text-emerald-800 rounded-2xl flex items-center justify-center font-black text-lg">
-                  {showDetailModal.studentName.charAt(0)}
-                </div>
+                {(() => {
+                  const doc = getStudentDoc(showDetailModal);
+                  if (doc && (doc.url.startsWith('data:image') || doc.url.match(/\.(jpg|jpeg|png|webp)/i))) {
+                    return (
+                      <div 
+                        className="w-14 h-14 rounded-2xl overflow-hidden border-2 border-emerald-500 shadow-md relative cursor-pointer"
+                        onClick={() => setPreviewDoc(doc)}
+                        title="تصویر دیکھنے کے لیے کلک کریں"
+                      >
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={doc.url} alt={showDetailModal.studentName} className="w-full h-full object-cover" />
+                      </div>
+                    );
+                  }
+                  return (
+                    <div className="w-12 h-12 bg-emerald-100 text-emerald-800 rounded-2xl flex items-center justify-center font-black text-lg">
+                      {showDetailModal.studentName.charAt(0)}
+                    </div>
+                  );
+                })()}
                 <div>
                   <h3 className="text-xl font-black text-slate-900">{showDetailModal.studentName}</h3>
                   <p className="text-xs text-slate-500">ولد {showDetailModal.fatherName}</p>
                 </div>
               </div>
-              <button onClick={() => setShowDetailModal(null)} className="text-slate-400 hover:text-slate-600 p-1 rounded-lg">
+              <button onClick={() => setShowDetailModal(null)} className="text-slate-400 hover:text-slate-600 p-1 rounded-lg cursor-pointer">
                 <X size={20} />
               </button>
             </div>
@@ -990,6 +1177,45 @@ export default function RecordsPortalPage() {
                 </div>
               </div>
 
+              {/* Document in Detail Modal */}
+              {(() => {
+                const doc = getStudentDoc(showDetailModal);
+                if (!doc) return null;
+                const isImg = doc.url.startsWith('data:image') || doc.url.match(/\.(jpg|jpeg|png|webp)/i);
+                return (
+                  <div className="p-4 bg-slate-50 border border-slate-200 rounded-2xl">
+                    <span className="text-[10px] font-black uppercase text-slate-400 block mb-2">منسلک دستاویز / تصویر</span>
+                    {isImg ? (
+                      <div className="space-y-2">
+                        <div 
+                          className="w-full h-48 rounded-xl overflow-hidden border border-slate-200 relative cursor-pointer group bg-slate-100"
+                          onClick={() => setPreviewDoc(doc)}
+                        >
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img src={doc.url} alt={doc.name} className="w-full h-full object-contain" />
+                          <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white transition-opacity font-bold text-xs gap-1">
+                            <Eye size={16} /> بڑی تصویر دیکھیں
+                          </div>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="flex items-center justify-between bg-white p-3 rounded-xl border border-slate-200">
+                        <div className="flex items-center gap-2">
+                          <FileText className="text-indigo-600" size={20} />
+                          <span className="font-bold text-slate-800 text-xs">{doc.name}</span>
+                        </div>
+                        <button
+                          onClick={() => setPreviewDoc(doc)}
+                          className="px-3 py-1 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 rounded-lg text-xs font-bold"
+                        >
+                          اوپن کریں
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                );
+              })()}
+
               <div className="flex items-center justify-between p-3.5 bg-emerald-50 rounded-xl border border-emerald-100">
                 <div>
                   <span className="text-[10px] font-black uppercase text-emerald-700 block mb-0.5">فیس تفصیلات</span>
@@ -999,9 +1225,9 @@ export default function RecordsPortalPage() {
                 </div>
                 <button
                   onClick={() => toggleFeeStatus(showDetailModal)}
-                  className="px-3 py-1.5 bg-white border border-emerald-300 text-emerald-800 rounded-lg text-xs font-black shadow-sm hover:bg-emerald-100"
+                  className="px-3 py-1.5 bg-white border border-emerald-300 text-emerald-800 rounded-lg text-xs font-black shadow-sm hover:bg-emerald-100 cursor-pointer"
                 >
-                  اسٹیٹس تبدیل کریں
+                  فیس تبدیل کریں
                 </button>
               </div>
             </div>
@@ -1016,6 +1242,71 @@ export default function RecordsPortalPage() {
               <button
                 onClick={() => setShowDetailModal(null)}
                 className="px-6 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-bold text-xs cursor-pointer"
+              >
+                بند کریں
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ---------------------------------------------------- */}
+      {/* DOCUMENT PREVIEW LIGHTBOX / MODAL */}
+      {/* ---------------------------------------------------- */}
+      {previewDoc && (
+        <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-3xl shadow-2xl max-w-2xl w-full p-6 animate-in fade-in zoom-in-95 max-h-[90vh] flex flex-col">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+              <div className="flex items-center gap-2">
+                <Paperclip className="text-emerald-600" size={18} />
+                <span className="font-black text-slate-900 text-sm truncate max-w-xs">{previewDoc.name}</span>
+              </div>
+              <button 
+                onClick={() => setPreviewDoc(null)} 
+                className="text-slate-400 hover:text-slate-600 p-1 rounded-lg cursor-pointer"
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            <div className="my-4 flex-1 flex items-center justify-center overflow-auto bg-slate-50 rounded-2xl p-2 min-h-[300px]">
+              {previewDoc.url.startsWith('data:image') || previewDoc.url.match(/\.(jpg|jpeg|png|webp)/i) ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img 
+                  src={previewDoc.url} 
+                  alt={previewDoc.name} 
+                  className="max-h-[65vh] w-auto object-contain rounded-xl shadow"
+                />
+              ) : (
+                <div className="text-center p-8">
+                  <FileText size={48} className="text-indigo-600 mx-auto mb-3" />
+                  <p className="font-bold text-slate-700 text-sm mb-4">{previewDoc.name}</p>
+                  <a
+                    href={previewDoc.url}
+                    download={previewDoc.name}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1.5 px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-black shadow"
+                  >
+                    <Download size={14} /> فائل ڈاؤن لوڈ کریں
+                  </a>
+                </div>
+              )}
+            </div>
+
+            <div className="flex justify-between items-center pt-2">
+              <a
+                href={previewDoc.url}
+                download={previewDoc.name}
+                target="_blank"
+                rel="noreferrer"
+                className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer"
+              >
+                <Download size={14} /> ڈاؤن لوڈ
+              </a>
+              <button
+                onClick={() => setPreviewDoc(null)}
+                className="px-6 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold cursor-pointer"
               >
                 بند کریں
               </button>

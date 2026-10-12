@@ -1885,9 +1885,9 @@ app.get('/api/records/students', checkRecordsPin, async (req, res) => {
 // Quick Add Student
 app.post('/api/records/students', checkRecordsPin, async (req, res) => {
   try {
-    const { studentName, fatherName, classProgram, sectionType, mobile, cnic, feeStatus, feeAmount, studentStatus } = req.body;
-    if (!studentName || !fatherName || !classProgram || !sectionType) {
-      return res.status(400).json({ error: 'Talib-e-Ilm ka naam, Walid ka naam, Class, aur Section lazmi hain.' });
+    const { studentName, fatherName, classProgram, sectionType, mobile, cnic, feeStatus, feeAmount, studentStatus, documents } = req.body;
+    if (!studentName || !fatherName || !classProgram) {
+      return res.status(400).json({ error: 'Talib-e-Ilm ka naam, Walid ka naam, aur Class lazmi hain.' });
     }
 
     const cleanClass = classProgram.trim();
@@ -1896,7 +1896,9 @@ app.post('/api/records/students', checkRecordsPin, async (req, res) => {
     const studentId = `STU-${Math.floor(10000 + Math.random() * 90000)}`;
     const challanNo = `JS-${Math.floor(1000 + Math.random() * 9000)}`;
     const numericFee = Number(feeAmount) || 0;
-    const cleanSection = sectionType.includes('Section') ? sectionType : `${sectionType} Section`;
+    const resolvedSection = sectionType || 'Tulba Section';
+    const cleanSection = resolvedSection.includes('Section') ? resolvedSection : `${resolvedSection} Section`;
+    const cleanDocs = (documents && typeof documents === 'object') ? documents : {};
 
     const newStudent = await Student.create({
       id: Date.now(),
@@ -1918,7 +1920,7 @@ app.post('/api/records/students', checkRecordsPin, async (req, res) => {
         status: feeStatus || 'Unpaid',
         session: '2026-27'
       },
-      documents: {}
+      documents: cleanDocs
     });
 
     // Also sync with Admission & Challan
@@ -1934,7 +1936,8 @@ app.post('/api/records/students', checkRecordsPin, async (req, res) => {
       challanNo,
       applicationNo: `APP-${Math.floor(10000 + Math.random() * 90000)}`,
       date: new Date().toISOString(),
-      fees: newStudent.fees
+      fees: newStudent.fees,
+      documents: cleanDocs
     });
 
     if (numericFee > 0) {
