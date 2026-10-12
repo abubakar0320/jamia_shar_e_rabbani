@@ -455,7 +455,7 @@ export default function RecordsPortalPage() {
 
           <div className="mt-6 pt-6 border-t border-slate-200/70 text-slate-500 text-[11px]">
             <p className="font-medium">
-              💡 <span className="font-bold">Default Staff PIN:</span> <code className="bg-slate-100 px-2 py-0.5 rounded font-mono font-bold text-slate-800">7860</code>
+              💡 <span className="font-bold">Initial Default PIN:</span> <code className="bg-slate-100 px-2 py-0.5 rounded font-mono font-bold text-slate-800">7860</code> (PIN tabdeel karne ke baad sirf aap ka naya PIN kaam karega).
             </p>
           </div>
         </div>

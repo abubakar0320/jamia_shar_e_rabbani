@@ -1830,12 +1830,12 @@ app.post('/api/public/track-application', async (req, res) => {
 // Dedicated Records Management Portal Endpoints (/records)
 // ====================================================
 
-// Verify Staff PIN (default: 7860)
+// Verify Staff PIN (default: 7860 if not set)
 app.post('/api/records/verify-pin', async (req, res) => {
   try {
     const { pin } = req.body;
     const staffPin = await getSetting('staffRecordsPin', '7860');
-    if (String(pin).trim() === String(staffPin).trim() || String(pin).trim() === '7860') {
+    if (String(pin).trim() === String(staffPin).trim()) {
       return res.json({ success: true, authorized: true });
     }
     return res.status(401).json({ success: false, error: 'Ghalat PIN code! Baraye meharbani sahi 4-digit PIN enter karein.' });
@@ -1849,7 +1849,7 @@ app.post('/api/records/change-pin', async (req, res) => {
   try {
     const { currentPin, newPin } = req.body;
     const staffPin = await getSetting('staffRecordsPin', '7860');
-    if (String(currentPin).trim() !== String(staffPin).trim() && String(currentPin).trim() !== '7860') {
+    if (String(currentPin).trim() !== String(staffPin).trim()) {
       return res.status(401).json({ error: 'Purana PIN code ghalat hai.' });
     }
     if (!newPin || String(newPin).trim().length < 4) {
@@ -1866,7 +1866,7 @@ app.post('/api/records/change-pin', async (req, res) => {
 async function checkRecordsPin(req, res, next) {
   const reqPin = req.headers['x-staff-pin'] || req.query.pin;
   const staffPin = await getSetting('staffRecordsPin', '7860');
-  if (String(reqPin).trim() === String(staffPin).trim() || String(reqPin).trim() === '7860') {
+  if (String(reqPin).trim() === String(staffPin).trim()) {
     return next();
   }
   return res.status(401).json({ error: 'Unauthorized: Sahi Staff PIN code darkar hai.' });
