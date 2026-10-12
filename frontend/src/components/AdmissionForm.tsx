@@ -133,24 +133,101 @@ export default function AdmissionForm({ onSuccess }: { onSuccess: (data: Admissi
     return { id, title: defaultLabels[id] || id, required: id !== 'whatsapp', isCore: true };
   };
 
-  const handleFileUpload = (docId: string, e: React.ChangeEvent<HTMLInputElement>) => {
+  const compressImage = (file: File): Promise<{ name: string, data: string, size: string, type: string }> => {
+    return new Promise((resolve) => {
+      if (!file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          resolve({
+            name: file.name,
+            data: reader.result as string,
+            size: (file.size / 1024).toFixed(1) + ' KB',
+            type: file.type
+          });
+        };
+        reader.readAsDataURL(file);
+        return;
+      }
+
+      const img = new window.Image();
+      const url = URL.createObjectURL(file);
+      img.onload = () => {
+        URL.revokeObjectURL(url);
+        const maxDim = 1200;
+        let width = img.width;
+        let height = img.height;
+        if (width > maxDim || height > maxDim) {
+          if (width > height) {
+            height = Math.round((height * maxDim) / width);
+            width = maxDim;
+          } else {
+            width = Math.round((width * maxDim) / height);
+            height = maxDim;
+          }
+        }
+
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        if (ctx) {
+          ctx.drawImage(img, 0, 0, width, height);
+          const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.72);
+          const approxBytes = Math.round((compressedDataUrl.length * 3) / 4);
+          resolve({
+            name: file.name.replace(/\.[^.]+$/, '.jpg'),
+            data: compressedDataUrl,
+            size: (approxBytes / 1024).toFixed(1) + ' KB',
+            type: 'image/jpeg'
+          });
+        } else {
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            resolve({
+              name: file.name,
+              data: reader.result as string,
+              size: (file.size / 1024).toFixed(1) + ' KB',
+              type: file.type
+            });
+          };
+          reader.readAsDataURL(file);
+        }
+      };
+      img.onerror = () => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          resolve({
+            name: file.name,
+            data: reader.result as string,
+            size: (file.size / 1024).toFixed(1) + ' KB',
+            type: file.type
+          });
+        };
+        reader.readAsDataURL(file);
+      };
+      img.src = url;
+    });
+  };
+
+  const handleFileUpload = async (docId: string, e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      if (file.size > 1 * 1024 * 1024) {
+      if (file.size > 8 * 1024 * 1024) {
         setTooLargeDocs(prev => ({ ...prev, [docId]: true }));
-        alert(t("File size must be less than 1MB. Please compress your file using the link provided."));
+        alert(t("File size must be less than 8MB."));
         e.target.value = '';
         return;
       }
       setTooLargeDocs(prev => ({ ...prev, [docId]: false }));
-      const reader = new FileReader();
-      reader.onloadend = () => {
+      try {
+        const processed = await compressImage(file);
         setDocuments(prev => ({
           ...prev,
-          [docId]: { name: file.name, size: (file.size / 1024).toFixed(1) + ' KB', type: file.type, data: reader.result }
+          [docId]: processed
         }));
-      };
-      reader.readAsDataURL(file);
+      } catch (err) {
+        console.error('Error compressing image:', err);
+      }
     }
   };
 
@@ -166,7 +243,6 @@ export default function AdmissionForm({ onSuccess }: { onSuccess: (data: Admissi
     e.preventDefault();
     setIsSubmitting(true);
 
-    
     if (formData.cnic && formData.cnic.length !== 15) {
       alert(t("Please enter a valid 13-digit CNIC number."));
       setIsSubmitting(false);
@@ -190,16 +266,38 @@ export default function AdmissionForm({ onSuccess }: { onSuccess: (data: Admissi
     }
 
     try {
-      const res = await fetch('/api/admissions', {
+      const apiBase = (process.env.NEXT_PUBLIC_API_URL || '').replace(/\/$/, '');
+      const apiUrl = apiBase ? `${apiBase}/admissions` : '/api/admissions';
+
+      const res = await fetch(apiUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...formData, documents })
       });
-      const data = await res.json();
-      if (res.ok && data.id) {
+
+      const contentType = res.headers.get('content-type') || '';
+      let data: any = null;
+
+      if (contentType.includes('application/json')) {
+        data = await res.json();
+      } else {
+        const textResp = await res.text();
+        console.error('Non-JSON server response received:', res.status, textResp);
+        if (res.status === 404) {
+          throw new Error('API route /api/admissions not found (404). Please ensure the backend server is running.');
+        } else if (res.status === 413) {
+          throw new Error('The uploaded documents are too large for the server (413). Please upload smaller images.');
+        } else if (res.status === 502 || res.status === 504) {
+          throw new Error(`Backend server is currently unreachable (${res.status} Bad Gateway).`);
+        } else {
+          throw new Error(`Server returned status ${res.status}: ${res.statusText}`);
+        }
+      }
+
+      if (res.ok && data?.id) {
         onSuccess(data);
       } else {
-        alert(data.error || 'Failed to submit application');
+        alert(data?.error || 'Failed to submit application');
       }
     } catch (err: any) {
       console.error(err);
