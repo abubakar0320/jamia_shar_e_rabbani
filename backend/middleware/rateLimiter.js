@@ -3,9 +3,9 @@ const rateLimit = require('express-rate-limit');
 // 1. General API Rate Limiter (For all API routes)
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 250, // limit each IP to 250 requests per windowMs
-  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
-  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+  max: 600, // limit each IP to 600 requests per 15 minutes
+  standardHeaders: true,
+  legacyHeaders: false,
   message: {
     success: false,
     error: 'Too many requests from this IP, please try again after 15 minutes.'
@@ -26,13 +26,13 @@ const authLimiter = rateLimit({
 
 // 3. Form Submission Limiter (Prevents Spam Admissions, Internships, Payment Slips)
 const submissionLimiter = rateLimit({
-  windowMs: 60 * 60 * 1000, // 1 hour
-  max: 10, // Limit each IP to 10 form submissions per hour
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 60, // Limit each IP to 60 form submissions per 15 minutes
   standardHeaders: true,
   legacyHeaders: false,
   message: {
     success: false,
-    error: 'You have submitted too many applications or forms recently. Please wait an hour before trying again.'
+    error: 'You have submitted several applications recently. Please wait a few moments before trying again.'
   }
 });
 

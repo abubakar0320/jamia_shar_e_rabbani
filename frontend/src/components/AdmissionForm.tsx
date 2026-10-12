@@ -91,20 +91,47 @@ export default function AdmissionForm({ onSuccess }: { onSuccess: (data: Admissi
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   React.useEffect(() => {
-    fetch('/api/admin/form-fields?t=' + Date.now())
+    fetch('/api/form-fields?t=' + Date.now())
       .then(res => res.json())
-      .then(data => setCustomFields(data || []))
-      .catch(console.error);
+      .then(data => {
+        if (Array.isArray(data)) {
+          setCustomFields(data);
+        } else {
+          setCustomFields([]);
+        }
+      })
+      .catch(err => {
+        console.error('Failed to load form fields:', err);
+        setCustomFields([]);
+      });
   }, []);
 
   // Normalize class name for document lookup
   const getBaseClassName = (className: string) => className.replace(/\s*\([^)]*\)\s*$/, '').trim();
   
   const baseRequiredDocs = KHASUSI_DOCS[getBaseClassName(formData.classProgram)] || DEFAULT_REQUIRED_DOCS;
-  const customFileFields = customFields.filter(f => f.type === 'file').map(f => ({ id: f.title, label: f.title }));
+  const customFileFields = Array.isArray(customFields)
+    ? customFields.filter(f => f.type === 'file').map(f => ({ id: f.title, label: f.title }))
+    : [];
   const currentRequiredDocs = [...baseRequiredDocs, ...customFileFields];
-  const customTextFields = customFields.filter(f => f.type !== 'file' && !f.isCore);
-  const getCoreField = (id: string) => customFields.find(f => f.id === id);
+  const customTextFields = Array.isArray(customFields)
+    ? customFields.filter(f => f.type !== 'file' && !f.isCore)
+    : [];
+  const getCoreField = (id: string) => {
+    if (Array.isArray(customFields)) {
+      const found = customFields.find(f => f.id === id);
+      if (found) return found;
+    }
+    const defaultLabels: Record<string, string> = {
+      studentName: 'Student Full Name',
+      fatherName: 'Father Name',
+      dob: 'Date of Birth',
+      cnic: 'CNIC / B-Form Number',
+      mobile: 'Mobile Number',
+      whatsapp: 'WhatsApp Number'
+    };
+    return { id, title: defaultLabels[id] || id, required: id !== 'whatsapp', isCore: true };
+  };
 
   const handleFileUpload = (docId: string, e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];

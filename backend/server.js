@@ -21,6 +21,7 @@ cloudinary.config({
 });
 
 const app = express();
+app.set('trust proxy', 1);
 const PORT = process.env.PORT || 5000;
 
 // Security Middlewares
@@ -339,15 +340,21 @@ app.post('/api/admissions', submissionLimiter, async (req, res) => {
       return res.status(400).json({ error: 'Missing required fields' });
     }
 
-    if (!/^\d{5}-\d{7}-\d{1}$/.test(cnic)) {
-      return res.status(400).json({ error: 'Invalid CNIC format' });
+    let cleanCnic = (cnic || '').trim();
+    if (/^\d{13}$/.test(cleanCnic)) {
+      cleanCnic = `${cleanCnic.slice(0,5)}-${cleanCnic.slice(5,12)}-${cleanCnic.slice(12)}`;
+      req.body.cnic = cleanCnic;
+    }
+
+    if (!/^\d{5}-\d{7}-\d{1}$/.test(cleanCnic)) {
+      return res.status(400).json({ error: 'Invalid CNIC format. Please enter a valid 13-digit CNIC or B-Form number.' });
     }
 
     const birthDate = new Date(dob);
     const today = new Date();
     const age = today.getFullYear() - birthDate.getFullYear();
-    if (isNaN(birthDate.getTime()) || birthDate > today || age < 5 || age > 80) {
-      return res.status(400).json({ error: 'Invalid Date of Birth or Age' });
+    if (isNaN(birthDate.getTime()) || birthDate > today || age < 3 || age > 90) {
+      return res.status(400).json({ error: 'Please enter a valid Date of Birth.' });
     }
 
     const KHASUSI_DOCS_REQ = {
@@ -551,7 +558,7 @@ app.post('/api/admissions', submissionLimiter, async (req, res) => {
     res.status(201).json(newAdmission);
   } catch (err) {
     console.error("Admissions error:", err);
-    res.status(500).json({ error: "Failed to submit admission" });
+    res.status(500).json({ error: "Failed to submit admission: " + (err.message || "Unknown error") });
   }
 });
 

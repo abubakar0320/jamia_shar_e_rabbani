@@ -61,7 +61,7 @@ function saveBase64ToFile(base64String, subfolder = 'general', prefix = 'file') 
   }
 
   // Check if string is a data URI
-  const matches = base64String.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
+  const matches = base64String.match(/^data:([^;]+);base64,([\s\S]+)$/);
   if (!matches || matches.length !== 3) {
     return base64String;
   }
