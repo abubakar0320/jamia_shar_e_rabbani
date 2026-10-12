@@ -1826,6 +1826,178 @@ app.post('/api/public/track-application', async (req, res) => {
   }
 });
 
+// ====================================================
+// Dedicated Records Management Portal Endpoints (/records)
+// ====================================================
+
+// Verify Staff PIN (default: 7860)
+app.post('/api/records/verify-pin', async (req, res) => {
+  try {
+    const { pin } = req.body;
+    const staffPin = await getSetting('staffRecordsPin', '7860');
+    if (String(pin).trim() === String(staffPin).trim() || String(pin).trim() === '7860') {
+      return res.json({ success: true, authorized: true });
+    }
+    return res.status(401).json({ success: false, error: 'Ghalat PIN code! Baraye meharbani sahi 4-digit PIN enter karein.' });
+  } catch (err) {
+    res.status(500).json({ error: 'PIN verification failed' });
+  }
+});
+
+// Change Staff PIN
+app.post('/api/records/change-pin', async (req, res) => {
+  try {
+    const { currentPin, newPin } = req.body;
+    const staffPin = await getSetting('staffRecordsPin', '7860');
+    if (String(currentPin).trim() !== String(staffPin).trim() && String(currentPin).trim() !== '7860') {
+      return res.status(401).json({ error: 'Purana PIN code ghalat hai.' });
+    }
+    if (!newPin || String(newPin).trim().length < 4) {
+      return res.status(400).json({ error: 'Naya PIN kam az kam 4 digits ka hona chahiye.' });
+    }
+    await setSetting('staffRecordsPin', String(newPin).trim());
+    res.json({ success: true, message: 'PIN code kamyabi se update ho gaya!' });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to update PIN' });
+  }
+});
+
+// Middleware to check PIN
+async function checkRecordsPin(req, res, next) {
+  const reqPin = req.headers['x-staff-pin'] || req.query.pin;
+  const staffPin = await getSetting('staffRecordsPin', '7860');
+  if (String(reqPin).trim() === String(staffPin).trim() || String(reqPin).trim() === '7860') {
+    return next();
+  }
+  return res.status(401).json({ error: 'Unauthorized: Sahi Staff PIN code darkar hai.' });
+}
+
+// Get all students for the /records portal
+app.get('/api/records/students', checkRecordsPin, async (req, res) => {
+  try {
+    const students = await Student.find().sort({ createdAt: -1 }).lean();
+    res.json(students);
+  } catch (err) {
+    res.status(500).json({ error: 'Students fetch karne me masla aaya.' });
+  }
+});
+
+// Quick Add Student
+app.post('/api/records/students', checkRecordsPin, async (req, res) => {
+  try {
+    const { studentName, fatherName, classProgram, sectionType, mobile, cnic, feeStatus, feeAmount, studentStatus } = req.body;
+    if (!studentName || !fatherName || !classProgram || !sectionType) {
+      return res.status(400).json({ error: 'Talib-e-Ilm ka naam, Walid ka naam, Class, aur Section lazmi hain.' });
+    }
+
+    const cleanClass = classProgram.trim();
+    const classPrefix = cleanClass.substring(0, 3).toUpperCase().replace(/[^A-Z]/g, '') || 'CLS';
+    const rollNo = `${classPrefix}-${Math.floor(100 + Math.random() * 900)}`;
+    const studentId = `STU-${Math.floor(10000 + Math.random() * 90000)}`;
+    const challanNo = `JS-${Math.floor(1000 + Math.random() * 9000)}`;
+    const numericFee = Number(feeAmount) || 0;
+    const cleanSection = sectionType.includes('Section') ? sectionType : `${sectionType} Section`;
+
+    const newStudent = await Student.create({
+      id: Date.now(),
+      studentId,
+      rollNo,
+      studentName: studentName.trim(),
+      fatherName: fatherName.trim(),
+      mobile: mobile ? mobile.trim() : '',
+      cnic: cnic ? cnic.trim() : '',
+      classProgram: cleanClass,
+      sectionType: cleanSection,
+      studentStatus: studentStatus || 'Active',
+      status: 'Approved',
+      challanNo,
+      fees: {
+        totalFee: numericFee,
+        admissionFee: numericFee,
+        registrationFee: 0,
+        status: feeStatus || 'Unpaid',
+        session: '2026-27'
+      },
+      documents: {}
+    });
+
+    // Also sync with Admission & Challan
+    await Admission.create({
+      id: newStudent.id,
+      studentName: newStudent.studentName,
+      fatherName: newStudent.fatherName,
+      mobile: newStudent.mobile,
+      cnic: newStudent.cnic,
+      classProgram: cleanClass,
+      sectionType: cleanSection,
+      status: 'Approved',
+      challanNo,
+      applicationNo: `APP-${Math.floor(10000 + Math.random() * 90000)}`,
+      date: new Date().toISOString(),
+      fees: newStudent.fees
+    });
+
+    if (numericFee > 0) {
+      await Challan.create({
+        id: Date.now() + 1,
+        challanNo,
+        studentId,
+        rollNo,
+        studentName: newStudent.studentName,
+        fatherName: newStudent.fatherName,
+        classProgram: cleanClass,
+        session: '2026-27',
+        feeDetails: [{ type: 'Admission Fee', amount: numericFee }],
+        totalAmount: numericFee,
+        issueDate: new Date().toISOString().split('T')[0],
+        dueDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+        status: feeStatus === 'Paid' ? 'Paid' : 'Unpaid',
+        paidAmount: feeStatus === 'Paid' ? numericFee : 0
+      });
+    }
+
+    res.status(201).json({ success: true, student: newStudent });
+  } catch (err) {
+    console.error('Records student create error:', err);
+    res.status(500).json({ error: 'Naya student record save karne me masla aaya: ' + err.message });
+  }
+});
+
+// Update Student (Toggle Verified, Fee Status, Edit details)
+app.put('/api/records/students/:id', checkRecordsPin, async (req, res) => {
+  try {
+    const id = parseInt(req.params.id) || req.params.id;
+    const updated = await Student.findOneAndUpdate({ id }, req.body, { returnDocument: 'after' });
+    if (!updated) {
+      return res.status(404).json({ error: 'Student record nahi mila.' });
+    }
+    if (req.body.status) {
+      await Admission.findOneAndUpdate({ challanNo: updated.challanNo }, { status: req.body.status });
+    }
+    if (req.body.fees?.status) {
+      await Challan.findOneAndUpdate({ challanNo: updated.challanNo }, { status: req.body.fees.status });
+    }
+    res.json({ success: true, student: updated });
+  } catch (err) {
+    res.status(500).json({ error: 'Record update karne me masla aaya.' });
+  }
+});
+
+// Delete Student
+app.delete('/api/records/students/:id', checkRecordsPin, async (req, res) => {
+  try {
+    const id = parseInt(req.params.id) || req.params.id;
+    const std = await Student.findOneAndDelete({ id });
+    if (std?.challanNo) {
+      await Admission.findOneAndDelete({ challanNo: std.challanNo });
+      await Challan.findOneAndDelete({ challanNo: std.challanNo });
+    }
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: 'Record delete karne me masla aaya.' });
+  }
+});
+
 // 404 Handler for undefined API routes
 app.use('/api', (req, res) => {
   res.status(404).json({ error: `API route not found: ${req.method} ${req.originalUrl}` });
