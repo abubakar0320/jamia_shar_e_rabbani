@@ -214,30 +214,41 @@ app.get('/api/admin/analytics', requireAdminAuth, async (req, res) => {
 // Exam Mess Routes
 // ----------------------------------------------------
 app.get('/api/exam-mess/config', async (req, res) => {
-  const config = await getSetting('messConfig', { fee: 3000, examName: 'Salana Imtihaan 2026' });
+  const rawConfig = await getSetting('messConfig', { fee: 3000, examName: 'Salana Imtihaan 2026' });
+  const config = {
+    fee: Number(rawConfig?.fee) || 3000,
+    examName: rawConfig?.examName || 'Salana Imtihaan 2026'
+  };
   res.json(config);
 });
 
 app.get('/api/admin/mess-applications', requireAdminAuth, async (req, res) => {
-  const applications = await getSetting('messApplications', []);
+  let applications = await getSetting('messApplications', []);
+  if (!Array.isArray(applications)) applications = [];
   res.json(applications);
 });
 
 app.post('/api/exam-mess/apply', async (req, res) => {
   try {
     const { studentName, fatherName, phone } = req.body;
-    const config = await getSetting('messConfig', { fee: 3000, examName: 'Salana Imtihaan 2026' });
+    if (!studentName || !fatherName || !phone) {
+      return res.status(400).json({ error: 'Student name, father name, and phone number are required.' });
+    }
+
+    const rawConfig = await getSetting('messConfig', { fee: 3000, examName: 'Salana Imtihaan 2026' });
+    const feeAmount = Number(rawConfig?.fee) || 3000;
+    const examTitle = rawConfig?.examName || 'Salana Imtihaan 2026';
     const challanNo = 'MESS' + Date.now().toString().slice(-6);
 
     const challan = await Challan.create({
       id: Date.now(),
       challanNo,
-      studentName,
-      fatherName,
-      phone,
-      classProgram: config.examName + ' Qayam-o-Ta\'am',
-      feeDetails: [{ type: "Zar-e-Ta'awun (Qayam-o-Ta'am)", amount: config.fee }],
-      totalAmount: config.fee,
+      studentName: studentName.trim(),
+      fatherName: fatherName.trim(),
+      phone: phone.trim(),
+      classProgram: examTitle + ' Qayam-o-Ta\'am',
+      feeDetails: [{ type: "Zar-e-Ta'awun (Qayam-o-Ta'am)", amount: feeAmount }],
+      totalAmount: feeAmount,
       issueDate: new Date().toISOString(),
       dueDate: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000).toISOString(),
       status: 'Unpaid',
@@ -247,20 +258,23 @@ app.post('/api/exam-mess/apply', async (req, res) => {
 
     const appData = {
       id: Date.now(),
-      studentName,
-      fatherName,
-      phone,
+      studentName: studentName.trim(),
+      fatherName: fatherName.trim(),
+      phone: phone.trim(),
       challanNo,
       date: new Date().toISOString()
     };
 
-    const messApps = await getSetting('messApplications', []);
+    let messApps = await getSetting('messApplications', []);
+    if (!Array.isArray(messApps)) {
+      messApps = [];
+    }
     messApps.push(appData);
     await setSetting('messApplications', messApps);
 
     // Send Telegram Notification
-    const message = `🍲 *New Imtihaani Qayam-o-Ta'am Application* 🍲\n\n*Student:* ${studentName}\n*Father:* ${fatherName}\n*Phone:* ${phone}\n*Challan No:* ${challanNo}\n*Amount:* Rs ${config.fee}\n*Date:* ${new Date().toLocaleString()}`;
     if (process.env.TELEGRAM_BOT_TOKEN && process.env.TELEGRAM_CHAT_ID) {
+      const message = `🍲 *New Imtihaani Qayam-o-Ta'am Application* 🍲\n\n*Student:* ${studentName}\n*Father:* ${fatherName}\n*Phone:* ${phone}\n*Challan No:* \`${challanNo}\`\n*Amount:* Rs ${feeAmount}\n*Date:* ${new Date().toLocaleString()}`;
       const tUrl = `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${process.env.TELEGRAM_CHAT_ID}&text=${encodeURIComponent(message)}&parse_mode=Markdown`;
       fetch(tUrl).catch(e => console.error("Telegram notification failed:", e));
     }
@@ -268,7 +282,7 @@ app.post('/api/exam-mess/apply', async (req, res) => {
     res.json({ success: true, challan, application: appData });
   } catch (err) {
     console.error("Exam mess error:", err);
-    res.status(500).json({ error: "Failed to submit exam mess application" });
+    res.status(500).json({ error: "Failed to submit exam mess application: " + (err.message || 'Unknown error') });
   }
 });
 

@@ -37,12 +37,14 @@ export default function ExamMessPage() {
     }, 5000);
 
     Promise.all([
-      fetch('/api/exam-mess/config').then(res => res.json()),
-      fetch('/api/payment-accounts').then(res => res.json()).catch(() => fetch('/api/bank-config').then(res => res.json()))
+      fetch('/api/exam-mess/config').then(res => res.json()).catch(() => null),
+      fetch('/api/payment-accounts').then(res => res.json()).catch(() => fetch('/api/bank-config').then(res => res.json()).catch(() => null))
     ])
       .then(([configData, bankData]) => {
         clearTimeout(timeout);
-        setConfig(configData || { fee: 3000, examName: 'Salana Imtihaan 2026' });
+        const validFee = Number(configData?.fee) || 3000;
+        const examName = configData?.examName || 'Salana Imtihaan 2026';
+        setConfig({ fee: validFee, examName });
         setBankConfig(bankData || { bankName: 'Meezan Bank', accountTitle: 'Muhammad Ahmad', accountNumber: '98690112101313' });
       })
       .catch(err => {
@@ -66,12 +68,24 @@ export default function ExamMessPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
       });
-      const data = await res.json();
-      if (data.success) {
-        setGeneratedChallan(data.challan);
+
+      const contentType = res.headers.get('content-type') || '';
+      let data: any = null;
+      if (contentType.includes('application/json')) {
+        data = await res.json();
+      } else {
+        const text = await res.text();
+        throw new Error(`Server returned ${res.status}: ${text || res.statusText}`);
       }
-    } catch (err) {
-      console.error(err);
+
+      if (res.ok && data?.success) {
+        setGeneratedChallan(data.challan);
+      } else {
+        alert(data?.error || 'Failed to submit exam mess application. Please try again.');
+      }
+    } catch (err: any) {
+      console.error('Exam mess submission error:', err);
+      alert('Submission error: ' + (err.message || 'Could not connect to server'));
     } finally {
       setLoading(false);
     }
