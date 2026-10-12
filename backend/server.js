@@ -1,10 +1,15 @@
 const dns = require('dns');
-dns.setServers(['8.8.8.8', '1.1.1.1']);
+try {
+  dns.setServers(['8.8.8.8', '1.1.1.1']);
+} catch (dnsErr) {
+  // Gracefully fallback if environment disallows overriding DNS
+}
 
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '.env') });
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const path = require('path');
 const mongoose = require('mongoose');
 const cloudinary = require('cloudinary').v2;
 const xlsx = require('xlsx');
@@ -103,14 +108,63 @@ app.post('/api/upload/multiple', upload.array('files', 10), (req, res) => {
   res.json({ success: true, files: results });
 });
 
-// MongoDB Connection
-mongoose.connect(process.env.MONGODB_URI, {
-  serverSelectionTimeoutMS: 10000
-}).then(() => {
+// MongoDB Connection with Serverless Promise Caching
+let cachedMongoConn = null;
+
+async function connectToMongo() {
+  if (mongoose.connection.readyState === 1) {
+    return mongoose.connection;
+  }
+
+  if (cachedMongoConn) {
+    try {
+      await cachedMongoConn;
+      return mongoose.connection;
+    } catch (e) {
+      cachedMongoConn = null;
+    }
+  }
+
+  const uri = process.env.MONGODB_URI;
+  if (!uri) {
+    throw new Error('MONGODB_URI environment variable is not defined.');
+  }
+
+  cachedMongoConn = mongoose.connect(uri, {
+    serverSelectionTimeoutMS: 10000
+  });
+
+  await cachedMongoConn;
   console.log('MongoDB connected successfully with Mongoose Models & Security!');
-  backupService.initScheduledBackups();
-}).catch(err => {
-  console.error('MongoDB connection error:', err.message);
+  if (!process.env.VERCEL) {
+    backupService.initScheduledBackups();
+  }
+  return mongoose.connection;
+}
+
+// Initial connection attempt on process startup (for local / persistent instances)
+connectToMongo().catch(err => {
+  console.error('Initial MongoDB connection error:', err.message);
+});
+
+// Middleware: Ensure MongoDB is connected before handling any data requests
+app.use(async (req, res, next) => {
+  if (req.path === '/api/health') {
+    return next();
+  }
+
+  try {
+    if (mongoose.connection.readyState !== 1) {
+      await connectToMongo();
+    }
+    next();
+  } catch (err) {
+    console.error('MongoDB connection middleware failure:', err.message);
+    return res.status(503).json({
+      error: 'Database connection failed. Please ensure MONGODB_URI is properly set.',
+      details: err.message
+    });
+  }
 });
 
 // Settings Helpers
@@ -1694,6 +1748,25 @@ app.post('/api/public/track-application', async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running securely on port ${PORT}`);
+// 404 Handler for undefined API routes
+app.use('/api', (req, res) => {
+  res.status(404).json({ error: `API route not found: ${req.method} ${req.originalUrl}` });
 });
+
+// Global Express Error Handler (guarantees JSON response instead of HTML error pages)
+app.use((err, req, res, next) => {
+  console.error('[API Error]:', err);
+  const statusCode = err.status || err.statusCode || 500;
+  res.status(statusCode).json({
+    error: err.message || 'Internal Server Error',
+    status: statusCode
+  });
+});
+
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`Server is running securely on port ${PORT}`);
+  });
+}
+
+module.exports = app;

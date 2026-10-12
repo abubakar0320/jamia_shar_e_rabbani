@@ -9,7 +9,12 @@
       "src": "backend/server.js",
       "use": "@vercel/node",
       "config": {
-        "includeFiles": "db.json"
+        "includeFiles": [
+          "models/**",
+          "middleware/**",
+          "services/**",
+          "db.json"
+        ]
       }
     }
   ],

@@ -2,23 +2,31 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 
-// Ensure upload directories exist
+const isVercel = Boolean(process.env.VERCEL);
+const baseUploadDir = isVercel ? path.join('/tmp', 'uploads') : path.join(__dirname, '../uploads');
+
+function safeEnsureDir(dirPath) {
+  try {
+    if (!fs.existsSync(dirPath)) {
+      fs.mkdirSync(dirPath, { recursive: true });
+    }
+  } catch (err) {
+    console.warn(`[Upload] Could not create directory ${dirPath}:`, err.message);
+  }
+}
+
+// Ensure upload directories exist safely without throwing on read-only environments
 const uploadDirs = ['admissions', 'internships', 'receipts', 'general'];
 uploadDirs.forEach(dir => {
-  const dirPath = path.join(__dirname, '../uploads', dir);
-  if (!fs.existsSync(dirPath)) {
-    fs.mkdirSync(dirPath, { recursive: true });
-  }
+  safeEnsureDir(path.join(baseUploadDir, dir));
 });
 
 // Configure Multer Disk Storage
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     const subfolder = req.query.folder || req.body.folder || 'general';
-    const targetDir = path.join(__dirname, '../uploads', subfolder);
-    if (!fs.existsSync(targetDir)) {
-      fs.mkdirSync(targetDir, { recursive: true });
-    }
+    const targetDir = path.join(baseUploadDir, subfolder);
+    safeEnsureDir(targetDir);
     cb(null, targetDir);
   },
   filename: function (req, file, cb) {
@@ -60,6 +68,11 @@ function saveBase64ToFile(base64String, subfolder = 'general', prefix = 'file') 
     return base64String;
   }
 
+  // On Vercel without Cloudinary configured, keep base64 data URI so images persist safely in DB
+  if (isVercel && !process.env.CLOUDINARY_CLOUD_NAME) {
+    return base64String;
+  }
+
   // Check if string is a data URI
   const matches = base64String.match(/^data:([^;]+);base64,([\s\S]+)$/);
   if (!matches || matches.length !== 3) {
@@ -76,17 +89,15 @@ function saveBase64ToFile(base64String, subfolder = 'general', prefix = 'file') 
   else if (mimeType === 'application/pdf') ext = '.pdf';
 
   const filename = `${prefix}_${Date.now()}_${Math.round(Math.random() * 1E6)}${ext}`;
-  const targetDir = path.join(__dirname, '../uploads', subfolder);
-  if (!fs.existsSync(targetDir)) {
-    fs.mkdirSync(targetDir, { recursive: true });
-  }
+  const targetDir = path.join(baseUploadDir, subfolder);
+  safeEnsureDir(targetDir);
 
   const filePath = path.join(targetDir, filename);
   try {
     fs.writeFileSync(filePath, Buffer.from(base64Data, 'base64'));
     return `/uploads/${subfolder}/${filename}`;
   } catch (err) {
-    console.error('Error saving base64 to file:', err);
+    console.warn('[Upload] Filesystem write failed, falling back to base64 string:', err.message);
     return base64String;
   }
 }

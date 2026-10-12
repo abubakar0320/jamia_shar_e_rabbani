@@ -1,12 +1,17 @@
 const fs = require('fs');
 const path = require('path');
 
-const BACKUPS_DIR = path.join(__dirname, '..', 'backups');
+const isVercel = Boolean(process.env.VERCEL);
+const BACKUPS_DIR = isVercel ? path.join('/tmp', 'backups') : path.join(__dirname, '..', 'backups');
 const MAX_SNAPSHOTS = 7;
 
-// Ensure backups folder exists
-if (!fs.existsSync(BACKUPS_DIR)) {
-  fs.mkdirSync(BACKUPS_DIR, { recursive: true });
+// Ensure backups folder exists safely without throwing on read-only environments
+try {
+  if (!fs.existsSync(BACKUPS_DIR)) {
+    fs.mkdirSync(BACKUPS_DIR, { recursive: true });
+  }
+} catch (err) {
+  console.warn('[Backup] Unable to create backups directory:', err.message);
 }
 
 let lastBackupTime = null;
@@ -214,6 +219,11 @@ async function restoreData(payload, mode = 'replace') {
  * Initialize background scheduled snapshot (once every 24 hours)
  */
 function initScheduledBackups() {
+  if (isVercel) {
+    // Scheduled background timers are not supported/needed in ephemeral serverless invocations
+    return;
+  }
+
   // Check if a backup was taken within last 24h
   const list = listSnapshots();
   const oneDayAgo = Date.now() - 24 * 60 * 60 * 1000;
