@@ -35,6 +35,19 @@ app.use(sanitizeInput);
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/api', apiLimiter);
 
+// Production Health Check & Uptime Monitoring
+app.get('/api/health', (req, res) => {
+  const isMongoConnected = mongoose.connection.readyState === 1;
+  res.status(isMongoConnected ? 200 : 503).json({
+    status: isMongoConnected ? 'healthy' : 'degraded',
+    uptimeSeconds: Math.floor(process.uptime()),
+    mongodb: isMongoConnected ? 'connected' : 'disconnected',
+    timestamp: new Date().toISOString(),
+    version: '2.0.0',
+    service: 'Jamia Sher-e-Rabbani Backend API'
+  });
+});
+
 // --- Mongoose Models ---
 const Course = require('./models/Course');
 const Admission = require('./models/Admission');
