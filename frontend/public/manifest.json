@@ -1,11 +1,15 @@
 {
-  "name": "Jamia Shar e Rabbani",
-  "short_name": "Jamia",
-  "description": "Official App for Jamia Shar e Rabbani",
+  "name": "جامعہ شیرِ ربانی | Jamia Sher-e-Rabbani",
+  "short_name": "Sher-e-Rabbani",
+  "description": "Official Web Portal & Student Management System for Jamia Sher-e-Rabbani Mananwala",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
+  "orientation": "portrait-primary",
   "background_color": "#ffffff",
   "theme_color": "#1e3a8a",
+  "lang": "ur",
+  "categories": ["education", "religion", "books"],
   "icons": [
     {
       "src": "/logo.jpeg",
@@ -18,6 +22,26 @@
       "sizes": "512x512",
       "type": "image/jpeg",
       "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Admissions / داخلہ",
+      "short_name": "Admissions",
+      "url": "/admissions",
+      "icons": [{ "src": "/logo.jpeg", "sizes": "192x192" }]
+    },
+    {
+      "name": "Track Application / لائیو اسٹیٹس",
+      "short_name": "Track",
+      "url": "/admissions/status",
+      "icons": [{ "src": "/logo.jpeg", "sizes": "192x192" }]
+    },
+    {
+      "name": "Wafaq Results / نتائج",
+      "short_name": "Results",
+      "url": "/wafaq-results",
+      "icons": [{ "src": "/logo.jpeg", "sizes": "192x192" }]
     }
   ]
 }
