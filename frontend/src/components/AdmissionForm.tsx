@@ -266,8 +266,20 @@ export default function AdmissionForm({ onSuccess }: { onSuccess: (data: Admissi
     }
 
     try {
-      const apiBase = (process.env.NEXT_PUBLIC_API_URL || '').replace(/\/$/, '');
-      const apiUrl = apiBase ? `${apiBase}/admissions` : '/api/admissions';
+      let apiUrl = '/api/admissions';
+      const customApi = (process.env.NEXT_PUBLIC_API_URL || '').trim().replace(/\/$/, '');
+      if (customApi) {
+        const isBrowser = typeof window !== 'undefined';
+        const isLocalHost = isBrowser && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+
+        if (!isLocalHost && customApi.includes('localhost')) {
+          apiUrl = '/api/admissions';
+        } else {
+          apiUrl = customApi.endsWith('/api')
+            ? `${customApi}/admissions`
+            : (customApi.includes('/api/') ? `${customApi}/admissions` : `${customApi}/api/admissions`);
+        }
+      }
 
       const res = await fetch(apiUrl, {
         method: 'POST',
