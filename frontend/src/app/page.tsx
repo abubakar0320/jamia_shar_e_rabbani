@@ -11,9 +11,6 @@ const AcademicPrograms = dynamic(() => import('@/components/home/AcademicProgram
 const WhyChooseUs = dynamic(() => import('@/components/home/WhyChooseUs'), {
   loading: () => <div className="h-96 animate-pulse bg-slate-50" />
 });
-const Islam360Resources = dynamic(() => import('@/components/home/Islam360Resources'), {
-  loading: () => <div className="h-96 animate-pulse bg-white" />
-});
 const FacultySpotlight = dynamic(() => import('@/components/home/FacultySpotlight'), {
   loading: () => <div className="h-96 animate-pulse bg-slate-50" />
 });
@@ -37,7 +34,6 @@ export default function Home() {
         <Hero />
         <AcademicPrograms />
         <WhyChooseUs />
-        <Islam360Resources />
         <FacultySpotlight />
         <NewsEvents />
         <Testimonials />
