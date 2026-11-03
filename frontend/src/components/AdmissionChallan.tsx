@@ -233,19 +233,19 @@ export default function AdmissionChallan({ data, onBack }: ChallanProps) {
       <div className="flex flex-col md:flex-row justify-between items-center mb-10 gap-6 print:hidden">
         <button 
           onClick={onBack}
-          className="flex items-center gap-2 text-gray-600 hover:text-blue-700 font-semibold text-sm transition-colors"
+          className="flex items-center gap-2 text-slate-700 hover:text-emerald-700 font-bold text-sm transition-colors font-urdu leading-[2.0]"
         >
-          <ArrowLeft size={16} /> {t('Back to Admission Portal')}
+          <ArrowLeft size={16} /> داخلہ پورٹل پر واپس جائیں (Back)
         </button>
         
         <div className="flex flex-wrap gap-4">
           <button 
             type="button"
             onClick={() => setShowPaymentModal(true)}
-            className={`flex items-center gap-2 px-6 py-3 font-black text-sm transition-all shadow-md rounded-sm ${
+            className={`flex items-center gap-2 px-6 py-3 font-bold text-sm transition-all shadow-md rounded-sm font-urdu leading-[2.0] ${
               challanStatus === 'Paid'
                 ? 'bg-emerald-700 text-white hover:bg-emerald-800 shadow-emerald-700/20'
-                : 'bg-gradient-to-r from-emerald-600 to-teal-700 text-white hover:from-emerald-700 hover:to-teal-800 shadow-emerald-600/30 ring-2 ring-emerald-400/30'
+                : 'bg-emerald-600 text-white hover:bg-emerald-700 shadow-emerald-600/30'
             }`}
           >
             {challanStatus === 'Paid' ? (
@@ -254,23 +254,23 @@ export default function AdmissionChallan({ data, onBack }: ChallanProps) {
               <Smartphone size={18} />
             )}
             {challanStatus === 'Paid' 
-              ? 'Fee Paid / فیس ادا ہو چکی ہے' 
-              : 'Pay Online / موبائل سے فیس ادا کریں'}
+              ? 'فیس ادا ہو چکی ہے (Paid)' 
+              : 'موبائل سے فیس ادا کریں (Pay Online)'}
           </button>
 
           <button 
             type="button"
             onClick={() => setShowReceiptModal(true)}
-            className="flex items-center gap-2 px-5 py-3 bg-purple-700 hover:bg-purple-800 text-white font-bold text-sm transition-colors shadow-md rounded-sm"
+            className="flex items-center gap-2 px-5 py-3 bg-purple-700 hover:bg-purple-800 text-white font-bold text-sm transition-colors shadow-md rounded-sm font-urdu leading-[2.0]"
           >
-            <Share2 size={16} /> Receipt & WhatsApp / رسید
+            <Share2 size={16} /> رسید و واٹس ایپ (Receipt)
           </button>
 
           <button 
             onClick={() => { window.print(); }}
-            className="flex items-center gap-2 px-6 py-3 bg-blue-700 text-white font-semibold text-sm transition-colors hover:bg-blue-800"
+            className="flex items-center gap-2 px-6 py-3 bg-slate-900 text-white font-bold text-sm transition-colors hover:bg-slate-800 shadow-md rounded-sm font-urdu leading-[2.0]"
           >
-            <Printer size={16} /> {t('Print Documents')}
+            <Printer size={16} /> چالان پرنٹ کریں (Print)
           </button>
         </div>
       </div>

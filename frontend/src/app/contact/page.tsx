@@ -4,7 +4,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { useTranslation } from 'react-i18next';
 import Image from 'next/image';
-import { Mail, Phone, MapPin, ChevronRight, Globe2, Clock, Landmark, ShieldCheck, Award } from 'lucide-react';
+import { Mail, Phone, MapPin, ChevronLeft, Globe2, Clock, Landmark, ShieldCheck, Award, ArrowLeft } from 'lucide-react';
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
@@ -40,18 +40,18 @@ export default function Contact() {
         setTimeout(() => setStatus('idle'), 5000);
       } else {
         setStatus('error');
-        setErrorMessage(t('contact_error_failed'));
+        setErrorMessage('پیغام بھیجنے میں خرابی پیش آئی۔ براہ کرم دوبارہ کوشش کریں۔');
       }
     } catch (error) {
       console.error('Error submitting form:', error);
       setStatus('error');
-      setErrorMessage(t('contact_error_server'));
+      setErrorMessage('سرور سے رابطہ نہ ہو سکا۔ براہ کرم انٹرنیٹ چیک کریں۔');
     }
   };
 
   if (!mounted) {
     return (
-      <div className="flex flex-col min-h-screen bg-white">
+      <div className="flex flex-col min-h-screen bg-white font-urdu" dir="rtl">
         <Header />
         <main className="flex-1" />
         <Footer />
@@ -62,10 +62,10 @@ export default function Contact() {
   return (
     <>
       <Header />
-      <main className="flex-1 bg-white font-sans text-slate-900">
+      <main className="flex-1 bg-white font-urdu text-slate-900" dir="rtl">
         
         {/* --- HERO SECTION --- */}
-        <section className="relative pt-24 pb-20 bg-white border-b border-slate-100 bg-cover bg-center" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)), url('/ahmad.png')", backgroundSize: "cover", backgroundPosition: "center" }}>
+        <section className="relative pt-24 pb-20 bg-white border-b border-slate-100 bg-cover bg-center" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.88), rgba(255,255,255,0.88)), url('/ahmad.png')", backgroundSize: "cover", backgroundPosition: "center" }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
             <div className="max-w-3xl mx-auto">
               <motion.div 
@@ -73,19 +73,23 @@ export default function Contact() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                <div className="inline-block bg-purple-50 border border-purple-200 text-purple-600 rounded-full shadow-sm text-xs font-bold px-4 py-1.5 mb-6 uppercase tracking-wide">
-                  Connect With Us
+                <div className="inline-block bg-emerald-50 border border-emerald-200 text-emerald-700 rounded-full shadow-sm text-sm font-bold px-5 py-1.5 mb-6 leading-[2.0]">
+                  ہم سے رابطہ فرمائیں
                 </div>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-slate-900 mb-6 leading-tight">
-                  Always Here to <br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-purple-500 to-rose-500 drop-shadow-sm">Assist You</span>
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 leading-[2.1] sm:leading-[2.2]">
+                  جامعہ شیرِ ربانی آپ کی رہنمائی کے لیے ہمہ وقت حاضر ہے
                 </h1>
-                <p className="text-xl text-slate-600 max-w-2xl mx-auto mb-10">
-                  Whether you have questions about admissions, scholarly research, or community support, our dedicated teams are ready to help. Reach out through any of the channels below.
+                <p className="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto mb-10 leading-[2.3]">
+                  چاہے آپ کے ذہن میں داخلہ، علمی و تحقیقی شعبہ جات یا فلاحی خدمات کے حوالے سے کوئی سوال ہو، ہماری مخلص انتظامیہ آپ کی مکمل رہنمائی کے لیے تیار ہے۔
                 </p>
                 
                 <div className="flex flex-wrap justify-center gap-4">
-                   <div className="flex items-center gap-2 text-amber-700 text-sm font-bold bg-amber-50 border border-amber-100 rounded-full shadow-sm px-6 py-3"><Clock size={18} className="text-amber-500" /> Response within 24 Hours</div>
-                   <div className="flex items-center gap-2 text-blue-700 text-sm font-bold bg-blue-50 border border-blue-100 rounded-full shadow-sm px-6 py-3"><Globe2 size={18} className="text-blue-500" /> Global Support</div>
+                   <div className="flex items-center gap-2 text-amber-800 text-base font-bold bg-amber-50 border border-amber-200 rounded-full shadow-sm px-6 py-2.5 leading-[2.0]">
+                     <Clock size={18} className="text-amber-600" /> ۲۴ گھنٹوں میں فوری جواب
+                   </div>
+                   <div className="flex items-center gap-2 text-emerald-800 text-base font-bold bg-emerald-50 border border-emerald-200 rounded-full shadow-sm px-6 py-2.5 leading-[2.0]">
+                     <Globe2 size={18} className="text-emerald-600" /> ملک بھر اور بیرونِ ملک رہنمائی
+                   </div>
                 </div>
               </motion.div>
             </div>
@@ -93,20 +97,32 @@ export default function Contact() {
         </section>
 
         {/* --- DETAILED CONTACT METHODS --- */}
-        <section className="py-16 bg-white border-b border-slate-100">
+        <section className="py-16 bg-slate-50/50 border-b border-slate-100">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-2 md:grid-cols-2 gap-3 md:gap-8 max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
               {[
-                { title: "General Inquiries", icon: <Globe2 className="w-4 h-4 md:w-6 md:h-6" />, info: "shererabbani@gmail.com", sub: "0314-4081516" },
-                { title: "Admissions Office", icon: <Landmark className="w-4 h-4 md:w-6 md:h-6" />, info: "shererabbani@gmail.com", sub: "0332-8364368" }
+                { 
+                  title: "عمومی معلومات و استفسارات", 
+                  icon: <Globe2 className="w-6 h-6 text-emerald-600" />, 
+                  info: "shererabbani@gmail.com", 
+                  sub: "0314-4081516",
+                  color: "bg-emerald-50 border-emerald-200"
+                },
+                { 
+                  title: "دفترِ شعبہ داخلہ و امتحانات", 
+                  icon: <Landmark className="w-6 h-6 text-blue-600" />, 
+                  info: "shererabbani@gmail.com", 
+                  sub: "0332-8364368",
+                  color: "bg-blue-50 border-blue-200"
+                }
               ].map((method, idx) => (
-                <div key={idx} className={`bg-white p-4 md:p-8 border shadow-sm transition-all duration-300 transform hover:-translate-y-1 md:hover:-translate-y-2 rounded-xl md:rounded-2xl text-center group ${idx===0?"border-blue-100 hover:border-blue-400 hover:shadow-[0_10px_30px_rgba(59,130,246,0.15)]":"border-rose-100 hover:border-rose-400 hover:shadow-[0_10px_30px_rgba(244,63,94,0.15)]"}`}>
-                  <div className={`mb-3 md:mb-4 w-10 h-10 md:w-16 md:h-16 mx-auto rounded-full flex items-center justify-center shadow-sm border ${idx===0?"bg-blue-50 text-blue-600 border-blue-100":"bg-rose-50 text-rose-600 border-rose-100"}`}>
+                <div key={idx} className="bg-white p-6 md:p-8 border border-slate-200 shadow-sm transition-all duration-300 transform hover:-translate-y-1 rounded-2xl text-center group">
+                  <div className={`mb-4 w-14 h-14 mx-auto rounded-full flex items-center justify-center shadow-sm border ${method.color}`}>
                     {method.icon}
                   </div>
-                  <h3 className="text-[11px] md:text-lg font-semibold text-slate-900 mb-1 md:mb-2">{method.title}</h3>
-                  <p className="text-[9px] md:text-sm font-semibold text-slate-700 mb-1 truncate">{method.info}</p>
-                  <p className="text-[9px] md:text-xs text-slate-500 font-semibold tracking-wide">{method.sub}</p>
+                  <h3 className="text-xl font-bold text-slate-900 mb-2 leading-[2.0]">{method.title}</h3>
+                  <p className="text-sm font-bold text-slate-700 mb-1 font-mono" dir="ltr">{method.info}</p>
+                  <p className="text-base text-emerald-700 font-bold font-mono" dir="ltr">{method.sub}</p>
                 </div>
               ))}
             </div>
@@ -118,72 +134,81 @@ export default function Contact() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
               
-              {/* Left Column: Form */}
-              <div className="lg:col-span-7 bg-white p-8 border border-slate-100 rounded-3xl shadow-xl shadow-purple-500/5">
-                <div className="mb-8">
-                  <h2 className="text-2xl font-semibold text-slate-900 mb-2">Send a Message</h2>
-                  <p className="text-slate-600 text-sm">
-                    Fill out the form below and our administrative team will direct your inquiry to the relevant department immediately.
+              {/* Form Column */}
+              <div className="lg:col-span-7 bg-white p-8 md:p-10 border border-slate-200 rounded-3xl shadow-xl shadow-emerald-950/5">
+                <div className="mb-8 border-b border-slate-100 pb-6">
+                  <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-2 leading-[2.1]">پیغام یا سوال ارسال کریں</h2>
+                  <p className="text-slate-600 text-sm leading-[2.2]">
+                    درج ذیل فارم میں اپنا نام، ای میل اور مطلوبہ پیغام تحریر فرمائیں۔ ہماری انتظامیہ آپ کا پیغام متعلقہ شعبہ تک فوری پہنچائے گی۔
                   </p>
                 </div>
 
                 <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-semibold text-slate-600 uppercase tracking-wide">Full Name</label>
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-slate-700 leading-[2.0]">مکمل نام *</label>
                     <input
                       type="text"
                       required
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full px-4 py-3 bg-white border border-slate-200 focus:outline-none focus:border-blue-700 focus:ring-1 focus:ring-blue-700 transition-colors text-slate-900"
+                      placeholder="اپنا مکمل نام درج کریں"
+                      className="w-full px-4 py-3 bg-slate-50 border border-slate-200 focus:outline-none focus:border-emerald-600 rounded-md transition-colors text-slate-900 leading-[2.0]"
                     />
                   </div>
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-semibold text-slate-600 uppercase tracking-wide">Email Address</label>
+                  <div className="space-y-2">
+                    <label className="text-sm font-bold text-slate-700 leading-[2.0]">ای میل ایڈریس *</label>
                     <input
                       type="email"
+                      dir="ltr"
                       required
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full px-4 py-3 bg-white border border-slate-200 focus:outline-none focus:border-blue-700 focus:ring-1 focus:ring-blue-700 transition-colors text-slate-900"
+                      placeholder="example@email.com"
+                      className="w-full px-4 py-3 bg-slate-50 border border-slate-200 focus:outline-none focus:border-emerald-600 rounded-md transition-colors text-slate-900 text-right leading-[2.0]"
                     />
                   </div>
-                  <div className="md:col-span-2 space-y-1.5">
-                    <label className="text-xs font-semibold text-slate-600 uppercase tracking-wide">Your Message</label>
+                  <div className="md:col-span-2 space-y-2">
+                    <label className="text-sm font-bold text-slate-700 leading-[2.0]">آپ کا پیغام یا استفسار *</label>
                     <textarea
                       rows={5}
                       required
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="w-full px-4 py-3 bg-white border border-slate-200 focus:outline-none focus:border-blue-700 focus:ring-1 focus:ring-blue-700 transition-colors text-slate-900 resize-none"
+                      placeholder="اپنا تفصیلی پیغام یہاں تحریر فرمائیں..."
+                      className="w-full px-4 py-3 bg-slate-50 border border-slate-200 focus:outline-none focus:border-emerald-600 rounded-md transition-colors text-slate-900 resize-none leading-[2.0]"
                     ></textarea>
                   </div>
                   <div className="md:col-span-2">
                     <button
                       type="submit"
                       disabled={status === 'loading'}
-                      className="w-full md:w-auto px-8 py-3 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-bold rounded-xl shadow-md transition-all transform hover:-translate-y-1 disabled:opacity-50 flex items-center justify-center gap-2"
+                      className="w-full md:w-auto px-8 py-3.5 bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-base rounded-md shadow-md transition-all disabled:opacity-50 flex items-center justify-center gap-2 leading-[2.0]"
                     >
-                      {status === 'loading' ? 'Sending...' : 'Send Message'}
-                      <ChevronRight size={18} />
+                      {status === 'loading' ? 'پیغام بھیجا جا رہا ہے...' : 'پیغام ارسال کریں'}
+                      <ArrowLeft size={18} />
                     </button>
                     {status === 'success' && (
-                      <div className="mt-4 p-4 bg-emerald-50 text-emerald-700 text-sm font-bold border border-emerald-200 rounded-xl shadow-sm">
-                        Message sent successfully! We will get back to you soon.
+                      <div className="mt-4 p-4 bg-emerald-50 text-emerald-800 text-sm font-bold border border-emerald-200 rounded-xl shadow-sm leading-[2.0]">
+                        آپ کا پیغام کامیابی کے ساتھ موصول ہو گیا ہے! ہم جلد آپ سے رابطہ کریں گے۔
+                      </div>
+                    )}
+                    {status === 'error' && (
+                      <div className="mt-4 p-4 bg-rose-50 text-rose-800 text-sm font-bold border border-rose-200 rounded-xl shadow-sm leading-[2.0]">
+                        {errorMessage || 'پیغام بھیجنے میں خرابی پیش آئی۔ براہ کرم دوبارہ کوشش کریں۔'}
                       </div>
                     )}
                   </div>
                 </form>
               </div>
 
-              {/* Right Column: Institutional Info */}
+              {/* Institutional Info & Location Column */}
               <div className="lg:col-span-5 space-y-8">
-                <div className="bg-gradient-to-br from-indigo-700 via-purple-800 to-slate-900 p-8 text-white rounded-3xl shadow-xl overflow-hidden relative">
-                  <h3 className="text-xl font-semibold mb-6">Campus Visit</h3>
+                <div className="bg-gradient-to-br from-emerald-900 to-teal-950 p-8 text-white rounded-3xl shadow-xl overflow-hidden relative">
+                  <h3 className="text-2xl font-bold mb-6 leading-[2.1]">کیمپس کی لوکیشن و پتہ</h3>
                   
                   <div className="space-y-6">
                     {/* Interactive Map */}
-                    <div className="w-full h-40 border border-white/20 rounded-xl mb-6 grayscale hover:grayscale-0 transition-all duration-300">
+                    <div className="w-full h-44 border border-white/20 rounded-xl mb-6 overflow-hidden">
                       <iframe 
                         src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3403.48623403912!2d73.6855994!3d31.5879301!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzHCsDM1JzE2LjUiTiA3M8KwNDEnMDguMiJF!5e0!3m2!1sen!2s!4v1718100000000!5m2!1sen!2s" 
                         width="100%" 
@@ -195,50 +220,51 @@ export default function Contact() {
                       ></iframe>
                     </div>
 
-                    <div className="flex gap-4">
-                      <div className="text-fuchsia-300 shrink-0 mt-0.5">
-                        <MapPin size={20} />
+                    <div className="flex gap-4 items-start">
+                      <div className="text-emerald-300 shrink-0 mt-1">
+                        <MapPin size={22} />
                       </div>
                       <div>
-                        <h4 className="font-semibold text-white mb-1">Physical Address</h4>
-                        <p className="text-sm text-fuchsia-100">Jamia Sher-e-Rabbani, Mananwala, District Sheikhupura, Punjab, Pakistan</p>
+                        <h4 className="font-bold text-white mb-1 leading-[2.0]">جامعہ کا باضابطہ پتہ:</h4>
+                        <p className="text-sm text-emerald-100 leading-[2.2]">جامعہ شیرِ ربانی، مانانوالہ روڈ، ضلع ننکانہ صاحب / شیخوپورہ، پنجاب، پاکستان</p>
                       </div>
                     </div>
 
-                    <div className="flex gap-4">
-                      <div className="text-fuchsia-300 shrink-0 mt-0.5">
-                        <Clock size={20} />
+                    <div className="flex gap-4 items-start">
+                      <div className="text-emerald-300 shrink-0 mt-1">
+                        <Clock size={22} />
                       </div>
                       <div>
-                        <h4 className="font-semibold text-white mb-1">Office Hours</h4>
-                        <div className="text-sm text-fuchsia-100 space-y-1">
-                          <p>Mon - Thu: 9:00 AM - 5:00 PM</p>
-                          <p>Saturday: 9:00 AM - 5:00 PM</p>
-                          <p className="text-gray-300">Friday & Sunday: Closed</p>
+                        <h4 className="font-bold text-white mb-1 leading-[2.0]">اوقاتِ دفتری:</h4>
+                        <div className="text-sm text-emerald-100 space-y-1 leading-[2.2]">
+                          <p>پیر تا جمعرات: صبح ۹:۰۰ بجے تا شام ۵:۰۰ بجے</p>
+                          <p>ہفتہ: صبح ۹:۰۰ بجے تا شام ۵:۰۰ بجے</p>
+                          <p className="text-emerald-300">جمعہ اور اتوار: ہفتہ وار تعطیل</p>
                         </div>
                       </div>
                     </div>
                   </div>
 
-                  <div className="mt-8 pt-6 border-t border-white/20 rounded-xl">
+                  <div className="mt-8 pt-6 border-t border-white/20">
                     <Link 
                       href="https://www.google.com/maps/dir/?api=1&destination=31.58793009753148,73.68559944178602" 
                       target="_blank"
-                      className="inline-flex items-center text-white font-semibold text-sm hover:underline"
+                      className="inline-flex items-center gap-2 text-white font-bold text-sm hover:underline leading-[2.0]"
                     >
-                      Get Directions via Map <ChevronRight size={16} className="ml-1" />
+                      <span>گوگل میپ پر راستہ دیکھیں</span>
+                      <ChevronLeft size={16} />
                     </Link>
                   </div>
                 </div>
 
-                {/* Additional Help */}
-                <div className="p-8 bg-white border border-slate-100 text-center rounded-2xl shadow-sm">
-                  <div className="text-emerald-500 mb-3 bg-emerald-50 w-16 h-16 mx-auto rounded-full flex items-center justify-center">
+                {/* Additional Security Info */}
+                <div className="p-8 bg-white border border-slate-200 text-center rounded-2xl shadow-sm">
+                  <div className="text-emerald-600 mb-3 bg-emerald-50 w-16 h-16 mx-auto rounded-full flex items-center justify-center">
                     <ShieldCheck size={28} />
                   </div>
-                  <h4 className="text-lg font-semibold text-slate-900 mb-2">Secure Communication</h4>
-                  <p className="text-sm text-slate-600">
-                    All your messages are encrypted and handled with strict confidentiality by our administrative office.
+                  <h4 className="text-lg font-bold text-slate-900 mb-2 leading-[2.0]">محفوظ اور خفیہ رابطہ</h4>
+                  <p className="text-sm text-slate-600 leading-[2.2]">
+                    آپ کے تمام پیغامات اور کوائف کو ادارتی رازداری اور مکمل تحفظ کے ساتھ سنبھالا جاتا ہے۔
                   </p>
                 </div>
               </div>

@@ -27,18 +27,16 @@ const Header = () => {
   }, []);
 
   const navItems = [
-    { label: t('Home', 'Home'), href: '/' },
-    { label: t('About Us', 'About'), href: '/about' },
-    { label: t('Courses', 'Courses'), href: '/courses' },
-    { label: t('Faculty', 'Faculty'), href: '/faculty' },
-    { label: t('Research', 'Research'), href: '/islamic-research-center' },
-    { label: t('News', 'News'), href: '/news' },
-    { label: t('Wafaq Results', 'Wafaq Results'), href: '/wafaq-results' },
-    { label: t('Exam Mess', 'Exam Mess'), href: '/exam-mess' },
-    { label: t('Donations', 'Donations'), href: '/donations' },
-    { label: t('Admissions', 'Admissions'), href: '/admissions' },
-    { label: t('Internship', 'Internship'), href: '/internship' },
-    { label: t('Contact', 'Contact'), href: '/contact' },
+    { label: 'ہوم', href: '/', color: '#fbbf24' }, // Vibrant Amber Gold
+    { label: 'ہمارے بارے میں', href: '/about', color: '#38bdf8' }, // Sky Blue
+    { label: 'شعبہ جات و کورسز', href: '/courses', color: '#34d399' }, // Emerald Mint
+    { label: 'اساتذہ کرام', href: '/faculty', color: '#c084fc' }, // Violet Purple
+    { label: 'خبریں و اعلانات', href: '/news', color: '#60a5fa' }, // Royal Blue
+    { label: 'نتائج وفاق المدارس', href: '/wafaq-results', color: '#fb923c' }, // Bright Orange
+    { label: 'عطیات و صدقات', href: '/donations', color: '#a3e635' }, // Lime Green
+    { label: 'آن لائن داخلہ', href: '/admissions', color: '#f87171' }, // Coral Red
+    { label: 'انٹرن شپ', href: '/internship', color: '#2dd4bf' }, // Cyan Teal
+    { label: 'رابطہ', href: '/contact', color: '#818cf8' }, // Indigo
   ];
 
   // Official Affiliated & National Entities with verified official websites
@@ -82,7 +80,7 @@ const Header = () => {
 
   if (!mounted) {
     return (
-      <header className="sticky top-0 z-50 bg-white border-b border-gray-200 print:hidden">
+      <header className="sticky top-0 z-50 bg-white border-b border-gray-200 print:hidden" dir="rtl">
         {/* Skeleton Header: Logo & Title */}
         <div className="bg-white border-b border-slate-100 py-3 md:py-4">
           <div className="max-w-[1600px] mx-auto px-4 md:px-8 flex items-center justify-between">
@@ -102,40 +100,35 @@ const Header = () => {
   }
 
   return (
-    <header className="sticky top-0 z-50 bg-white shadow-sm font-sans print:hidden">
+    <header className="sticky top-0 z-50 bg-white shadow-sm font-sans print:hidden" dir="rtl">
       {/* 1. TOP HEADER: Logo & Name with National / Affiliation Logos */}
       <div className="bg-white border-b border-slate-100 py-2 sm:py-3">
         <div className="max-w-[1600px] mx-auto px-3 sm:px-6 md:px-8 flex items-center justify-between gap-3">
           
-          {/* Main Institution Logo & Name */}
+          {/* Main Institution Logo & Name (Always on RIGHT in RTL) */}
           <Link href="/" className="flex items-center gap-2.5 sm:gap-3.5 group flex-shrink-0">
-            <div className="relative w-10 h-10 sm:w-12 sm:h-12 md:w-13 md:h-13 flex-shrink-0">
+            <div className="relative w-11 h-11 sm:w-13 sm:h-13 md:w-14 md:h-14 flex-shrink-0">
               <Image 
                 src="/logo.jpeg" 
-                alt="Jamia Sher-e-Rabbani Logo" 
-                width={52} 
-                height={52} 
+                alt="لوگو جامعہ شیرِ ربانی" 
+                width={56} 
+                height={56} 
                 className="rounded-full shadow-sm group-hover:scale-105 transition-transform border border-emerald-100 object-cover"
                 priority
               />
             </div>
-            <div className="flex flex-col">
-              <div className="flex items-baseline gap-2">
-                <span className="text-lg sm:text-xl md:text-2xl font-black text-emerald-800 tracking-tight leading-none group-hover:text-emerald-700 transition-colors">
-                  JAMIA SHER-E-RABBANI
-                </span>
-                <span className="hidden sm:inline-block text-xs font-bold text-emerald-700/80 font-urdu">
-                  جامعہ شیرِ ربانی
-                </span>
-              </div>
-              <span className="text-[9px] sm:text-[10px] md:text-[11px] font-bold text-slate-500 tracking-[0.15em] sm:tracking-[0.2em] leading-tight uppercase mt-1">
-                Islamic Seminary & Research Center • Mananwala
+            <div className="flex flex-col text-right">
+              <span className="text-2xl sm:text-3xl md:text-[32px] font-black text-emerald-800 tracking-tight leading-none group-hover:text-emerald-700 transition-colors font-urdu">
+                جامعہ شیرِ ربانی
+              </span>
+              <span className="text-[12px] sm:text-[13px] md:text-[14px] font-bold text-slate-500 tracking-normal leading-tight mt-1 font-urdu">
+                دینی و عصری تعلیمی مرکز • مانانوالہ، شیخوپورہ
               </span>
             </div>
           </Link>
 
-          {/* Affiliation & National Logos (Clickable with official website links) */}
-          <div className="flex items-center gap-2 sm:gap-3 md:gap-3.5 lg:gap-4 flex-wrap justify-end">
+          {/* Affiliation & National Logos (Always on LEFT in RTL) */}
+          <div className="flex items-center gap-2 sm:gap-3 md:gap-3.5 lg:gap-4 flex-wrap">
             
             {officialLogos.map((item) => (
               <a
@@ -155,7 +148,7 @@ const Header = () => {
                     className="object-contain max-h-7 sm:max-h-8 md:max-h-9 w-auto"
                   />
                 </div>
-                <div className="flex flex-col text-left leading-tight">
+                <div className="flex flex-col text-right leading-tight">
                   <span className="text-[10px] sm:text-[11px] md:text-[12px] font-black text-slate-800 tracking-tight whitespace-nowrap group-hover:text-emerald-700 transition-colors font-urdu">
                     {item.nameUrdu}
                   </span>
@@ -167,7 +160,7 @@ const Header = () => {
             ))}
 
             {/* Mobile hamburger button */}
-            <div className="xl:hidden flex items-center ml-1">
+            <div className="xl:hidden flex items-center mr-1">
               <button
                 onClick={() => setIsOpen(!isOpen)}
                 className="p-1.5 rounded-lg text-slate-700 hover:bg-slate-100 transition-colors"
@@ -181,25 +174,32 @@ const Header = () => {
       </div>
 
       {/* 2. NAVBAR: Dedicated bar containing ALL options / menu items */}
-      <nav className="bg-emerald-800 text-white shadow-md border-t border-emerald-700/60">
+      <nav className="bg-emerald-800 text-white shadow-md border-t border-emerald-700/60" dir="rtl">
         <div className="max-w-[1600px] mx-auto px-3 sm:px-4 md:px-8">
           <div className="flex items-center justify-between h-12">
             
             {/* All Navigation Links visible on ALL screen sizes right next to Home */}
-            <div className="flex items-center gap-1 sm:gap-1.5 overflow-x-auto scrollbar-none [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden py-1 w-full rtl:space-x-reverse">
+            <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto scrollbar-none [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden py-1 w-full rtl:space-x-reverse">
               {navItems.map((item) => {
                 const isActive = pathname === item.href || (item.href !== '/' && pathname?.startsWith(item.href));
                 return (
                   <Link
                     key={item.href}
                     href={item.href}
-                    className={`px-3 py-1.5 text-[12px] md:text-[13px] font-bold tracking-wide rounded-md transition-all whitespace-nowrap uppercase flex-shrink-0 ${
+                    className={`group relative px-2.5 sm:px-3 pt-1 pb-1.5 flex flex-col items-center justify-center text-[13px] md:text-[14px] font-bold tracking-normal rounded-md transition-all whitespace-nowrap flex-shrink-0 font-urdu ${
                       isActive
-                        ? 'bg-emerald-950/80 text-amber-300 shadow-xs ring-1 ring-amber-300/30'
-                        : 'text-emerald-50 hover:text-white hover:bg-emerald-700/80'
+                        ? 'bg-emerald-950/70 text-white'
+                        : 'text-emerald-50 hover:text-white hover:bg-emerald-700/50'
                     }`}
                   >
-                    {item.label}
+                    <span className="leading-tight pb-1">{item.label}</span>
+                    {/* Distinct Bold Colored Line under each option */}
+                    <span 
+                      className={`h-[3.5px] w-full rounded-full transition-all duration-200 shadow-xs ${
+                        isActive ? 'scale-100 opacity-100' : 'opacity-85 group-hover:opacity-100 group-hover:scale-105'
+                      }`}
+                      style={{ backgroundColor: item.color }}
+                    />
                   </Link>
                 );
               })}
@@ -207,9 +207,9 @@ const Header = () => {
               {/* Mobile quick apply button inside scrollable menu */}
               <Link
                 href="/admissions"
-                className="md:hidden flex-shrink-0 ml-1 px-3.5 py-1 bg-amber-400 hover:bg-amber-300 text-slate-900 text-[11px] font-black rounded-full shadow-xs uppercase tracking-wider whitespace-nowrap"
+                className="md:hidden flex-shrink-0 ml-1 px-3.5 py-1 bg-amber-400 hover:bg-amber-300 text-slate-900 text-[12px] font-bold rounded-full shadow-xs whitespace-nowrap font-urdu"
               >
-                {t('apply_now', 'Apply Now')}
+                آن لائن داخلہ
               </Link>
             </div>
 
@@ -217,9 +217,9 @@ const Header = () => {
             <div className="flex-shrink-0 ml-3 pl-3 border-l border-emerald-700/70 hidden md:flex items-center">
               <Link
                 href="/admissions"
-                className="px-4 py-1.5 bg-amber-400 hover:bg-amber-300 text-slate-900 text-[12px] font-black rounded-full shadow-sm hover:shadow transition-all uppercase tracking-wide whitespace-nowrap"
+                className="px-4 py-1.5 bg-amber-400 hover:bg-amber-300 text-slate-900 text-[13px] font-bold rounded-full shadow-sm hover:shadow transition-all whitespace-nowrap font-urdu"
               >
-                {t('apply_now', 'Apply Now')}
+                آن لائن داخلہ
               </Link>
             </div>
           </div>
@@ -256,7 +256,7 @@ const Header = () => {
                     height={32} 
                     className="rounded-full border border-white/20"
                   />
-                  <span className="font-black text-sm tracking-tight">JAMIA SHER-E-RABBANI</span>
+                  <span className="font-black text-lg tracking-normal font-urdu">جامعہ شیرِ ربانی</span>
                 </div>
                 <button
                   onClick={() => setIsOpen(false)}
@@ -274,13 +274,18 @@ const Header = () => {
                       key={item.href}
                       href={item.href}
                       onClick={() => setIsOpen(false)}
-                      className={`block px-4 py-2.5 text-sm font-bold rounded-lg transition-all ${
+                      className={`flex items-center justify-between px-4 py-2.5 text-sm font-bold rounded-lg transition-all font-urdu ${
                         isActive
-                          ? 'bg-emerald-50 text-emerald-800 border-l-4 border-emerald-700'
-                          : 'text-slate-700 hover:bg-slate-50 hover:text-emerald-700'
+                          ? 'bg-emerald-50 text-emerald-900 shadow-xs'
+                          : 'text-slate-700 hover:bg-slate-50 hover:text-emerald-800'
                       }`}
+                      style={{ borderRight: `4px solid ${item.color}` }}
                     >
-                      {item.label}
+                      <span>{item.label}</span>
+                      <span 
+                        className="w-2.5 h-2.5 rounded-full shrink-0" 
+                        style={{ backgroundColor: item.color }}
+                      />
                     </Link>
                   );
                 })}
@@ -320,9 +325,9 @@ const Header = () => {
                 <Link 
                   href="/admissions" 
                   onClick={() => setIsOpen(false)}
-                  className="flex items-center justify-center py-3 bg-emerald-700 text-white text-[14px] font-bold rounded-xl shadow-md hover:bg-emerald-800 transition-colors uppercase tracking-wider"
+                  className="flex items-center justify-center py-3 bg-emerald-700 text-white text-[15px] font-bold rounded-xl shadow-md hover:bg-emerald-800 transition-colors font-urdu"
                 >
-                  {t('apply_now', 'Apply Now')}
+                  آن لائن داخلہ فارم پر کریں
                 </Link>
               </div>
             </motion.div>

@@ -1,13 +1,10 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Star } from 'lucide-react';
-import OptimizedImage from '@/components/OptimizedImage';
-import { useTranslation } from 'react-i18next';
+import { Star, Quote } from 'lucide-react';
 import React, { useState, useEffect } from 'react';
 
 export default function Testimonials() {
-  const { t } = useTranslation();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -17,37 +14,47 @@ export default function Testimonials() {
   if (!mounted) return null;
 
   return (
-    <section className="py-8 bg-white shadow-lg rounded-2xl border border-amber-100 hover:border-amber-300 hover:shadow-xl transition-all shadow-md backdrop-blur-sm border-teal-700">
-       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-           <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="max-w-4xl mx-auto text-center"
-           >
-              <div className="flex justify-center gap-1 text-yellow-400 mb-4">
-                 {[1,2,3,4,5].map(i => <Star key={i} size={16} fill="currentColor" />)}
-              </div>
-              <p className="text-xl md:text-2xl font-semibold text-slate-900 leading-snug mb-4">
-                &quot;{t('testimonial_quote')}&quot;
-              </p>
-              <div className="flex flex-col items-center">
-                 <div className="w-12 h-12 relative mb-2">
-                     <OptimizedImage 
-                         src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&q=80&w=150" 
-                         fill
-                         section="student"
-                         className="rounded-full object-cover" 
-                         alt={t('testimonial_student_alt')} 
-                         sizes="48px"
-                     />
-                 </div>
-                 <h4 className="text-sm font-semibold text-slate-900">{t('testimonial_student_name')}</h4>
-                 <p className="text-teal-600 text-xs">{t('testimonial_student_role')}</p>
-              </div>
-           </motion.div>
-       </div>
+    <section className="py-14 bg-gradient-to-b from-white to-slate-50 border-b border-slate-200/80" dir="rtl">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="bg-white rounded-2xl border border-slate-200/80 shadow-md p-6 sm:p-10 text-center relative overflow-hidden"
+        >
+          {/* Subtle Top Badge */}
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold mb-5 font-urdu">
+            <Quote size={13} className="text-emerald-700" />
+            <span>طلبہ و فارغ التحصیل علماء کے تاثرات</span>
+          </div>
+
+          {/* 5-Star Rating */}
+          <div className="flex justify-center gap-1 text-amber-400 mb-5">
+            {[1, 2, 3, 4, 5].map((i) => (
+              <Star key={i} size={18} fill="currentColor" />
+            ))}
+          </div>
+
+          {/* Urdu Testimonial Quote in Noori Nastaleeq */}
+          <p className="text-lg sm:text-xl md:text-2xl font-bold text-slate-800 leading-[2.4] mb-8 font-urdu max-w-3xl mx-auto">
+            &rdquo;جامعہ شیرِ ربانی میں دینی علوم کے ساتھ ساتھ اخلاقی و باطنی تربیت کا جو پاکیزہ ماحول ملا، اس نے میری فکری و علمی زندگی سنوار دی۔ یہاں کے متبحر اساتذہ کرام کا خلوص، رہنمائی اور علمی شفقت بے مثال ہے۔&ldquo;
+          </p>
+
+          {/* Student Info */}
+          <div className="flex flex-col items-center justify-center pt-5 border-t border-slate-100">
+            <div className="w-12 h-12 rounded-full bg-emerald-800 text-white flex items-center justify-center text-base font-bold shadow-sm mb-2 font-urdu">
+              ع
+            </div>
+            <h4 className="text-base font-bold text-slate-900 font-urdu leading-normal mb-1">
+              حافظ محمد عبد اللہ
+            </h4>
+            <p className="text-emerald-700 text-xs font-semibold font-urdu mt-0.5">
+              فارغ التحصیل درسِ نظامی (عالم کورس)
+            </p>
+          </div>
+        </motion.div>
+      </div>
     </section>
   );
 }

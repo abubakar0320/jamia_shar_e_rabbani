@@ -26,7 +26,7 @@ const CTA = dynamic(() => import('@/components/home/CTA'), {
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen bg-white selection:bg-emerald-100 selection:text-emerald-900">
+    <div className="flex flex-col min-h-screen bg-white selection:bg-emerald-100 selection:text-emerald-900" dir="rtl">
       <AnnouncementPopup />
       <Header />
       

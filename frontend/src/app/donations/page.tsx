@@ -2,24 +2,25 @@
 
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { useTranslation } from 'react-i18next';
-import { Heart, Landmark, CreditCard, Gift, ChevronRight, ShieldCheck, Award, Users, BookOpen, GraduationCap, Building2 } from 'lucide-react';
+import { Heart, Landmark, CreditCard, ChevronLeft, ShieldCheck, Award, Users, BookOpen, GraduationCap, Building2, Copy, Check } from 'lucide-react';
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import OptimizedImage from '@/components/OptimizedImage';
 
 export default function Donations() {
-  const { t } = useTranslation();
-  const [mounted, setMounted] = React.useState(false);
+  const [mounted, setMounted] = useState(false);
+  const [copiedBank, setCopiedBank] = useState(false);
+  const [copiedJazz, setCopiedJazz] = useState(false);
+  const [copiedNaya, setCopiedNaya] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setMounted(true);
   }, []);
 
   if (!mounted) {
     return (
-      <div className="flex flex-col min-h-screen bg-white">
+      <div className="flex flex-col min-h-screen bg-white" dir="rtl">
         <Header />
         <main className="flex-1" />
         <Footer />
@@ -29,101 +30,167 @@ export default function Donations() {
 
   const donationCategories = [
     {
-      title: t("Student Sponsorship"),
-      desc: t("Provide full educational and boarding support for a student of knowledge."),
-      img: "/images/whatsapp_2.jpeg",
-      link: "/donations/student-sponsorship"
+      title: "طالب علم کی مکمل کفالت",
+      desc: "ایک طالب علم کے سالانہ و ماہانہ تعلیمی، رہائشی اور خوراک کے مکمل اخراجات کی باوقار کفالت فرمائیں۔",
+      img: "/images/WhatsApp 1.jpeg",
+      link: "/donations/student-sponsorship",
+      btnText: "آن لائن کفالت کریں"
     },
     {
-      title: t("Zakat Fund"),
-      desc: t("Your Zakat contributions are used strictly for eligible students and families."),
-      img: "/images/WhatsApp 3.jpeg",
-      link: "/donations/zakat-fund"
+      title: "مستحقین کے لیے زکوٰۃ فنڈ",
+      desc: "آپ کی زکوٰۃ شرعی اصولوں کے عین مطابق صرف اور صرف نادار و مستحق طلبہ اور ان کے اہلِ خانہ پر خرچ ہوتی ہے۔",
+      img: "/images/WhatsApp2.jpeg",
+      link: "/donations/zakat-fund",
+      btnText: "زکوٰۃ ادا کریں"
     },
     {
-      title: t("Campus Development"),
-      desc: t("Help us expand our facilities, library, and modern classroom infrastructure."),
-      img: "https://images.unsplash.com/photo-1519817650390-64a93db51149?q=80&w=800&auto=format&fit=crop",
-      link: "/donations/campus-development"
+      title: "کیمپس کی تعمیر و توسیع",
+      desc: "جامعہ کے نئے کشادہ ہاسٹل بلاک، کتب خانہ، ڈیجیٹل لائبریری اور کلاس رومز کی تعمیر میں حصہ ڈالیں۔",
+      img: "/images/news.jpeg",
+      link: "/donations/campus-development",
+      btnText: "تعمیراتی فنڈ میں دیں"
     },
     {
-      title: t("Sadaqah Jariyah"),
-      desc: t("Invest in projects that provide ongoing spiritual and community benefits."),
-      img: "https://images.unsplash.com/photo-1574672280600-4accfa5b6f98?q=80&w=800&auto=format&fit=crop",
-      link: "/donations/sadaqah-jariyah"
+      title: "دائمی صدقہ جاریہ فنڈ",
+      desc: "قرآنی نسخہ جات، دینی کتب، واٹر پلانٹ اور مستقل تعلیمی سہولیات میں دائمی ثواب کی نیت سے شرکت فرمائیں۔",
+      img: "/images/tajweed.jpeg",
+      link: "/donations/sadaqah-jariyah",
+      btnText: "صدقہ جاریہ دیں"
     }
   ];
 
+  const handleCopy = (text: string, type: 'bank' | 'jazz' | 'naya') => {
+    if (typeof window !== 'undefined') {
+      navigator.clipboard?.writeText(text);
+      if (type === 'bank') {
+        setCopiedBank(true);
+        setTimeout(() => setCopiedBank(false), 2500);
+      } else if (type === 'jazz') {
+        setCopiedJazz(true);
+        setTimeout(() => setCopiedJazz(false), 2500);
+      } else {
+        setCopiedNaya(true);
+        setTimeout(() => setCopiedNaya(false), 2500);
+      }
+    }
+  };
+
   return (
-    <>
+    <div className="flex flex-col min-h-screen bg-white" dir="rtl">
       <Header />
-      <main className="flex-1 bg-white font-sans text-slate-900">
+      <main className="flex-1 bg-white font-urdu text-slate-900">
         
-        {/* --- HERO --- */}
-        <section style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)), url('/ahmad.png')", backgroundSize: "cover", backgroundPosition: "center" }} className="relative pt-24 pb-20 bg-white border-b border-slate-100">
+        {/* --- HERO SECTION --- */}
+        <section 
+          style={{ 
+            backgroundImage: "linear-gradient(rgba(255,255,255,0.92), rgba(255,255,255,0.92)), url('/ahmad.png')", 
+            backgroundSize: "cover", 
+            backgroundPosition: "center" 
+          }} 
+          className="relative pt-24 pb-20 bg-white border-b border-slate-100 text-right"
+        >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-             <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-             >
-                <div className="inline-block bg-emerald-50 border border-emerald-200 text-emerald-600 rounded-full text-xs font-bold px-4 py-1.5 mb-6 uppercase tracking-wide shadow-sm">
-                  Invest in Akhirah
-                </div>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 via-teal-500 to-blue-500 drop-shadow-sm mb-6 leading-tight">
-                   {t('Support the Mission of Knowledge')}
-                </h1>
-                <p className="text-xl text-slate-600 max-w-2xl mx-auto mb-10">
-                   {t('Your contributions empower us to provide authentic Islamic education and nurture future leaders of the community.')}
-                </p>
-                <Link href="#bank-details" className="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-bold rounded-full shadow-lg shadow-emerald-500/30 transition-all transform hover:-translate-y-1">
-                   <Heart size={18} /> {t('Quick donate')}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="max-w-4xl mx-auto"
+            >
+              <div className="inline-flex items-center gap-2 bg-emerald-50 border border-emerald-200/80 px-4 py-2 rounded-full text-emerald-800 text-xs sm:text-sm font-bold mb-6 shadow-sm">
+                <Heart className="w-4 h-4 text-emerald-600 fill-emerald-600" />
+                <span>صدقہ و خیرات • آخرت کے لیے بہترین سرمایہ کاری</span>
+              </div>
+              
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight mb-6 leading-[1.9] md:leading-[2.1]">
+                دینی علوم کی ترویج اور <span className="text-emerald-700">طلبہ کی کفالت</span> میں حصہ لیں
+              </h1>
+              
+              <p className="text-base sm:text-lg md:text-xl text-slate-600 max-w-3xl mx-auto mb-10 leading-[2.2] md:leading-[2.4]">
+                آپ کے عطیات اور زکوٰۃ سے جامعہ شیرِ ربانی میں زیرِ تعلیم سینکڑوں مستحق طلبہ و طالبات کو ۱۰۰٪ مفت تعلیم، ہاسٹل، طعام اور کتب کی سہولیات باوقار انداز میں فراہم کی جاتی ہیں۔
+              </p>
+              
+              <div className="flex flex-wrap justify-center gap-4">
+                <Link 
+                  href="#bank-details" 
+                  className="inline-flex items-center gap-2 px-8 py-3.5 bg-gradient-to-r from-emerald-700 to-teal-700 hover:from-emerald-800 hover:to-teal-800 text-white font-bold rounded-xl shadow-lg shadow-emerald-700/25 transition-all transform hover:-translate-y-0.5 text-base"
+                >
+                  <Landmark size={18} />
+                  <span>بینک اکاؤنٹ کی تفصیلات دیکھیں</span>
                 </Link>
-             </motion.div>
+
+                <Link 
+                  href="/contact" 
+                  className="inline-flex items-center gap-2 px-8 py-3.5 bg-white border border-slate-300 text-slate-700 hover:border-emerald-700 hover:text-emerald-700 font-bold rounded-xl shadow-sm transition-all text-base"
+                >
+                  <Heart size={18} className="text-emerald-600" />
+                  <span>شعبہ عطیات سے رابطہ</span>
+                </Link>
+              </div>
+            </motion.div>
           </div>
         </section>
 
         {/* --- DONATION GRID --- */}
-        <section className="py-16 bg-white border-b border-slate-100">
+        <section className="py-20 bg-slate-50/50 border-b border-slate-100">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-semibold text-slate-900 mb-12 text-center">{t('Ways to Give')}</h2>
-            <div className="grid grid-cols-2 md:grid-cols-2 xl:grid-cols-4 gap-3 md:gap-8">
+            <div className="text-center max-w-3xl mx-auto mb-16">
+              <span className="text-xs md:text-sm font-semibold tracking-wide inline-block mb-3 px-3.5 py-1 rounded-md text-emerald-800 bg-emerald-50 border border-emerald-200">
+                عطیات کے مختلف شعبہ جات
+              </span>
+              <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-4 leading-[1.9] md:leading-[2.1]">
+                عطیات اور خیرات کے نمایاں شعبہ جات
+              </h2>
+              <p className="text-slate-600 text-base md:text-lg leading-[2.2]">
+                جس شعبہ میں چاہیں اپنا حصہ ڈالیں اور اس پاکیزہ دینی مقصد میں شامل ہو کر صدقہ جاریہ کے عظیم اجر کے مستحق بنیں۔
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
               {donationCategories.map((item, i) => (
                 <motion.div 
-                   key={i}
-                   initial={{ opacity: 0, y: 20 }}
-                   whileInView={{ opacity: 1, y: 0 }}
-                   viewport={{ once: true }}
-                   transition={{ delay: i * 0.1, duration: 0.5 }}
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1, duration: 0.5 }}
                 >
-                   <Link href={item.link} className={`flex flex-col group cursor-pointer bg-white border shadow-sm transition-all duration-300 transform hover:-translate-y-1 md:hover:-translate-y-2 h-full rounded-xl md:rounded-2xl overflow-hidden ${i%4===0?"border-emerald-100 hover:border-emerald-400 hover:shadow-[0_10px_30px_rgba(16,185,129,0.2)]":i%4===1?"border-amber-100 hover:border-amber-400 hover:shadow-[0_10px_30px_rgba(245,158,11,0.2)]":i%4===2?"border-blue-100 hover:border-blue-400 hover:shadow-[0_10px_30px_rgba(59,130,246,0.2)]":"border-purple-100 hover:border-purple-400 hover:shadow-[0_10px_30px_rgba(168,85,247,0.2)]"}`}>
-                     <div className="aspect-[4/3] relative bg-slate-50 overflow-hidden">
-                       <OptimizedImage 
-                         src={item.img} 
-                         alt={item.title} 
-                         fill
-                         section="news"
-                         className="object-cover group-hover:scale-105 transition-transform duration-500"
-                         sizes="(max-width: 768px) 50vw, (max-width: 1200px) 50vw, 25vw"
-                       />
-                     </div>
-                     <div className="p-3 md:p-6 flex flex-col flex-1">
-                       <h3 className={`text-[11px] md:text-xl leading-tight font-bold mb-1 md:mb-3 transition-colors ${i%4===0?"group-hover:text-emerald-600":i%4===1?"group-hover:text-amber-600":i%4===2?"group-hover:text-blue-600":"group-hover:text-purple-600"}`}>
-                         {item.title}
-                       </h3>
-                       <p className="hidden md:block text-sm text-slate-600 mb-6 flex-1">
-                         {item.desc}
-                       </p>
-                       <div className="mt-auto pt-2 md:pt-4 border-t border-slate-100 flex items-center justify-between">
-                          <span className={`font-bold text-[10px] md:text-sm flex items-center hover:underline ${i%4===0?"text-emerald-600":i%4===1?"text-amber-600":i%4===2?"text-blue-600":"text-purple-600"}`}>
-                            {t('Donate')} <ChevronRight className="w-3 h-3 md:w-4 md:h-4 ml-0.5 md:ml-1" />
-                          </span>
-                          <div className={`transition-colors ${i%4===0?"text-slate-400 group-hover:text-emerald-500":i%4===1?"text-slate-400 group-hover:text-amber-500":i%4===2?"text-slate-400 group-hover:text-blue-500":"text-slate-400 group-hover:text-purple-500"}`}>
-                             <Heart className="w-3.5 h-3.5 md:w-[18px] md:h-[18px]" />
-                          </div>
-                       </div>
-                     </div>
-                   </Link>
+                  <Link 
+                    href={item.link} 
+                    className="flex flex-col group cursor-pointer bg-white border border-slate-200/90 shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1.5 h-full rounded-2xl overflow-hidden text-right"
+                  >
+                    <div className="aspect-[4/3] relative bg-slate-100 overflow-hidden">
+                      <OptimizedImage 
+                        src={item.img} 
+                        alt={item.title} 
+                        fill
+                        section="news"
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent opacity-80" />
+                    </div>
+
+                    <div className="p-6 flex flex-col flex-1">
+                      <h3 className="text-lg md:text-xl font-black text-slate-900 mb-3 leading-[2.2] group-hover:text-emerald-700 transition-colors">
+                        {item.title}
+                      </h3>
+
+                      <p className="text-sm text-slate-600 mb-6 flex-1 leading-[2.3]">
+                        {item.desc}
+                      </p>
+
+                      <div className="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between">
+                        <span className="font-bold text-xs md:text-sm text-emerald-700 flex items-center gap-1 group-hover:underline">
+                          <span>{item.btnText}</span>
+                          <ChevronLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+                        </span>
+
+                        <div className="text-slate-400 group-hover:text-emerald-600 transition-colors">
+                          <Heart className="w-4 h-4" />
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
                 </motion.div>
               ))}
             </div>
@@ -131,159 +198,267 @@ export default function Donations() {
         </section>
 
         {/* --- BANK DETAILS SECTION --- */}
-        <section id="bank-details" className="py-16 bg-white border-b border-slate-100">
+        <section id="bank-details" className="py-20 bg-white border-b border-slate-100 text-right">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-             <div className="bg-white flex flex-col lg:flex-row items-stretch border border-slate-100 shadow-xl rounded-3xl overflow-hidden">
-               <div className="flex-1 p-8 lg:p-12 border-b lg:border-b-0 lg:border-r border-slate-100">
-                  <div className="inline-flex items-center gap-2 bg-emerald-50 border border-emerald-100 text-emerald-700 rounded-full shadow-sm text-xs font-bold px-4 py-1.5 mb-6 uppercase tracking-wide">
-                     <Landmark size={14} /> Direct Bank Transfer
-                  </div>
-                  <p className="text-slate-600 mb-10 text-lg">
-                    {t('You can securely transfer your donations directly to our official bank accounts. Please include your contact number in the reference for a digital receipt.')}
-                  </p>
+            <div className="bg-white flex flex-col lg:flex-row items-stretch border border-slate-200 shadow-xl rounded-3xl overflow-hidden">
+              
+              {/* Bank Transfer Details Column */}
+              <div className="flex-1 p-8 lg:p-12 border-b lg:border-b-0 lg:border-l border-slate-200">
+                <div className="inline-flex items-center gap-2 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-full shadow-sm text-xs font-bold px-4 py-1.5 mb-6">
+                  <Landmark size={15} />
+                  <span>براہِ راست آفیشل بینک کھاتہ و ڈیجیٹل والٹس</span>
+                </div>
+
+                <h3 className="text-2xl sm:text-3xl font-black text-slate-900 mb-4 leading-tight">
+                  بینک اکاؤنٹ تفصیلات
+                </h3>
+
+                <p className="text-slate-600 mb-8 text-base md:text-lg leading-[2.3]">
+                  آپ اپنے عطیات، زکوٰۃ اور صدقات نیچے دیے گئے آفیشل بینک اکاؤنٹ یا موبائل والٹ میں با آسانی منتقل فرما سکتے ہیں:
+                </p>
+                
+                {/* Structured Horizontal Key-Value Account Details Card */}
+                <div className="bg-white border-2 border-emerald-100 rounded-2xl shadow-sm overflow-hidden divide-y divide-slate-100">
                   
-                  <div className="space-y-6">
-                    <div className="p-6 bg-white border border-slate-100 shadow-sm rounded-2xl">
-                      <div className="text-xs font-bold text-emerald-600 uppercase tracking-wide mb-4 flex items-center gap-2">
-                        <Landmark size={14} /> {t('Meezan Bank')}
-                      </div>
-                      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
-                        <div>
-                          <div className="text-sm font-semibold text-slate-500 mb-1 uppercase tracking-wide">{t('Account Title')}: <span className="text-slate-900 ml-1">Muhammad Ahmad</span></div>
-                          <div className="text-2xl font-semibold text-slate-900">9869 0112 1013 13</div>
-                        </div>
-                        <button 
-                          onClick={() => navigator.clipboard.writeText('98690112101313')}
-                          className="text-emerald-700 text-xs font-bold hover:bg-emerald-50 px-4 py-2 border border-emerald-200 rounded-full shadow-sm transition-colors uppercase tracking-wide whitespace-nowrap"
-                        >
-                          {t('Copy Number')}
-                        </button>
-                      </div>
+                  {/* Bank Name Row */}
+                  <div className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 bg-slate-50/80">
+                    <div className="flex items-center gap-2 text-slate-700 font-bold text-sm sm:text-base">
+                      <Landmark className="w-5 h-5 text-emerald-700 shrink-0" />
+                      <span>بینک کا نام:</span>
                     </div>
-
-                    <div className="p-6 bg-white border border-slate-100">
-                      <div className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-6 flex items-center gap-2">
-                        <CreditCard size={14} /> Digital Wallets (Pakistan)
-                      </div>
-                      <div className="grid grid-cols-2 sm:grid-cols-2 gap-3 md:gap-4">
-                        <div className="bg-white p-3 md:p-5 border border-slate-100 text-center hover:border-blue-700 transition-colors rounded-lg md:rounded-none">
-                          <div className="text-[9px] md:text-xs font-semibold text-slate-500 mb-1 uppercase tracking-wide">JazzCash</div>
-                          <div className="text-xs md:text-lg font-semibold text-slate-900">0328 4381 312</div>
-                        </div>
-                        <div className="bg-white p-3 md:p-5 border border-slate-100 text-center hover:border-blue-700 transition-colors rounded-lg md:rounded-none">
-                          <div className="text-[9px] md:text-xs font-semibold text-slate-500 mb-1 uppercase tracking-wide">NayaPay</div>
-                          <div className="text-xs md:text-lg font-semibold text-slate-900">0316 4415 465</div>
-                        </div>
-                      </div>
+                    <div className="text-base sm:text-lg font-black text-emerald-800">
+                      میزان بینک (Meezan Bank Limited)
                     </div>
                   </div>
-               </div>
 
-               <div className="flex-1 p-8 lg:p-12 bg-gradient-to-br from-teal-700 via-emerald-800 to-slate-900 text-white flex flex-col justify-center relative overflow-hidden">
-                  <h2 className="text-3xl font-semibold mb-10">{t('Transparency & Trust')}</h2>
-                  <div className="space-y-8">
-                    <div className="flex gap-4">
-                      <div className="w-12 h-12 bg-emerald-700/50 rounded-xl flex items-center justify-center shrink-0 border border-emerald-600/30">
-                         <ShieldCheck size={24} className="text-emerald-200" />
-                      </div>
-                      <div>
-                        <h4 className="font-semibold text-xl mb-1 text-white">{t('Secure Management')}</h4>
-                        <p className="text-emerald-100 text-sm">{t('Every penny is tracked and managed with the highest level of integrity and oversight.')}</p>
-                      </div>
+                  {/* Account Title Row */}
+                  <div className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <div className="text-slate-600 font-bold text-sm sm:text-base">
+                      اکاؤنٹ ٹائٹل (Account Title):
                     </div>
-                    <div className="flex gap-4">
-                      <div className="w-12 h-12 bg-emerald-700/50 rounded-xl flex items-center justify-center shrink-0 border border-emerald-600/30">
-                         <Award size={24} className="text-emerald-200" />
-                      </div>
-                      <div>
-                        <h4 className="font-semibold text-xl mb-1 text-white">{t('Cause Allocation')}</h4>
-                        <p className="text-emerald-100 text-sm">{t('Your Zakat is handled in strict accordance with Shariah principles for eligible students.')}</p>
-                      </div>
-                    </div>
-                    <div className="flex gap-4">
-                      <div className="w-12 h-12 bg-emerald-700/50 rounded-xl flex items-center justify-center shrink-0 border border-emerald-600/30">
-                         <Users size={24} className="text-emerald-200" />
-                      </div>
-                      <div>
-                        <h4 className="font-semibold text-xl mb-1 text-white">{t('Direct Impact')}</h4>
-                        <p className="text-emerald-100 text-sm">{t('Join a community of 2,000+ donors who are building the future of the Ummah.')}</p>
-                      </div>
+                    <div className="text-base sm:text-lg font-black text-slate-900">
+                      Muhammad Ahmad (آسان اکاؤنٹ)
                     </div>
                   </div>
-               </div>
-             </div>
+
+                  {/* Account Number Row (Account ka Samny Account No) */}
+                  <div className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-emerald-50/70">
+                    <div className="text-emerald-900 font-black text-sm sm:text-base flex items-center gap-2">
+                      <CreditCard className="w-5 h-5 text-emerald-700 shrink-0" />
+                      <span>اکاؤنٹ نمبر (Account No):</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <span className="font-mono text-xl sm:text-2xl font-black text-slate-900 tracking-wider">
+                        9869 0112 1013 13
+                      </span>
+                      <button 
+                        onClick={() => handleCopy('98690112101313', 'bank')}
+                        className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-bold bg-emerald-700 hover:bg-emerald-800 text-white transition-colors shadow-xs shrink-0"
+                      >
+                        {copiedBank ? <Check size={14} /> : <Copy size={14} />}
+                        <span>{copiedBank ? 'کاپی ہو گیا!' : 'کاپی کریں'}</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* JazzCash Row */}
+                  <div className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div className="text-slate-700 font-bold text-sm sm:text-base flex items-center gap-2">
+                      <span className="w-3 h-3 rounded-full bg-amber-500 shrink-0" />
+                      <span>جاز کیش (JazzCash):</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <span className="font-mono text-lg sm:text-xl font-black text-slate-900 tracking-wide">
+                        0328 4381 312
+                      </span>
+                      <button 
+                        onClick={() => handleCopy('03284381312', 'jazz')}
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors shrink-0"
+                      >
+                        {copiedJazz ? <Check size={14} className="text-emerald-600" /> : <Copy size={14} />}
+                        <span>{copiedJazz ? 'کاپی ہو گیا!' : 'کاپی کریں'}</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* NayaPay Row */}
+                  <div className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div className="text-slate-700 font-bold text-sm sm:text-base flex items-center gap-2">
+                      <span className="w-3 h-3 rounded-full bg-blue-500 shrink-0" />
+                      <span>نیا پے (NayaPay):</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <span className="font-mono text-lg sm:text-xl font-black text-slate-900 tracking-wide">
+                        0316 4415 465
+                      </span>
+                      <button 
+                        onClick={() => handleCopy('03164415465', 'naya')}
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors shrink-0"
+                      >
+                        {copiedNaya ? <Check size={14} className="text-emerald-600" /> : <Copy size={14} />}
+                        <span>{copiedNaya ? 'کاپی ہو گیا!' : 'کاپی کریں'}</span>
+                      </button>
+                    </div>
+                  </div>
+
+                </div>
+
+                <p className="text-xs text-slate-500 mt-4 leading-relaxed">
+                  * رقم منتقل کرنے کے بعد واٹس ایپ پر رسید کا اسکرین شاٹ ضرور ارسال فرمائیں تاکہ فوری تصدیقی رسید جاری کی جا سکے۔
+                </p>
+              </div>
+
+              {/* Trust & Transparency Column */}
+              <div className="flex-1 p-8 lg:p-12 bg-gradient-to-br from-emerald-950 via-teal-950 to-slate-900 text-white flex flex-col justify-center relative overflow-hidden">
+                <span className="text-xs font-bold text-amber-400 bg-white/10 px-3.5 py-1.5 rounded-md inline-block w-fit mb-4">
+                  اعتماد و دیانت داری
+                </span>
+                <h2 className="text-3xl font-black mb-8 leading-[1.9]">
+                  امانت داری، شفافیت اور مکمل اعتماد
+                </h2>
+
+                <div className="space-y-6">
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 bg-emerald-800/60 rounded-xl flex items-center justify-center shrink-0 border border-emerald-600/30">
+                      <ShieldCheck size={24} className="text-emerald-300" />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-lg mb-1 text-white leading-snug">
+                        شفاف حسابات و مکمل نگرانی
+                      </h4>
+                      <p className="text-emerald-100/90 text-sm leading-[2.2]">
+                        جامعہ کا ہر ایک روپیہ باقاعدہ فنانشل آڈٹ اور جید علماء کرام کی سرپرستی میں پوری امانت کے ساتھ صرف کیا جاتا ہے۔
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 bg-emerald-800/60 rounded-xl flex items-center justify-center shrink-0 border border-emerald-600/30">
+                      <Award size={24} className="text-emerald-300" />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-lg mb-1 text-white leading-snug">
+                        شرعی اصولوں کے عین مطابق صرف
+                      </h4>
+                      <p className="text-emerald-100/90 text-sm leading-[2.2]">
+                        زکوٰۃ کے فنڈز کو مفتیانِ کرام کی براہِ راست نگرانی میں صرف اور صرف مستحقینِ زکوٰۃ پر خرچ کیا جاتا ہے۔
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 bg-emerald-800/60 rounded-xl flex items-center justify-center shrink-0 border border-emerald-600/30">
+                      <Users size={24} className="text-emerald-300" />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-lg mb-1 text-white leading-snug">
+                        براہِ راست دینی و ملی فائدہ
+                      </h4>
+                      <p className="text-emerald-100/90 text-sm leading-[2.2]">
+                        ۲,۰۰۰ سے زائد مخلص مخیرین و معاونین کے قافلے میں شامل ہو کر طلبہ کے روشن مستقبل کی تعمیر میں کردار ادا کریں۔
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
           </div>
         </section>
 
         {/* --- WHY SUPPORT US / IMPACT --- */}
-        <section className="py-16 bg-white border-b border-slate-100">
+        <section className="py-20 bg-slate-50 border-b border-slate-100 text-right">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-3xl mx-auto mb-16">
-              <div className="inline-block bg-teal-50 border border-teal-100 text-teal-700 rounded-full shadow-sm text-xs font-bold px-4 py-1.5 mb-4 uppercase tracking-wide">
-                 Make an Impact
-              </div>
-              <h2 className="text-3xl md:text-4xl font-semibold text-slate-900 mb-6">Why Your Donation Matters</h2>
-              <p className="text-slate-600 text-lg">
-                Jamia Sher-e-Rabbani relies on the generous contributions of the community to provide free education, accommodation, and meals to hundreds of deserving students. Your support acts as a continuous charity (Sadaqah Jariyah).
+              <span className="text-xs md:text-sm font-semibold tracking-wide inline-block mb-3 px-3.5 py-1 rounded-md text-emerald-800 bg-emerald-50 border border-emerald-200">
+                آپ کے تعاون کا اثر
+              </span>
+              <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-4 leading-[1.9] md:leading-[2.1]">
+                آپ کے عطیات کس طرح اثر انداز ہوتے ہیں؟
+              </h2>
+              <p className="text-slate-600 text-base md:text-lg leading-[2.2]">
+                جامعہ شیرِ ربانی صد فیصد مفت تعلیم، رہائش اور معیاری طعام فراہم کرتا ہے۔ آپ کا دیا گیا ہر روپیہ کسی بچے کو حافظ، قاری اور عالم بنانے میں خرچ ہوتا ہے۔
               </p>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+              {/* Hafiz Sponsorship */}
               <motion.div 
-                 initial={{ opacity: 0, y: 20 }}
-                 whileInView={{ opacity: 1, y: 0 }}
-                 viewport={{ once: true }}
-                 className="bg-white p-4 md:p-8 border border-slate-100 flex flex-col transition-all duration-300 transform hover:-translate-y-1 md:hover:-translate-y-2 rounded-xl md:rounded-2xl shadow-sm border-t-4 border-t-emerald-400 hover:shadow-[0_10px_30px_rgba(16,185,129,0.15)]"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="bg-white p-6 md:p-8 border border-slate-200/90 flex flex-col transition-all duration-300 transform hover:-translate-y-1.5 rounded-2xl shadow-sm border-t-4 border-t-emerald-600 hover:shadow-xl"
               >
-                <div className="text-emerald-500 mb-3 md:mb-6 bg-emerald-50 w-10 h-10 md:w-16 md:h-16 rounded-lg md:rounded-xl flex items-center justify-center">
-                  <BookOpen className="w-5 h-5 md:w-8 md:h-8" />
+                <div className="text-emerald-700 mb-5 bg-emerald-50 w-14 h-14 rounded-xl flex items-center justify-center">
+                  <BookOpen className="w-7 h-7" />
                 </div>
-                <h3 className="text-[11px] md:text-xl leading-tight font-semibold text-slate-900 mb-1 md:mb-3">Sponsor a Hafiz</h3>
-                <p className="hidden md:block text-sm text-slate-600 flex-1 mb-8">
-                  Cover the educational and living expenses of a student memorizing the Holy Quran. You earn a share of the reward for every letter they recite.
+                <h3 className="text-xl font-black text-slate-900 mb-3 leading-[2.1]">
+                  حافظِ قرآن کی مکمل کفالت
+                </h3>
+                <p className="text-slate-600 text-sm leading-[2.3] flex-1 mb-8">
+                  قرآن کریم حفظ کرنے والے ایک طالب علم کے تعلیمی، رہائشی اور خوراک کے مکمل اخراجات۔ جب تک وہ قرآن پڑھے گا، ثواب آپ کے نامہ اعمال میں درج ہوگا۔
                 </p>
-                <div className="mt-auto pt-3 md:pt-6 border-t border-slate-100 flex items-end gap-1 md:gap-2">
-                   <div className="text-slate-900 font-semibold text-sm md:text-2xl">Rs. 8,000</div>
-                   <div className="text-[8px] md:text-xs font-semibold text-slate-500 uppercase tracking-wide pb-0.5 md:pb-1">/ month</div>
-                </div>
-              </motion.div>
-              
-              <motion.div 
-                 initial={{ opacity: 0, y: 20 }}
-                 whileInView={{ opacity: 1, y: 0 }}
-                 viewport={{ once: true }}
-                 transition={{ delay: 0.1 }}
-                 className="bg-white p-4 md:p-8 border border-slate-100 flex flex-col transition-all duration-300 transform hover:-translate-y-1 md:hover:-translate-y-2 rounded-xl md:rounded-2xl shadow-sm border-t-4 border-t-amber-400 hover:shadow-[0_10px_30px_rgba(245,158,11,0.15)]"
-              >
-                <div className="text-amber-500 mb-3 md:mb-6 bg-amber-50 w-10 h-10 md:w-16 md:h-16 rounded-lg md:rounded-xl flex items-center justify-center">
-                  <GraduationCap className="w-5 h-5 md:w-8 md:h-8" />
-                </div>
-                <h3 className="text-[11px] md:text-xl leading-tight font-semibold text-slate-900 mb-1 md:mb-3">Dars-e-Nizami</h3>
-                <p className="hidden md:block text-sm text-slate-600 flex-1 mb-8">
-                  Support a scholar-in-training undergoing the rigorous 8-year Alim course. Invest in the future leaders and teachers of our communities.
-                </p>
-                <div className="mt-auto pt-3 md:pt-6 border-t border-slate-100 flex items-end gap-1 md:gap-2">
-                   <div className="text-slate-900 font-semibold text-sm md:text-2xl">Rs. 12,000</div>
-                   <div className="text-[8px] md:text-xs font-semibold text-slate-500 uppercase tracking-wide pb-0.5 md:pb-1">/ month</div>
+                <div className="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between">
+                  <div className="text-slate-900 font-black text-xl md:text-2xl font-mono">
+                    ۸,۰۰۰ روپے
+                  </div>
+                  <div className="text-xs font-bold text-slate-500">
+                    / ماہانہ کفالت
+                  </div>
                 </div>
               </motion.div>
 
+              {/* Dars-e-Nizami Alim */}
               <motion.div 
-                 initial={{ opacity: 0, y: 20 }}
-                 whileInView={{ opacity: 1, y: 0 }}
-                 viewport={{ once: true }}
-                 transition={{ delay: 0.2 }}
-                 className="bg-white p-4 md:p-8 border border-slate-100 flex flex-col transition-all duration-300 transform hover:-translate-y-1 md:hover:-translate-y-2 rounded-xl md:rounded-2xl shadow-sm border-t-4 border-t-blue-400 hover:shadow-[0_10px_30px_rgba(59,130,246,0.15)] col-span-2 md:col-span-1"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 }}
+                className="bg-white p-6 md:p-8 border border-slate-200/90 flex flex-col transition-all duration-300 transform hover:-translate-y-1.5 rounded-2xl shadow-sm border-t-4 border-t-amber-500 hover:shadow-xl"
               >
-                <div className="text-blue-500 mb-3 md:mb-6 bg-blue-50 w-10 h-10 md:w-16 md:h-16 rounded-lg md:rounded-xl flex items-center justify-center">
-                  <Building2 className="w-5 h-5 md:w-8 md:h-8" />
+                <div className="text-amber-600 mb-5 bg-amber-50 w-14 h-14 rounded-xl flex items-center justify-center">
+                  <GraduationCap className="w-7 h-7" />
                 </div>
-                <h3 className="text-[11px] md:text-xl leading-tight font-semibold text-slate-900 mb-1 md:mb-3">Campus Expansion</h3>
-                <p className="hidden md:block text-sm text-slate-600 flex-1 mb-8">
-                  Contribute to the construction of new classrooms, library expansion, and boarding facilities to accommodate our growing student body.
+                <h3 className="text-xl font-black text-slate-900 mb-3 leading-[2.1]">
+                  عالمِ دین (درسِ نظامی طالب علم)
+                </h3>
+                <p className="text-slate-600 text-sm leading-[2.3] flex-1 mb-8">
+                  ۸ سالہ درسِ نظامی کورس کرنے والے مستقبل کے عالم، محقق اور مفتی کے تمام تدریسی اخراجات، نصابی کتب اور رہائش کی کفالت فرمائیں۔
                 </p>
-                <div className="mt-auto pt-3 md:pt-6 border-t border-slate-100 flex items-end gap-1 md:gap-2">
-                   <div className="text-slate-900 font-semibold text-sm md:text-2xl">Any Amount</div>
+                <div className="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between">
+                  <div className="text-slate-900 font-black text-xl md:text-2xl font-mono">
+                    ۱۲,۰۰۰ روپے
+                  </div>
+                  <div className="text-xs font-bold text-slate-500">
+                    / ماہانہ کفالت
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Campus Expansion */}
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 }}
+                className="bg-white p-6 md:p-8 border border-slate-200/90 flex flex-col transition-all duration-300 transform hover:-translate-y-1.5 rounded-2xl shadow-sm border-t-4 border-t-blue-600 hover:shadow-xl"
+              >
+                <div className="text-blue-600 mb-5 bg-blue-50 w-14 h-14 rounded-xl flex items-center justify-center">
+                  <Building2 className="w-7 h-7" />
+                </div>
+                <h3 className="text-xl font-black text-slate-900 mb-3 leading-[2.1]">
+                  کیمپس توسیع و تعمیراتی فنڈ
+                </h3>
+                <p className="text-slate-600 text-sm leading-[2.3] flex-1 mb-8">
+                  بڑھتی ہوئی تعداد کے پیشِ نظر نئے کلاس رومز، اسلامک ریسرچ لائبریری اور ہاسٹل کمروں کے تعمیری مٹیریل کی فراہمی میں شرکت کریں۔
+                </p>
+                <div className="mt-auto pt-4 border-t border-slate-100 flex items-center justify-between">
+                  <div className="text-slate-900 font-black text-xl md:text-2xl">
+                    حسبِ توفیق
+                  </div>
+                  <div className="text-xs font-bold text-slate-500">
+                    کوئی بھی رقم
+                  </div>
                 </div>
               </motion.div>
             </div>
@@ -291,27 +466,41 @@ export default function Donations() {
         </section>
 
         {/* --- FAQ/SUPPORT SECTION --- */}
-        <section className="py-16 bg-white border-b border-slate-100">
+        <section className="py-20 bg-white border-b border-slate-100 text-right">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-             <div className="max-w-4xl mx-auto bg-white border border-slate-100 p-10 md:p-16 text-center rounded-3xl shadow-xl shadow-teal-500/5">
-               <h2 className="text-3xl font-semibold mb-6 text-slate-900">{t('Questions about your donation?')}</h2>
-               <p className="text-slate-600 mb-10 text-lg max-w-2xl mx-auto">
-                 {t('Our accounts team is available to assist you with any queries regarding payment methods or tax-deductible receipts.')}
-               </p>
-               <div className="flex flex-col sm:flex-row justify-center gap-4">
-                 <Link href="/contact" className="px-8 py-3 bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 text-white font-bold rounded-full shadow-md transition-all transform hover:-translate-y-1">
-                   {t('Contact accounts')}
-                 </Link>
-                 <Link href="/about" className="px-8 py-3 bg-white text-slate-700 font-semibold border border-slate-200 hover:bg-white transition-colors">
-                   {t('Read our mission')}
-                 </Link>
-               </div>
-             </div>
+            <div className="max-w-4xl mx-auto bg-slate-50 border border-slate-200 p-8 sm:p-12 md:p-16 text-center rounded-3xl shadow-sm">
+              <span className="text-xs font-bold text-emerald-800 bg-emerald-100/70 px-3.5 py-1.5 rounded-md inline-block mb-4">
+                اکاؤنٹس و فنانس رہنمائی
+              </span>
+              
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-black mb-4 text-slate-900 leading-[1.9] md:leading-[2.1]">
+                عطیات یا زکوٰۃ کے حوالے سے کوئی سوال ہے؟
+              </h2>
+              
+              <p className="text-slate-600 mb-8 text-base md:text-lg max-w-2xl mx-auto leading-[2.3]">
+                ہمارا شعبہ اکاؤنٹس ادائیگی کے طریقوں، زکوٰۃ کے حساب اور آفیشل رسید کے اجرا کے لیے آپ کی مکمل رہنمائی کے لیے حاضر ہے۔
+              </p>
+              
+              <div className="flex flex-col sm:flex-row justify-center gap-4">
+                <Link 
+                  href="/contact" 
+                  className="px-8 py-3.5 bg-gradient-to-r from-emerald-700 to-teal-700 hover:from-emerald-800 hover:to-teal-800 text-white font-bold rounded-xl shadow-md transition-all text-base"
+                >
+                  شعبہ اکاؤنٹس سے رابطہ کریں
+                </Link>
+                <Link 
+                  href="/about" 
+                  className="px-8 py-3.5 bg-white text-slate-700 font-bold border border-slate-300 hover:border-emerald-700 hover:text-emerald-700 rounded-xl transition-colors text-base"
+                >
+                  جامعہ کا تعارف و مقاصد پڑھیں
+                </Link>
+              </div>
+            </div>
           </div>
         </section>
 
       </main>
       <Footer />
-    </>
+    </div>
   );
 }

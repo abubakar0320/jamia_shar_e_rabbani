@@ -9,11 +9,11 @@ import {
   GraduationCap, Mail, Phone, BookOpen, 
   Award, Languages, Calendar, MapPin, 
   ChevronLeft, ArrowRight, UserCircle,
-  Briefcase, Search, FileText
+  Briefcase, Search, FileText, CheckCircle2,
+  ShieldCheck
 } from 'lucide-react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { useTranslation } from 'react-i18next';
 
 interface FacultyMember {
   id: number;
@@ -33,317 +33,317 @@ interface FacultyMember {
   achievements?: string[];
 }
 
+const staticFaculty: FacultyMember[] = [
+  {
+    id: 1,
+    name: 'پروفیسر ڈاکٹر فاروق علی ربانی',
+    role: 'شیخ الحدیث و پرنسپل',
+    designation: 'شیخ الحدیث و پرنسپل، جامعہ شیرِ ربانی',
+    education: 'عالمیہ (درسِ نظامی) و تخصص فی الحدیث',
+    specialization: 'علومِ حدیث، تفاسیر اور فقہِ اسلامی',
+    image: '/farooq-ali-rabbani.jpeg',
+    email: 'shererabbani@gmail.com',
+    contact: '03144081516',
+    bio: 'پروفیسر ڈاکٹر فاروق علی ربانی جامعہ شیرِ ربانی کے شیخ الحدیث اور پرنسپل ہیں۔ آپ نے 25 سال سے زائد عرصے میں ہزاروں طلبہ کو صحاحِ ستہ اور علومِ شریعہ کی تدریس فرمائی ہے۔ آپ عالمِ اسلام کے مقتدر علماء سے سند و اجازات کے حامل ہیں اور متعدد تحقیقی مقالات و کتب کے مصنف ہیں۔',
+    experience: '25+ سال کا تدریسی تجربہ',
+    research: 'علومِ حدیث کی درایت، اصولِ تفسیر اور معاصر فقہی مسائل',
+    courses: ['صحیح البخاری الشریف', 'جامع الترمذی', 'مشکوٰۃ المصابیح', 'اصولِ حدیث و درایت'],
+    languages: ['عربی', 'اردو', 'انگریزی'],
+    achievements: [
+      'اصولِ حدیث اور فقہ پر متعدد علمی و تحقیقی مقالات کے مصنف۔',
+      'عالمِ اسلام کے کبار محدثین و اساتذہ سے متصل اسناد و اجازات۔',
+      'ملک بھر میں پھیلے سینکڑوں فارغ التحصیل علماء و حفاظ کے استاد و مربی۔'
+    ]
+  },
+  {
+    id: 2,
+    name: 'مولانا علی حمزہ ربانی',
+    role: 'استاذ الحدیث و شعبہ درسِ نظامی',
+    designation: 'استاذ الحدیث و نگرانِ شعبہ درسِ نظامی',
+    education: 'عالمیہ (درسِ نظامی) و تخصص فی الفقہ',
+    specialization: 'فقہِ اسلامی، اصولِ فقہ و عربی ادب',
+    image: '/ali-hamza.jpeg',
+    email: 'shererabbani@gmail.com',
+    contact: '03144081516',
+    bio: 'مولانا علی حمزہ ربانی جامعہ شیرِ ربانی میں فقہ، اصولِ فقہ اور عربی ادب کے نامور مدرس ہیں۔ آپ دار الافتاء کے نگران اور طلبہ کی علمی، اخلاقی اور فکری رہنمائی میں ہمہ وقت سرگرم رہتے ہیں۔',
+    experience: '15+ سال کا تدریسی تجربہ',
+    research: 'فقہِ حنفی، معاصر معاشی احکام اور اسلامی قوانین',
+    courses: ['الہدایۃ فی الفقہ', 'العقیدۃ الطحاویۃ', 'مقاماتِ حریری', 'نحو و صرف و بلاغت'],
+    languages: ['عربی', 'اردو', 'فارسی'],
+    achievements: [
+      'جدید معاشی اور معاشرتی مسائل پر فتاویٰ کی مراجعت و تحقیق۔',
+      'دار الافتاء کے اہم فقہی و تدریسی امور کی کامیاب نگرانی۔',
+      'طلبہ کے باہمی علمی مباحث اور تربیتی نشستوں کی سرپرستی۔'
+    ]
+  }
+];
+
 function FacultyProfileContent() {
   const searchParams = useSearchParams();
-  const id = searchParams.get('id');
-  const { t } = useTranslation();
-  const [member, setMember] = useState<FacultyMember | null>(null);
-  const [related, setRelated] = useState<FacultyMember[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  const staticFaculty: FacultyMember[] = [
-    {
-      id: 1,
-      name: 'faculty_member_1_name',
-      role: 'faculty_member_1_role',
-      designation: 'faculty_member_1_role',
-      education: 'Alimiyat & Takhassus fil Hadith',
-      specialization: 'Hadith Sciences & Fiqh',
-      image: '/farooq-ali-rabbani.jpeg',
-      email: 'shererabbani@gmail.com',
-      contact: '03144081516',
-      bio: 'faculty_member_1_bio',
-      experience: '20+ Years',
-      courses: ['Sahih al-Bukhari', 'Sunan at-Tirmidhi', 'Mishkat al-Masabih'],
-      languages: ['Arabic', 'Urdu', 'English'],
-      achievements: ['Authored various treatises on Hadith methodology.', 'Granted Ijazah by leading scholars of the Muslim world.']
-    },
-    {
-      id: 2,
-      name: 'faculty_member_2_name',
-      role: 'faculty_member_2_role',
-      designation: 'faculty_member_2_role',
-      education: 'Alimiyat & Takhassus fil Fiqh',
-      specialization: 'Islamic Jurisprudence & Arabic Literature',
-      image: '/ali-hamza.jpeg',
-      email: 'shererabbani@gmail.com',
-      contact: '03144081516',
-      bio: 'faculty_member_2_bio',
-      experience: '15+ Years',
-      courses: ['Hidayah', 'Al-Aqidah al-Tahawiyyah', 'Arabic Literature'],
-      languages: ['Arabic', 'Urdu', 'Persian'],
-      achievements: ['Expert in contemporary Fiqh issues.', 'Head of Darul Ifta.']
-    }
-  ];
-
-  useEffect(() => {
-    fetch(`/api/faculty/${id}`)
-      .then(res => res.json())
-      .then(data => {
-        if (data && data.name) {
-          setMember(data);
-          // Fetch related
-          fetch('/api/faculty').then(r => r.json()).then(all => {
-             if (all && all.length > 0) {
-               setRelated(all.filter((m: any) => m.id !== Number(id) && m._id !== id).slice(0, 3));
-             } else {
-               setRelated(staticFaculty.filter(m => m.id !== Number(id)).slice(0, 3));
-             }
-          }).catch(() => {
-             setRelated(staticFaculty.filter(m => m.id !== Number(id)).slice(0, 3));
-          });
-        } else {
-          const found = staticFaculty.find(m => m.id === Number(id));
-          setMember(found || null);
-          setRelated(staticFaculty.filter(m => m.id !== Number(id)).slice(0, 3));
-        }
-      })
-      .catch(() => {
-        const found = staticFaculty.find(m => m.id === Number(id));
-        setMember(found || null);
-        setRelated(staticFaculty.filter(m => m.id !== Number(id)).slice(0, 3));
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, [id]);
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex flex-col">
-        <Header />
-        <div className="flex-1 flex flex-col items-center justify-center p-20">
-          <div className="w-12 h-12 border-4 border-emerald-700 border-t-transparent rounded-full animate-spin mb-4" />
-          <p className="text-emerald-800 font-bold uppercase tracking-widest text-[11px]">{t('Loading Profile...')}</p>
-        </div>
-        <Footer />
-      </div>
-    );
-  }
-
-  if (!member) {
-    return (
-      <div className="min-h-screen flex flex-col">
-        <Header />
-        <div className="flex-1 flex flex-col items-center justify-center p-20 text-center">
-          <h1 className="text-4xl font-bold text-slate-900 mb-4">{t('Profile Not Found')}</h1>
-          <p className="text-slate-500 mb-8">{t('The faculty member you are looking for does not exist or has been moved.')}</p>
-          <Link href="/faculty" className="px-8 py-3 bg-emerald-700 text-white font-bold rounded-lg shadow-lg hover:bg-emerald-800 transition-all flex items-center gap-2">
-            <ChevronLeft size={20} /> {t('Back to Faculty')}
-          </Link>
-        </div>
-        <Footer />
-      </div>
-    );
-  }
+  const idParam = searchParams.get('id');
+  const facultyId = idParam ? parseInt(idParam, 10) : 1;
+  const member = staticFaculty.find(m => m.id === facultyId) || staticFaculty[0];
+  const related = staticFaculty.filter(m => m.id !== member.id);
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50/50">
+    <div className="min-h-screen flex flex-col bg-slate-50/50" dir="rtl">
       <Header />
       
-      <main className="flex-1 pb-24">
+      <main className="flex-1 pb-20">
         
-        {/* HEADER SECTION - UNIVERSITY STYLE */}
-        <section style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)), url('/ahmad.png')", backgroundSize: "cover", backgroundPosition: "center" }} className="bg-emerald-900 text-white pt-20 pb-40 relative overflow-hidden">
-           <div className="absolute inset-0 opacity-10 pointer-events-none">
-              <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]" />
-           </div>
-           
-           <div className="container mx-auto px-6 lg:px-12 relative z-10">
-              <Link href="/faculty" className="inline-flex items-center gap-2 text-emerald-300 hover:text-white transition-colors mb-8 text-[13px] font-bold uppercase tracking-widest">
-                 <ChevronLeft size={16} /> {t('Back to Directory')}
-              </Link>
-              
-              <div className="flex flex-col lg:flex-row gap-12 items-start lg:items-end">
-                  <div className="w-48 h-64 md:w-56 md:h-72 lg:w-64 lg:h-80 bg-white rounded-2xl shadow-2xl overflow-hidden relative border-4 border-white shrink-0 mb-0 lg:-mb-32 z-20">
-                    <OptimizedImage 
-                      src={member.image || "/images/WhatsApp.jpeg"}
-                      alt={t(member.name)}
-                      fill
-                      section="faculty"
-                      className="object-cover"
-                    />
-                 </div>
-                 
-                 <div className="flex-1 pb-4 z-30">
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                    >
-                      <h1 className="text-3xl md:text-4xl lg:text-5xl font-black mb-4 tracking-tighter leading-tight">{t(member.name)}</h1>
-                      <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-emerald-100/80 text-[13px] md:text-sm font-bold uppercase tracking-wider">
-                         <span className="flex items-center gap-2"><Briefcase size={16} className="text-emerald-400" /> {t(member.designation || member.role)}</span>
-                         <span className="flex items-center gap-2"><MapPin size={16} className="text-emerald-400" /> Jamia Sher-e-Rabbani</span>
-                      </div>
-                    </motion.div>
-                 </div>
-                 
-                 <div className="lg:mb-4 w-full lg:w-auto flex flex-col sm:flex-row gap-4">
-                    <Link href={`mailto:${member.email || 'shererabbani@gmail.com,shererabbani@gmail.com'}`} className="flex items-center justify-center gap-2 px-6 py-3 bg-white text-emerald-900 font-bold rounded-xl shadow-lg hover:bg-emerald-50 transition-all text-[13px]">
-                       <Mail size={18} /> {t('Email')}
-                    </Link>
-                    <Link href={`tel:${member.contact || '03144081516'}`} className="flex items-center justify-center gap-2 px-6 py-3 bg-emerald-800 text-white font-bold rounded-xl border border-emerald-700 hover:bg-emerald-700 transition-all text-[13px]">
-                       <Phone size={18} /> {t('Call')}
-                    </Link>
-                 </div>
+        {/* HEADER SECTION */}
+        <section className="bg-gradient-to-b from-slate-900 via-emerald-950 to-slate-900 text-white pt-14 pb-32 relative overflow-hidden text-right">
+          <div className="absolute inset-0 opacity-15 pointer-events-none">
+            <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url("${member.image}")` }} />
+          </div>
+          
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            {/* Back to Faculty Directory */}
+            <Link 
+              href="/faculty" 
+              className="inline-flex items-center gap-2 text-emerald-300 hover:text-white transition-colors mb-6 text-xs sm:text-sm font-bold font-urdu"
+            >
+              <ArrowRight size={16} /> <span>تمام اساتذہ ڈائریکٹری پر واپس جائیں</span>
+            </Link>
+            
+            <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start lg:items-end">
+              {/* Profile Image Box */}
+              <div className="w-44 h-56 sm:w-52 sm:h-68 md:w-60 md:h-76 bg-white rounded-2xl shadow-2xl overflow-hidden relative border-4 border-white shrink-0 mb-0 lg:-mb-24 z-20">
+                <OptimizedImage 
+                  src={member.image || "/images/WhatsApp.jpeg"}
+                  alt={member.name}
+                  fill
+                  section="faculty"
+                  className="object-cover object-top"
+                />
               </div>
-           </div>
+              
+              {/* Profile Title & Roles */}
+              <div className="flex-1 pb-2 z-20">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                >
+                  <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black mb-3 leading-[1.9] md:leading-[2.1] font-urdu">
+                    {member.name}
+                  </h1>
+                  <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-emerald-200 text-xs sm:text-sm font-bold font-urdu">
+                    <span className="flex items-center gap-1.5">
+                      <Briefcase size={16} className="text-emerald-400 shrink-0" />
+                      <span>{member.designation || member.role}</span>
+                    </span>
+                    <span className="flex items-center gap-1.5">
+                      <MapPin size={16} className="text-emerald-400 shrink-0" />
+                      <span>جامعہ شیرِ ربانی مانانوالہ، شیخوپورہ</span>
+                    </span>
+                  </div>
+                </motion.div>
+              </div>
+              
+              {/* Contact Action Buttons */}
+              <div className="w-full lg:w-auto flex flex-wrap sm:flex-nowrap gap-3 z-20 lg:mb-2">
+                <Link 
+                  href={`mailto:${member.email || 'shererabbani@gmail.com'}`} 
+                  className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-white text-slate-900 font-bold rounded-xl shadow-md hover:bg-slate-100 transition-all text-xs sm:text-sm font-urdu"
+                >
+                  <Mail size={16} /> <span>ای میل بھیجیں</span>
+                </Link>
+                <Link 
+                  href={`tel:${member.contact || '03144081516'}`} 
+                  className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-emerald-700 text-white font-bold rounded-xl border border-emerald-600 hover:bg-emerald-600 transition-all text-xs sm:text-sm font-urdu"
+                >
+                  <Phone size={16} /> <span>رابطہ کریں</span>
+                </Link>
+              </div>
+            </div>
+          </div>
         </section>
 
-        {/* CONTENT GRID */}
-        <section className="container mx-auto px-6 lg:px-12 mt-12 lg:mt-32">
-           <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
+        {/* --- MAIN CONTENT GRID --- */}
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 lg:mt-24">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 text-right">
+            
+            {/* Right Main Column */}
+            <div className="lg:col-span-8 space-y-8">
               
-              {/* MAIN COLUMN */}
-              <div className="lg:col-span-2 space-y-16">
-                 
-                 {/* BIOGRAPHY */}
-                 <div>
-                    <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-3">
-                       <UserCircle className="text-emerald-700" size={24} /> {t('Biography')}
-                    </h2>
-                    <div className="prose prose-slate max-w-none text-slate-600 leading-relaxed text-[15px]">
-                       {member.bio ? t(member.bio) : t('Professional profile details available upon request.')}
-                    </div>
-                 </div>
+              {/* BIOGRAPHY */}
+              <div className="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200/80 shadow-2xs">
+                <h2 className="text-xl sm:text-2xl font-black text-slate-900 mb-4 flex items-center gap-2 font-urdu">
+                  <UserCircle className="text-emerald-700" size={24} />
+                  <span>سوانح و علمی تعارف</span>
+                </h2>
+                <div className="text-slate-600 leading-[2.3] text-sm sm:text-base font-urdu">
+                  {member.bio}
+                </div>
+              </div>
 
-                 {/* SPECIALIZATION & RESEARCH */}
-                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                    <div>
-                       <h3 className="text-lg font-bold text-slate-900 mb-4 flex items-center gap-3">
-                          <BookOpen className="text-emerald-700" size={20} /> {t('Specialization')}
-                       </h3>
-                       <p className="text-[14px] text-slate-600 bg-white p-4 rounded-xl border border-slate-100 shadow-sm">
-                          {member.specialization}
-                       </p>
+              {/* SPECIALIZATION & RESEARCH */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-2xs">
+                  <h3 className="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2 font-urdu">
+                    <BookOpen className="text-emerald-700" size={20} />
+                    <span>تخصص و مہارت</span>
+                  </h3>
+                  <p className="text-sm text-slate-700 bg-slate-50 p-4 rounded-xl border border-slate-200/60 font-urdu leading-[2.2]">
+                    {member.specialization}
+                  </p>
+                </div>
+
+                {member.research && (
+                  <div className="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-2xs">
+                    <h3 className="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2 font-urdu">
+                      <Search className="text-emerald-700" size={20} />
+                      <span>علمی و تحقیقی میدان</span>
+                    </h3>
+                    <p className="text-sm text-slate-700 bg-slate-50 p-4 rounded-xl border border-slate-200/60 font-urdu leading-[2.2]">
+                      {member.research}
+                    </p>
+                  </div>
+                )}
+              </div>
+
+              {/* COURSES TAUGHT */}
+              {member.courses && member.courses.length > 0 && (
+                <div className="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200/80 shadow-2xs">
+                  <h2 className="text-xl sm:text-2xl font-black text-slate-900 mb-6 flex items-center gap-2 font-urdu">
+                    <FileText className="text-emerald-700" size={24} />
+                    <span>تدریسی کتب و اسباق</span>
+                  </h2>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {member.courses.map((course, i) => (
+                      <div key={i} className="flex items-center gap-3.5 bg-slate-50 p-4 rounded-xl border border-slate-200/70">
+                        <div className="w-8 h-8 bg-emerald-100 text-emerald-800 rounded-lg flex items-center justify-center font-bold text-xs shrink-0 font-urdu">
+                          ۰{i + 1}
+                        </div>
+                        <span className="font-bold text-slate-900 text-sm font-urdu">{course}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* ACADEMIC ACHIEVEMENTS */}
+              {member.achievements && member.achievements.length > 0 && (
+                <div className="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200/80 shadow-2xs">
+                  <h2 className="text-xl sm:text-2xl font-black text-slate-900 mb-5 flex items-center gap-2 font-urdu">
+                    <Award className="text-emerald-700" size={24} />
+                    <span>علمی و تحقیقی کارنامے</span>
+                  </h2>
+                  <ul className="space-y-3 font-urdu">
+                    {member.achievements.map((item, i) => (
+                      <li key={i} className="flex items-start gap-3 text-slate-700 text-xs sm:text-sm leading-relaxed">
+                        <CheckCircle2 size={18} className="text-emerald-600 shrink-0 mt-0.5" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+            </div>
+
+            {/* Left Sidebar Column */}
+            <div className="lg:col-span-4 space-y-6">
+              
+              {/* EDUCATION & DETAILS CARD */}
+              <div className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200/80 shadow-2xs">
+                <h3 className="text-lg font-black text-slate-900 mb-5 flex items-center gap-2 font-urdu pb-3 border-b border-slate-100">
+                  <GraduationCap className="text-emerald-700" size={22} />
+                  <span>تعلیمی کوائف و تجربہ</span>
+                </h3>
+
+                <div className="space-y-5 font-urdu">
+                  <div>
+                    <span className="text-xs font-bold text-slate-400 block mb-1">تعلیمی اسناد و ڈگری</span>
+                    <p className="text-sm font-bold text-slate-800">{member.education}</p>
+                  </div>
+
+                  {member.experience && (
+                    <div className="pt-4 border-t border-slate-100">
+                      <span className="text-xs font-bold text-slate-400 block mb-1">تدریسی تجربہ</span>
+                      <p className="text-sm font-bold text-slate-800">{member.experience}</p>
                     </div>
-                    {member.research && (
-                      <div>
-                        <h3 className="text-lg font-bold text-slate-900 mb-4 flex items-center gap-3">
-                           <Search className="text-emerald-700" size={20} /> {t('Research Interests')}
-                        </h3>
-                        <p className="text-[14px] text-slate-600 bg-white p-4 rounded-xl border border-slate-100 shadow-sm">
-                           {member.research}
+                  )}
+
+                  {member.languages && (
+                    <div className="pt-4 border-t border-slate-100">
+                      <span className="text-xs font-bold text-slate-400 block mb-2">زبانیں</span>
+                      <div className="flex flex-wrap gap-2">
+                        {member.languages.map(lang => (
+                          <span key={lang} className="px-3 py-1 bg-slate-100 text-slate-700 text-xs font-bold rounded-md">
+                            {lang}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* OTHER FACULTY MEMBERS */}
+              <div className="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-2xs">
+                <h3 className="text-base font-black text-slate-900 mb-4 font-urdu pb-2 border-b border-slate-100">
+                  دیگر معزز اساتذہ
+                </h3>
+                <div className="space-y-3">
+                  {related.map(item => (
+                    <Link 
+                      key={item.id} 
+                      href={`/faculty-profile?id=${item.id}`} 
+                      className="flex items-center gap-3.5 p-3 rounded-xl border border-slate-100 hover:border-emerald-300 hover:bg-emerald-50/40 transition-all group"
+                    >
+                      <div className="w-12 h-12 rounded-lg overflow-hidden relative shrink-0 bg-slate-100">
+                        <OptimizedImage 
+                          src={item.image || "/images/WhatsApp.jpeg"}
+                          alt={item.name}
+                          fill
+                          section="faculty"
+                          className="object-cover"
+                        />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h4 className="font-bold text-slate-900 text-xs sm:text-sm truncate group-hover:text-emerald-700 transition-colors font-urdu">
+                          {item.name}
+                        </h4>
+                        <p className="text-[11px] text-slate-500 truncate font-urdu">
+                          {item.role}
                         </p>
                       </div>
-                    )}
-                 </div>
-
-                 {/* COURSES TAUGHT */}
-                 {member.courses && member.courses.length > 0 && (
-                    <div>
-                       <h2 className="text-2xl font-bold text-slate-900 mb-8 flex items-center gap-3">
-                          <FileText className="text-emerald-700" size={24} /> {t('Courses Taught')}
-                       </h2>
-                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                          {member.courses.map((course, i) => (
-                             <div key={i} className="flex items-center gap-4 bg-white p-5 rounded-2xl border border-slate-100 shadow-sm group hover:border-emerald-200 transition-colors">
-                                <div className="w-10 h-10 bg-emerald-50 rounded-lg flex items-center justify-center text-emerald-700 font-bold shrink-0">
-                                   0{i+1}
-                                </div>
-                                <span className="font-bold text-slate-800 text-[14px]">{course}</span>
-                             </div>
-                          ))}
-                       </div>
-                    </div>
-                 )}
-
-                 {/* ACHIEVEMENTS */}
-                 {member.achievements && member.achievements.length > 0 && (
-                    <div>
-                       <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-3">
-                          <Award className="text-emerald-700" size={24} /> {t('Academic Achievements')}
-                       </h2>
-                       <ul className="space-y-4">
-                          {member.achievements.map((item, i) => (
-                             <li key={i} className="flex items-start gap-4 text-slate-600 text-[14px] leading-relaxed">
-                                <div className="mt-1 w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center shrink-0">
-                                   <div className="w-2 h-2 rounded-full bg-emerald-600" />
-                                </div>
-                                {item}
-                             </li>
-                          ))}
-                       </ul>
-                    </div>
-                 )}
+                      <ChevronLeft size={16} className="text-slate-400 group-hover:text-emerald-700 group-hover:-translate-x-1 transition-all shrink-0" />
+                    </Link>
+                  ))}
+                </div>
               </div>
 
-              {/* SIDEBAR COLUMN */}
-              <div className="space-y-12">
-                 
-                 {/* EDUCATION CARD */}
-                 <div className="bg-white rounded-3xl p-8 border border-slate-100 shadow-xl relative overflow-hidden">
-                    <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-50 rounded-bl-[100px] -mr-8 -mt-8 pointer-events-none" />
-                    <h3 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-3 relative z-10">
-                       <GraduationCap className="text-emerald-700" size={24} /> {t('Education')}
-                    </h3>
-                    <div className="space-y-6 relative z-10">
-                       <div className="flex flex-col gap-2">
-                          <span className="text-[13px] font-bold text-emerald-700 uppercase tracking-widest">{t('Academic Degree')}</span>
-                          <p className="text-[14px] text-slate-700 font-medium leading-relaxed">{member.education}</p>
-                       </div>
-                       {member.experience && (
-                          <div className="flex flex-col gap-2 pt-6 border-t border-slate-50">
-                             <span className="text-[13px] font-bold text-emerald-700 uppercase tracking-widest">{t('Teaching Experience')}</span>
-                             <p className="text-[14px] text-slate-700 font-medium leading-relaxed">{member.experience}</p>
-                          </div>
-                       )}
-                       {member.languages && (
-                          <div className="flex flex-col gap-2 pt-6 border-t border-slate-50">
-                             <span className="text-[13px] font-bold text-emerald-700 uppercase tracking-widest flex items-center gap-2"><Languages size={14} /> {t('Languages')}</span>
-                             <div className="flex flex-wrap gap-2 mt-2">
-                                {member.languages.map(lang => (
-                                   <span key={lang} className="px-3 py-1 bg-slate-100 text-slate-600 text-[11px] font-bold rounded-full uppercase tracking-tighter">{lang}</span>
-                                ))}
-                             </div>
-                          </div>
-                       )}
-                    </div>
-                 </div>
+            </div>
 
-                 {/* RELATED FACULTY */}
-                 <div className="space-y-6">
-                    <h3 className="text-xl font-bold text-slate-900 px-2">{t('Related Faculty')}</h3>
-                     <div className="space-y-4">
-                       {related.map(item => (
-                          <Link key={item.id} href={`/faculty-profile?id=${(item as any)._id || item.id}`} className="flex items-center gap-4 bg-white p-4 rounded-2xl border border-slate-100 hover:shadow-lg transition-all group">
-                             <div className="w-14 h-14 rounded-xl overflow-hidden relative shrink-0">
-                                <OptimizedImage 
-                                  src={item.image || "/images/WhatsApp.jpeg"}
-                                  alt={t(item.name)}
-                                  fill
-                                  section="faculty"
-                                  className="object-cover"
-                                />
-                             </div>
-                             <div className="flex-1 min-w-0">
-                                <h4 className="font-bold text-slate-900 text-sm truncate group-hover:text-emerald-700 transition-colors">{t(item.name)}</h4>
-                                <p className="text-[11px] text-emerald-600 font-bold uppercase tracking-tighter truncate">{t(item.role)}</p>
-                             </div>
-                             <ArrowRight size={16} className="text-slate-300 group-hover:text-emerald-600 group-hover:translate-x-1 transition-all shrink-0" />
-                          </Link>
-                       ))}
-                    </div>
-                 </div>
-              </div>
-
-           </div>
+          </div>
         </section>
 
-        {/* FINAL CTA */}
-        <section className="container mx-auto px-6 lg:px-12 mt-24">
-           <div className="bg-emerald-50 rounded-[40px] p-10 md:p-16 text-center">
-              <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4">{t('Want to study under our scholars?')}</h2>
-              <p className="text-slate-600 mb-8 max-w-2xl mx-auto">{t('Admissions are currently open for various academic programs. Begin your journey of sacred knowledge today.')}</p>
-              <div className="flex flex-wrap justify-center gap-4">
-                 <Link href="/admissions" className="px-8 py-3 bg-emerald-700 text-white font-bold rounded-xl shadow-lg hover:bg-emerald-800 transition-all text-[13px]">
-                    {t('Apply for Admission')}
-                 </Link>
-                 <Link href="/contact" className="px-8 py-3 bg-white text-emerald-900 font-bold rounded-xl border border-emerald-100 hover:bg-emerald-50 transition-all text-[13px]">
-                    {t('Contact Academic Office')}
-                 </Link>
-              </div>
-           </div>
+        {/* BOTTOM ADMISSIONS CTA */}
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 text-center">
+          <div className="bg-gradient-to-r from-emerald-800 to-teal-900 text-white rounded-3xl p-8 sm:p-12 shadow-lg">
+            <h2 className="text-2xl sm:text-3xl font-black mb-3 font-urdu">
+              کیا آپ ہمارے جید اساتذہ کے زیرِ سایہ تعلیم حاصل کرنا چاہتے ہیں؟
+            </h2>
+            <p className="text-emerald-100/90 text-sm sm:text-base mb-6 max-w-2xl mx-auto font-urdu">
+              جامعہ شیرِ ربانی کے مختلف تعلیمی شعبہ جات میں داخلے جاری ہیں۔ علمِ نافع کے سفر کا حصہ بنیں۔
+            </p>
+            <div className="flex flex-wrap justify-center gap-3.5">
+              <Link 
+                href="/admissions" 
+                className="px-7 py-3 bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold rounded-xl shadow-md transition-all font-urdu text-sm sm:text-base"
+              >
+                آن لائن داخلہ فارم پر کریں
+              </Link>
+              <Link 
+                href="/contact" 
+                className="px-7 py-3 bg-white/10 hover:bg-white/20 text-white border border-white/20 font-bold rounded-xl transition-all font-urdu text-sm sm:text-base"
+              >
+                دفترِ تعلیمات سے رابطہ
+              </Link>
+            </div>
+          </div>
         </section>
 
       </main>
@@ -352,4 +352,16 @@ function FacultyProfileContent() {
     </div>
   );
 }
-export default function FacultyProfile() { return <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><div className="w-10 h-10 border-4 border-emerald-700 border-t-transparent rounded-full animate-spin"></div></div>}><FacultyProfileContent /></Suspense>; }
+
+export default function FacultyProfile() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex flex-col items-center justify-center bg-white" dir="rtl">
+        <div className="w-10 h-10 border-4 border-emerald-700 border-t-transparent rounded-full animate-spin mb-3"></div>
+        <span className="text-sm font-bold text-slate-700 font-urdu">پروفائل لوڈ ہو رہی ہے...</span>
+      </div>
+    }>
+      <FacultyProfileContent />
+    </Suspense>
+  );
+}

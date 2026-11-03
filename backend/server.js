@@ -1486,12 +1486,64 @@ app.get('/api/popup-announcement', async (req, res) => {
 // ----------------------------------------------------
 // Admission Requirements
 // ----------------------------------------------------
+const REQUIREMENT_URDU_MAP = {
+  'Age Verification': {
+    title: 'عمر کی حد اور تعلیمی اہلیت',
+    text: 'مختلف شعبہ جات اور درجات کے لیے عمر ۵ سے ۸۰ سال کے درمیان ہونی چاہیے۔'
+  },
+  'Authentic Documents': {
+    title: 'مصدقہ تعلیمی و شناختی اسناد',
+    text: 'نادرا شناختی کارڈ / ب فارم، والد کا شناختی کارڈ اور سابقہ رزلٹ کارڈز یا اسناد کی واضح کاپیاں لازمی ہیں۔'
+  },
+  'Interview Process': {
+    title: 'تحریری ٹیسٹ و انٹرویو',
+    text: 'تمام طلبہ کے لیے بنیادی ناظرہ و تجوید القرآن اور اخلاقی و علمی انٹرویو پاس کرنا لازمی ہے۔'
+  }
+};
+
+const FORM_FIELD_URDU_MAP = {
+  'studentName': 'طالب علم کا مکمل نام',
+  'fatherName': 'والد کا نام',
+  'dob': 'تاریخِ پیدائش',
+  'cnic': 'قومی شناختی کارڈ / ب فارم نمبر',
+  'mobile': 'موبائل نمبر (رابطہ)',
+  'whatsapp': 'واٹس ایپ نمبر',
+  'Student Full Name': 'طالب علم کا مکمل نام',
+  'Father Name': 'والد کا نام',
+  'Date of Birth': 'تاریخِ پیدائش',
+  'CNIC / B-Form Number': 'قومی شناختی کارڈ / ب فارم نمبر',
+  'Mobile Number': 'موبائل نمبر (رابطہ)',
+  'Father CNIC': 'والد کا شناختی کارڈ نمبر',
+  "Father's CNIC": 'والد کا شناختی کارڈ نمبر'
+};
+
 app.get('/api/admin/admission-requirements', requireAdminAuth, async (req, res) => {
   const list = await AdmissionRequirement.find().sort({ id: 1 }).lean();
   res.json(list);
 });
 app.get('/api/admission-requirements', async (req, res) => {
-  const list = await AdmissionRequirement.find().sort({ id: 1 }).lean();
+  let list = await AdmissionRequirement.find().sort({ id: 1 }).lean();
+  list = list.map(item => {
+    if (REQUIREMENT_URDU_MAP[item.title]) {
+      const urdu = REQUIREMENT_URDU_MAP[item.title];
+      item.title = urdu.title;
+      item.text = urdu.text;
+      AdmissionRequirement.updateOne({ _id: item._id }, { title: urdu.title, text: urdu.text }).exec().catch(() => {});
+    } else if (item.text && item.text.includes('between 5 and 80')) {
+      item.title = 'عمر کی حد اور تعلیمی اہلیت';
+      item.text = 'مختلف شعبہ جات اور درجات کے لیے عمر ۵ سے ۸۰ سال کے درمیان ہونی چاہیے۔';
+      AdmissionRequirement.updateOne({ _id: item._id }, { title: item.title, text: item.text }).exec().catch(() => {});
+    } else if (item.text && item.text.includes('Clear copies of NADRA')) {
+      item.title = 'مصدقہ تعلیمی و شناختی اسناد';
+      item.text = 'نادرا شناختی کارڈ / ب فارم، والد کا شناختی کارڈ اور سابقہ رزلٹ کارڈز یا اسناد کی واضح کاپیاں لازمی ہیں۔';
+      AdmissionRequirement.updateOne({ _id: item._id }, { title: item.title, text: item.text }).exec().catch(() => {});
+    } else if (item.text && item.text.includes('Quran recitation')) {
+      item.title = 'تحریری ٹیسٹ و انٹرویو';
+      item.text = 'تمام طلبہ کے لیے بنیادی ناظرہ و تجوید القرآن اور اخلاقی و علمی انٹرویو پاس کرنا لازمی ہے۔';
+      AdmissionRequirement.updateOne({ _id: item._id }, { title: item.title, text: item.text }).exec().catch(() => {});
+    }
+    return item;
+  });
   res.json(list);
 });
 app.post('/api/admin/admission-requirements', requireAdminAuth, async (req, res) => {
@@ -1521,7 +1573,17 @@ app.get('/api/admin/form-fields', requireAdminAuth, async (req, res) => {
   res.json(fields);
 });
 app.get('/api/form-fields', async (req, res) => {
-  const fields = await FormField.find().sort({ createdAt: 1 }).lean();
+  let fields = await FormField.find().sort({ createdAt: 1 }).lean();
+  fields = fields.map(field => {
+    if (FORM_FIELD_URDU_MAP[field.id] || FORM_FIELD_URDU_MAP[field.title]) {
+      const urduTitle = FORM_FIELD_URDU_MAP[field.id] || FORM_FIELD_URDU_MAP[field.title];
+      if (field.title !== urduTitle) {
+        field.title = urduTitle;
+        FormField.updateOne({ _id: field._id }, { title: urduTitle }).exec().catch(() => {});
+      }
+    }
+    return field;
+  });
   res.json(fields);
 });
 app.post('/api/admin/form-fields', requireAdminAuth, async (req, res) => {

@@ -861,52 +861,52 @@
   "admissionRequirements": [
     {
       "id": 1782040652804,
-      "title": "Age Verification",
-      "text": "Applicants must be between 5 and 80 years old for various departments."
+      "title": "عمر کی حد اور تعلیمی اہلیت",
+      "text": "مختلف شعبہ جات اور درجات کے لیے عمر ۵ سے ۸۰ سال کے درمیان ہونی چاہیے۔"
     },
     {
       "id": 1782040652805,
-      "title": "Authentic Documents",
-      "text": "Clear copies of NADRA ID/B-Form, Father's CNIC, and previous marksheets/result cards are mandatory."
+      "title": "مصدقہ تعلیمی و شناختی اسناد",
+      "text": "نادرا شناختی کارڈ / ب فارم، والد کا شناختی کارڈ اور سابقہ رزلٹ کارڈز یا اسناد کی واضح کاپیاں لازمی ہیں۔"
     },
     {
       "id": 1782040652806,
-      "title": "Interview Process",
-      "text": "All students must pass a basic Quran recitation and character assessment interview."
+      "title": "تحریری ٹیسٹ و انٹرویو",
+      "text": "تمام طلبہ کے لیے بنیادی ناظرہ و تجوید القرآن اور اخلاقی و علمی انٹرویو پاس کرنا لازمی ہے۔"
     }
   ],
   "customFormFields": [
     {
       "id": "mobile",
-      "title": "Mobile Number",
+      "title": "موبائل نمبر (رابطہ)",
       "type": "tel",
       "required": true,
       "isCore": true
     },
     {
       "id": "cnic",
-      "title": "CNIC / B-Form Number",
+      "title": "قومی شناختی کارڈ / ب فارم نمبر",
       "type": "text",
       "required": true,
       "isCore": true
     },
     {
       "id": "dob",
-      "title": "Date of Birth",
+      "title": "تاریخِ پیدائش",
       "type": "date",
       "required": true,
       "isCore": true
     },
     {
       "id": "fatherName",
-      "title": "Father Name",
+      "title": "والد کا نام",
       "type": "text",
       "required": true,
       "isCore": true
     },
     {
       "id": "studentName",
-      "title": "Student Full Name",
+      "title": "طالب علم کا مکمل نام",
       "type": "text",
       "required": true,
       "isCore": true

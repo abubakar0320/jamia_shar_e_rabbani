@@ -1,14 +1,21 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ChevronRight } from 'lucide-react';
+import { ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
 import OptimizedImage from '@/components/OptimizedImage';
-import { useTranslation } from 'react-i18next';
 import React, { useState, useEffect } from 'react';
 
+interface ProgramItem {
+  id: string;
+  title: string;
+  category: string;
+  desc: string;
+  image: string;
+  link: string;
+}
+
 export default function AcademicPrograms() {
-  const { t } = useTranslation();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -17,107 +24,122 @@ export default function AcademicPrograms() {
 
   if (!mounted) return <div className="py-24 min-h-[400px]" />;
 
-  const academicPrograms = [
+  const academicPrograms: ProgramItem[] = [
     {
       id: 'hifz',
-      title: t('academic_programs_1_title'),
-      category: t('academic_programs_1_category'),
-      desc: t('academic_programs_1_desc'),
+      title: 'شعبہ تحفیظ القرآن الکریم',
+      category: 'حفظ و قرات',
+      desc: 'تجوید و حسنِ قراءت کے بنیادی و اعلیٰ قواعد کے ساتھ قرآن مجید کا مکمل حفظ اور روزانہ کی بنیاد پر باقاعدہ دور۔',
       image: '/images/hifaz.jpeg',
-      link: '/program?id=1'
+      link: '/courses'
     },
     {
       id: 'dars-e-nizami',
-      title: t('academic_programs_2_title'),
-      category: t('academic_programs_2_category'),
-      desc: t('academic_programs_2_desc'),
+      title: 'درسِ نظامی (عالم و فاضل کورس)',
+      category: 'شریعہ و علومِ اسلامیہ',
+      desc: 'قرآن، حدیث، فقہ، اصولِ فقہ، منطق اور عربی ادب کا باقاعدہ جامع نصاب، وفاق المدارس الرضویہ سے تصدیق شدہ۔',
       image: '/hadith.jpg',
-      link: '/program?id=2'
+      link: '/courses'
     },
     {
       id: 'tajweed',
-      title: t('academic_programs_3_title'),
-      category: t('academic_programs_3_category'),
-      desc: t('academic_programs_3_desc'),
+      title: 'تجوید و قرات سبعہ و عشرہ',
+      category: 'تجوید و لہجہ',
+      desc: 'مستند قراء کرام کے زیرِ نگرانی مخارج و صفات کی درستی، ترتیل و حدر اور قرات کی عملی مشق۔',
       image: '/images/tajweed.jpeg',
-      link: '/program?id=3'
+      link: '/courses'
     },
     {
       id: 'arabic',
-      title: t('academic_programs_4_title'),
-      category: t('academic_programs_4_category'),
-      desc: t('academic_programs_4_desc'),
+      title: 'عربی زبان و ادب کورس',
+      category: 'زبان دانی',
+      desc: 'جدید و کلاسیکی عربی بول چال، نحو و صرف اور فصیح عربی تحریر و تقریر پر خصوصی عملی توجہ۔',
       image: '/arabic-language.jpg',
-      link: '/program?id=4'
+      link: '/courses'
     },
     {
       id: 'takhasusat',
-      title: t('academic_programs_5_title'),
-      category: t('academic_programs_5_category'),
-      desc: t('academic_programs_5_desc'),
+      title: 'تخصص فی الفقہ والافتاء',
+      category: 'اعلیٰ تخصص',
+      desc: 'فقہِ اسلامی، معاشی و جدید فقہی مسائل پر فتوٰی نویسی اور اصولِ افتاء کی گہری تحقیقی و عملی تربیت۔',
       image: '/takhasus.jpeg',
       link: '/program?id=5'
     },
     {
       id: 'khasusi-dars-e-nizami',
-      title: t('academic_programs_6_title'),
-      category: t('academic_programs_6_category'),
-      desc: t('academic_programs_6_desc'),
+      title: 'خصوصی درسِ نظامی برائے کالج طلبہ',
+      category: 'عصری و دینی امتزاج',
+      desc: 'اسکول، کالج اور یونیورسٹی کے طلبہ و ملازمین کے لیے اوقاتِ کار کے مطابق لچکدار اور منظم دینی تعلیم۔',
       image: '/hadith.jpg',
-      link: '/program?id=6'
+      link: '/courses'
     }
   ];
 
   return (
-    <section className="py-16 bg-white">
+    <section className="py-16 md:py-20 bg-white" dir="rtl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-8 md:mb-16">
-          {t('academic_programs_heading')}
-        </h2>
+        
+        {/* Section Header */}
+        <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+          <span className="text-xs md:text-sm font-semibold tracking-wide inline-block mb-3 px-3 py-1 rounded-md text-emerald-800 bg-emerald-50 border border-emerald-200 font-urdu">
+            جامعہ کے باقاعدہ تعلیمی شعبہ جات
+          </span>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-slate-900 mb-4 leading-[1.9] md:leading-[2.1] font-urdu">
+            نمایاں تعلیمی و تدریسی شعبہ جات
+          </h2>
+          <p className="text-slate-600 text-sm md:text-base leading-[2.2] md:leading-[2.3] font-urdu">
+            وفاق المدارس الاسلامیہ الرضویہ پاکستان کے تصدیق شدہ نصاب کے مطابق دینی و روحانی علوم کی اعلیٰ تعلیم
+          </p>
+        </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-8">
+        {/* Programs Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {academicPrograms.map((program, i) => (
             <motion.div 
               key={program.id}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
-              transition={{ delay: i * 0.1, duration: 0.5 }}
-              className="flex flex-col bg-white text-slate-900 shadow-sm border border-slate-100 hover:shadow-xl hover:-translate-y-1 rounded-2xl overflow-hidden transition-all group"
+              transition={{ delay: i * 0.08, duration: 0.4 }}
+              className="flex flex-col bg-white text-slate-900 shadow-sm border border-slate-200/80 hover:shadow-xl hover:-translate-y-1 rounded-2xl overflow-hidden transition-all group"
             >
-              <div className="aspect-[4/3] md:aspect-[16/10] overflow-hidden relative">
+              <div className="aspect-[16/10] overflow-hidden relative bg-slate-100">
                 <OptimizedImage 
                   src={program.image} 
                   alt={program.title}
                   fill
                   section="course"
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </div>
-              <div className="p-3 md:p-6 flex flex-col flex-1">
-                <span className="text-[9px] md:text-xs px-2 md:px-3 py-0.5 md:py-1 rounded-md font-bold mb-2 md:mb-3 uppercase tracking-wider inline-block w-max bg-emerald-50 text-emerald-700 border border-emerald-100">
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <span className="absolute top-3 right-3 text-xs px-2.5 py-1 rounded-md font-bold bg-white/95 text-emerald-800 shadow-sm font-urdu">
                   {program.category}
                 </span>
-                <h3 className="text-sm md:text-xl font-bold text-slate-900 mb-1 md:mb-3 line-clamp-2 leading-snug">
+              </div>
+
+              <div className="p-6 md:p-7 flex flex-col flex-1 text-right">
+                <h3 className="text-lg md:text-xl font-bold text-slate-900 mb-3 leading-[2.2] font-urdu group-hover:text-emerald-700 transition-colors">
                   {program.title}
                 </h3>
-                <p className="hidden md:block text-sm text-slate-600 mb-6 line-clamp-3 flex-1">
-                  {t(program.desc)}
+                <p className="text-slate-600 text-sm leading-[2.3] mb-6 font-urdu flex-1">
+                  {program.desc}
                 </p>
-                <div className="mt-auto pt-2 md:pt-4 border-t border-slate-50">
+                <div className="mt-auto pt-3 border-t border-slate-100 flex items-center justify-between">
                   <Link 
                     href={program.link}
-                    className="inline-flex items-center text-[11px] md:text-sm text-emerald-600 font-bold hover:text-emerald-700 group/link"
+                    className="inline-flex items-center text-xs md:text-sm text-emerald-700 font-bold hover:text-emerald-800 group/link font-urdu gap-1"
                   >
-                    {t('academic_programs_details')} <ChevronRight className="ml-1 w-3 h-3 md:w-4 md:h-4 group-hover/link:translate-x-1 transition-transform" />
+                    <span>تفصیلات و داخلہ معلومات</span>
+                    <ChevronLeft className="w-4 h-4 group-hover/link:-translate-x-1 transition-transform" />
                   </Link>
+                  <span className="text-[11px] text-slate-400 font-urdu">مفت تعلیم</span>
                 </div>
               </div>
             </motion.div>
           ))}
         </div>
+
       </div>
     </section>
   );

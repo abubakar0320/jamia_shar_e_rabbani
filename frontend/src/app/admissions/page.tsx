@@ -7,18 +7,53 @@ import Image from 'next/image';
 import { 
   FileText, 
   Building2, 
-  Clock,
+  Clock, 
   ArrowLeft,
-  CheckCircle2,
-  Phone,
-  Mail,
-  Award,
+  ArrowRight,
+  CheckCircle2, 
+  Phone, 
+  Mail, 
+  Award, 
   Search,
 } from 'lucide-react';
 import React, { useState, useEffect, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import AdmissionChallan from '@/components/AdmissionChallan';
 import AdmissionForm, { Admission } from '@/components/AdmissionForm';
+
+const REQUIREMENT_TRANSLATIONS: Record<string, { title: string, text: string }> = {
+  "Age Verification": {
+    title: "عمر کی حد اور تعلیمی اہلیت",
+    text: "مختلف شعبہ جات اور درجات کے لیے عمر ۵ سے ۸۰ سال کے درمیان ہونی چاہیے۔"
+  },
+  "Authentic Documents": {
+    title: "مصدقہ تعلیمی و شناختی اسناد",
+    text: "نادرا شناختی کارڈ / ب فارم، والد کا شناختی کارڈ اور سابقہ رزلٹ کارڈز یا اسناد کی واضح کاپیاں لازمی ہیں۔"
+  },
+  "Interview Process": {
+    title: "تحریری ٹیسٹ و انٹرویو",
+    text: "تمام طلبہ کے لیے بنیادی ناظرہ و تجوید القرآن اور اخلاقی و علمی انٹرویو پاس کرنا لازمی ہے۔"
+  }
+};
+
+const getRequirementDisplay = (raw: { title: string, text: string }) => {
+  if (REQUIREMENT_TRANSLATIONS[raw.title]) {
+    return REQUIREMENT_TRANSLATIONS[raw.title];
+  }
+  let title = raw.title;
+  let text = raw.text;
+  if (title === 'Age Verification' || (text && text.includes('between 5 and 80'))) {
+    title = 'عمر کی حد اور تعلیمی اہلیت';
+    text = 'مختلف شعبہ جات اور درجات کے لیے عمر ۵ سے ۸۰ سال کے درمیان ہونی چاہیے۔';
+  } else if (title === 'Authentic Documents' || (text && text.toLowerCase().includes('clear copies of nadra'))) {
+    title = 'مصدقہ تعلیمی و شناختی اسناد';
+    text = 'نادرا شناختی کارڈ / ب فارم، والد کا شناختی کارڈ اور سابقہ رزلٹ کارڈز یا اسناد کی واضح کاپیاں لازمی ہیں۔';
+  } else if (title === 'Interview Process' || (text && text.toLowerCase().includes('quran recitation'))) {
+    title = 'تحریری ٹیسٹ و انٹرویو';
+    text = 'تمام طلبہ کے لیے بنیادی ناظرہ و تجوید القرآن اور اخلاقی و علمی انٹرویو پاس کرنا لازمی ہے۔';
+  }
+  return { title, text };
+};
 
 export default function Admissions() {
   const { t } = useTranslation();
@@ -33,7 +68,7 @@ export default function Admissions() {
 
   if (!mounted) {
     return (
-      <div className="flex flex-col min-h-screen bg-slate-50">
+      <div className="flex flex-col min-h-screen bg-slate-50 font-urdu" dir="rtl">
         <Header />
         <main className="flex-1" />
         <Footer />
@@ -43,7 +78,7 @@ export default function Admissions() {
 
   if (submittedData) {
     return (
-      <div className="flex flex-col min-h-screen bg-white">
+      <div className="flex flex-col min-h-screen bg-white font-urdu" dir="rtl">
         <Header />
         <AdmissionChallan data={submittedData} onBack={() => setSubmittedData(null)} />
         <Footer />
@@ -54,10 +89,10 @@ export default function Admissions() {
   return (
     <>
       <Header />
-      <main className="flex-1 font-sans text-slate-900 bg-white">
+      <main className="flex-1 font-urdu text-slate-900 bg-white" dir="rtl">
         
         {/* --- HERO SECTION --- */}
-        <section className="relative pt-24 pb-20 bg-white border-b border-slate-100 bg-cover bg-center" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)), url('/ahmad.png')", backgroundSize: "cover", backgroundPosition: "center" }}>
+        <section className="relative pt-24 pb-20 bg-white border-b border-slate-100 bg-cover bg-center" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.88), rgba(255,255,255,0.88)), url('/ahmad.png')", backgroundSize: "cover", backgroundPosition: "center" }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
             <div className="max-w-3xl mx-auto">
               <motion.div 
@@ -65,33 +100,34 @@ export default function Admissions() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                <div className="inline-block bg-rose-50 border border-rose-200 text-rose-600 rounded-full text-xs font-bold px-4 py-1.5 mb-6 uppercase tracking-wide shadow-sm">
-                  {t("Admissions Open for Session 2026-27")}
+                <div className="inline-block bg-rose-50 border border-rose-200 text-rose-700 rounded-full text-sm font-bold px-5 py-2 mb-6 shadow-sm leading-[2.0]">
+                  تعلیمی سال ۲۰۲۶-۲۷ کے لیے داخلے جاری ہیں
                 </div>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-slate-900 mb-6 leading-tight">
-                  {t("Start Your Journey")} <br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-500 via-purple-500 to-blue-500 drop-shadow-sm">{t("in Sacred Knowledge")}</span>
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 leading-[2.1] sm:leading-[2.2]">
+                  علومِ نبویہ کی تحصیل کا مبارک سفر شروع کریں
                 </h1>
-                <p className="text-xl text-slate-600 max-w-2xl mx-auto mb-10">
-                  {t("Join a legacy of excellence. Secure your future in Islamic scholarship through our modernized, efficient, and student-focused admission process.")}
+                <p className="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto mb-10 leading-[2.3]">
+                  جامعہ شیرِ ربانی کے علمی اور روحانی کارواں کا حصہ بنیں۔ آن لائن داخلہ فارم مکمل کریں اور دینی و عصری تعلیم کے اس عظیم الشان مرکز میں داخلہ حاصل کریں۔
                 </p>
                 
                 <div className="flex flex-wrap justify-center gap-4">
-                   <div className="flex items-center gap-2 text-indigo-700 text-sm font-bold bg-indigo-50 border border-indigo-100 rounded-full shadow-sm px-6 py-3">
-                      <Clock size={18} className="text-indigo-500" /> {t("Fast-Track Processing")}
+                   <div className="flex items-center gap-2 text-emerald-800 text-base font-bold bg-emerald-50 border border-emerald-200 rounded-full shadow-sm px-6 py-2.5 leading-[2.0]">
+                      <Clock size={18} className="text-emerald-600" /> فوری اور آسان طریقہ کار
                    </div>
-                   <div className="flex items-center gap-2 text-indigo-700 text-sm font-bold bg-indigo-50 border border-indigo-100 rounded-full shadow-sm px-6 py-3">
-                      <FileText size={18} className="text-indigo-500" /> {t("Digital Document Review")}
+                   <div className="flex items-center gap-2 text-emerald-800 text-base font-bold bg-emerald-50 border border-emerald-200 rounded-full shadow-sm px-6 py-2.5 leading-[2.0]">
+                      <FileText size={18} className="text-emerald-600" /> آن لائن دستاویزات کی جانچ
                    </div>
                 </div>
-                <div className="mt-8 pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-center gap-3">
-                  <span className="text-slate-600 text-sm font-medium">{t("Already applied for admission?")}</span>
+
+                <div className="mt-10 pt-6 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-center gap-3">
+                  <span className="text-slate-600 text-base font-medium leading-[2.0]">کیا آپ پہلے ہی داخلہ کے لیے درخواست جمع کرا چکے ہیں؟</span>
                   <a
                     href="/admissions/status"
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm shadow-md transition-all hover:scale-105"
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm shadow-md transition-all hover:scale-105 leading-[2.0]"
                   >
-                    <Search size={15} className="text-emerald-400" />
-                    <span>{t("Track Application Status")} / درخواست کا اسٹیٹس چیک کریں</span>
-                    <span className="text-emerald-400 font-bold ml-1">➔</span>
+                    <Search size={16} className="text-emerald-400" />
+                    <span>درخواست کا اسٹیٹس چیک کریں</span>
+                    <ArrowLeft size={16} className="text-emerald-400 font-bold me-1" />
                   </a>
                 </div>
               </motion.div>
@@ -100,27 +136,51 @@ export default function Admissions() {
         </section>
 
         {/* --- ADMISSION PROCESS GUIDE --- */}
-        <section className="py-16 bg-white border-b border-slate-100">
+        <section className="py-16 bg-slate-50/50 border-b border-slate-100">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-3xl mx-auto mb-12">
-              <h2 className="text-3xl font-semibold text-slate-900 mb-4">{t("Simple 4-Step Application Process")}</h2>
-              <p className="text-slate-600 text-lg">{t("We have streamlined our application procedure to ensure that prospective students can apply from anywhere with ease.")}</p>
+              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4 leading-[2.1]">داخلہ حاصل کرنے کا ۴ مرحلہ وار آسان طریقہ کار</h2>
+              <p className="text-slate-600 text-base md:text-lg leading-[2.3]">جامعہ شیرِ ربانی نے داخلہ کے عمل کو انتہائی آسان اور شفاف بنا دیا ہے تاکہ ملک بھر سے طلبہ و طالبات گھر بیٹھے باآسانی درخواست دے سکیں۔</p>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
               {[
-                { step: "01", title: t("Form Submission"), desc: t("Fill out the online application form with your personal and academic details."), icon: <FileText className="w-4 h-4 md:w-6 md:h-6" /> },
-                { step: "02", title: t("Document Upload"), desc: t("Upload clear scans of your ID cards, photographs, and previous result cards."), icon: <FileText className="w-4 h-4 md:w-6 md:h-6" /> },
-                { step: "03", title: t("Review & Interview"), desc: t("Our academic committee will review your files and schedule an entrance interview."), icon: <Building2 className="w-4 h-4 md:w-6 md:h-6" /> },
-                { step: "04", title: t("Confirmation"), desc: t("Once selected, pay your admission fee to secure your seat and receive your student ID."), icon: <Award className="w-4 h-4 md:w-6 md:h-6" /> }
+                { 
+                  step: "۰۱", 
+                  title: "آن لائن فارم کا اندراج", 
+                  desc: "ویب سائٹ پر دیے گئے فارم میں اپنی ذاتی، خاندانی اور تعلیمی معلومات درست طور پر درج کریں۔", 
+                  icon: <FileText className="w-5 h-5 md:w-6 md:h-6" />,
+                  color: "border-rose-100 hover:border-rose-400 bg-rose-50 text-rose-600"
+                },
+                { 
+                  step: "۰۲", 
+                  title: "دستاویزات اپ لوڈ کریں", 
+                  desc: "شناختی کارڈ یا ب فارم، تازہ ترین تصاویر اور سابقہ تعلیمی رزلٹ کارڈز کی صاف کاپیاں اپ لوڈ کریں۔", 
+                  icon: <FileText className="w-5 h-5 md:w-6 md:h-6" />,
+                  color: "border-amber-100 hover:border-amber-400 bg-amber-50 text-amber-600"
+                },
+                { 
+                  step: "۰۳", 
+                  title: "دستاویزات کی جانچ و انٹرویو", 
+                  desc: "مجلسِ تعلیم آپ کی درخواست کا جائزہ لے کر داخلہ انٹرویو اور تحریری ٹیسٹ کا شیڈول جاری کرے گی۔", 
+                  icon: <Building2 className="w-5 h-5 md:w-6 md:h-6" />,
+                  color: "border-emerald-100 hover:border-emerald-400 bg-emerald-50 text-emerald-600"
+                },
+                { 
+                  step: "۰۴", 
+                  title: "داخلہ کی تصدیق و رول نمبر", 
+                  desc: "کامیابی کی صورت میں داخلہ فیس جمع کروائیں، تصدیقی چالان اور جامعہ کا شناختی کارڈ حاصل کریں۔", 
+                  icon: <Award className="w-5 h-5 md:w-6 md:h-6" />,
+                  color: "border-blue-100 hover:border-blue-400 bg-blue-50 text-blue-600"
+                }
               ].map((item, idx) => (
-                <div key={idx} className={`bg-white p-4 md:p-8 border shadow-sm transition-all duration-300 transform hover:-translate-y-1 md:hover:-translate-y-2 relative group rounded-xl md:rounded-2xl ${idx===0?"border-rose-100 hover:border-rose-400 hover:shadow-[0_10px_30px_rgba(244,63,94,0.15)]":idx===1?"border-amber-100 hover:border-amber-400 hover:shadow-[0_10px_30px_rgba(245,158,11,0.15)]":idx===2?"border-emerald-100 hover:border-emerald-400 hover:shadow-[0_10px_30px_rgba(16,185,129,0.15)]":"border-blue-100 hover:border-blue-400 hover:shadow-[0_10px_30px_rgba(59,130,246,0.15)]"}`}>
-                  <div className={`mb-3 md:mb-6 w-10 h-10 md:w-14 md:h-14 rounded-lg md:rounded-xl flex items-center justify-center shadow-sm border ${idx===0?"bg-rose-50 text-rose-600 border-rose-100":idx===1?"bg-amber-50 text-amber-600 border-amber-100":idx===2?"bg-emerald-50 text-emerald-600 border-emerald-100":"bg-blue-50 text-blue-600 border-blue-100"}`}>
+                <div key={idx} className="bg-white p-6 md:p-8 border shadow-sm transition-all duration-300 transform hover:-translate-y-1 relative group rounded-2xl">
+                  <div className={`mb-4 w-12 h-12 md:w-14 md:h-14 rounded-xl flex items-center justify-center shadow-sm border ${item.color}`}>
                     {item.icon}
                   </div>
-                  <div className="absolute top-3 end-3 md:top-6 md:end-6 text-xl md:text-3xl font-bold text-slate-100 opacity-50 transition-colors">{item.step}</div>
-                  <h3 className="text-xs md:text-lg font-semibold text-slate-900 mb-1 md:mb-2 leading-tight">{item.title}</h3>
-                  <p className="hidden md:block text-sm text-slate-600">{item.desc}</p>
+                  <div className="absolute top-4 start-4 text-2xl md:text-3xl font-bold text-slate-200 select-none">{item.step}</div>
+                  <h3 className="text-lg md:text-xl font-bold text-slate-900 mb-2 leading-[2.0]">{item.title}</h3>
+                  <p className="text-sm text-slate-600 leading-[2.2]">{item.desc}</p>
                 </div>
               ))}
             </div>
@@ -132,52 +192,87 @@ export default function Admissions() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
               
-              {/* Left Column: Requirements Info */}
+              {/* Requirements & Help Column */}
               <div className="lg:col-span-4 space-y-8">
                 <div className="sticky top-24">
-                  <h2 className="text-2xl font-semibold text-slate-900 mb-6">{t("Admission Requirements")}</h2>
+                  <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-6 leading-[2.1] pb-3 border-b border-slate-200">شرائط و ضروری ہدایات برائے داخلہ</h2>
                   
                   <div className="space-y-6">
-                    {requirements.length > 0 ? requirements.map((req, i) => (
-                      <div key={req.id || i} className="flex gap-4">
-                        <div className="text-rose-500 shrink-0 mt-1">
-                          <CheckCircle2 size={20} />
+                    {requirements.length > 0 ? requirements.map((rawReq, i) => {
+                      const req = getRequirementDisplay(rawReq);
+                      return (
+                        <div key={rawReq.id || i} className="flex gap-4 items-start">
+                          <div className="text-emerald-600 shrink-0 mt-1">
+                            <CheckCircle2 size={20} />
+                          </div>
+                          <div>
+                            <h4 className="font-bold text-slate-900 text-base mb-1 leading-[2.0]">{req.title}</h4>
+                            <p className="text-sm text-slate-600 leading-[2.2]">{req.text}</p>
+                          </div>
                         </div>
-                        <div>
-                          <h4 className="font-semibold text-slate-900 mb-1">{t(req.title)}</h4>
-                          <p className="text-sm text-slate-600">{t(req.text)}</p>
+                      );
+                    }) : (
+                      <>
+                        <div className="flex gap-4 items-start">
+                          <div className="text-emerald-600 shrink-0 mt-1">
+                            <CheckCircle2 size={20} />
+                          </div>
+                          <div>
+                            <h4 className="font-bold text-slate-900 text-base mb-1 leading-[2.0]">درست اور تصدیق شدہ کوائف</h4>
+                            <p className="text-sm text-slate-600 leading-[2.2]">طالب علم کے شناختی کارڈ / ب فارم اور سابقہ اسناد کا نادرا اور تعلیمی بورڈ سے مصدقہ ہونا لازمی ہے۔</p>
+                          </div>
                         </div>
-                      </div>
-                    )) : (
-                      <div className="text-sm text-slate-500">{t("Loading requirements...")}</div>
+
+                        <div className="flex gap-4 items-start">
+                          <div className="text-emerald-600 shrink-0 mt-1">
+                            <CheckCircle2 size={20} />
+                          </div>
+                          <div>
+                            <h4 className="font-bold text-slate-900 text-base mb-1 leading-[2.0]">اصل دستاویزات کا ہمراہ ہونا</h4>
+                            <p className="text-sm text-slate-600 leading-[2.2]">انٹرویو اور ٹیسٹ کے وقت تمام اصل تعلیمی اسناد، رزلٹ کارڈز اور قومی شناختی کارڈ ساتھ لانا لازمی ہوگا۔</p>
+                          </div>
+                        </div>
+
+                        <div className="flex gap-4 items-start">
+                          <div className="text-emerald-600 shrink-0 mt-1">
+                            <CheckCircle2 size={20} />
+                          </div>
+                          <div>
+                            <h4 className="font-bold text-slate-900 text-base mb-1 leading-[2.0]">جامعہ کے قواعد و ضوابط کی پابندی</h4>
+                            <p className="text-sm text-slate-600 leading-[2.2]">طالب علم اور سرپرست کے لیے جامعہ کی روایات، شرعی وضع قطع، اور اوقاتِ تعلیم کی مکمل پاسداری لازم ہوگی۔</p>
+                          </div>
+                        </div>
+                      </>
                     )}
                   </div>
 
                   {/* Help Box */}
-                  <div className="mt-12 bg-gradient-to-br from-indigo-700 via-purple-700 to-fuchsia-800 p-8 text-white rounded-3xl shadow-xl relative overflow-hidden">
-                    <h4 className="text-xl font-semibold mb-3">{t("Need Assistance?")}</h4>
-                    <p className="text-fuchsia-100 text-sm mb-6">{t("If you face any issues while filling the form, contact our Academic Support office.")}</p>
+                  <div className="mt-10 bg-gradient-to-br from-emerald-800 to-teal-900 p-8 text-white rounded-3xl shadow-xl relative overflow-hidden">
+                    <h4 className="text-xl font-bold mb-3 leading-[2.0]">رہنمائی یا معاونت درکار ہے؟</h4>
+                    <p className="text-emerald-100 text-sm mb-6 leading-[2.2]">اگر آپ کو داخلہ فارم مکمل کرنے یا کسی معلومات کے حصول میں کوئی مشکل درپیش ہو تو شعبہ داخلہ سے فوری رابطہ فرمائیں۔</p>
                     <div className="flex flex-col gap-3">
-                      <div className="flex items-center gap-3 font-semibold text-sm">
-                        <Phone size={16} className="text-fuchsia-300" /> 0314-4081516
+                      <div className="flex items-center gap-3 font-bold text-sm" dir="ltr">
+                        <Phone size={16} className="text-emerald-300" />
+                        <a href="tel:03144081516" className="hover:text-emerald-200">0314-4081516</a>
                       </div>
-                      <div className="flex items-center gap-3 font-semibold text-sm">
-                        <Mail size={16} className="text-fuchsia-300" /> shererabbani@gmail.com
+                      <div className="flex items-center gap-3 font-bold text-sm" dir="ltr">
+                        <Mail size={16} className="text-emerald-300" />
+                        <a href="mailto:shererabbani@gmail.com" className="hover:text-emerald-200">shererabbani@gmail.com</a>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* Right Column: The Form */}
+              {/* Form Column */}
               <div className="lg:col-span-8">
                 <Suspense fallback={
-                  <div className="p-20 flex flex-col items-center justify-center gap-4 bg-white border border-slate-100">
-                    <div className="w-8 h-8 border-4 border-slate-100 border-t-purple-600 rounded-full animate-spin" />
-                    <span className="text-slate-500 font-semibold text-sm uppercase">{t("Loading Application Form...")}</span>
+                  <div className="p-20 flex flex-col items-center justify-center gap-4 bg-white border border-slate-100 rounded-3xl">
+                    <div className="w-8 h-8 border-4 border-slate-100 border-t-emerald-600 rounded-full animate-spin" />
+                    <span className="text-slate-500 font-bold text-base leading-[2.0]">داخلہ فارم لوڈ ہو رہا ہے...</span>
                   </div>
                 }>
-                  <div className="bg-white border border-slate-100 shadow-xl shadow-purple-500/5 rounded-3xl overflow-hidden">
+                  <div className="bg-white border border-slate-200 shadow-xl shadow-emerald-900/5 rounded-3xl overflow-hidden">
                     <AdmissionForm onSuccess={(data) => setSubmittedData(data)} />
                   </div>
                 </Suspense>
@@ -187,24 +282,31 @@ export default function Admissions() {
         </section>
 
         {/* --- FAQ / FOOTER INFO SECTION --- */}
-        <section className="py-16 bg-white border-b border-slate-100">
-           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-8">
-            {[{
-              title: t("Entrance Test"),
-              desc: t("A baseline test for Arabic and Quran proficiency to determine the appropriate starting class level.")
-            }, {
-              title: t("Boarding Facilities"),
-              desc: t("Dedicated and secure boarding facilities are available for out-of-city students with strict discipline.")
-            }, {
-              title: t("Financial Aid"),
-              desc: t("Scholarships and Zakat-funded support are available for deserving students who cannot afford the fees.")
-            }].map((box, i) => (
-              <div key={i} className={`bg-white p-4 md:p-8 border shadow-sm rounded-xl md:rounded-2xl transition-all transform hover:-translate-y-1 ${i===0?"border-rose-100 hover:border-rose-300":i===1?"border-amber-100 hover:border-amber-300":"border-emerald-100 hover:border-emerald-300"} col-span-1 ${i===2 ? 'col-span-2 md:col-span-1' : ''}`}>
-                <h4 className="font-semibold text-slate-900 text-xs md:text-lg mb-2 md:mb-3 flex items-center gap-1.5 md:gap-2 leading-tight">
-                  <div className={`w-1.5 h-1.5 md:w-2 md:h-2 rounded-full shrink-0 shadow-sm ${i===0?"bg-rose-500":i===1?"bg-amber-500":"bg-emerald-500"}`} />
+        <section className="py-16 bg-slate-50 border-b border-slate-100">
+           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              {
+                title: "داخلہ ٹیسٹ و انٹرویو",
+                desc: "مناسب تعلیمی درجے اور کلاس کے تعین کے لیے عربی گرائمر، تجوید القرآن اور بنیادی دینی معلومات کا ٹیسٹ لیا جائے گا۔",
+                color: "bg-rose-500 border-rose-100"
+              }, 
+              {
+                title: "رہائش و طعام کی سہولیات",
+                desc: "دیگر شہروں اور دور دراز کے طلبہ کے لیے پرامن اور معیاری ہاسٹل، باقاعدہ نظامِ طعام اور سیکیورٹی کا مکمل انتظام موجود ہے۔",
+                color: "bg-amber-500 border-amber-100"
+              }, 
+              {
+                title: "مستحق طلبہ کے لیے وظائف",
+                desc: "مستحق اور نادار طلبہ کے لیے صدقات و خیرات فنڈ سے مفت تعلیم، کتب، رہائش اور مکمل کفالت کی خصوصی گنجائش رکھی جاتی ہے۔",
+                color: "bg-emerald-500 border-emerald-100"
+              }
+            ].map((box, i) => (
+              <div key={i} className="bg-white p-6 md:p-8 border border-slate-200 shadow-sm rounded-2xl transition-all transform hover:-translate-y-1">
+                <h4 className="font-bold text-slate-900 text-lg mb-3 flex items-center gap-2 leading-[2.0]">
+                  <div className={`w-2.5 h-2.5 rounded-full shrink-0 shadow-sm ${box.color}`} />
                   {box.title}
                 </h4>
-                <p className="text-[10px] md:text-sm text-slate-600 leading-relaxed">{box.desc}</p>
+                <p className="text-sm text-slate-600 leading-[2.3]">{box.desc}</p>
               </div>
             ))}
           </div>

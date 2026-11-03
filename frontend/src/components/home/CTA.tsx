@@ -2,11 +2,10 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { useTranslation } from 'react-i18next';
+import { ArrowLeft, PhoneCall } from 'lucide-react';
 import React, { useState, useEffect } from 'react';
 
 export default function CTA() {
-  const { t } = useTranslation();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -16,43 +15,63 @@ export default function CTA() {
   if (!mounted) return null;
 
   return (
-    <section className="py-3 bg-emerald-700">
-       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-3">
-             <motion.div 
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-                className="max-w-2xl text-center lg:text-left rtl:lg:text-right"
-             >
-                <div className="inline-block bg-amber-500 text-white text-[9px] font-bold px-2 py-0.5 mb-1 rounded-sm uppercase tracking-wider leading-none">
-                  {t('Admissions Open')}
-                </div>
-                <h2 className="text-xl md:text-2xl font-bold text-white mb-1 leading-tight">
-                  {t('Begin Your Journey Towards Sacred Knowledge')}
-                </h2>
-                <p className="text-blue-100 text-xs mb-0 max-w-xl leading-tight">
-                  {t('Take the first step towards a meaningful and enlightened future. Admissions for the current session are closing soon.')}
-                </p>
-             </motion.div>
-             
-             <motion.div 
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-                className="flex flex-col sm:flex-row gap-2 w-full lg:w-auto shrink-0"
-             >
-                <Link href="/admissions" className="inline-flex items-center justify-center px-4 py-1.5 text-xs bg-white text-emerald-700 font-bold hover:bg-slate-100 transition-colors rounded-sm shadow-sm leading-none">
-                   {t('Apply for Admission')}
-                </Link>
-                <Link href="/contact" className="inline-flex items-center justify-center px-4 py-1.5 text-xs bg-transparent border-2 border-white text-white font-bold hover:bg-white/10 transition-colors rounded-sm leading-none">
-                   {t('Schedule a Campus Tour')}
-                </Link>
-             </motion.div>
-          </div>
-       </div>
+    <section className="py-10 md:py-12 bg-gradient-to-r from-emerald-900 via-emerald-800 to-teal-900 text-white relative overflow-hidden" dir="rtl">
+      {/* Decorative ambient glow */}
+      <div className="absolute top-0 right-1/4 w-80 h-80 bg-white/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 left-1/4 w-80 h-80 bg-amber-400/10 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-6 md:gap-8">
+          
+          {/* Text Information */}
+          <motion.div 
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="text-right max-w-2xl"
+          >
+            <div className="inline-flex items-center gap-2 bg-amber-500 text-slate-950 text-xs font-black px-3.5 py-1.5 mb-4 rounded-md shadow-sm font-urdu">
+              <span className="w-2 h-2 rounded-full bg-slate-950 animate-pulse" />
+              <span>داخلہ تعلیمی سال 2024-2025 باقاعدہ جاری ہے</span>
+            </div>
+            
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white mb-3 leading-[1.9] md:leading-[2.1] font-urdu">
+              دینی و عصری علوم کا سفر آج ہی شروع کریں
+            </h2>
+            
+            <p className="text-emerald-100/90 text-sm md:text-base leading-[2.2] md:leading-[2.3] font-urdu">
+              حفظِ قرآن، درسِ نظامی (عالم و فاضل) اور تخصصات میں 100% مفت تعلیم و ہاسٹل کے لیے ابھی درخواست دیں۔
+            </p>
+          </motion.div>
+          
+          {/* Action Buttons */}
+          <motion.div 
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="flex flex-wrap sm:flex-nowrap gap-3.5 w-full lg:w-auto shrink-0 justify-end"
+          >
+            <Link 
+              href="/admissions" 
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-sm md:text-base rounded-lg shadow-md hover:shadow-lg transition-all font-urdu"
+            >
+              <span>آن لائن داخلہ فارم پر کریں</span>
+              <ArrowLeft className="w-4 h-4" />
+            </Link>
+
+            <Link 
+              href="/contact" 
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 bg-white/10 hover:bg-white/20 text-white border border-white/30 font-bold text-sm md:text-base rounded-lg transition-all font-urdu"
+            >
+              <PhoneCall className="w-4 h-4" />
+              <span>ہم سے رابطہ کریں</span>
+            </Link>
+          </motion.div>
+
+        </div>
+      </div>
     </section>
   );
 }

@@ -25,7 +25,6 @@ interface SlideData {
   image: string;
   tabShort: string;
   tabLabel: string;
-  tabEn: string;
   badge: string;
   titleStart: string;
   titleAccent: string;
@@ -52,16 +51,15 @@ export default function Hero() {
       image: '/images/hero section 1.jpeg',
       tabShort: 'داخلہ جاری',
       tabLabel: 'آن لائن داخلہ 2024-25',
-      tabEn: 'Admissions Open',
-      badge: '✦ داخلہ برائے سال 2024-2025 جاری ہے • Admissions Open',
+      badge: '✦ داخلہ برائے سال 2024-2025 باقاعدہ جاری ہے',
       titleStart: 'جامعہ شیرِ ربانی',
       titleAccent: 'دینی و عصری علوم',
       titleEnd: 'کا عظیم تعلیمی مرکز',
       subtitleUrdu: 'وفاق المدارس الاسلامیہ الرضویہ پاکستان سے باقاعدہ الحاق شدہ ادارہ',
       description: 'حفظِ قرآن، درسِ نظامی (عالم و فاضل کورس)، تجوید و قرات اور تخصصات فی الفقہ کی اعلیٰ ترین دینی و عصری تعلیم۔',
       caption: 'مرکزی کیمپس • جامعہ شیرِ ربانی مانانوالہ',
-      ctaPrimary: { label: t('apply_now', 'آن لائن داخلہ فارم'), href: '/admissions' },
-      ctaSecondary: { label: t('courses', 'شعبہ جات و کورسز'), href: '/courses' },
+      ctaPrimary: { label: 'آن لائن داخلہ فارم', href: '/admissions' },
+      ctaSecondary: { label: 'شعبہ جات و کورسز', href: '/courses' },
       fluentAccent: '#0078d4', // Microsoft Fluent Blue
       featurePill: '100% مفت تعلیم و ہاسٹل',
     },
@@ -70,8 +68,7 @@ export default function Hero() {
       image: '/images/hero section 2.jpeg',
       tabShort: 'درسِ نظامی',
       tabLabel: 'درسِ نظامی و شریعت',
-      tabEn: 'Dars-e-Nizami',
-      badge: '✦ باقاعدہ درسِ نظامی شعبہ • Alim & Fazil Degree Program',
+      badge: '✦ باقاعدہ درسِ نظامی شعبہ • عالم و فاضل ڈگری پروگرام',
       titleStart: 'درسِ نظامی',
       titleAccent: 'عالم و فاضل کورس',
       titleEnd: 'کی مستند تعلیم',
@@ -88,8 +85,7 @@ export default function Hero() {
       image: '/images/hero section 3.jpeg',
       tabShort: 'حفظ و تجوید',
       tabLabel: 'شعبہ حفظ و قرات',
-      tabEn: 'Tahfeez & Tajweed',
-      badge: '✦ شعبہ تحفیظ القرآن الکریم • Tehfeez & Tajweed Department',
+      badge: '✦ شعبہ تحفیظ القرآن الکریم و تجوید و قرات',
       titleStart: 'قرآن فہمی اور',
       titleAccent: 'تجوید و قرات',
       titleEnd: 'کا منور راستہ',
@@ -106,8 +102,7 @@ export default function Hero() {
       image: '/images/hero section 4.jpeg',
       tabShort: 'دستارِ فضیلت',
       tabLabel: 'سالانہ کانووکیشن',
-      tabEn: 'Convocation & Awards',
-      badge: '✦ سالانہ دستارِ فضیلت و تقسیمِ اسناد • Convocation & Degrees',
+      badge: '✦ سالانہ دستارِ فضیلت و تقسیمِ اسناد کانفرنس',
       titleStart: 'جامعہ شیرِ ربانی',
       titleAccent: 'سالانہ دستارِ فضیلت',
       titleEnd: 'و تقسیمِ اسناد کانفرنس',
@@ -115,7 +110,7 @@ export default function Hero() {
       description: 'جامعہ کے فارغ التحصیل علماء، حفاظ اور قراء کرام کی خدمات کے اعتراف میں سالانہ عظیم الشان کانووکیشن اور دستارِ فضیلت کا پروقار انعقاد۔',
       caption: 'مرکزی سالانہ دستارِ فضیلت و تقسیمِ اسناد ہال',
       ctaPrimary: { label: 'نتائج وفاق المدارس', href: '/wafaq-results' },
-      ctaSecondary: { label: 'جامعہ کی تاریخ', href: '/about' },
+      ctaSecondary: { label: 'جامعہ کا تعارف', href: '/about' },
       fluentAccent: '#008272', // Microsoft Fluent Teal
       featurePill: 'تصدیق شدہ آفیشل ڈگری',
     },
@@ -124,8 +119,7 @@ export default function Hero() {
       image: '/images/hero section 5.jpeg',
       tabShort: 'روحانی تربیت',
       tabLabel: 'روحانی و اخلاقی تربیت',
-      tabEn: 'Spiritual Seminars',
-      badge: '✦ سالانہ محافل و سیمینارز • Annual Spiritual Gatherings',
+      badge: '✦ سالانہ روحانی محافل و تربیتی سیمینارز',
       titleStart: 'روحانی تربیت و',
       titleAccent: 'علمی بصیرت',
       titleEnd: 'کا تابناک گہوارہ',
@@ -142,15 +136,14 @@ export default function Hero() {
       image: '/images/hero section 6.jpeg',
       tabShort: 'تحقیق و فقہ',
       tabLabel: 'تخصصات فی الفقہ',
-      tabEn: 'Islamic Research',
-      badge: '✦ شعبہ تخصصات و اسلامی ریسرچ • Islamic Research & Fiqh',
+      badge: '✦ شعبہ تخصصات فی الفقہ و اسلامک ریسرچ',
       titleStart: 'جدید فقہی مسائل اور',
       titleAccent: 'تحقیقی مہارتوں',
       titleEnd: 'کا مرکز',
       subtitleUrdu: 'عصرِ حاضر کے معاشی و سماجی مسائل کا شریعتِ مطہرہ کی روشنی میں حل',
       description: 'طلبہ کو تخصص فی الفقہ، اصولِ افتاء اور تحقیقی مقالہ جات تحریر کرنے کی اعلیٰ سطحی عملی ٹریننگ۔',
       caption: 'اسلامک ریسرچ و مفتی کورس ہال',
-      ctaPrimary: { label: 'ریسرچ سنٹر', href: '/islamic-research-center' },
+      ctaPrimary: { label: 'تخصص کورس تفصیلات', href: '/program?id=5' },
       ctaSecondary: { label: 'کورسز دیکھیں', href: '/courses' },
       fluentAccent: '#004e8c', // Microsoft Deep Blue
       featurePill: 'تخصص فی الفقہ و افتاء',
@@ -160,8 +153,7 @@ export default function Hero() {
       image: '/images/hero section 7.jpeg',
       tabShort: 'ہاسٹل و طعام',
       tabLabel: 'مفت رہائش و طعام',
-      tabEn: 'Hostel & Facilities',
-      badge: '✦ طلبہ کے لیے مکمل کفالت • 100% Free Hostel & Boarding',
+      badge: '✦ طلبہ کے لیے مکمل کفالت • مفت رہائش و طعام',
       titleStart: 'معیاری رہائش،',
       titleAccent: 'لائبریری و کمپیوٹر لیب',
       titleEnd: 'کی سہولیات',
@@ -173,7 +165,7 @@ export default function Hero() {
       fluentAccent: '#b4009e', // Microsoft Magenta
       featurePill: 'مفت ہاسٹل و کھانا',
     },
-  ], [t]);
+  ], []);
 
   const nextSlide = useCallback(() => {
     setCurrentSlide((prev) => (prev + 1) % slides.length);
@@ -240,7 +232,7 @@ export default function Hero() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.3, ease: 'easeOut' }}
-                className="space-y-4 sm:space-y-5"
+                className="space-y-5 sm:space-y-6"
               >
                 {/* Live Admissions & Affiliation Badge */}
                 <div className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-md bg-white border border-[#edebe9] text-[#323130] text-xs sm:text-sm font-semibold shadow-2xs">
@@ -249,7 +241,7 @@ export default function Hero() {
                 </div>
 
                 {/* Main Heading in Noori Nastaleeq */}
-                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-semibold text-[#201f1e] tracking-tight leading-[1.3] font-urdu">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-semibold text-[#201f1e] tracking-tight leading-[1.9] sm:leading-[2.0] md:leading-[2.1] lg:leading-[2.2] xl:leading-[2.2] pb-1 font-urdu">
                   <span>{slide.titleStart} </span>
                   <span 
                     className="font-bold underline decoration-[#0078d4]/30 decoration-2 underline-offset-8 transition-colors duration-300"
@@ -261,13 +253,13 @@ export default function Hero() {
                 </h1>
 
                 {/* Subtitle Urdu in Noori Nastaleeq */}
-                <p className="text-[#107c41] font-semibold text-base sm:text-lg md:text-xl leading-relaxed flex items-center gap-2 font-urdu">
+                <p className="text-[#107c41] font-semibold text-base sm:text-lg md:text-xl leading-[2.2] md:leading-[2.3] flex items-center gap-2 font-urdu">
                   <span className="w-2 h-2 rounded-full bg-[#107c41] shrink-0" />
                   <span>{slide.subtitleUrdu}</span>
                 </p>
 
                 {/* Description in Noori Nastaleeq */}
-                <p className="text-[#605e5c] text-sm sm:text-base md:text-[17px] leading-relaxed max-w-2xl font-normal font-urdu">
+                <p className="text-[#605e5c] text-sm sm:text-base md:text-[17px] leading-[2.3] md:leading-[2.4] max-w-2xl font-normal font-urdu">
                   {slide.description}
                 </p>
 

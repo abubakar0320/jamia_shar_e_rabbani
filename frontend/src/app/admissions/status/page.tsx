@@ -16,7 +16,7 @@ import {
   DollarSign, 
   Share2, 
   Printer, 
-  ArrowRight, 
+  ArrowLeft, 
   Phone, 
   GraduationCap, 
   User, 
@@ -53,10 +53,10 @@ function StatusContent() {
       if (res.ok) {
         setResult(data);
       } else {
-        setError(data.error || 'No record found with this information.');
+        setError(data.error || 'درج کردہ معلومات کے مطابق کوئی ریکارڈ نہیں ملا۔');
       }
     } catch (err) {
-      setError('Network error while checking status. Please try again.');
+      setError('اسٹیٹس جانچنے میں نیٹ ورک کی خرابی پیش آئی۔ براہ کرم دوبارہ کوشش کریں۔');
     } finally {
       setLoading(false);
     }
@@ -94,19 +94,19 @@ https://jamiashererabbani.com/admissions/status?q=${result.applicationNo}`;
   };
 
   return (
-    <main className="flex-1 min-h-screen bg-slate-50 font-sans pb-20">
+    <main className="flex-1 min-h-screen bg-slate-50 font-urdu pb-20" dir="rtl">
       
       {/* Hero Search Section */}
       <section className="bg-gradient-to-b from-emerald-900 to-teal-950 text-white pt-24 pb-16 px-4">
         <div className="max-w-4xl mx-auto text-center space-y-6">
-          <span className="inline-block px-4 py-1.5 bg-emerald-500/20 border border-emerald-400/30 rounded-full text-xs font-bold uppercase tracking-wider text-emerald-200">
-            Student Verification & Tracking Portal
+          <span className="inline-block px-5 py-1.5 bg-emerald-500/20 border border-emerald-400/30 rounded-full text-xs font-bold uppercase tracking-wider text-emerald-200 leading-[2.0]">
+            طلبہ تصدیق و آن لائن ٹریکنگ پورٹل
           </span>
-          <h1 className="text-3xl md:text-5xl font-black tracking-tight">
-            Track Application Status
+          <h1 className="text-3xl md:text-5xl font-bold tracking-tight leading-[2.1]">
+            درخواستِ داخلہ کا لائیو اسٹیٹس
           </h1>
-          <p className="text-emerald-100/80 text-sm md:text-base max-w-xl mx-auto">
-            درخواست نمبر، چالان نمبر، یا شناختی کارڈ نمبر درج کر کے اپنے داخلے یا فیس کا لائیو اسٹیٹس چیک کریں۔
+          <p className="text-emerald-100/80 text-base md:text-lg max-w-xl mx-auto leading-[2.2]">
+            درخواست نمبر، چالان نمبر، یا قومی شناختی کارڈ نمبر درج کر کے اپنے داخلے یا فیس کا لائیو اسٹیٹس معلوم کریں۔
           </p>
 
           {/* Search Box */}
@@ -117,24 +117,24 @@ https://jamiashererabbani.com/admissions/status?q=${result.applicationNo}`;
                 type="text" 
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="Enter App No, Challan No, or CNIC (e.g. APP-72983)..."
-                className="w-full py-3.5 px-3 bg-transparent text-sm font-bold text-slate-800 placeholder-slate-400 outline-none"
+                placeholder="درخواست نمبر، چالان نمبر، یا شناختی کارڈ درج کریں (مثلاً: APP-72983)..."
+                className="w-full py-3.5 px-3 bg-transparent text-sm font-bold text-slate-800 placeholder-slate-400 outline-none leading-[2.0]"
                 required
               />
             </div>
             <button 
               type="submit"
               disabled={loading}
-              className="py-3.5 px-8 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl sm:rounded-full font-bold text-sm tracking-wide transition-all shadow-md shadow-emerald-700/20 flex items-center justify-center gap-2 shrink-0 disabled:opacity-50"
+              className="py-3.5 px-8 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl sm:rounded-full font-bold text-sm tracking-wide transition-all shadow-md shadow-emerald-700/20 flex items-center justify-center gap-2 shrink-0 disabled:opacity-50 leading-[2.0]"
             >
               {loading ? (
                 <>
                   <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                  Checking...
+                  جانچ ہو رہی ہے...
                 </>
               ) : (
                 <>
-                  Track Status <ArrowRight size={16} />
+                  اسٹیٹس چیک کریں <ArrowLeft size={16} />
                 </>
               )}
             </button>
@@ -151,9 +151,9 @@ https://jamiashererabbani.com/admissions/status?q=${result.applicationNo}`;
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="bg-rose-50 border border-rose-200 p-6 rounded-3xl text-rose-800 shadow-md flex items-start gap-4">
             <XCircle size={24} className="text-rose-600 shrink-0 mt-0.5" />
             <div>
-              <h4 className="font-bold text-base mb-1">کوئی ریکارڈ نہیں ملا (No Record Found)</h4>
-              <p className="text-sm text-rose-700">{error}</p>
-              <p className="text-xs text-rose-500 mt-2">براہ کرم اپنا ایپلیکیشن نمبر، چالان نمبر، یا فون نمبر درست طور پر دیکھ کر دوبارہ کوشش کریں۔</p>
+              <h4 className="font-bold text-base mb-1 leading-[2.0]">کوئی ریکارڈ نہیں ملا (No Record Found)</h4>
+              <p className="text-sm text-rose-700 leading-[2.2]">{error}</p>
+              <p className="text-xs text-rose-500 mt-2 leading-[2.0]">براہ کرم اپنا ایپلیکیشن نمبر، چالان نمبر، یا شناختی کارڈ نمبر درست دیکھ کر دوبارہ کوشش کریں۔</p>
             </div>
           </motion.div>
         )}
@@ -166,59 +166,59 @@ https://jamiashererabbani.com/admissions/status?q=${result.applicationNo}`;
             <div className="bg-white rounded-3xl shadow-lg border border-slate-200/80 p-6 md:p-8 overflow-hidden relative">
               <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-6 border-b border-slate-100">
                 <div>
-                  <span className="text-[11px] font-black uppercase tracking-widest text-slate-400 block mb-1">
-                    {result.type === 'internship' ? 'Internship Program' : 'Jamia Admission Application'}
+                  <span className="text-xs font-bold text-slate-400 block mb-1 leading-[2.0]">
+                    {result.type === 'internship' ? 'انٹرن شپ پروگرام' : 'جامعہ شیرِ ربانی - داخلہ درخواست'}
                   </span>
-                  <h2 className="text-2xl md:text-3xl font-black text-slate-900">{result.studentName}</h2>
-                  <p className="text-xs text-slate-500 font-semibold mt-1">S/O {result.fatherName} • CNIC: {result.cnic || 'N/A'}</p>
+                  <h2 className="text-2xl md:text-3xl font-bold text-slate-900 leading-[2.1]">{result.studentName}</h2>
+                  <p className="text-sm text-slate-500 font-semibold mt-1 leading-[2.0]">ولدیت: {result.fatherName} • شناختی کارڈ / ب فارم: {result.cnic || '---'}</p>
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <span className={`px-4 py-2 rounded-full text-xs font-black uppercase tracking-wider shadow-sm border ${
+                  <span className={`px-5 py-2 rounded-full text-xs font-bold shadow-sm border leading-[2.0] ${
                     result.status === 'Approved' ? 'bg-emerald-50 text-emerald-700 border-emerald-200' :
                     result.status === 'Rejected' ? 'bg-rose-50 text-rose-700 border-rose-200' :
                     'bg-amber-50 text-amber-700 border-amber-200'
                   }`}>
-                    Status: {result.status}
+                    اسٹیٹس: {result.status === 'Approved' ? 'منظور شدہ (Approved)' : result.status === 'Rejected' ? 'مسترد شدہ (Rejected)' : 'زیرِ جائزہ (Pending)'}
                   </span>
                 </div>
               </div>
 
               {/* Badges / Key Stats Grid */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 py-6 border-b border-slate-100 text-center">
-                <div className="bg-slate-50 p-3.5 rounded-2xl border border-slate-100">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">App ID</span>
-                  <span className="text-sm font-mono font-black text-slate-800">{result.applicationNo}</span>
+                <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                  <span className="text-xs font-bold text-slate-500 block mb-1 leading-[2.0]">درخواست نمبر</span>
+                  <span className="text-sm font-mono font-bold text-slate-800" dir="ltr">{result.applicationNo}</span>
                 </div>
-                <div className="bg-slate-50 p-3.5 rounded-2xl border border-slate-100">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">Class / Program</span>
-                  <span className="text-sm font-black text-slate-800 truncate block">{result.classProgram || result.program}</span>
+                <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                  <span className="text-xs font-bold text-slate-500 block mb-1 leading-[2.0]">کلاس / شعبہ</span>
+                  <span className="text-sm font-bold text-slate-800 truncate block leading-[2.0]">{result.classProgram || result.program}</span>
                 </div>
-                <div className="bg-slate-50 p-3.5 rounded-2xl border border-slate-100">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">Session</span>
-                  <span className="text-sm font-mono font-black text-slate-800">{result.session || '2026-27'}</span>
+                <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                  <span className="text-xs font-bold text-slate-500 block mb-1 leading-[2.0]">تعلیمی سیشن</span>
+                  <span className="text-sm font-mono font-bold text-slate-800" dir="ltr">{result.session || '2026-27'}</span>
                 </div>
-                <div className="bg-slate-50 p-3.5 rounded-2xl border border-slate-100">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">Roll No</span>
-                  <span className="text-sm font-mono font-black text-emerald-700">{result.rollNo || 'Pending'}</span>
+                <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                  <span className="text-xs font-bold text-slate-500 block mb-1 leading-[2.0]">رول نمبر</span>
+                  <span className="text-sm font-mono font-bold text-emerald-700" dir="ltr">{result.rollNo || 'زیرِ التواء'}</span>
                 </div>
               </div>
 
               {/* Rejection Alert if applicable */}
               {result.status === 'Rejected' && result.rejectionReason && (
-                <div className="mt-6 bg-rose-50 border border-rose-200 p-4 rounded-2xl text-rose-900 text-sm">
-                  <b className="block mb-1">Rejection Reason:</b>
+                <div className="mt-6 bg-rose-50 border border-rose-200 p-4 rounded-2xl text-rose-900 text-sm leading-[2.2]">
+                  <b className="block mb-1">درخواست مسترد ہونے کی وجہ:</b>
                   {result.rejectionReason}
                 </div>
               )}
 
               {/* Live Timeline Stepper */}
               <div className="pt-8">
-                <h3 className="text-base font-black text-slate-900 mb-6 flex items-center gap-2">
-                  <Clock size={18} className="text-emerald-600" /> Application Progress Timeline
+                <h3 className="text-lg font-bold text-slate-900 mb-6 flex items-center gap-2 leading-[2.0]">
+                  <Clock size={18} className="text-emerald-600" /> درخواست کی پیش رفت کا ریکارڈ
                 </h3>
 
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                   {result.timeline?.map((item: any, idx: number) => {
                     const isDone = item.completed;
                     const isRejected = item.status === 'Rejected';
@@ -232,7 +232,7 @@ https://jamiashererabbani.com/admissions/status?q=${result.applicationNo}`;
                         }`}
                       >
                         <div className="flex items-center justify-between mb-2">
-                          <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Step 0{item.step}</span>
+                          <span className="text-xs font-bold text-slate-500 leading-[2.0]">مرحلہ ۰{item.step}</span>
                           {isDone ? (
                             <CheckCircle2 size={18} className="text-emerald-600" />
                           ) : isRejected ? (
@@ -241,8 +241,8 @@ https://jamiashererabbani.com/admissions/status?q=${result.applicationNo}`;
                             <Clock size={18} className="text-amber-500" />
                           )}
                         </div>
-                        <h4 className="font-black text-sm text-slate-900">{item.title}</h4>
-                        <p className="text-xs text-slate-500 mt-1">{item.desc}</p>
+                        <h4 className="font-bold text-sm text-slate-900 leading-[2.0]">{item.title}</h4>
+                        <p className="text-xs text-slate-500 mt-1 leading-[2.0]">{item.desc}</p>
                       </div>
                     );
                   })}
@@ -251,14 +251,14 @@ https://jamiashererabbani.com/admissions/status?q=${result.applicationNo}`;
 
               {/* Fee Payment Status Card */}
               {result.fees && (
-                <div className="mt-8 bg-gradient-to-r from-blue-900 to-indigo-950 rounded-2xl p-6 text-white flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div className="mt-8 bg-gradient-to-r from-emerald-900 to-teal-950 rounded-2xl p-6 text-white flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                   <div>
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-blue-300 block mb-1">Fee Payment Information</span>
-                    <h4 className="text-xl font-black">
-                      Total Fee: Rs {result.fees.totalAmount?.toLocaleString()}
+                    <span className="text-xs font-bold text-emerald-300 block mb-1 leading-[2.0]">فیس کی ادائیگی کی تفصیلات</span>
+                    <h4 className="text-xl font-bold leading-[2.0]">
+                      کل فیس: Rs {result.fees.totalAmount?.toLocaleString()}
                     </h4>
-                    <p className="text-xs text-blue-200 mt-1">
-                      Status: <span className={`font-bold uppercase ${result.fees.status === 'Paid' ? 'text-emerald-400' : 'text-amber-300'}`}>{result.fees.status}</span>
+                    <p className="text-xs text-emerald-200 mt-1 leading-[2.0]">
+                      اسٹیٹس: <span className={`font-bold ${result.fees.status === 'Paid' ? 'text-emerald-400' : 'text-amber-300'}`}>{result.fees.status === 'Paid' ? 'ادا شدہ (Paid)' : 'غیر ادا شدہ (Unpaid)'}</span>
                       {result.fees.transactionId && ` • TID: ${result.fees.transactionId}`}
                     </p>
                   </div>
@@ -267,16 +267,16 @@ https://jamiashererabbani.com/admissions/status?q=${result.applicationNo}`;
                     {result.fees.status !== 'Paid' && (
                       <button 
                         onClick={() => setShowPaymentModal(true)}
-                        className="flex-1 md:flex-none px-6 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl font-bold text-xs shadow-md transition-colors flex items-center justify-center gap-2"
+                        className="flex-1 md:flex-none px-6 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl font-bold text-sm shadow-md transition-colors flex items-center justify-center gap-2 leading-[2.0]"
                       >
-                        <CreditCard size={16} /> Pay Online Now
+                        <CreditCard size={16} /> آن لائن فیس ادا کریں
                       </button>
                     )}
                     <button 
                       onClick={() => setShowReceiptModal(true)}
-                      className="flex-1 md:flex-none px-4 py-2.5 bg-white/10 hover:bg-white/20 text-white border border-white/20 rounded-xl font-bold text-xs transition-colors flex items-center justify-center gap-2"
+                      className="flex-1 md:flex-none px-5 py-2.5 bg-white/10 hover:bg-white/20 text-white border border-white/20 rounded-xl font-bold text-sm transition-colors flex items-center justify-center gap-2 leading-[2.0]"
                     >
-                      <FileText size={16} /> View Receipt
+                      <FileText size={16} /> رسید دیکھیں
                     </button>
                   </div>
                 </div>
@@ -286,12 +286,12 @@ https://jamiashererabbani.com/admissions/status?q=${result.applicationNo}`;
               <div className="mt-8 pt-6 border-t border-slate-100 flex flex-wrap gap-3 justify-between items-center">
                 <button 
                   onClick={handleWhatsAppShare}
-                  className="px-5 py-2.5 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200 rounded-xl font-bold text-xs flex items-center gap-2 transition-colors"
+                  className="px-5 py-2.5 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200 rounded-xl font-bold text-xs flex items-center gap-2 transition-colors leading-[2.0]"
                 >
-                  <Share2 size={14} /> Share Status on WhatsApp
+                  <Share2 size={14} /> واٹس ایپ پر اسٹیٹس شیئر کریں
                 </button>
-                <div className="flex items-center gap-2 text-xs text-slate-500 font-semibold">
-                  <Phone size={14} className="text-slate-400" /> Jamia Helpline: <a href="tel:03144081516" className="text-blue-600 hover:underline">0314-4081516</a>
+                <div className="flex items-center gap-2 text-xs text-slate-500 font-semibold leading-[2.0]">
+                  <Phone size={14} className="text-slate-400" /> جامعہ ہیلپ لائن: <a href="tel:03144081516" dir="ltr" className="text-emerald-600 hover:underline font-bold">0314-4081516</a>
                 </div>
               </div>
 
@@ -348,7 +348,7 @@ export default function ApplicationStatusPage() {
     <>
       <Header />
       <Suspense fallback={
-        <div className="min-h-screen flex items-center justify-center bg-slate-50">
+        <div className="min-h-screen flex items-center justify-center bg-slate-50 font-urdu" dir="rtl">
           <div className="w-8 h-8 border-4 border-emerald-600 border-t-transparent rounded-full animate-spin" />
         </div>
       }>

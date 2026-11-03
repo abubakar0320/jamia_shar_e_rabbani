@@ -1,24 +1,22 @@
 'use client';
 
-import { useTranslation } from 'react-i18next';
 import Link from 'next/link';
-import { Globe, MessageCircle, Send, Video, Users } from 'lucide-react';
-import React from 'react';
+import { MessageCircle, Send, Video, Users } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 
 const Footer = () => {
-  const { t } = useTranslation();
-  const [mounted, setMounted] = React.useState(false);
+  const [mounted, setMounted] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setMounted(true);
   }, []);
 
   if (!mounted) {
     return (
       <footer className="bg-white text-slate-600 py-10 border-t border-slate-200 print:hidden">
-        <div className="max-w-[1600px] mx-auto px-6 text-center text-xs opacity-50">
-          {t('Loading footer...')}
+        <div className="max-w-[1600px] mx-auto px-6 text-center text-xs opacity-50 font-urdu">
+          لوڈ ہو رہا ہے...
         </div>
       </footer>
     );
@@ -26,101 +24,134 @@ const Footer = () => {
 
   const footerSections = [
     {
-      title: t('academics', 'Academics'),
+      title: 'تعلیمی شعبہ جات',
+      headingColor: '#10b981', // Emerald
       links: [
-        { label: t('all_courses', 'All Courses'), href: '/courses' },
-        { label: t('hifz_programs', 'Hifz-e-Quran'), href: '/courses' },
-        { label: t('dars_e_nizami', 'Dars-e-Nizami'), href: '/courses' },
-        { label: t('faculty', 'Faculty & Staff'), href: '/faculty' },
-        { label: t('research', 'Research Center'), href: '/islamic-research-center' },
-        { label: t('results', 'Exam Results'), href: '/results' },
+        { label: 'تمام کورسز و شعبہ جات', href: '/courses', color: '#34d399' },
+        { label: 'حفظ القرآن الکریم', href: '/courses', color: '#fbbf24' },
+        { label: 'درسِ نظامی (عالم و فاضل)', href: '/courses', color: '#38bdf8' },
+        { label: 'معزز اساتذہ کرام', href: '/faculty', color: '#c084fc' },
+        { label: 'نتائج وفاق المدارس', href: '/wafaq-results', color: '#fb923c' },
       ]
     },
     {
-      title: t('admissions_campus', 'Admissions & Campus'),
+      title: 'داخلہ و سہولیات',
+      headingColor: '#0284c7', // Sky Blue
       links: [
-        { label: t('apply_now', 'Apply Online'), href: '/admissions' },
-        { label: t('fee_structure', 'Fee Structure'), href: '/admissions' },
-        { label: t('scholarships', 'Scholarships'), href: '/admissions' },
-        { label: t('Internship', 'Internship Program'), href: '/internship' },
-        { label: t('library', 'Library'), href: '/about' },
-        { label: t('boarding', 'Boarding & Hostel'), href: '/about' },
-        { label: t('mosque', 'Jamia Mosque'), href: '/about' },
+        { label: 'آن لائن داخلہ فارم', href: '/admissions', color: '#f87171' },
+        { label: '100% مفت تعلیم و ہاسٹل', href: '/admissions', color: '#10b981' },
+        { label: 'مستحق طلبہ کی کفالت', href: '/donations', color: '#f59e0b' },
+        { label: 'انٹرن شپ پروگرام', href: '/internship', color: '#2dd4bf' },
+        { label: 'لائبریری و کتب خانہ', href: '/about', color: '#818cf8' },
+        { label: 'ہاسٹل و رہائشی سہولیات', href: '/about', color: '#ec4899' },
+        { label: 'جامع مسجد شیرِ ربانی', href: '/about', color: '#14b8a6' },
       ]
     },
     {
-      title: t('media_news', 'Media & News'),
+      title: 'میڈیا و اعلانات',
+      headingColor: '#f59e0b', // Amber Orange
       links: [
-        { label: t('latest_news', 'Latest News'), href: '/news' },
-        { label: t('events', 'Events'), href: '/news' },
-        { label: t('press', 'Press Releases'), href: '/news' },
-        { label: t('academic_calendar', 'Academic Calendar'), href: '/news' },
+        { label: 'تازہ ترین خبریں', href: '/news', color: '#60a5fa' },
+        { label: 'سالانہ دستارِ فضیلت', href: '/news', color: '#a855f7' },
+        { label: 'پریس ریلیز و بیانات', href: '/news', color: '#f43f5e' },
+        { label: 'تعلیمی کیلنڈر', href: '/news', color: '#34d399' },
       ]
     },
     {
-      title: t('support_us', 'Support & Contact'),
+      title: 'عطیات و رابطہ',
+      headingColor: '#e11d48', // Rose Red
       links: [
-        { label: t('donations', 'Make a Donation'), href: '/donations' },
-        { label: t('zakat', 'Zakat Fund'), href: '/donations' },
-        { label: t('sponsor_student', 'Sponsor a Student'), href: '/donations' },
-        { label: t('contact', 'Contact Us'), href: '/contact' },
-        { label: t('about_us', 'About Jamia'), href: '/about' },
-        { label: t('admin_login', 'Staff / Admin Login'), href: '/admin' },
+        { label: 'آن لائن عطیات دیں', href: '/donations', color: '#10b981' },
+        { label: 'زکوٰۃ و صدقات فنڈ', href: '/donations', color: '#fbbf24' },
+        { label: 'طالب علم کی مکمل کفالت', href: '/donations', color: '#ec4899' },
+        { label: 'ہم سے رابطہ کریں', href: '/contact', color: '#38bdf8' },
+        { label: 'جامعہ کی تاریخ و تعارف', href: '/about', color: '#818cf8' },
+        { label: 'اسٹاف / ایڈمن لاگ ان', href: '/admin', color: '#64748b' },
       ]
     }
   ];
 
   return (
-    <footer className="bg-white text-slate-600 font-sans mt-auto selection:bg-purple-500/30 border-t-4 border-transparent shadow-[0_-10px_40px_-15px_rgba(0,0,0,0.05)] print:hidden" style={{ borderImage: "linear-gradient(to right, #f43f5e, #a855f7, #3b82f6) 1" }}>
-      <div className="max-w-[1600px] mx-auto px-6 md:px-12 py-6">
+    <footer 
+      className="bg-white text-slate-700 font-sans mt-auto selection:bg-emerald-500/20 border-t-4 border-transparent shadow-[0_-10px_40px_-15px_rgba(0,0,0,0.05)] print:hidden" 
+      style={{ borderImage: "linear-gradient(to right, #059669, #0d9488, #d97706) 1" }}
+      dir="rtl"
+    >
+      <div className="max-w-[1600px] mx-auto px-6 md:px-12 py-8">
         
         {/* Brand & Social Section */}
-        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-6 border-b border-slate-200 pb-4">
+        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 mb-8 border-b border-slate-200 pb-6">
           <div className="flex flex-col">
-            <Link href="/" className="flex items-center mb-2 group gap-3">
+            <Link href="/" className="flex items-center mb-2 group gap-3.5">
               <Image 
                 src="/logo.jpeg" 
-                alt="Jamia Sher-e-Rabbani Logo" 
-                width={40} 
-                height={40} 
-                className="rounded-full shadow-lg border-2 border-slate-100"
+                alt="لوگو جامعہ شیرِ ربانی" 
+                width={48} 
+                height={48} 
+                className="rounded-full shadow-md border-2 border-emerald-100 object-cover"
               />
               <div className="flex flex-col">
-                <span className="text-lg md:text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-rose-500 via-purple-500 to-blue-500 tracking-tighter leading-none transition-all group-hover:brightness-125">
-                  JAMIA
+                <span className="text-xl md:text-2xl font-black text-emerald-800 tracking-tight leading-none transition-all group-hover:text-emerald-700 font-urdu">
+                  جامعہ شیرِ ربانی مانانوالہ
                 </span>
-                <span className="text-[8px] md:text-[9px] font-bold text-slate-400 tracking-[0.4em] leading-tight mt-0.5 uppercase">
-                  SHER-E-RABBANI
+                <span className="text-[11px] md:text-xs font-bold text-slate-500 tracking-normal leading-tight mt-1 font-urdu">
+                  دینی و عصری علوم کا مستند تعلیمی مرکز
                 </span>
               </div>
             </Link>
-            <p className="max-w-md text-slate-400 text-[11px] leading-snug">
-              {t('Dedicated to the preservation and dissemination of sacred Islamic knowledge through contemporary academic excellence.')}
+            <p className="max-w-xl text-slate-600 text-xs sm:text-sm leading-[2.2] font-urdu">
+              دینی و اسلامی علوم کی حفاظت، قرآن و سنت کی ترویج اور نسلِ نو کی اخلاقی و روحانی آبیاری کے لیے وقف عظیم اسلامی ادارہ۔
             </p>
           </div>
           
-          <div className="flex flex-col gap-2 mt-4 lg:mt-0">
-            <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500">{t('follow_jamia', 'Connect with us')}</span>
+          <div className="flex flex-col gap-2.5">
+            <span className="text-xs font-bold text-slate-700 font-urdu">سوشل میڈیا پر ہمارے ساتھ جڑیں</span>
             <div className="flex gap-2">
               {[MessageCircle, Send, Video, Users].map((Icon, i) => (
-                <Link key={i} href="/contact" className={`w-8 h-8 rounded-lg bg-slate-50 border border-slate-200 flex items-center justify-center text-slate-500 transition-all transform hover:-translate-y-1 hover:shadow-lg hover:text-white ${i===0?"hover:bg-rose-500 hover:border-rose-500 hover:shadow-rose-500/30":i===1?"hover:bg-amber-500 hover:border-amber-500 hover:shadow-amber-500/30":i===2?"hover:bg-emerald-500 hover:border-emerald-500 hover:shadow-emerald-500/30":"hover:bg-blue-500 hover:border-blue-500 hover:shadow-blue-500/30"}`}>
-                  <Icon size={14} />
+                <Link 
+                  key={i} 
+                  href="/contact" 
+                  className={`w-9 h-9 rounded-lg bg-slate-50 border border-slate-200 flex items-center justify-center text-slate-600 transition-all transform hover:-translate-y-1 hover:shadow-md hover:text-white ${
+                    i === 0 ? "hover:bg-emerald-600 hover:border-emerald-600" :
+                    i === 1 ? "hover:bg-teal-600 hover:border-teal-600" :
+                    i === 2 ? "hover:bg-rose-600 hover:border-rose-600" :
+                    "hover:bg-blue-600 hover:border-blue-600"
+                  }`}
+                >
+                  <Icon size={16} />
                 </Link>
               ))}
             </div>
           </div>
         </div>
 
-        {/* Links Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        {/* Links Grid with Bold Colored Lines */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 mb-8 text-right">
           {footerSections.map((section, i) => (
-            <div key={i} className="flex flex-col gap-2">
-              <h4 className={`text-[11px] font-black uppercase tracking-widest ${i===0?"text-rose-400":i===1?"text-amber-400":i===2?"text-emerald-400":"text-blue-400"}`}>{section.title}</h4>
-              <ul className="flex flex-col gap-1.5">
+            <div key={i} className="flex flex-col">
+              {/* Column Heading */}
+              <h4 className="text-sm md:text-base font-bold text-slate-900 pb-1.5 font-urdu">
+                {section.title}
+              </h4>
+              {/* Full Width Bold Colored Bar under Column Heading */}
+              <span 
+                className="h-[3.5px] w-full rounded-full mb-3.5 shadow-2xs block" 
+                style={{ backgroundColor: section.headingColor }}
+              />
+
+              {/* Column Links with Bold Black Bar shown ONLY on hover */}
+              <ul className="flex flex-col gap-2.5">
                 {section.links.map((link, j) => (
                   <li key={j}>
-                    <Link href={link.href} className={`text-xs transition-all inline-block hover:translate-x-1 ${i===0?"hover:text-rose-400":i===1?"hover:text-amber-400":i===2?"hover:text-emerald-400":"hover:text-blue-400"}`}>
-                      {link.label}
+                    <Link 
+                      href={link.href} 
+                      className="group inline-flex flex-col text-xs sm:text-sm text-slate-800 hover:text-black font-semibold transition-all font-urdu w-fit"
+                    >
+                      <span className="leading-tight pb-0.5 group-hover:translate-x-[-2px] transition-transform">
+                        {link.label}
+                      </span>
+                      {/* Bold Black Bar: hidden by default, expands on hover */}
+                      <span className="h-[2.5px] w-0 group-hover:w-full rounded-full bg-slate-900 transition-all duration-300 ease-out block opacity-0 group-hover:opacity-100" />
                     </Link>
                   </li>
                 ))}
@@ -130,14 +161,15 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="flex flex-col lg:flex-row justify-between items-center pt-4 border-t border-slate-200 gap-4">
-          <div className="flex flex-wrap items-center gap-4">
-            {/* Removed missing policy links */}
+        <div className="flex flex-col sm:flex-row justify-between items-center pt-5 border-t border-slate-200 gap-3 text-xs text-slate-500 font-urdu">
+          <div>
+            © {new Date().getFullYear()} جامعہ شیرِ ربانی مانانوالہ، شیخوپورہ۔ جملہ حقوق محفوظ ہیں۔
           </div>
-          <div className="text-[10px] font-medium text-slate-500 text-center lg:text-left">
-            © {new Date().getFullYear()} Jamia Sher-e-Rabbani. All rights reserved.
+          <div className="flex items-center gap-4 text-slate-600">
+            <span>وفاق المدارس الاسلامیہ الرضویہ سے باقاعدہ الحاق شدہ</span>
           </div>
         </div>
+
       </div>
     </footer>
   );
