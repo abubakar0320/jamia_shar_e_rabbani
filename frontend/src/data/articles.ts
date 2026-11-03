@@ -11,14 +11,19 @@ export interface Article {
   id: number;
   title: string;
   slug: string;
+  aliases?: string[];
   categoryId: string;
   categoryTitle: string;
   description: string;
   image: string;
+  imageAlt?: string;
   status: string;
   featured?: boolean;
   featuredPriority?: number; // 1 for primary, 2 and 3 for secondary
   readTime: string;
+  seoTitle?: string;
+  seoDescription?: string;
+  keywords?: string[];
 }
 
 export const ARTICLE_CATEGORIES: ArticleCategory[] = [
@@ -93,15 +98,20 @@ export const ARTICLES: Article[] = [
   {
     id: 1,
     title: "قرآن مجید کا تعارف، اہمیت اور انسانی زندگی میں اس کا مقام",
-    slug: "quran-introduction-importance",
+    slug: "quran-introduction",
+    aliases: ["quran-introduction-importance"],
     categoryId: "quran-and-tafseer",
     categoryTitle: "قرآن و تفسیر",
     description: "قرآن مجید کلامِ الٰہی، انسانیت کے لیے آخری اور ابدی ہدایت، اور انفرادی و اجتماعی زندگی میں اس کے مقام و عظمت کا علمی و فکری جائزہ۔",
     image: "/arabic-language.jpg",
-    status: "حالت: جلد شائع ہوگا",
+    imageAlt: "قرآن مجید کا تعارف، اہمیت اور انسانی زندگی میں اس کا مقام",
+    status: "شائع شدہ (علمی مقالہ)",
     featured: true,
     featuredPriority: 1,
-    readTime: "۱۰ منٹ"
+    readTime: "۱۴ منٹ",
+    seoTitle: "قرآن مجید کا تعارف، اہمیت اور انسانی زندگی میں اس کا مقام | جامعہ شیرِ ربانی",
+    seoDescription: "قرآن مجید کا مفہوم، نزول، اوصاف، اعجاز اور انفرادی و اجتماعی زندگی میں اس کے مقام و عظمت کا تفصیلی، مستند اور تحقیقی جائزہ۔",
+    keywords: ["قرآن مجید کا تعارف", "اہمیت قرآن", "نزول قرآن", "اعجاز قرآن", "قرآن اور انسانی زندگی"]
   },
   {
     id: 2,
@@ -111,45 +121,64 @@ export const ARTICLES: Article[] = [
     categoryTitle: "قرآن و تفسیر",
     description: "روزمرہ کے معمولات، معاملات اور باہمی رشتوں میں قرآنی احکام و اخلاقیات کو عملی جامہ پہنانے کے رہنما اصول۔",
     image: "/tajweed-o-qirat.jpg",
-    status: "حالت: جلد شائع ہوگا",
-    readTime: "۸ منٹ"
+    imageAlt: "قرآن کریم کی تعلیمات اور ہماری عملی زندگی",
+    status: "شائع شدہ (علمی مقالہ)",
+    readTime: "۱۳ منٹ",
+    seoTitle: "قرآن کریم کی تعلیمات اور ہماری عملی زندگی | جامعہ شیرِ ربانی",
+    seoDescription: "روزمرہ معمولات، معاشی معاملات اور باہمی تعلقات میں قرآنی احکام کو عملی جامہ پہنانے کے رہنما اصول اور اسوہ صحابہ کی روشنی میں فکری جائزہ۔",
+    keywords: ["قرآن اور عملی زندگی", "قرآنی تعلیمات", "اسلامی اخلاقیات", "روزمرہ معمولات میں قرآن"]
   },
   {
     id: 3,
     title: "قرآن مجید میں اخلاقی تربیت اور اصلاح معاشرہ",
-    slug: "quran-moral-training-society",
+    slug: "quran-ethics-and-society",
+    aliases: ["quran-moral-training-society"],
     categoryId: "quran-and-tafseer",
     categoryTitle: "قرآن و تفسیر",
     description: "معاشرتی خرابیوں کے تدارک، اعلیٰ اخلاقی اوصاف کے احیاء اور پاکیزہ اسلامی معاشرے کی تعمیر کے لیے قرآنی منہج۔",
     image: "/images/hifaz.jpeg",
-    status: "حالت: جلد شائع ہوگا",
-    readTime: "۹ منٹ"
+    imageAlt: "قرآن مجید میں اخلاقی تربیت اور اصلاح معاشرہ",
+    status: "شائع شدہ (علمی مقالہ)",
+    readTime: "۱۵ منٹ",
+    seoTitle: "قرآن مجید میں اخلاقی تربیت اور اصلاح معاشرہ | جامعہ شیرِ ربانی",
+    seoDescription: "معاشرتی امن، باہمی احترام، غیبت، تجسس اور بدگمانی کے سدِ باب اور قرآنی اصولِ معاشرت (سورۃ الحجرات کی روشنی میں) کا مدلل تحقیقی جائزہ۔",
+    keywords: ["اخلاقی تربیت", "اصلاح معاشرہ", "سورۃ الحجرات", "قرآنی اخلاقیات", "معاشرتی امن"]
   },
 
   // --- Category 2: حدیث و سنت ---
   {
     id: 4,
     title: "حدیث نبوی ﷺ کی اہمیت اور اسلامی زندگی میں اس کا کردار",
-    slug: "importance-of-hadith-islamic-life",
+    slug: "importance-of-hadith",
+    aliases: ["importance-of-hadith-islamic-life"],
     categoryId: "hadith-and-sunnah",
     categoryTitle: "حدیث و سنت",
     description: "دینِ اسلام میں حدیث شریف کی حجیت، تشریعی حیثیت اور قرآنی احکامات کی عملی توضیح و تشریح میں اس کا اساسی مقام۔",
     image: "/hadith.jpg",
-    status: "حالت: جلد شائع ہوگا",
-    readTime: "۸ منٹ"
+    imageAlt: "حدیث نبوی ﷺ کی اہمیت اور اسلامی زندگی میں اس کا کردار",
+    status: "شائع شدہ (علمی مقالہ)",
+    readTime: "۱۶ منٹ",
+    seoTitle: "حدیث نبوی ﷺ کی اہمیت اور اسلامی زندگی میں اس کا کردار | جامعہ شیرِ ربانی",
+    seoDescription: "دینِ اسلام میں حدیث شریف کی حجیت، تشریعی حیثیت، قرآن مجید کی تشریح میں اس کا اساسی مقام اور منکرینِ حدیث کے فتنوں کا مدلل علمی جائزہ۔",
+    keywords: ["حدیث نبوی کی اہمیت", "حجیت حدیث", "حدیث اور سنت", "تشریعی حیثیت", "تدوین حدیث"]
   },
   {
     id: 5,
     title: "سنت نبوی ﷺ کی پیروی اور ہماری روزمرہ زندگی",
-    slug: "following-sunnah-daily-life",
+    slug: "following-sunnah",
+    aliases: ["following-sunnah-daily-life"],
     categoryId: "hadith-and-sunnah",
     categoryTitle: "حدیث و سنت",
     description: "رسول اللہ ﷺ کے اسوہ حسنہ کی اتباع، یومیہ معمولات، عبادات اور اخلاقی برتاؤ میں سنت مبارکہ پر عمل پیرا ہونے کے ثمرات۔",
     image: "/images/hero section 1.jpeg",
-    status: "حالت: جلد شائع ہوگا",
+    imageAlt: "سنت نبوی ﷺ کی پیروی اور ہماری روزمرہ زندگی",
+    status: "شائع شدہ (علمی مقالہ)",
     featured: true,
     featuredPriority: 2,
-    readTime: "۷ منٹ"
+    readTime: "۱۴ منٹ",
+    seoTitle: "سنت نبوی ﷺ کی پیروی اور ہماری روزمرہ زندگی | جامعہ شیرِ ربانی",
+    seoDescription: "سنتِ نبوی کی تعریف و مفہوم، اسوہ حسنہ کی جامعیت، روزمرہ عادات، عبادات اور معمولات میں سنت مبارکہ کی برکات اور عملی تطبیق۔",
+    keywords: ["سنت نبوی کی پیروی", "اتباع سنت", "اسوہ حسنہ", "روزمرہ معمولات میں سنت"]
   },
 
   // --- Category 3: فقہ اسلامی ---
@@ -333,7 +362,7 @@ export const ARTICLES: Article[] = [
 ];
 
 export function getArticleBySlug(slug: string): Article | undefined {
-  return ARTICLES.find((a) => a.slug === slug);
+  return ARTICLES.find((a) => a.slug === slug || (a.aliases && a.aliases.includes(slug)));
 }
 
 export function getArticlesByCategory(categoryId: string): Article[] {
