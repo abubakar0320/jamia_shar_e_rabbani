@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -15,9 +15,8 @@ import {
   ShieldCheck, 
   Pause, 
   Play, 
-  ArrowRight,
-  ExternalLink,
-  Sparkles
+  ArrowRight, 
+  ExternalLink 
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
@@ -47,7 +46,7 @@ export default function Hero() {
   const [isPaused, setIsPaused] = useState(false);
 
   // Exclusively using the 7 user-provided images (hero section 1 to 7) with tailored features
-  const slides: SlideData[] = [
+  const slides: SlideData[] = useMemo(() => [
     {
       id: 'slide-1',
       image: '/images/hero section 1.jpeg',
@@ -104,16 +103,16 @@ export default function Hero() {
     },
     {
       id: 'slide-4',
-      image: '/images/hero section 4.png',
+      image: '/images/hero section 4.jpeg',
       tabShort: 'دستارِ فضیلت',
       tabLabel: 'سالانہ کانووکیشن',
       tabEn: 'Convocation & Awards',
       badge: '✦ سالانہ دستارِ فضیلت و تقسیمِ اسناد • Convocation & Degrees',
-      titleStart: 'Where Sacred Tradition',
-      titleAccent: 'Meets Academic',
-      titleEnd: 'Excellence',
+      titleStart: 'جامعہ شیرِ ربانی',
+      titleAccent: 'سالانہ دستارِ فضیلت',
+      titleEnd: 'و تقسیمِ اسناد کانفرنس',
       subtitleUrdu: 'فارغ التحصیل علماء و حفاظِ کرام کی دستار بندی اور اعزازی اسناد کی تقسیم',
-      description: 'A premier Islamic seminary dedicated to sacred Islamic scholarship, research, and holistic spiritual growth under distinguished mentors.',
+      description: 'جامعہ کے فارغ التحصیل علماء، حفاظ اور قراء کرام کی خدمات کے اعتراف میں سالانہ عظیم الشان کانووکیشن اور دستارِ فضیلت کا پروقار انعقاد۔',
       caption: 'مرکزی سالانہ دستارِ فضیلت و تقسیمِ اسناد ہال',
       ctaPrimary: { label: 'نتائج وفاق المدارس', href: '/wafaq-results' },
       ctaSecondary: { label: 'جامعہ کی تاریخ', href: '/about' },
@@ -174,7 +173,7 @@ export default function Hero() {
       fluentAccent: '#b4009e', // Microsoft Magenta
       featurePill: 'مفت ہاسٹل و کھانا',
     },
-  ];
+  ], [t]);
 
   const nextSlide = useCallback(() => {
     setCurrentSlide((prev) => (prev + 1) % slides.length);
@@ -186,12 +185,19 @@ export default function Hero() {
 
   useEffect(() => {
     setMounted(true);
+
+    // Preload all 7 hero images into browser memory immediately for instant 0ms switching
+    slides.forEach((s) => {
+      const img = new window.Image();
+      img.src = s.image;
+    });
+
     if (isPaused) return;
     const timer = setInterval(() => {
       nextSlide();
     }, 6500);
     return () => clearInterval(timer);
-  }, [isPaused, nextSlide]);
+  }, [isPaused, nextSlide, slides]);
 
   if (!mounted) {
     return (
@@ -205,7 +211,7 @@ export default function Hero() {
 
   return (
     <section 
-      className="relative w-full bg-[#faf9f8] text-[#242424] font-sans border-b border-[#edebe9] overflow-hidden"
+      className="relative w-full bg-[#faf9f8] text-[#242424] border-b border-[#edebe9] overflow-hidden"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       style={{
@@ -230,20 +236,20 @@ export default function Hero() {
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentSlide}
-                initial={{ opacity: 0, y: 12 }}
+                initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -12 }}
-                transition={{ duration: 0.45, ease: 'easeOut' }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.3, ease: 'easeOut' }}
                 className="space-y-4 sm:space-y-5"
               >
                 {/* Live Admissions & Affiliation Badge */}
                 <div className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-md bg-white border border-[#edebe9] text-[#323130] text-xs sm:text-sm font-semibold shadow-2xs">
                   <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse shrink-0" />
-                  <span className="tracking-tight">{slide.badge}</span>
+                  <span className="tracking-tight font-urdu">{slide.badge}</span>
                 </div>
 
-                {/* Main Heading */}
-                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-semibold text-[#201f1e] tracking-tight leading-[1.18]">
+                {/* Main Heading in Noori Nastaleeq */}
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-semibold text-[#201f1e] tracking-tight leading-[1.3] font-urdu">
                   <span>{slide.titleStart} </span>
                   <span 
                     className="font-bold underline decoration-[#0078d4]/30 decoration-2 underline-offset-8 transition-colors duration-300"
@@ -254,14 +260,14 @@ export default function Hero() {
                   <span>{slide.titleEnd}</span>
                 </h1>
 
-                {/* Subtitle Urdu */}
-                <p className="text-[#107c41] font-semibold text-base sm:text-lg md:text-xl leading-relaxed flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-[#107c41]" />
+                {/* Subtitle Urdu in Noori Nastaleeq */}
+                <p className="text-[#107c41] font-semibold text-base sm:text-lg md:text-xl leading-relaxed flex items-center gap-2 font-urdu">
+                  <span className="w-2 h-2 rounded-full bg-[#107c41] shrink-0" />
                   <span>{slide.subtitleUrdu}</span>
                 </p>
 
-                {/* Description */}
-                <p className="text-[#605e5c] text-sm sm:text-base md:text-[17px] leading-relaxed max-w-2xl font-normal">
+                {/* Description in Noori Nastaleeq */}
+                <p className="text-[#605e5c] text-sm sm:text-base md:text-[17px] leading-relaxed max-w-2xl font-normal font-urdu">
                   {slide.description}
                 </p>
 
@@ -269,36 +275,36 @@ export default function Hero() {
                 <div className="pt-2 flex flex-wrap items-center gap-3 sm:gap-4">
                   <Link
                     href={slide.ctaPrimary.href}
-                    className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-[#0078d4] hover:bg-[#106ebe] text-white font-semibold text-sm sm:text-base rounded-md shadow-xs hover:shadow-md active:scale-[0.99] transition-all tracking-wide"
+                    className="inline-flex items-center justify-center gap-2 px-7 py-3 bg-[#0078d4] hover:bg-[#106ebe] text-white font-semibold text-sm sm:text-base rounded-md shadow-xs hover:shadow-md active:scale-[0.99] transition-all tracking-wide"
                   >
-                    <span>{slide.ctaPrimary.label}</span>
+                    <span className="font-urdu">{slide.ctaPrimary.label}</span>
                     <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                   </Link>
 
                   <Link
                     href={slide.ctaSecondary.href}
-                    className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-white hover:bg-[#f3f2f1] text-[#201f1e] font-semibold text-sm sm:text-base rounded-md border border-[#8a8886] hover:border-[#323130] shadow-2xs hover:shadow-xs active:scale-[0.99] transition-all tracking-wide"
+                    className="inline-flex items-center justify-center gap-2 px-7 py-3 bg-white hover:bg-[#f3f2f1] text-[#201f1e] font-semibold text-sm sm:text-base rounded-md border border-[#8a8886] hover:border-[#323130] shadow-2xs hover:shadow-xs active:scale-[0.99] transition-all tracking-wide"
                   >
-                    <span>{slide.ctaSecondary.label}</span>
+                    <span className="font-urdu">{slide.ctaSecondary.label}</span>
                     <ExternalLink className="w-4 h-4 text-[#605e5c]" />
                   </Link>
                 </div>
               </motion.div>
             </AnimatePresence>
 
-            {/* Quick Trust Checklist (Microsoft Security & Trust Badge Style) */}
+            {/* Quick Trust Checklist (Noori Nastaleeq) */}
             <div className="pt-4 border-t border-[#edebe9] flex flex-wrap gap-2.5 sm:gap-4 text-xs sm:text-sm font-medium text-[#323130]">
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-white border border-[#edebe9] shadow-2xs">
                 <CheckCircle2 className="w-4 h-4 text-[#107c41] shrink-0" />
-                <span>وفاق المدارس سے باقاعدہ الحاق</span>
+                <span className="font-urdu">وفاق المدارس سے باقاعدہ الحاق</span>
               </div>
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-white border border-[#edebe9] shadow-2xs">
                 <CheckCircle2 className="w-4 h-4 text-[#107c41] shrink-0" />
-                <span>100% مفت تعلیم و ہاسٹل</span>
+                <span className="font-urdu">100% مفت تعلیم و ہاسٹل</span>
               </div>
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-white border border-[#edebe9] shadow-2xs">
                 <CheckCircle2 className="w-4 h-4 text-[#107c41] shrink-0" />
-                <span>اہلِ سنت کا مستند دینی مرکز</span>
+                <span className="font-urdu">اہلِ سنت کا مستند دینی مرکز</span>
               </div>
             </div>
 
@@ -312,7 +318,7 @@ export default function Hero() {
               <div className="flex items-center justify-between pb-3 mb-3 border-b border-[#edebe9]">
                 <div className="flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-emerald-700 shrink-0" />
-                  <span className="text-xs font-bold tracking-wide text-emerald-950">
+                  <span className="text-xs font-bold tracking-wide text-emerald-950 font-urdu">
                     جامعہ شیرِ ربانی
                   </span>
                 </div>
@@ -334,49 +340,51 @@ export default function Hero() {
                 </div>
               </div>
 
-              {/* Main Image Stage inside Microsoft Side Box - Proper Aspect Ratio with 100% full image visibility */}
+              {/* Main Image Stage inside Microsoft Side Box - Proper Aspect Ratio with 100% full image visibility & instant zero-lag switching */}
               <div className="relative w-full aspect-[16/11] sm:aspect-[16/10] rounded-lg overflow-hidden border border-[#edebe9] bg-[#141414] shadow-inner group">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={currentSlide}
-                    initial={{ opacity: 0, scale: 1.02 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.45, ease: 'easeOut' }}
-                    className="absolute inset-0 flex items-center justify-center overflow-hidden"
-                  >
-                    {/* Ambient subtle blur of the exact same image to fill edges seamlessly */}
-                    <Image
-                      src={slide.image}
-                      alt=""
-                      fill
-                      className="object-cover blur-xl opacity-35 scale-110 pointer-events-none"
-                      aria-hidden="true"
-                    />
+                
+                {/* All 7 slides pre-rendered & GPU-cached for instantaneous transition */}
+                {slides.map((s, idx) => {
+                  const isCurrent = idx === currentSlide;
+                  return (
+                    <div
+                      key={s.id}
+                      className={`absolute inset-0 transition-opacity duration-500 ease-in-out ${
+                        isCurrent ? 'opacity-100 z-10 pointer-events-auto' : 'opacity-0 z-0 pointer-events-none'
+                      }`}
+                    >
+                      {/* Ambient subtle blur to give Microsoft Fluent acrylic feel around letterbox edges */}
+                      <div 
+                        className="absolute inset-0 bg-cover bg-center blur-2xl opacity-35 scale-110 pointer-events-none"
+                        style={{ backgroundImage: `url("${s.image}")` }}
+                        aria-hidden="true"
+                      />
 
-                    {/* Foreground sharp picture - object-contain ensures 100% of the image is completely visible */}
-                    <Image
-                      src={slide.image}
-                      alt={slide.titleStart}
-                      fill
-                      priority={currentSlide === 0}
-                      className="object-contain object-center z-10 drop-shadow-md select-none"
-                      sizes="(max-width: 1024px) 100vw, 50vw"
-                    />
+                      {/* Foreground sharp picture - object-contain ensures 100% of the image is completely visible */}
+                      <Image
+                        src={s.image}
+                        alt={s.titleStart}
+                        fill
+                        priority={idx === 0 || idx === 1}
+                        unoptimized
+                        className="object-contain object-center z-10 drop-shadow-md select-none"
+                        sizes="(max-width: 1024px) 100vw, 50vw"
+                      />
 
-                    {/* Soft gradient at bottom for high-contrast caption legibility */}
-                    <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/75 via-black/35 to-transparent pointer-events-none z-10" />
-                  </motion.div>
-                </AnimatePresence>
+                      {/* Soft gradient at bottom for high-contrast caption legibility */}
+                      <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/75 via-black/35 to-transparent pointer-events-none z-10" />
+                    </div>
+                  );
+                })}
 
                 {/* Microsoft Fluent Frosted Caption Pill */}
                 <div className="absolute bottom-3 left-3 z-20 max-w-[70%]">
                   <div className="bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-md border border-white/60 shadow-md flex items-center gap-2">
                     <span 
-                      className="w-2 h-2 rounded-full shrink-0" 
+                      className="w-2 h-2 rounded-full shrink-0 transition-colors duration-300" 
                       style={{ backgroundColor: slide.fluentAccent }}
                     />
-                    <span className="text-xs font-semibold text-[#201f1e] truncate">{slide.caption}</span>
+                    <span className="text-xs font-semibold text-[#201f1e] truncate font-urdu">{slide.caption}</span>
                   </div>
                 </div>
 
@@ -384,7 +392,7 @@ export default function Hero() {
                 <div className="absolute top-3 right-3 z-20">
                   <div className="bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-md text-[11px] font-semibold text-white flex items-center gap-1.5 border border-white/20 shadow-sm">
                     <ShieldCheck className="w-3.5 h-3.5 text-[#7fba00]" />
-                    <span>{slide.featurePill}</span>
+                    <span className="font-urdu">{slide.featurePill}</span>
                   </div>
                 </div>
 
@@ -392,7 +400,7 @@ export default function Hero() {
                 <button
                   onClick={prevSlide}
                   aria-label="Previous Slide"
-                  className="absolute left-2.5 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/90 hover:bg-white text-[#201f1e] flex items-center justify-center shadow-md transition-all hover:scale-105"
+                  className="absolute left-2.5 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/90 hover:bg-white text-[#201f1e] flex items-center justify-center shadow-md transition-all hover:scale-105 active:scale-95"
                 >
                   <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
                 </button>
@@ -400,7 +408,7 @@ export default function Hero() {
                 <button
                   onClick={nextSlide}
                   aria-label="Next Slide"
-                  className="absolute right-2.5 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/90 hover:bg-white text-[#201f1e] flex items-center justify-center shadow-md transition-all hover:scale-105"
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/90 hover:bg-white text-[#201f1e] flex items-center justify-center shadow-md transition-all hover:scale-105 active:scale-95"
                 >
                   <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
                 </button>
@@ -410,10 +418,10 @@ export default function Hero() {
               <div className="mt-3.5 pt-3 border-t border-[#edebe9]">
                 <div className="flex items-center justify-between mb-2 text-[11px]">
                   <div className="flex items-center gap-1.5 font-semibold text-[#201f1e]">
-                    <span className="text-[#0078d4]">0{currentSlide + 1} / 07:</span>
-                    <span>{slide.tabLabel}</span>
+                    <span className="text-[#0078d4] font-mono">0{currentSlide + 1} / 07:</span>
+                    <span className="font-urdu">{slide.tabLabel}</span>
                   </div>
-                  <span className="text-[#605e5c] hidden sm:inline">
+                  <span className="text-[#605e5c] hidden sm:inline font-urdu">
                     وفاق المدارس سے باقاعدہ الحاق شدہ
                   </span>
                 </div>
@@ -434,7 +442,7 @@ export default function Hero() {
                         title={s.tabLabel}
                       >
                         <div className="text-[10px] font-mono leading-none">0{idx + 1}</div>
-                        <div className="text-[9px] font-medium truncate mt-0.5 hidden sm:block">{s.tabShort}</div>
+                        <div className="text-[10px] font-medium truncate mt-0.5 hidden sm:block font-urdu">{s.tabShort}</div>
                         
                         {/* Animated Fluent Active Progress Line */}
                         {isActive && (
@@ -459,7 +467,7 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Institutional Highlights Grid (Microsoft Fluent Enterprise Strip) */}
+      {/* Institutional Highlights Grid (Noori Nastaleeq) */}
       <div className="relative z-10 bg-white border-t border-[#edebe9] py-6">
         <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6">
@@ -469,8 +477,8 @@ export default function Hero() {
                 <BookOpen className="w-5 h-5" />
               </div>
               <div className="leading-tight">
-                <div className="text-xs sm:text-sm font-semibold text-[#201f1e]">درسِ نظامی و حفظ</div>
-                <div className="text-[11px] text-[#605e5c] mt-0.5">جامع اسلامی نصاب</div>
+                <div className="text-xs sm:text-sm font-semibold text-[#201f1e] font-urdu">درسِ نظامی و حفظ</div>
+                <div className="text-[11px] text-[#605e5c] mt-0.5 font-urdu">جامع اسلامی نصاب</div>
               </div>
             </div>
 
@@ -479,8 +487,8 @@ export default function Hero() {
                 <Award className="w-5 h-5" />
               </div>
               <div className="leading-tight">
-                <div className="text-xs sm:text-sm font-semibold text-[#201f1e]">وفاق المدارس الرضویہ</div>
-                <div className="text-[11px] text-[#605e5c] mt-0.5">الحاق شدہ تعلیمی بورڈ</div>
+                <div className="text-xs sm:text-sm font-semibold text-[#201f1e] font-urdu">وفاق المدارس الرضویہ</div>
+                <div className="text-[11px] text-[#605e5c] mt-0.5 font-urdu">الحاق شدہ تعلیمی بورڈ</div>
               </div>
             </div>
 
@@ -489,8 +497,8 @@ export default function Hero() {
                 <GraduationCap className="w-5 h-5" />
               </div>
               <div className="leading-tight">
-                <div className="text-xs sm:text-sm font-semibold text-[#201f1e]">مفت رہائش و طعام</div>
-                <div className="text-[11px] text-[#605e5c] mt-0.5">بہترین ہاسٹل سہولیات</div>
+                <div className="text-xs sm:text-sm font-semibold text-[#201f1e] font-urdu">مفت رہائش و طعام</div>
+                <div className="text-[11px] text-[#605e5c] mt-0.5 font-urdu">بہترین ہاسٹل سہولیات</div>
               </div>
             </div>
 
@@ -499,8 +507,8 @@ export default function Hero() {
                 <MapPin className="w-5 h-5" />
               </div>
               <div className="leading-tight">
-                <div className="text-xs sm:text-sm font-semibold text-[#201f1e]">مانانوالہ، شیخوپورہ</div>
-                <div className="text-[11px] text-[#605e5c] mt-0.5">نزد ریلوے اسٹیشن</div>
+                <div className="text-xs sm:text-sm font-semibold text-[#201f1e] font-urdu">مانانوالہ، شیخوپورہ</div>
+                <div className="text-[11px] text-[#605e5c] mt-0.5 font-urdu">نزد ریلوے اسٹیشن</div>
               </div>
             </div>
 

@@ -6,13 +6,10 @@ import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import React from 'react';
 import { 
-  BookOpen, 
   Target, 
   History, 
   Award, 
-  Users, 
   GraduationCap, 
-  ChevronRight, 
   CheckCircle2, 
   Sparkles,
   Building2,
@@ -85,9 +82,9 @@ export default function About() {
   return (
     <>
       <Header />
-      <main className="flex-1 bg-white font-sans text-slate-900 selection:bg-emerald-100 selection:text-emerald-900">
+      <main className="flex-1 bg-white text-slate-900 selection:bg-emerald-100 selection:text-emerald-900">
         
-        {/* --- 1. HERO SECTION (اردو تعارف) --- */}
+        {/* --- 1. HERO SECTION (اردو تعارف - Noori Nastaleeq) --- */}
         <section className="relative py-16 md:py-24 bg-gradient-to-b from-emerald-50/50 via-white to-slate-50/60 border-b border-slate-100 overflow-hidden">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
             <motion.div 
@@ -96,33 +93,33 @@ export default function About() {
               transition={{ duration: 0.5 }}
               className="space-y-4"
             >
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs sm:text-sm font-bold shadow-2xs">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs sm:text-sm font-bold shadow-2xs font-urdu">
                 <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse" />
                 <span>جامعہ شیرِ ربانی مانانوالہ • سَنِ تاسیس 1992ء</span>
               </div>
 
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-tight">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.3] font-urdu">
                 ہمارا تعارف اور <span className="text-emerald-700">تاریخی سفر</span>
               </h1>
               
-              <p className="text-lg sm:text-xl md:text-2xl font-bold text-emerald-800 max-w-3xl mx-auto leading-relaxed">
+              <p className="text-lg sm:text-xl md:text-2xl font-bold text-emerald-800 max-w-3xl mx-auto leading-relaxed font-urdu">
                 ایمان، علم اور خدمت کا تابناک سفر (A Journey of Faith, Knowledge, and Service)
               </p>
               
-              <p className="text-slate-600 text-sm sm:text-base max-w-2xl mx-auto leading-loose text-justify sm:text-center">
+              <p className="text-slate-600 text-sm sm:text-base max-w-2xl mx-auto leading-loose text-justify sm:text-center font-urdu">
                 قرآن و سنت کی تعلیمات کے فروغ، طلبہ کی روحانی تربیت اور اسلامی اقدار کے تحفظ کے لیے قائم کیا گیا اہل سنت کا مستند اور باوقار دینی و تعلیمی ادارہ۔
               </p>
 
               <div className="pt-4 flex flex-wrap justify-center gap-3">
                 <Link
                   href="/admissions"
-                  className="px-6 py-3 bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-sm rounded-full shadow-md shadow-emerald-700/20 transition-all"
+                  className="px-6 py-3 bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-sm sm:text-base rounded-full shadow-md shadow-emerald-700/20 transition-all font-urdu"
                 >
                   آن لائن داخلہ فارم
                 </Link>
                 <Link
                   href="/courses"
-                  className="px-6 py-3 bg-white hover:bg-slate-50 text-slate-800 font-bold text-sm rounded-full border border-slate-200 shadow-2xs transition-all"
+                  className="px-6 py-3 bg-white hover:bg-slate-50 text-slate-800 font-bold text-sm sm:text-base rounded-full border border-slate-200 shadow-2xs transition-all font-urdu"
                 >
                   تعلیمی شعبہ جات دیکھیں
                 </Link>
@@ -131,7 +128,7 @@ export default function About() {
           </div>
         </section>
 
-        {/* --- 2. ہمارا وژن اور رہنماء اصول (Our Vision & Principles) --- */}
+        {/* --- 2. ہمارا وژن اور رہنماء اصول (Our Vision & Principles - Noori Nastaleeq) --- */}
         <section className="py-14 px-4 sm:px-6 lg:px-8 bg-white border-b border-slate-100">
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
@@ -140,18 +137,18 @@ export default function About() {
               <div className="p-8 sm:p-10 rounded-3xl bg-gradient-to-br from-emerald-800 to-emerald-950 text-white shadow-xl flex flex-col justify-between relative overflow-hidden" dir="rtl">
                 <div className="absolute top-0 left-0 w-64 h-64 bg-emerald-700/20 rounded-full blur-3xl pointer-events-none -ml-16 -mt-16" />
                 <div>
-                  <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-700/70 text-amber-300 text-xs font-bold mb-4 border border-emerald-600/40">
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-700/70 text-amber-300 text-xs font-bold mb-4 border border-emerald-600/40 font-urdu">
                     <Target className="w-3.5 h-3.5" />
                     <span>ہمارا وژن • Our Vision</span>
                   </div>
-                  <h2 className="text-2xl sm:text-3xl font-black mb-4 leading-snug text-white">
+                  <h2 className="text-2xl sm:text-3xl font-black mb-4 leading-snug text-white font-urdu">
                     ہمارا بنیادی وژن اور مقدس مقصد
                   </h2>
-                  <blockquote className="text-xl sm:text-2xl font-bold leading-loose text-emerald-100 border-r-4 border-amber-400 pr-4 py-2 my-4 bg-emerald-900/40 rounded-l-xl">
+                  <blockquote className="text-xl sm:text-2xl font-bold leading-loose text-emerald-100 border-r-4 border-amber-400 pr-4 py-2 my-4 bg-emerald-900/40 rounded-l-xl font-urdu">
                     "علم، کردار سازی اور روحانی تربیت کے ذریعے قرآن، سنت، اسلامی علوم اور انسانیت کی مسلسل خدمت کرنا۔"
                   </blockquote>
                 </div>
-                <div className="pt-6 border-t border-emerald-700/60 mt-6 flex items-center justify-between text-xs sm:text-sm font-bold text-emerald-200">
+                <div className="pt-6 border-t border-emerald-700/60 mt-6 flex items-center justify-between text-xs sm:text-sm font-bold text-emerald-200 font-urdu">
                   <span>جامعہ شیرِ ربانی مانانوالہ</span>
                   <span className="text-amber-300">سنت و قرآن کی روشنی</span>
                 </div>
@@ -160,44 +157,44 @@ export default function About() {
               {/* رہنماء اقدار: تقویٰ، صبر اور خدمت */}
               <div className="p-8 sm:p-10 rounded-3xl bg-slate-50 border border-slate-200 shadow-sm flex flex-col justify-between" dir="rtl">
                 <div>
-                  <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold mb-4">
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold mb-4 font-urdu">
                     <HeartHandshake className="w-3.5 h-3.5" />
                     <span>رہنماء اصول • Core Values</span>
                   </div>
-                  <h3 className="text-2xl sm:text-3xl font-black text-slate-900 mb-3">
+                  <h3 className="text-2xl sm:text-3xl font-black text-slate-900 mb-3 font-urdu">
                     تقویٰ، صبر اور خدمت
                   </h3>
-                  <p className="text-slate-600 text-sm leading-relaxed mb-6">
+                  <p className="text-slate-600 text-sm sm:text-base leading-relaxed mb-6 font-urdu">
                     جامعہ شیرِ ربانی کا تعلیمی و تربیتی نظام تین سنہری نبوی اصولوں پر استوار ہے جو ہمارے ہر طالب علم اور فارغ التحصیل عالم کے کردار کی پہچان ہیں:
                   </p>
                   <div className="space-y-3.5">
                     <div className="flex items-start gap-3.5 p-3.5 bg-white rounded-xl border border-slate-100 shadow-2xs">
-                      <div className="w-10 h-10 rounded-lg bg-emerald-100 text-emerald-800 flex items-center justify-center font-black text-sm flex-shrink-0">
+                      <div className="w-10 h-10 rounded-lg bg-emerald-100 text-emerald-800 flex items-center justify-center font-black text-sm flex-shrink-0 font-urdu">
                         تقویٰ
                       </div>
                       <div>
-                        <h4 className="text-base font-bold text-slate-900">تقویٰ (Taqwa)</h4>
-                        <p className="text-xs text-slate-600 mt-0.5 leading-relaxed">ہر علم و عمل کو خالصتاً رضائے الٰہی، اخلاص اور قرآن و سنت کے احکامات کے تابع رکھنا۔</p>
+                        <h4 className="text-base font-bold text-slate-900 font-urdu">تقویٰ (Taqwa)</h4>
+                        <p className="text-xs sm:text-sm text-slate-600 mt-0.5 leading-relaxed font-urdu">ہر علم و عمل کو خالصتاً رضائے الٰہی، اخلاص اور قرآن و سنت کے احکامات کے تابع رکھنا۔</p>
                       </div>
                     </div>
 
                     <div className="flex items-start gap-3.5 p-3.5 bg-white rounded-xl border border-slate-100 shadow-2xs">
-                      <div className="w-10 h-10 rounded-lg bg-emerald-100 text-emerald-800 flex items-center justify-center font-black text-sm flex-shrink-0">
+                      <div className="w-10 h-10 rounded-lg bg-emerald-100 text-emerald-800 flex items-center justify-center font-black text-sm flex-shrink-0 font-urdu">
                         صبر
                       </div>
                       <div>
-                        <h4 className="text-base font-bold text-slate-900">صبر (Sabr)</h4>
-                        <p className="text-xs text-slate-600 mt-0.5 leading-relaxed">دینی علوم کے حصول، روحانی ریاضت اور حق کی ترویج میں ثابت قدمی اور استقامت اختیار کرنا۔</p>
+                        <h4 className="text-base font-bold text-slate-900 font-urdu">صبر (Sabr)</h4>
+                        <p className="text-xs sm:text-sm text-slate-600 mt-0.5 leading-relaxed font-urdu">دینی علوم کے حصول، روحانی ریاضت اور حق کی ترویج میں ثابت قدمی اور استقامت اختیار کرنا۔</p>
                       </div>
                     </div>
 
                     <div className="flex items-start gap-3.5 p-3.5 bg-white rounded-xl border border-slate-100 shadow-2xs">
-                      <div className="w-10 h-10 rounded-lg bg-emerald-100 text-emerald-800 flex items-center justify-center font-black text-sm flex-shrink-0">
+                      <div className="w-10 h-10 rounded-lg bg-emerald-100 text-emerald-800 flex items-center justify-center font-black text-sm flex-shrink-0 font-urdu">
                         خدمت
                       </div>
                       <div>
-                        <h4 className="text-base font-bold text-slate-900">خدمت (Khidmat)</h4>
-                        <p className="text-xs text-slate-600 mt-0.5 leading-relaxed">امتِ مسلمہ اور انسانیت کی بھلائی کے لیے بغیر کسی لالچ کے بے لوث خدمت اور رہنمائی فراہم کرنا۔</p>
+                        <h4 className="text-base font-bold text-slate-900 font-urdu">خدمت (Khidmat)</h4>
+                        <p className="text-xs sm:text-sm text-slate-600 mt-0.5 leading-relaxed font-urdu">امتِ مسلمہ اور انسانیت کی بھلائی کے لیے بغیر کسی لالچ کے بے لوث خدمت اور رہنمائی فراہم کرنا۔</p>
                       </div>
                     </div>
                   </div>
@@ -208,22 +205,22 @@ export default function About() {
           </div>
         </section>
 
-        {/* --- 3. تاریخی سفر (Our Journey Timeline in Urdu) --- */}
+        {/* --- 3. تاریخی سفر (Our Journey Timeline in Urdu - Noori Nastaleeq) --- */}
         <section className="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-slate-50/70 border-b border-slate-100">
           <div className="max-w-5xl mx-auto">
             
             <div className="text-center max-w-3xl mx-auto mb-16">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold mb-3">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold mb-3 font-urdu">
                 <History className="w-4 h-4" />
                 <span>تاریخی ارتقاء • Historical Milestones</span>
               </div>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-[1.3] font-urdu">
                 جامعہ شیرِ ربانی کا تاریخی و تعلیمی سفر
               </h2>
-              <p className="text-emerald-800 font-bold text-base sm:text-lg mt-2">
+              <p className="text-emerald-800 font-bold text-base sm:text-lg mt-2 font-urdu">
                 ایمان، علم اور خدمت کا سفر (1992ء تا حال)
               </p>
-              <p className="text-slate-600 text-sm sm:text-base mt-2 leading-relaxed">
+              <p className="text-slate-600 text-sm sm:text-base mt-2 leading-relaxed font-urdu">
                 جامعہ شیرِ ربانی کے اس سفر کا آغاز 1992ء میں ہوا، جب مولانا منظور احمد صاحب نے اسلامی تعلیمات کے فروغ، دینی اقدار اور روحانی نشوونما کے وژن کے ساتھ اس کی بنیاد رکھی۔
               </p>
             </div>
@@ -257,22 +254,22 @@ export default function About() {
                       <span className="md:hidden px-2.5 py-0.5 rounded-md bg-emerald-800 text-white text-xs font-bold font-mono">
                         {item.year}
                       </span>
-                      <span className="text-xs px-2.5 py-0.5 rounded-md font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                      <span className="text-xs px-2.5 py-0.5 rounded-md font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 font-urdu">
                         {item.badge}
                       </span>
                     </div>
 
-                    <h3 className="text-xl sm:text-2xl font-black text-slate-900 leading-snug">
+                    <h3 className="text-xl sm:text-2xl font-black text-slate-900 leading-snug font-urdu">
                       {item.title}
                     </h3>
                     
                     {item.subtitle && (
-                      <h4 className="text-xs sm:text-sm font-bold text-emerald-700 mt-1 mb-3">
+                      <h4 className="text-xs sm:text-sm font-bold text-emerald-700 mt-1 mb-3 font-urdu">
                         {item.subtitle}
                       </h4>
                     )}
 
-                    <p className="text-slate-600 text-sm sm:text-base leading-loose mt-2">
+                    <p className="text-slate-600 text-sm sm:text-base leading-loose mt-2 font-urdu">
                       {item.description}
                     </p>
 
@@ -281,7 +278,7 @@ export default function About() {
                         {item.bulletPoints.map((pt, pIdx) => (
                           <div key={pIdx} className="flex items-start gap-2.5 text-xs sm:text-sm font-bold text-slate-800">
                             <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
-                            <span>{pt}</span>
+                            <span className="font-urdu">{pt}</span>
                           </div>
                         ))}
                       </div>
@@ -294,7 +291,7 @@ export default function About() {
             {/* Ending Legacy Badge (جامعہ شیرِ ربانی ورثہ) */}
             <div className="mt-14 text-center">
               <div className="inline-block p-6 sm:p-8 rounded-3xl bg-emerald-50 border border-emerald-200 max-w-2xl shadow-xs">
-                <p className="text-lg sm:text-2xl font-black text-emerald-900 leading-snug">
+                <p className="text-lg sm:text-2xl font-black text-emerald-900 leading-snug font-urdu">
                   "جامعہ شیرِ ربانی – علم، ایمان اور خدمت کا ایک عظیم ورثہ"
                 </p>
                 <p className="text-xs sm:text-sm font-bold text-emerald-700 mt-2">
@@ -306,18 +303,18 @@ export default function About() {
           </div>
         </section>
 
-        {/* --- 4. ادارہ جاتی قیادت (Leadership in Urdu) --- */}
+        {/* --- 4. ادارہ جاتی قیادت (Leadership in Urdu - Noori Nastaleeq) --- */}
         <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white border-b border-slate-100">
           <div className="max-w-6xl mx-auto">
             
             <div className="text-center max-w-3xl mx-auto mb-12">
-              <span className="text-xs px-3.5 py-1 rounded-full font-bold uppercase tracking-wider bg-emerald-50 text-emerald-800 border border-emerald-200">
+              <span className="text-xs px-3.5 py-1 rounded-full font-bold uppercase tracking-wider bg-emerald-50 text-emerald-800 border border-emerald-200 font-urdu">
                 ادارہ جاتی قیادت • Institutional Leadership
               </span>
-              <h2 className="text-3xl sm:text-4xl font-black text-slate-900 mt-3">
+              <h2 className="text-3xl sm:text-4xl font-black text-slate-900 mt-3 font-urdu">
                 جامعہ شیرِ ربانی کی مخلص قیادت
               </h2>
-              <p className="text-slate-600 text-sm sm:text-base mt-2">
+              <p className="text-slate-600 text-sm sm:text-base mt-2 font-urdu">
                 ادارے کے علمی وژن، روحانی تربیت اور تعلیمی معیار کی رہنمائی فرمانے والی معزز شخصیات
               </p>
             </div>
@@ -334,16 +331,16 @@ export default function About() {
                     className="object-cover group-hover:scale-105 transition-transform duration-300" 
                   />
                 </div>
-                <span className="px-3 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 uppercase tracking-wider mb-2">
+                <span className="px-3 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 uppercase tracking-wider mb-2 font-urdu">
                   پرنسپل / Principal
                 </span>
-                <h3 className="text-lg sm:text-xl font-black text-slate-900">
+                <h3 className="text-lg sm:text-xl font-black text-slate-900 font-urdu">
                   پروفیسر ڈاکٹر فاروق علی ربانی
                 </h3>
-                <p className="text-xs sm:text-sm font-bold text-emerald-700 mt-1 mb-3">
+                <p className="text-xs sm:text-sm font-bold text-emerald-700 mt-1 mb-3 font-urdu">
                   پرنسپل، جامعہ شیرِ ربانی (2008ء تا حال)
                 </p>
-                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-sm" dir="rtl">
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-sm font-urdu" dir="rtl">
                   سن 2008ء سے تا حال پرنسپل کے فرائض سرانجام دے رہے ہیں۔ ڈاکٹر صاحب نے جامعہ کے تعلیمی ارتقاء، جدید نصابی اصلاحات، اور وفاق المدارس و وزارتِ تعلیم سے رجسٹریشن میں کلیدی کردار ادا کیا۔
                 </p>
               </div>
@@ -358,16 +355,16 @@ export default function About() {
                     className="object-cover group-hover:scale-105 transition-transform duration-300" 
                   />
                 </div>
-                <span className="px-3 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 uppercase tracking-wider mb-2">
+                <span className="px-3 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 uppercase tracking-wider mb-2 font-urdu">
                   ناظمِ تعلیم / Director of Education
                 </span>
-                <h3 className="text-lg sm:text-xl font-black text-slate-900">
+                <h3 className="text-lg sm:text-xl font-black text-slate-900 font-urdu">
                   حافظ محمد احمد ربانی
                 </h3>
-                <p className="text-xs sm:text-sm font-bold text-emerald-700 mt-1 mb-3">
+                <p className="text-xs sm:text-sm font-bold text-emerald-700 mt-1 mb-3 font-urdu">
                   ناظمِ تعلیم، جامعہ شیرِ ربانی (2022ء تا حال)
                 </p>
-                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-sm" dir="rtl">
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-sm font-urdu" dir="rtl">
                   سن 2022ء سے تا حال ناظمِ تعلیم کے طور پر خدمات سرانجام دے رہے ہیں۔ روزمرہ کے تدریسی نظم و ضبط، اساتذہ کی رہنمائی اور طلبہ کے امتحانی و تربیتی معیار کی مکمل نگرانی فرماتے ہیں۔
                 </p>
               </div>
@@ -382,16 +379,16 @@ export default function About() {
                     className="object-cover group-hover:scale-105 transition-transform duration-300" 
                   />
                 </div>
-                <span className="px-3 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 uppercase tracking-wider mb-2">
+                <span className="px-3 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 uppercase tracking-wider mb-2 font-urdu">
                   آئی ٹی اینڈ سسٹم ایڈمنسٹریٹر / IT Admin
                 </span>
-                <h3 className="text-lg sm:text-xl font-black text-slate-900">
+                <h3 className="text-lg sm:text-xl font-black text-slate-900 font-urdu">
                   محمد ابوبکر
                 </h3>
-                <p className="text-xs sm:text-sm font-bold text-emerald-700 mt-1 mb-3">
+                <p className="text-xs sm:text-sm font-bold text-emerald-700 mt-1 mb-3 font-urdu">
                   IT & System Administrator (2022ء تا حال)
                 </p>
-                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-sm" dir="rtl">
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-sm font-urdu" dir="rtl">
                   سن 2022ء سے تا حال جامعہ شیرِ ربانی کے آئی ٹی و سسٹم ایڈمنسٹریشن کے فرائض سنبھالے ہوئے ہیں۔ جن میں آفیشل پورٹل، ڈیٹابیس، ریکارڈ مینجمنٹ سسٹم، آن لائن داخلہ جات اور ڈیجیٹل انفراسٹرکچر کی مکمل نگرانی شامل ہے۔
                 </p>
               </div>
@@ -400,24 +397,24 @@ export default function About() {
           </div>
         </section>
 
-        {/* --- 5. اہم اعداد و شمار (Stats) --- */}
+        {/* --- 5. اہم اعداد و شمار (Stats - Noori Nastaleeq) --- */}
         <section className="py-14 px-4 sm:px-6 lg:px-8 bg-emerald-800 text-white">
           <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-10 text-center">
             <div>
               <div className="text-3xl sm:text-5xl font-black text-amber-300 mb-1 font-mono">1992ء</div>
-              <div className="text-xs sm:text-sm font-bold text-emerald-100">سَنِ تاسیس • Founded</div>
+              <div className="text-xs sm:text-sm font-bold text-emerald-100 font-urdu">سَنِ تاسیس • Founded</div>
             </div>
             <div>
               <div className="text-3xl sm:text-5xl font-black text-amber-300 mb-1 font-mono">500+</div>
-              <div className="text-xs sm:text-sm font-bold text-emerald-100">زیرِ تعلیم طلبہ • Current Students</div>
+              <div className="text-xs sm:text-sm font-bold text-emerald-100 font-urdu">زیرِ تعلیم طلبہ • Current Students</div>
             </div>
             <div>
               <div className="text-3xl sm:text-5xl font-black text-amber-300 mb-1 font-mono">2,000+</div>
-              <div className="text-xs sm:text-sm font-bold text-emerald-100">فارغ التحصیل علماء • Graduates</div>
+              <div className="text-xs sm:text-sm font-bold text-emerald-100 font-urdu">فارغ التحصیل علماء • Graduates</div>
             </div>
             <div>
               <div className="text-3xl sm:text-5xl font-black text-amber-300 mb-1 font-mono">12+</div>
-              <div className="text-xs sm:text-sm font-bold text-emerald-100">شعبہ جات • Specialized Programs</div>
+              <div className="text-xs sm:text-sm font-bold text-emerald-100 font-urdu">شعبہ جات • Specialized Programs</div>
             </div>
           </div>
         </section>

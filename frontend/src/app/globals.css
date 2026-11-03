@@ -1,15 +1,31 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;500;600;700;800&display=swap');
+
+@font-face {
+  font-family: 'NooriNastaleeq';
+  src: local('Jameel Noori Nastaleeq'),
+       local('Jameel Noori Nastaleeq Kasheeda'),
+       url('/fonts/noto-nastaliq-urdu.woff2') format('woff2'),
+       local('Noto Nastaliq Urdu'),
+       local('Urdu Typesetting');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0600-06FF, U+0750-077F, U+0870-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+FB50-FDFF, U+FE70-FEFC;
+}
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --font-nastaleeq: 'NooriNastaleeq', 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', 'Urdu Typesetting', 'Alvi Nastaleeq', 'Nafees Nastaleeq', serif;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: 'NooriNastaleeq', var(--font-geist-sans), 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', 'Urdu Typesetting', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-mono: var(--font-geist-mono);
+  --font-urdu: var(--font-nastaleeq);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -19,12 +35,38 @@
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-geist-sans), "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+/* Universal Typography: 
+   Because 'NooriNastaleeq' is FIRST with unicode-range U+0600-06FF, 
+   the browser automatically renders ALL Urdu/Arabic characters across the entire site in Noori Nastaleeq, 
+   while Latin characters (English/numbers) automatically render in Geist / modern sans-serif!
+*/
+html, body, button, input, select, textarea, h1, h2, h3, h4, h5, h6, p, span, a, div, li, label, blockquote, dt, dd {
+  font-family: 'NooriNastaleeq', var(--font-geist-sans), 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', 'Urdu Typesetting', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Dedicated Nastaleeq typography classes */
+.font-urdu,
+.font-nastaleeq,
+[lang="ur"],
+:lang(ur),
+[dir="rtl"] {
+  font-family: 'NooriNastaleeq', 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', 'Urdu Typesetting', serif !important;
+}
+
+/* Elegant line-height for Nastaleeq text to give proper breathing room for diacritics / dots */
+.font-urdu,
+.font-nastaleeq,
+[lang="ur"],
+[dir="rtl"] {
+  line-height: 1.95;
+}
+
+h1.font-urdu, h1 .font-urdu,
+h2.font-urdu, h2 .font-urdu,
+h3.font-urdu, h3 .font-urdu {
+  line-height: 1.55;
 }
 
 [dir="rtl"] body {
-  font-family: "Noto Nastaliq Urdu", "Jameel Noori Nastaleeq", "Noto Sans Arabic", "Segoe UI", Tahoma, Arial, sans-serif;
+  font-family: var(--font-nastaleeq);
 }
