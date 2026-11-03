@@ -3,12 +3,29 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
-import Image from 'next/image';
-import { ChevronRight, ChevronLeft, BookOpen, Award, GraduationCap, MapPin, CheckCircle2 } from 'lucide-react';
+import { 
+  ChevronRight, 
+  ChevronLeft, 
+  BookOpen, 
+  Award, 
+  GraduationCap, 
+  MapPin, 
+  CheckCircle2, 
+  ShieldCheck, 
+  Sparkles, 
+  Pause, 
+  Play, 
+  Compass, 
+  ArrowRight,
+  ExternalLink,
+  Laptop
+} from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 interface SlideData {
-  image: string;
+  id: string;
+  tabLabel: string;
+  tabEn: string;
   badge: string;
   titleStart: string;
   titleAccent: string;
@@ -18,6 +35,19 @@ interface SlideData {
   caption: string;
   ctaPrimary: { label: string; href: string };
   ctaSecondary: { label: string; href: string };
+  fluentAccent: string;
+}
+
+// Iconic Microsoft 4-Color Quad
+function MicrosoftQuad() {
+  return (
+    <span className="inline-grid grid-cols-2 gap-0.5 w-3.5 h-3.5 shrink-0" aria-hidden="true">
+      <span className="w-1.5 h-1.5 bg-[#f25022] rounded-[0.5px]" />
+      <span className="w-1.5 h-1.5 bg-[#7fba00] rounded-[0.5px]" />
+      <span className="w-1.5 h-1.5 bg-[#00a4ef] rounded-[0.5px]" />
+      <span className="w-1.5 h-1.5 bg-[#ffb900] rounded-[0.5px]" />
+    </span>
+  );
 }
 
 export default function Hero() {
@@ -28,7 +58,9 @@ export default function Hero() {
 
   const slides: SlideData[] = [
     {
-      image: '/results_hero_banner.jpg',
+      id: 'slide-1',
+      tabLabel: 'داخلہ 2024-2025',
+      tabEn: 'Admissions Open',
       badge: '✦ داخلہ برائے سال 2024-2025 جاری ہے • Admissions Open',
       titleStart: 'جامعہ شیرِ ربانی',
       titleAccent: 'دینی و عصری علوم',
@@ -38,9 +70,12 @@ export default function Hero() {
       caption: 'مرکزی کیمپس • جامعہ شیرِ ربانی مانانوالہ',
       ctaPrimary: { label: t('apply_now', 'آن لائن داخلہ فارم'), href: '/admissions' },
       ctaSecondary: { label: t('courses', 'شعبہ جات و کورسز'), href: '/courses' },
+      fluentAccent: '#0078d4', // Microsoft Fluent Blue
     },
     {
-      image: '/images/mahfil.png',
+      id: 'slide-2',
+      tabLabel: 'Academic Excellence',
+      tabEn: 'Sacred Tradition',
       badge: '✦ وفاق المدارس الاسلامیہ الرضویہ • Affiliated Institution',
       titleStart: 'Where Sacred Tradition',
       titleAccent: 'Meets Academic',
@@ -50,9 +85,12 @@ export default function Hero() {
       caption: 'سالانہ دستارِ فضیلت و تقسیمِ اسناد ہال',
       ctaPrimary: { label: t('apply_now', 'Apply Online'), href: '/admissions' },
       ctaSecondary: { label: t('courses', 'Explore Courses'), href: '/courses' },
+      fluentAccent: '#107c41', // Microsoft Fluent Green
     },
     {
-      image: '/images/mahfil1.jpeg',
+      id: 'slide-3',
+      tabLabel: 'روحانی و تعلیمی تربیت',
+      tabEn: 'Convocation & Seminars',
       badge: '✦ سالانہ محافل و تقاریب دستارِ فضیلت • Convocation & Seminars',
       titleStart: 'روحانی تربیت و',
       titleAccent: 'علمی بصیرت',
@@ -62,9 +100,12 @@ export default function Hero() {
       caption: 'سالانہ روحانی اجتماع و کانفرنس',
       ctaPrimary: { label: 'نتائج وفاق المدارس', href: '/wafaq-results' },
       ctaSecondary: { label: 'جامعہ کا تعارف', href: '/about' },
+      fluentAccent: '#d83b01', // Microsoft Fluent Orange
     },
     {
-      image: '/images/mahfil2.jpeg',
+      id: 'slide-4',
+      tabLabel: 'شعبہ حفظ و تجوید',
+      tabEn: 'Tehfeez & Tajweed',
       badge: '✦ شعبہ حفظ و تجوید و قرات • Tehfeez & Tajweed Department',
       titleStart: 'قرآن فہمی اور',
       titleAccent: 'سنتِ مصطفیٰ ﷺ',
@@ -74,6 +115,7 @@ export default function Hero() {
       caption: 'علمی و فکری سیمینار ہال',
       ctaPrimary: { label: 'داخلہ کی معلومات', href: '/admissions' },
       ctaSecondary: { label: 'ہم سے رابطہ کریں', href: '/contact' },
+      fluentAccent: '#8764b8', // Microsoft Fluent Purple
     },
   ];
 
@@ -90,14 +132,14 @@ export default function Hero() {
     if (isPaused) return;
     const timer = setInterval(() => {
       nextSlide();
-    }, 6000);
+    }, 6500);
     return () => clearInterval(timer);
   }, [isPaused, nextSlide]);
 
   if (!mounted) {
     return (
-      <section className="relative w-full h-[520px] bg-slate-50 animate-pulse flex items-center justify-center">
-        <div className="w-12 h-12 border-3 border-emerald-600 border-t-transparent rounded-full animate-spin" />
+      <section className="relative w-full h-[520px] bg-[#faf9f8] animate-pulse flex items-center justify-center">
+        <div className="w-10 h-10 border-2 border-[#0078d4] border-t-transparent rounded-full animate-spin" />
       </section>
     );
   }
@@ -106,158 +148,271 @@ export default function Hero() {
 
   return (
     <section 
-      className="relative w-full bg-gradient-to-b from-emerald-50/40 via-white to-slate-50/60 font-sans border-b border-slate-100 overflow-hidden"
+      className="relative w-full bg-[#faf9f8] text-[#242424] font-sans border-b border-[#edebe9] overflow-hidden"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
+      style={{
+        backgroundImage: 'radial-gradient(#d2d0ce 1px, transparent 1px)',
+        backgroundSize: '32px 32px',
+      }}
     >
-      {/* Background Decorative Circles */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-100/30 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20" />
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-amber-100/30 rounded-full blur-3xl pointer-events-none -ml-20 -mb-20" />
+      {/* Microsoft Signature 4-Color Accent Top Bar */}
+      <div className="absolute top-0 inset-x-0 h-[3px] bg-gradient-to-r from-[#f25022] via-[#7fba00] via-[#00a4ef] to-[#ffb900] z-20" />
+
+      {/* Subtle Microsoft Fluent Ambient Glows */}
+      <div className="absolute -top-32 right-1/4 w-96 h-96 bg-[#0078d4]/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute -bottom-32 left-1/4 w-96 h-96 bg-[#107c41]/5 rounded-full blur-3xl pointer-events-none" />
 
       {/* Main Content Area */}
-      <div className="relative max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-14">
+      <div className="relative max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-12 pb-8 sm:pb-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
           {/* Left Column: Text & Call to Action */}
-          <div className="lg:col-span-6 xl:col-span-6 space-y-5 sm:space-y-6">
+          <div className="lg:col-span-7 xl:col-span-7 space-y-6">
             
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentSlide}
-                initial={{ opacity: 0, y: 15 }}
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -15 }}
-                transition={{ duration: 0.5 }}
+                exit={{ opacity: 0, y: -12 }}
+                transition={{ duration: 0.45, ease: 'easeOut' }}
                 className="space-y-4 sm:space-y-5"
               >
-                {/* Badge */}
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs sm:text-sm font-bold shadow-2xs">
-                  <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse" />
-                  <span>{slide.badge}</span>
+                {/* Microsoft Fluent Badge */}
+                <div className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-md bg-white border border-[#edebe9] text-[#323130] text-xs sm:text-sm font-semibold shadow-2xs">
+                  <MicrosoftQuad />
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#107c41] animate-pulse" />
+                  <span className="tracking-tight">{slide.badge}</span>
                 </div>
 
                 {/* Main Heading */}
-                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-black text-slate-900 tracking-tight leading-[1.15]">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-semibold text-[#201f1e] tracking-tight leading-[1.18]">
                   <span>{slide.titleStart} </span>
-                  <span className="text-emerald-700 underline decoration-emerald-200 decoration-wavy decoration-2 underline-offset-8">
+                  <span 
+                    className="font-bold underline decoration-[#0078d4]/30 decoration-2 underline-offset-8 transition-colors duration-300"
+                    style={{ color: slide.fluentAccent }}
+                  >
                     {slide.titleAccent}{' '}
                   </span>
                   <span>{slide.titleEnd}</span>
                 </h1>
 
                 {/* Subtitle Urdu */}
-                <p className="text-emerald-800 font-bold text-sm sm:text-base md:text-lg leading-relaxed">
-                  {slide.subtitleUrdu}
+                <p className="text-[#107c41] font-semibold text-base sm:text-lg md:text-xl leading-relaxed flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-[#107c41]" />
+                  <span>{slide.subtitleUrdu}</span>
                 </p>
 
                 {/* Description */}
-                <p className="text-slate-600 text-sm sm:text-base leading-relaxed max-w-xl">
+                <p className="text-[#605e5c] text-sm sm:text-base md:text-[17px] leading-relaxed max-w-2xl font-normal">
                   {slide.description}
                 </p>
 
-                {/* CTA Buttons */}
+                {/* Microsoft Fluent CTA Buttons */}
                 <div className="pt-2 flex flex-wrap items-center gap-3 sm:gap-4">
                   <Link
                     href={slide.ctaPrimary.href}
-                    className="inline-flex items-center justify-center px-6 sm:px-8 py-3.5 bg-emerald-700 hover:bg-emerald-800 text-white font-black text-sm sm:text-base rounded-full shadow-lg shadow-emerald-700/20 hover:shadow-emerald-700/35 hover:-translate-y-0.5 transition-all uppercase tracking-wider"
+                    className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-[#0078d4] hover:bg-[#106ebe] text-white font-semibold text-sm sm:text-base rounded-md shadow-xs hover:shadow-md active:scale-[0.99] transition-all tracking-wide"
                   >
-                    {slide.ctaPrimary.label}
-                    <ChevronRight className="ml-1.5 w-4 h-4 sm:w-5 sm:h-5" />
+                    <span>{slide.ctaPrimary.label}</span>
+                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                   </Link>
 
                   <Link
                     href={slide.ctaSecondary.href}
-                    className="inline-flex items-center justify-center px-6 sm:px-7 py-3.5 bg-white hover:bg-slate-50 text-slate-800 font-bold text-sm sm:text-base rounded-full border border-slate-200 shadow-xs hover:border-slate-300 hover:-translate-y-0.5 transition-all tracking-wide"
+                    className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-white hover:bg-[#f3f2f1] text-[#201f1e] font-semibold text-sm sm:text-base rounded-md border border-[#8a8886] hover:border-[#323130] shadow-2xs hover:shadow-xs active:scale-[0.99] transition-all tracking-wide"
                   >
-                    {slide.ctaSecondary.label}
+                    <span>{slide.ctaSecondary.label}</span>
+                    <ExternalLink className="w-4 h-4 text-[#605e5c]" />
                   </Link>
                 </div>
               </motion.div>
             </AnimatePresence>
 
-            {/* Quick Trust Checklist */}
-            <div className="pt-4 border-t border-slate-100 flex flex-wrap gap-4 sm:gap-6 text-xs sm:text-sm font-semibold text-slate-700">
-              <div className="flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+            {/* Quick Trust Checklist (Microsoft Security & Trust Badge Style) */}
+            <div className="pt-4 border-t border-[#edebe9] flex flex-wrap gap-2.5 sm:gap-4 text-xs sm:text-sm font-medium text-[#323130]">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-white border border-[#edebe9] shadow-2xs">
+                <CheckCircle2 className="w-4 h-4 text-[#107c41] shrink-0" />
                 <span>وفاق المدارس سے باقاعدہ الحاق</span>
               </div>
-              <div className="flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-white border border-[#edebe9] shadow-2xs">
+                <CheckCircle2 className="w-4 h-4 text-[#107c41] shrink-0" />
                 <span>100% مفت تعلیم و ہاسٹل</span>
               </div>
-              <div className="flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-white border border-[#edebe9] shadow-2xs">
+                <CheckCircle2 className="w-4 h-4 text-[#107c41] shrink-0" />
                 <span>اہلِ سنت کا مستند دینی مرکز</span>
               </div>
             </div>
 
           </div>
 
-          {/* Right Column: Interactive Image Carousel */}
-          <div className="lg:col-span-6 xl:col-span-6">
-            <div className="relative w-full aspect-[16/11] sm:aspect-[16/10] lg:aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl border-4 border-white ring-1 ring-slate-200/80 bg-slate-100">
+          {/* Right Column: Microsoft Fluent Interactive Console (No raster photo!) */}
+          <div className="lg:col-span-5 xl:col-span-5">
+            <div className="bg-white rounded-xl border border-[#edebe9] shadow-lg shadow-black/[0.04] p-5 sm:p-6 relative overflow-hidden backdrop-blur-sm">
               
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={currentSlide}
-                  initial={{ opacity: 0, scale: 1.04 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.8, ease: 'easeOut' }}
-                  className="absolute inset-0"
-                >
-                  <Image
-                    src={slide.image}
-                    alt={slide.titleStart}
-                    fill
-                    priority
-                    className="object-cover object-center"
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                  />
-                  {/* Subtle soft gradient at the bottom for caption readability */}
-                  <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-slate-900/60 to-transparent pointer-events-none" />
-                </motion.div>
-              </AnimatePresence>
+              {/* Console Top Window Header */}
+              <div className="flex items-center justify-between pb-4 mb-5 border-b border-[#edebe9]">
+                <div className="flex items-center gap-2">
+                  <MicrosoftQuad />
+                  <span className="text-xs font-semibold tracking-wider text-[#605e5c] uppercase">
+                    Fluent Portal Overview
+                  </span>
+                </div>
 
-              {/* Slide Caption Pill */}
-              <div className="absolute bottom-4 left-4 z-20">
-                <div className="bg-white/95 backdrop-blur-md px-3.5 py-1.5 rounded-xl border border-white/60 shadow-md flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-emerald-600" />
-                  <span className="text-xs font-bold text-slate-800">{slide.caption}</span>
+                <div className="flex items-center gap-2">
+                  {/* Slide index counter */}
+                  <span className="text-xs font-mono font-bold px-2 py-0.5 rounded bg-[#f3f2f1] text-[#323130]">
+                    0{currentSlide + 1} / 0{slides.length}
+                  </span>
+
+                  {/* Play / Pause Toggle */}
+                  <button
+                    onClick={() => setIsPaused(!isPaused)}
+                    aria-label={isPaused ? 'Resume Slideshow' : 'Pause Slideshow'}
+                    className="p-1 rounded hover:bg-[#f3f2f1] text-[#605e5c] transition-colors"
+                  >
+                    {isPaused ? <Play className="w-3.5 h-3.5" /> : <Pause className="w-3.5 h-3.5" />}
+                  </button>
                 </div>
               </div>
 
-              {/* Prev / Next Arrows */}
-              <button
-                onClick={prevSlide}
-                aria-label="Previous Slide"
-                className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-white/90 hover:bg-white text-slate-800 flex items-center justify-center shadow-lg border border-slate-200/80 hover:scale-105 transition-all"
-              >
-                <ChevronLeft className="w-5 h-5" />
-              </button>
+              {/* Active Slide Feature Card */}
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentSlide}
+                  initial={{ opacity: 0, scale: 0.98 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.98 }}
+                  transition={{ duration: 0.35 }}
+                  className="space-y-4"
+                >
+                  {/* Slide Pillar Caption Header */}
+                  <div className="p-3.5 rounded-lg bg-[#faf9f8] border border-[#edebe9] flex items-center justify-between gap-3">
+                    <div className="flex items-center gap-2 min-w-0">
+                      <div 
+                        className="w-2.5 h-2.5 rounded-full shrink-0" 
+                        style={{ backgroundColor: slide.fluentAccent }}
+                      />
+                      <span className="text-xs sm:text-sm font-semibold text-[#201f1e] truncate">
+                        {slide.caption}
+                      </span>
+                    </div>
+                    <span className="text-[11px] font-semibold text-[#0078d4] bg-[#0078d4]/10 px-2 py-0.5 rounded shrink-0">
+                      Active Pillar
+                    </span>
+                  </div>
 
-              <button
-                onClick={nextSlide}
-                aria-label="Next Slide"
-                className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-white/90 hover:bg-white text-slate-800 flex items-center justify-center shadow-lg border border-slate-200/80 hover:scale-105 transition-all"
-              >
-                <ChevronRight className="w-5 h-5" />
-              </button>
+                  {/* Microsoft Fluent Bento 4-Quad Cards */}
+                  <div className="grid grid-cols-2 gap-3">
+                    
+                    {/* Bento Box 1 - Blue */}
+                    <div className="p-3.5 rounded-lg bg-[#faf9f8] border border-[#edebe9] hover:border-[#0078d4] transition-colors group">
+                      <div className="w-8 h-8 rounded-md bg-[#0078d4]/10 text-[#0078d4] flex items-center justify-center mb-2.5 group-hover:scale-105 transition-transform">
+                        <BookOpen className="w-4 h-4" />
+                      </div>
+                      <div className="text-xs font-bold text-[#201f1e]">درسِ نظامی و حفظ</div>
+                      <div className="text-[11px] text-[#605e5c] mt-0.5">جامع اسلامی نصاب</div>
+                    </div>
 
-              {/* Slide Indicator Dots */}
-              <div className="absolute bottom-4 right-4 z-20 flex items-center gap-1.5 bg-black/30 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/20">
-                {slides.map((_, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => setCurrentSlide(idx)}
-                    aria-label={`Go to slide ${idx + 1}`}
-                    className={`transition-all duration-300 rounded-full ${
-                      idx === currentSlide
-                        ? 'w-6 h-2 bg-amber-400'
-                        : 'w-2 h-2 bg-white/70 hover:bg-white'
-                    }`}
-                  />
-                ))}
+                    {/* Bento Box 2 - Green */}
+                    <div className="p-3.5 rounded-lg bg-[#faf9f8] border border-[#edebe9] hover:border-[#107c41] transition-colors group">
+                      <div className="w-8 h-8 rounded-md bg-[#107c41]/10 text-[#107c41] flex items-center justify-center mb-2.5 group-hover:scale-105 transition-transform">
+                        <Award className="w-4 h-4" />
+                      </div>
+                      <div className="text-xs font-bold text-[#201f1e]">وفاق المدارس الرضویہ</div>
+                      <div className="text-[11px] text-[#605e5c] mt-0.5">الحاق شدہ تعلیمی بورڈ</div>
+                    </div>
+
+                    {/* Bento Box 3 - Orange */}
+                    <div className="p-3.5 rounded-lg bg-[#faf9f8] border border-[#edebe9] hover:border-[#d83b01] transition-colors group">
+                      <div className="w-8 h-8 rounded-md bg-[#d83b01]/10 text-[#d83b01] flex items-center justify-center mb-2.5 group-hover:scale-105 transition-transform">
+                        <GraduationCap className="w-4 h-4" />
+                      </div>
+                      <div className="text-xs font-bold text-[#201f1e]">مفت رہائش و طعام</div>
+                      <div className="text-[11px] text-[#605e5c] mt-0.5">بہترین ہاسٹل سہولیات</div>
+                    </div>
+
+                    {/* Bento Box 4 - Purple */}
+                    <div className="p-3.5 rounded-lg bg-[#faf9f8] border border-[#edebe9] hover:border-[#8764b8] transition-colors group">
+                      <div className="w-8 h-8 rounded-md bg-[#8764b8]/10 text-[#8764b8] flex items-center justify-center mb-2.5 group-hover:scale-105 transition-transform">
+                        <MapPin className="w-4 h-4" />
+                      </div>
+                      <div className="text-xs font-bold text-[#201f1e]">مانانوالہ، شیخوپورہ</div>
+                      <div className="text-[11px] text-[#605e5c] mt-0.5">نزد ریلوے اسٹیشن</div>
+                    </div>
+
+                  </div>
+
+                  {/* Active Pillar Highlight Info */}
+                  <div className="p-3 rounded-lg bg-[#f3f2f1] border border-[#edebe9] text-xs text-[#605e5c] flex items-center justify-between">
+                    <span className="font-medium">سرکاری و تعلیمی الحاق تصدیق شدہ</span>
+                    <span className="inline-flex items-center gap-1 font-semibold text-[#107c41]">
+                      <ShieldCheck className="w-3.5 h-3.5" />
+                      100% مستند
+                    </span>
+                  </div>
+
+                </motion.div>
+              </AnimatePresence>
+
+              {/* Microsoft Fluent Segmented Interactive Navigation Tabs */}
+              <div className="mt-5 pt-4 border-t border-[#edebe9]">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-[11px] font-semibold text-[#605e5c] uppercase tracking-wider">
+                    Pillars Navigator
+                  </span>
+                  <div className="flex items-center gap-1">
+                    <button
+                      onClick={prevSlide}
+                      aria-label="Previous Slide"
+                      className="p-1 rounded hover:bg-[#f3f2f1] text-[#323130] transition-colors"
+                    >
+                      <ChevronLeft className="w-4 h-4" />
+                    </button>
+                    <button
+                      onClick={nextSlide}
+                      aria-label="Next Slide"
+                      className="p-1 rounded hover:bg-[#f3f2f1] text-[#323130] transition-colors"
+                    >
+                      <ChevronRight className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+
+                {/* 4 Interactive Segmented Tabs */}
+                <div className="grid grid-cols-4 gap-1.5">
+                  {slides.map((s, idx) => {
+                    const isActive = idx === currentSlide;
+                    return (
+                      <button
+                        key={s.id}
+                        onClick={() => setCurrentSlide(idx)}
+                        className={`text-left p-2 rounded-md transition-all relative overflow-hidden ${
+                          isActive 
+                            ? 'bg-[#f3f2f1] text-[#201f1e] font-semibold shadow-2xs' 
+                            : 'hover:bg-[#faf9f8] text-[#605e5c]'
+                        }`}
+                      >
+                        <div className="text-[10px] font-mono opacity-60">0{idx + 1}</div>
+                        <div className="text-[11px] font-medium truncate mt-0.5">{s.tabLabel}</div>
+                        
+                        {/* Animated Fluent Active Progress Line */}
+                        {isActive && (
+                          <motion.div
+                            key={currentSlide}
+                            initial={{ width: '0%' }}
+                            animate={{ width: isPaused ? '100%' : '100%' }}
+                            transition={{ duration: isPaused ? 0 : 6.5, ease: 'linear' }}
+                            className="absolute bottom-0 inset-x-0 h-0.5"
+                            style={{ backgroundColor: s.fluentAccent }}
+                          />
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
 
             </div>
@@ -266,48 +421,48 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Light Institutional Highlights Grid (Matching rest of website) */}
-      <div className="relative z-10 bg-white border-t border-slate-100 py-6">
+      {/* Institutional Highlights Grid (Microsoft Fluent Enterprise Strip) */}
+      <div className="relative z-10 bg-white border-t border-[#edebe9] py-6">
         <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6">
             
-            <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-slate-50/80 hover:bg-emerald-50/50 border border-slate-100 hover:border-emerald-200 transition-all group">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-emerald-100/70 text-emerald-800 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
-                <BookOpen className="w-5 h-5 sm:w-6 sm:h-6" />
+            <div className="flex items-center gap-3.5 p-3.5 rounded-lg bg-white hover:bg-[#faf9f8] border border-[#edebe9] hover:border-[#0078d4] shadow-2xs hover:shadow-xs transition-all group">
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-md bg-[#0078d4]/10 text-[#0078d4] flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+                <BookOpen className="w-5 h-5" />
               </div>
               <div className="leading-tight">
-                <div className="text-xs sm:text-sm font-black text-slate-900">درسِ نظامی و حفظ</div>
-                <div className="text-[10px] sm:text-xs text-slate-500 mt-0.5">جامع اسلامی نصاب</div>
+                <div className="text-xs sm:text-sm font-semibold text-[#201f1e]">درسِ نظامی و حفظ</div>
+                <div className="text-[11px] text-[#605e5c] mt-0.5">جامع اسلامی نصاب</div>
               </div>
             </div>
 
-            <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-slate-50/80 hover:bg-emerald-50/50 border border-slate-100 hover:border-emerald-200 transition-all group">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-emerald-100/70 text-emerald-800 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
-                <Award className="w-5 h-5 sm:w-6 sm:h-6" />
+            <div className="flex items-center gap-3.5 p-3.5 rounded-lg bg-white hover:bg-[#faf9f8] border border-[#edebe9] hover:border-[#107c41] shadow-2xs hover:shadow-xs transition-all group">
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-md bg-[#107c41]/10 text-[#107c41] flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+                <Award className="w-5 h-5" />
               </div>
               <div className="leading-tight">
-                <div className="text-xs sm:text-sm font-black text-slate-900">وفاق المدارس الرضویہ</div>
-                <div className="text-[10px] sm:text-xs text-slate-500 mt-0.5">الحاق شدہ تعلیمی بورڈ</div>
+                <div className="text-xs sm:text-sm font-semibold text-[#201f1e]">وفاق المدارس الرضویہ</div>
+                <div className="text-[11px] text-[#605e5c] mt-0.5">الحاق شدہ تعلیمی بورڈ</div>
               </div>
             </div>
 
-            <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-slate-50/80 hover:bg-emerald-50/50 border border-slate-100 hover:border-emerald-200 transition-all group">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-emerald-100/70 text-emerald-800 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
-                <GraduationCap className="w-5 h-5 sm:w-6 sm:h-6" />
+            <div className="flex items-center gap-3.5 p-3.5 rounded-lg bg-white hover:bg-[#faf9f8] border border-[#edebe9] hover:border-[#d83b01] shadow-2xs hover:shadow-xs transition-all group">
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-md bg-[#d83b01]/10 text-[#d83b01] flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+                <GraduationCap className="w-5 h-5" />
               </div>
               <div className="leading-tight">
-                <div className="text-xs sm:text-sm font-black text-slate-900">مفت رہائش و طعام</div>
-                <div className="text-[10px] sm:text-xs text-slate-500 mt-0.5">بہترین ہاسٹل سہولیات</div>
+                <div className="text-xs sm:text-sm font-semibold text-[#201f1e]">مفت رہائش و طعام</div>
+                <div className="text-[11px] text-[#605e5c] mt-0.5">بہترین ہاسٹل سہولیات</div>
               </div>
             </div>
 
-            <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-slate-50/80 hover:bg-emerald-50/50 border border-slate-100 hover:border-emerald-200 transition-all group">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-emerald-100/70 text-emerald-800 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
-                <MapPin className="w-5 h-5 sm:w-6 sm:h-6" />
+            <div className="flex items-center gap-3.5 p-3.5 rounded-lg bg-white hover:bg-[#faf9f8] border border-[#edebe9] hover:border-[#8764b8] shadow-2xs hover:shadow-xs transition-all group">
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-md bg-[#8764b8]/10 text-[#8764b8] flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+                <MapPin className="w-5 h-5" />
               </div>
               <div className="leading-tight">
-                <div className="text-xs sm:text-sm font-black text-slate-900">مانانوالہ، شیخوپورہ</div>
-                <div className="text-[10px] sm:text-xs text-slate-500 mt-0.5">نزد ریلوے اسٹیشن</div>
+                <div className="text-xs sm:text-sm font-semibold text-[#201f1e]">مانانوالہ، شیخوپورہ</div>
+                <div className="text-[11px] text-[#605e5c] mt-0.5">نزد ریلوے اسٹیشن</div>
               </div>
             </div>
 
