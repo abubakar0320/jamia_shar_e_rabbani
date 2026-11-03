@@ -1,8 +1,16 @@
 import { MetadataRoute } from 'next';
+import { ARTICLES } from '@/data/articles';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://jamiashererabbani.com';
   const currentDate = new Date().toISOString();
+
+  const articleRoutes = ARTICLES.map((article) => ({
+    url: `${baseUrl}/articles/${article.slug}`,
+    lastModified: currentDate,
+    changeFrequency: 'weekly' as const,
+    priority: 0.8,
+  }));
 
   const routes = [
     {
@@ -10,6 +18,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: currentDate,
       changeFrequency: 'daily' as const,
       priority: 1.0,
+    },
+    {
+      url: `${baseUrl}/articles`,
+      lastModified: currentDate,
+      changeFrequency: 'daily' as const,
+      priority: 0.95,
     },
     {
       url: `${baseUrl}/admissions`,
@@ -103,5 +117,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  return routes;
+  return [...routes, ...articleRoutes];
 }

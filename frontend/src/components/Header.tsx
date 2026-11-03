@@ -30,6 +30,7 @@ const Header = () => {
     { label: 'ہوم', href: '/', color: '#fbbf24' }, // Vibrant Amber Gold
     { label: 'ہمارے بارے میں', href: '/about', color: '#38bdf8' }, // Sky Blue
     { label: 'شعبہ جات و کورسز', href: '/courses', color: '#34d399' }, // Emerald Mint
+    { label: 'علمی مضامین', href: '/articles', color: '#10b981' }, // Emerald - Articles
     { label: 'اساتذہ کرام', href: '/faculty', color: '#c084fc' }, // Violet Purple
     { label: 'خبریں و اعلانات', href: '/news', color: '#60a5fa' }, // Royal Blue
     { label: 'نتائج وفاق المدارس', href: '/wafaq-results', color: '#fb923c' }, // Bright Orange

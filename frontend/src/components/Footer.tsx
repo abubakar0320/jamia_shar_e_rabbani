@@ -28,6 +28,7 @@ const Footer = () => {
       headingColor: '#10b981', // Emerald
       links: [
         { label: 'تمام کورسز و شعبہ جات', href: '/courses', color: '#34d399' },
+        { label: 'علمی و تحقیقی مضامین', href: '/articles', color: '#10b981' },
         { label: 'حفظ القرآن الکریم', href: '/courses', color: '#fbbf24' },
         { label: 'درسِ نظامی (عالم و فاضل)', href: '/courses', color: '#38bdf8' },
         { label: 'معزز اساتذہ کرام', href: '/faculty', color: '#c084fc' },
