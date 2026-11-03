@@ -828,6 +828,7 @@ export const BATCH_1_ARTICLES_CONTENT: Record<string, CompleteArticleContent> = 
 
 import { BATCH_2_ARTICLES_CONTENT } from './articleContentsBatch2';
 import { BATCH_3_ARTICLES_CONTENT } from './articleContentsBatch3';
+import { BATCH_4_ARTICLES_CONTENT } from './articleContentsBatch4';
 
 export function getCompleteArticleContent(slug: string): CompleteArticleContent | undefined {
   if (BATCH_1_ARTICLES_CONTENT[slug]) {
@@ -838,6 +839,9 @@ export function getCompleteArticleContent(slug: string): CompleteArticleContent 
   }
   if (BATCH_3_ARTICLES_CONTENT[slug]) {
     return BATCH_3_ARTICLES_CONTENT[slug];
+  }
+  if (BATCH_4_ARTICLES_CONTENT[slug]) {
+    return BATCH_4_ARTICLES_CONTENT[slug];
   }
   // Check if alias matches for Batch 1
   if (slug === "quran-introduction-importance") {
@@ -883,6 +887,22 @@ export function getCompleteArticleContent(slug: string): CompleteArticleContent 
   }
   if (slug === "madrasas-role-society-building") {
     return BATCH_3_ARTICLES_CONTENT["role-of-madaris-in-society"];
+  }
+  // Check if alias matches for Batch 4
+  if (slug === "parents-rights-children-responsibilities") {
+    return BATCH_4_ARTICLES_CONTENT["rights-of-parents-and-children"];
+  }
+  if (slug === "good-manners-human-rights-islam") {
+    return BATCH_4_ARTICLES_CONTENT["good-character-and-rights-of-people"];
+  }
+  if (slug === "strengthening-family-system-islam") {
+    return BATCH_4_ARTICLES_CONTENT["islamic-teachings-and-family-system"];
+  }
+  if (slug === "modern-technology-social-media-islam") {
+    return BATCH_4_ARTICLES_CONTENT["technology-and-social-media-in-islam"];
+  }
+  if (slug === "youth-issues-islamic-guidance") {
+    return BATCH_4_ARTICLES_CONTENT["youth-problems-and-islamic-guidance"];
   }
   return undefined;
 }

@@ -355,59 +355,84 @@ export const ARTICLES: Article[] = [
   {
     id: 16,
     title: "والدین کے حقوق اور اولاد کی ذمہ داریاں",
-    slug: "parents-rights-children-responsibilities",
+    slug: "rights-of-parents-and-children",
+    aliases: ["parents-rights-children-responsibilities"],
     categoryId: "islamic-society",
     categoryTitle: "اسلامی معاشرت",
     description: "والدین کی اطاعت، خدمت اور شکر گزاری کی قرآنی تاکید اور بڑھاپے میں ان کے اکرام و احترام کے حوالے سے شرعی احکامات۔",
     image: "/images/1.jpeg",
-    status: "حالت: جلد شائع ہوگا",
-    readTime: "۸ منٹ"
+    imageAlt: "والدین کے حقوق اور اولاد کی ذمہ داریاں",
+    status: "شائع شدہ (علمی مقالہ)",
+    readTime: "۱۵ منٹ",
+    seoTitle: "والدین کے حقوق اور اولاد کی ذمہ داریاں | جامعہ شیرِ ربانی",
+    seoDescription: "اسلام میں والدین کا عظیم الشان مقام، قرآن و سنت میں بر الوالدین کی تاکید، بڑھاپے میں نگہداشت، نافرمانی کے نقصانات اور وفات کے بعد کے حقوق کا تحقیقی جائزہ۔",
+    keywords: ["والدین کے حقوق", "بر الوالدین", "اولاد کی ذمہ داریاں", "عقوق الوالدین", "خاندانی نظام"]
   },
   {
     id: 17,
     title: "اسلامی معاشرت میں حسن اخلاق اور حقوق العباد",
-    slug: "good-manners-human-rights-islam",
+    slug: "good-character-and-rights-of-people",
+    aliases: ["good-manners-human-rights-islam"],
     categoryId: "islamic-society",
     categoryTitle: "اسلامی معاشرت",
     description: "پڑوسیوں، رشتہ داروں اور تمام بنی نوع انسان کے حقوق کی ادائی، باہمی رواداری، اور پرامن معاشرے کا قیام۔",
     image: "/images/2.jpeg",
-    status: "حالت: جلد شائع ہوگا",
-    readTime: "۸ منٹ"
+    imageAlt: "اسلامی معاشرت میں حسن اخلاق اور حقوق العباد",
+    status: "شائع شدہ (علمی مقالہ)",
+    readTime: "۱۴ منٹ",
+    seoTitle: "اسلامی معاشرت میں حسن اخلاق اور حقوق العباد | جامعہ شیرِ ربانی",
+    seoDescription: "حسنِ اخلاق کی فضیلت، بندوں کے حقوق، پڑوسیوں اور قرابت داروں کی رعایت، معاشرتی عدل اور اخلاقی قدروں کا جامع قرآنی و نبوی مطالعہ۔",
+    keywords: ["حسن اخلاق", "حقوق العباد", "اسلامی معاشرت", "پڑوسیوں کے حقوق", "صلہ رحمی"]
   },
   {
     id: 18,
     title: "خاندانی نظام کی مضبوطی میں اسلامی تعلیمات کا کردار",
-    slug: "strengthening-family-system-islam",
+    slug: "islamic-teachings-and-family-system",
+    aliases: ["strengthening-family-system-islam"],
     categoryId: "islamic-society",
     categoryTitle: "اسلامی معاشرت",
     description: "نکاح کی پاکیزگی، میاں بیوی کے باہمی حقوق و فرائض، اولاد کی نیک تربیت اور خاندانی وحدت کے تحفظ کے قرآنی اصول۔",
     image: "/images/3.jpeg",
-    status: "حالت: جلد شائع ہوگا",
-    readTime: "۹ منٹ"
+    imageAlt: "خاندانی نظام کی مضبوطی میں اسلامی تعلیمات کا کردار",
+    status: "شائع شدہ (علمی مقالہ)",
+    readTime: "۱۵ منٹ",
+    seoTitle: "خاندانی نظام کی مضبوطی میں اسلامی تعلیمات کا کردار | جامعہ شیرِ ربانی",
+    seoDescription: "نکاح کی پاکیزگی، زوجین کے حقوق و فرائض، اولاد کی تربیت، تنازعات کے حل کے اصول اور مغرب کے خاندانی بگاڑ کے مقابلے میں اسلامی توازن کا تجزیہ۔",
+    keywords: ["خاندانی نظام", "نکاح کی اہمیت", "زوجین کے حقوق", "اولاد کی تربیت", "طلاق کی ناپسندیدگی"]
   },
 
   // --- Category 8: عصر حاضر کے مسائل ---
   {
     id: 19,
     title: "جدید ٹیکنالوجی اور سوشل میڈیا کا اسلامی نقطۂ نظر",
-    slug: "modern-technology-social-media-islam",
+    slug: "technology-and-social-media-in-islam",
+    aliases: ["modern-technology-social-media-islam"],
     categoryId: "contemporary-issues",
     categoryTitle: "عصر حاضر کے مسائل",
     description: "انٹرنیٹ، سوشل میڈیا اور ڈیجیٹل ذرائع ابلاغ کا مثبت و تعمیری استعمال، وقت کا ضیاع اور اخلاقی خطرات سے بچاؤ کی شرعی تدابیر۔",
     image: "/images/4.jpeg",
-    status: "حالت: جلد شائع ہوگا",
-    readTime: "۹ منٹ"
+    imageAlt: "جدید ٹیکنالوجی اور سوشل میڈیا کا اسلامی نقطۂ نظر",
+    status: "شائع شدہ (علمی مقالہ)",
+    readTime: "۱۵ منٹ",
+    seoTitle: "جدید ٹیکنالوجی اور سوشل میڈیا کا اسلامی نقطۂ نظر | جامعہ شیرِ ربانی",
+    seoDescription: "ڈیجیٹل انقلاب، سوشل میڈیا اور انٹرنیٹ کا شرعی و اخلاقی ضابطہ، دعوتِ دین، فکری خطرات، پرائیویسی کی حفاظت اور وقت کے تعمیری استعمال کی رہنمائی۔",
+    keywords: ["جدید ٹیکنالوجی اور اسلام", "سوشل میڈیا کا شرعی حکم", "ڈیجیٹل دعوت", "انٹرنیٹ کے اخلاقی آداب", "وقت کی حفاظت"]
   },
   {
     id: 20,
     title: "نوجوان نسل کے مسائل اور اسلامی تعلیمات کی رہنمائی",
-    slug: "youth-issues-islamic-guidance",
+    slug: "youth-problems-and-islamic-guidance",
+    aliases: ["youth-issues-islamic-guidance"],
     categoryId: "contemporary-issues",
     categoryTitle: "عصر حاضر کے مسائل",
     description: "جدید مادہ پرستی، فکری تشکیک اور بے راہ روی کے طوفان میں نوجوان نسل کے ایمان کی حفاظت اور اسلامی رہنمائی۔",
     image: "/images/news.jpeg",
-    status: "حالت: جلد شائع ہوگا",
-    readTime: "۱۰ منٹ"
+    imageAlt: "نوجوان نسل کے مسائل اور اسلامی تعلیمات کی رہنمائی",
+    status: "شائع شدہ (علمی مقالہ)",
+    readTime: "۱۶ منٹ",
+    seoTitle: "نوجوان نسل کے مسائل اور اسلامی تعلیمات کی رہنمائی | جامعہ شیرِ ربانی",
+    seoDescription: "نوجوان نسل کے فکری، اخلاقی، نفسیاتی اور نظریاتی چیلنجز، اصحابِ کہف کا اسوہ، نشۂ جوانی کی حفاظت اور اسلامی رہنمائی کے عملی رہنما اصول۔",
+    keywords: ["نوجوان نسل کے مسائل", "شباب فی ظل الرحمن", "فکری تشکیک کا علاج", "اصحاب کہف کا اسوہ", "اخلاقی تربیت"]
   }
 ];
 
