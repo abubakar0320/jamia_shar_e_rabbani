@@ -56,7 +56,7 @@ const Header = () => {
 
   return (
     <header className="sticky top-0 z-50 bg-white shadow-sm font-sans print:hidden">
-      {/* 1. TOP HEADER: Logo & Name only, rest is completely empty on desktop */}
+      {/* 1. TOP HEADER: Logo & Name only */}
       <div className="bg-white border-b border-slate-100 py-3 md:py-4">
         <div className="max-w-[1600px] mx-auto px-4 md:px-8 flex items-center justify-between">
           {/* Logo & Name */}
@@ -86,54 +86,71 @@ const Header = () => {
             </div>
           </Link>
 
-          {/* Affiliation & National Logos (Wafaq, Government, Army) */}
-          <div className="flex items-center gap-2.5 sm:gap-4 md:gap-6">
+          {/* Affiliation & National Logos (Wafaq, Punjab Government, Saudi Arabia, Army) */}
+          <div className="flex items-center gap-2 sm:gap-3 md:gap-4 lg:gap-5">
             {/* Wafaq ul Madaris Al Islamia Al Rizvia */}
             <div className="flex items-center gap-1.5 sm:gap-2 group" title="وفاق المدارس الاسلامیہ الرضویہ پاکستان">
-              <div className="relative w-9 h-9 sm:w-11 sm:h-11 md:w-12 md:h-12 flex-shrink-0 flex items-center justify-center p-0.5 rounded-full bg-slate-50 border border-slate-100 shadow-2xs group-hover:shadow-xs transition-shadow">
+              <div className="relative w-8 h-8 sm:w-10 sm:h-10 md:w-11 md:h-11 flex-shrink-0 flex items-center justify-center p-0.5 rounded-full bg-slate-50 border border-slate-100 shadow-2xs group-hover:shadow-xs transition-shadow">
                 <Image
                   src="/images/wafaq-logo.png"
                   alt="Wafaq ul Madaris Al Islamia Al Rizvia"
-                  width={46}
-                  height={46}
-                  className="object-contain max-h-8 sm:max-h-10 md:max-h-11 w-auto group-hover:scale-105 transition-transform"
+                  width={44}
+                  height={44}
+                  className="object-contain max-h-7 sm:max-h-9 md:max-h-10 w-auto group-hover:scale-105 transition-transform"
                 />
               </div>
-              <div className="hidden lg:flex flex-col text-left leading-none">
+              <div className="hidden 2xl:flex flex-col text-left leading-none">
                 <span className="text-[11px] font-black text-slate-800 tracking-tight">وفاق المدارس</span>
                 <span className="text-[9px] font-bold text-slate-500 mt-0.5">الاسلامیہ الرضویہ</span>
               </div>
             </div>
 
-            {/* Government of Pakistan */}
-            <div className="flex items-center gap-1.5 sm:gap-2 group" title="حکومت پاکستان - Government of Pakistan">
-              <div className="relative w-9 h-9 sm:w-11 sm:h-11 md:w-12 md:h-12 flex-shrink-0 flex items-center justify-center p-0.5 rounded-full bg-slate-50 border border-slate-100 shadow-2xs group-hover:shadow-xs transition-shadow">
+            {/* Government of the Punjab */}
+            <div className="flex items-center gap-1.5 sm:gap-2 group" title="حکومت پنجاب - Government of the Punjab">
+              <div className="relative w-8 h-8 sm:w-10 sm:h-10 md:w-11 md:h-11 flex-shrink-0 flex items-center justify-center p-0.5 rounded-full bg-slate-50 border border-slate-100 shadow-2xs group-hover:shadow-xs transition-shadow">
                 <Image
                   src="/images/gov-logo.svg"
-                  alt="Government of Pakistan"
-                  width={46}
-                  height={46}
-                  className="object-contain max-h-8 sm:max-h-10 md:max-h-11 w-auto group-hover:scale-105 transition-transform"
+                  alt="Government of the Punjab"
+                  width={44}
+                  height={44}
+                  className="object-contain max-h-7 sm:max-h-9 md:max-h-10 w-auto group-hover:scale-105 transition-transform"
                 />
               </div>
-              <div className="hidden lg:flex flex-col text-left leading-none">
-                <span className="text-[11px] font-black text-slate-800 tracking-tight">حکومتِ پاکستان</span>
-                <span className="text-[9px] font-bold text-slate-500 mt-0.5">Govt of Pakistan</span>
+              <div className="hidden 2xl:flex flex-col text-left leading-none">
+                <span className="text-[11px] font-black text-slate-800 tracking-tight">حکومتِ پنجاب</span>
+                <span className="text-[9px] font-bold text-slate-500 mt-0.5">Govt of Punjab</span>
+              </div>
+            </div>
+
+            {/* Kingdom of Saudi Arabia Official Emblem */}
+            <div className="flex items-center gap-1.5 sm:gap-2 group" title="مملکتِ سعودی عرب - Kingdom of Saudi Arabia">
+              <div className="relative w-8 h-8 sm:w-10 sm:h-10 md:w-11 md:h-11 flex-shrink-0 flex items-center justify-center p-0.5 rounded-full bg-emerald-50/70 border border-emerald-100 shadow-2xs group-hover:shadow-xs transition-shadow">
+                <Image
+                  src="/images/saudi-logo.svg"
+                  alt="Kingdom of Saudi Arabia"
+                  width={44}
+                  height={44}
+                  className="object-contain max-h-7 sm:max-h-9 md:max-h-10 w-auto group-hover:scale-105 transition-transform"
+                />
+              </div>
+              <div className="hidden 2xl:flex flex-col text-left leading-none">
+                <span className="text-[11px] font-black text-slate-800 tracking-tight">مملکتِ سعودی عرب</span>
+                <span className="text-[9px] font-bold text-slate-500 mt-0.5">Saudi Arabia</span>
               </div>
             </div>
 
             {/* Pakistan Army */}
             <div className="flex items-center gap-1.5 sm:gap-2 group" title="پاک فوج - Pakistan Army">
-              <div className="relative w-9 h-9 sm:w-11 sm:h-11 md:w-12 md:h-12 flex-shrink-0 flex items-center justify-center p-0.5 rounded-full bg-slate-50 border border-slate-100 shadow-2xs group-hover:shadow-xs transition-shadow">
+              <div className="relative w-8 h-8 sm:w-10 sm:h-10 md:w-11 md:h-11 flex-shrink-0 flex items-center justify-center p-0.5 rounded-full bg-slate-50 border border-slate-100 shadow-2xs group-hover:shadow-xs transition-shadow">
                 <Image
                   src="/images/army-logo.png"
                   alt="Pakistan Army"
-                  width={46}
-                  height={46}
-                  className="object-contain max-h-8 sm:max-h-10 md:max-h-11 w-auto group-hover:scale-105 transition-transform"
+                  width={44}
+                  height={44}
+                  className="object-contain max-h-7 sm:max-h-9 md:max-h-10 w-auto group-hover:scale-105 transition-transform"
                 />
               </div>
-              <div className="hidden lg:flex flex-col text-left leading-none">
+              <div className="hidden 2xl:flex flex-col text-left leading-none">
                 <span className="text-[11px] font-black text-slate-800 tracking-tight">پاک فوج</span>
                 <span className="text-[9px] font-bold text-slate-500 mt-0.5">Pakistan Army</span>
               </div>

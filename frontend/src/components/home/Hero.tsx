@@ -40,18 +40,6 @@ interface SlideData {
   featurePill: string;
 }
 
-// Iconic Microsoft 4-Color Quad
-function MicrosoftQuad() {
-  return (
-    <span className="inline-grid grid-cols-2 gap-0.5 w-3.5 h-3.5 shrink-0" aria-hidden="true">
-      <span className="w-1.5 h-1.5 bg-[#f25022] rounded-[0.5px]" />
-      <span className="w-1.5 h-1.5 bg-[#7fba00] rounded-[0.5px]" />
-      <span className="w-1.5 h-1.5 bg-[#00a4ef] rounded-[0.5px]" />
-      <span className="w-1.5 h-1.5 bg-[#ffb900] rounded-[0.5px]" />
-    </span>
-  );
-}
-
 export default function Hero() {
   const { t } = useTranslation();
   const [mounted, setMounted] = useState(false);
@@ -225,8 +213,8 @@ export default function Hero() {
         backgroundSize: '32px 32px',
       }}
     >
-      {/* Microsoft Signature 4-Color Accent Top Bar */}
-      <div className="absolute top-0 inset-x-0 h-[3px] bg-gradient-to-r from-[#f25022] via-[#7fba00] via-[#00a4ef] to-[#ffb900] z-20" />
+      {/* Elegant Jamia Signature Accent Top Bar */}
+      <div className="absolute top-0 inset-x-0 h-[3px] bg-gradient-to-r from-emerald-600 via-teal-500 to-amber-500 z-20" />
 
       {/* Subtle Microsoft Fluent Ambient Glows */}
       <div className="absolute -top-32 right-1/4 w-96 h-96 bg-[#0078d4]/5 rounded-full blur-3xl pointer-events-none" />
@@ -248,10 +236,9 @@ export default function Hero() {
                 transition={{ duration: 0.45, ease: 'easeOut' }}
                 className="space-y-4 sm:space-y-5"
               >
-                {/* Microsoft Fluent Badge */}
+                {/* Live Admissions & Affiliation Badge */}
                 <div className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-md bg-white border border-[#edebe9] text-[#323130] text-xs sm:text-sm font-semibold shadow-2xs">
-                  <MicrosoftQuad />
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#107c41] animate-pulse" />
+                  <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse shrink-0" />
                   <span className="tracking-tight">{slide.badge}</span>
                 </div>
 
@@ -324,9 +311,9 @@ export default function Hero() {
               {/* Console Top Window Header */}
               <div className="flex items-center justify-between pb-3 mb-3 border-b border-[#edebe9]">
                 <div className="flex items-center gap-2">
-                  <MicrosoftQuad />
-                  <span className="text-xs font-semibold tracking-wider text-[#605e5c] uppercase">
-                    Campus Showcase • جامعہ شیرِ ربانی
+                  <span className="w-2 h-2 rounded-full bg-emerald-700 shrink-0" />
+                  <span className="text-xs font-bold tracking-wide text-emerald-950">
+                    جامعہ شیرِ ربانی
                   </span>
                 </div>
 
