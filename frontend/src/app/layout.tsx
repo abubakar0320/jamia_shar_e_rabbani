@@ -77,7 +77,7 @@ export const metadata: Metadata = {
         alt: "Jamia Sher-e-Rabbani Official Logo",
       },
       {
-        url: "/results_hero_banner.jpg",
+        url: "/images/hero%20section%201.jpeg",
         width: 1200,
         height: 630,
         alt: "Jamia Sher-e-Rabbani Campus Banner",
@@ -89,7 +89,7 @@ export const metadata: Metadata = {
     title: "Jamia Sher-e-Rabbani | Mananwala, Sheikhupura",
     description:
       "Official portal of Jamia Sher-e-Rabbani, Mananwala. Admissions open for Dars-e-Nizami, Hifz, and Islamic Studies.",
-    images: ["/results_hero_banner.jpg"],
+    images: ["/images/hero%20section%201.jpeg"],
   },
   robots: {
     index: true,
@@ -114,7 +114,7 @@ const structuredData = {
   "alternateName": "جامعہ شیرِ ربانی مانانوالہ",
   "url": siteUrl,
   "logo": `${siteUrl}/logo.jpeg`,
-  "image": `${siteUrl}/results_hero_banner.jpg`,
+  "image": `${siteUrl}/images/hero%20section%201.jpeg`,
   "description":
     "Premier Islamic seminary dedicated to sacred Islamic scholarship, Dars-e-Nizami, Tehfeez-ul-Quran, Tajweed-o-Qirat, and contemporary education.",
   "address": {
