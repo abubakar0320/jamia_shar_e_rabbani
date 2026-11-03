@@ -16,14 +16,17 @@ import {
   Quote,
   ShieldCheck,
   Check,
-  Library
+  Library,
+  User
 } from 'lucide-react';
 import { 
   ARTICLES, 
   getArticleBySlug, 
-  getRelatedArticles 
+  getRelatedArticles,
+  OFFICIAL_AUTHOR
 } from '@/data/articles';
 import { getCompleteArticleContent } from '@/data/articleContentsBatch1';
+import ArticleAuthorCard from '@/components/articles/ArticleAuthorCard';
 
 interface PageProps {
   params: Promise<{
@@ -117,9 +120,14 @@ export default async function ArticleDetailPage({ params }: PageProps) {
     description: article.description,
     image: `https://jamiashererabbani.com${article.image}`,
     author: {
-      '@type': 'Organization',
-      name: 'جامعہ شیرِ ربانی مانانوالہ',
-      url: 'https://jamiashererabbani.com',
+      '@type': 'Person',
+      name: OFFICIAL_AUTHOR.name,
+      jobTitle: OFFICIAL_AUTHOR.designation,
+      worksFor: {
+        '@type': 'Organization',
+        name: 'جامعہ شیرِ ربانی',
+        url: 'https://jamiashererabbani.com',
+      },
     },
     publisher: {
       '@type': 'Organization',
@@ -232,8 +240,16 @@ export default async function ArticleDetailPage({ params }: PageProps) {
             {article.title}
           </h1>
 
+          {/* Author Profile Information Box */}
+          <ArticleAuthorCard className="mb-6" />
+
           {/* Publishing & Academic Attribution Metadata */}
           <div className="flex flex-wrap items-center gap-4 sm:gap-6 pt-4 border-t border-slate-100 text-xs sm:text-sm text-slate-600 font-bold">
+            <div className="flex items-center gap-2">
+              <User size={16} className="text-emerald-700" />
+              <span>{`مصنف: ${OFFICIAL_AUTHOR.name}`}</span>
+            </div>
+            <span>•</span>
             <div className="flex items-center gap-2">
               <Building2 size={16} className="text-emerald-700" />
               <span>جامعہ شیرِ ربانی مانانوالہ</span>
@@ -670,7 +686,10 @@ export default async function ArticleDetailPage({ params }: PageProps) {
                     </div>
 
                     <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
-                      <span className="text-[11px] text-slate-400 font-bold">{rel.readTime}</span>
+                      <div className="flex items-center gap-1 text-[11px] text-slate-600 font-bold">
+                        <User size={12} className="text-emerald-700" />
+                        <span>{rel.author || OFFICIAL_AUTHOR.name}</span>
+                      </div>
                       <Link
                         href={`/articles/${rel.slug}`}
                         className="text-xs font-bold text-emerald-800 hover:text-emerald-950 flex items-center gap-1"

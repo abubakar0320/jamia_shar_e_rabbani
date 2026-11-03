@@ -35,6 +35,7 @@ export interface CompleteArticleContent {
   canonicalUrl: string;
   imageAlt: string;
   author: string;
+  authorDesignation?: string;
   publisher: string;
   readingTime: string;
   scholarlyStatus: string;
@@ -80,7 +81,8 @@ export const BATCH_1_ARTICLES_CONTENT: Record<string, CompleteArticleContent> = 
     ],
     canonicalUrl: "https://jamiashererabbani.com/articles/quran-introduction",
     imageAlt: "قرآن مجید کا تعارف اور انسانی زندگی میں مقام",
-    author: "شعبہ تصنیف و تحقیق، جامعہ شیرِ ربانی مانانوالہ",
+    author: "ابوبکر صدیق",
+    authorDesignation: "آئی ٹی اینڈ سسٹم ایڈمنسٹریٹر، جامعہ شیرِ ربانی",
     publisher: "جامعہ شیرِ ربانی",
     readingTime: "۱۴ منٹ",
     scholarlyStatus: "شائع شدہ (علمی نظرِ ثانی شدہ)",
@@ -230,7 +232,8 @@ export const BATCH_1_ARTICLES_CONTENT: Record<string, CompleteArticleContent> = 
     ],
     canonicalUrl: "https://jamiashererabbani.com/articles/quran-and-practical-life",
     imageAlt: "قرآن کریم کی تعلیمات اور ہماری عملی زندگی",
-    author: "شعبہ تصنیف و تحقیق، جامعہ شیرِ ربانی مانانوالہ",
+    author: "ابوبکر صدیق",
+    authorDesignation: "آئی ٹی اینڈ سسٹم ایڈمنسٹریٹر، جامعہ شیرِ ربانی",
     publisher: "جامعہ شیرِ ربانی",
     readingTime: "۱۳ منٹ",
     scholarlyStatus: "شائع شدہ (علمی نظرِ ثانی شدہ)",
@@ -384,7 +387,8 @@ export const BATCH_1_ARTICLES_CONTENT: Record<string, CompleteArticleContent> = 
     ],
     canonicalUrl: "https://jamiashererabbani.com/articles/quran-ethics-and-society",
     imageAlt: "قرآن مجید میں اخلاقی تربیت اور اصلاح معاشرہ",
-    author: "شعبہ تصنیف و تحقیق، جامعہ شیرِ ربانی مانانوالہ",
+    author: "ابوبکر صدیق",
+    authorDesignation: "آئی ٹی اینڈ سسٹم ایڈمنسٹریٹر، جامعہ شیرِ ربانی",
     publisher: "جامعہ شیرِ ربانی",
     readingTime: "۱۵ منٹ",
     scholarlyStatus: "شائع شدہ (علمی نظرِ ثانی شدہ)",
@@ -537,7 +541,8 @@ export const BATCH_1_ARTICLES_CONTENT: Record<string, CompleteArticleContent> = 
     ],
     canonicalUrl: "https://jamiashererabbani.com/articles/importance-of-hadith",
     imageAlt: "حدیث نبوی ﷺ کی اہمیت اور اسلامی زندگی میں اس کا کردار",
-    author: "شعبہ تصنیف و تحقیق، جامعہ شیرِ ربانی مانانوالہ",
+    author: "ابوبکر صدیق",
+    authorDesignation: "آئی ٹی اینڈ سسٹم ایڈمنسٹریٹر، جامعہ شیرِ ربانی",
     publisher: "جامعہ شیرِ ربانی",
     readingTime: "۱۶ منٹ",
     scholarlyStatus: "شائع شدہ (علمی نظرِ ثانی شدہ)",
@@ -693,7 +698,8 @@ export const BATCH_1_ARTICLES_CONTENT: Record<string, CompleteArticleContent> = 
     ],
     canonicalUrl: "https://jamiashererabbani.com/articles/following-sunnah",
     imageAlt: "سنت نبوی ﷺ کی پیروی اور ہماری روزمرہ زندگی",
-    author: "شعبہ تصنیف و تحقیق، جامعہ شیرِ ربانی مانانوالہ",
+    author: "ابوبکر صدیق",
+    authorDesignation: "آئی ٹی اینڈ سسٹم ایڈمنسٹریٹر، جامعہ شیرِ ربانی",
     publisher: "جامعہ شیرِ ربانی",
     readingTime: "۱۴ منٹ",
     scholarlyStatus: "شائع شدہ (علمی نظرِ ثانی شدہ)",

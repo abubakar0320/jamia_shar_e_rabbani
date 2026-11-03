@@ -14,14 +14,16 @@ import {
   CheckCircle2, 
   Layers, 
   X,
-  FileText
+  FileText,
+  User
 } from 'lucide-react';
 import { 
   ARTICLES, 
   ARTICLE_CATEGORIES, 
   Article, 
   ArticleCategory, 
-  getFeaturedArticles 
+  getFeaturedArticles,
+  OFFICIAL_AUTHOR
 } from '@/data/articles';
 
 export default function ArticlesClient() {
@@ -270,9 +272,10 @@ export default function ArticlesClient() {
                 </div>
 
                 <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
-                  <span className="text-xs font-bold text-slate-500">
-                    علمی شعبہ جامعہ شیرِ ربانی
-                  </span>
+                  <div className="flex items-center gap-1.5 text-xs font-bold text-slate-700">
+                    <User size={14} className="text-emerald-700" />
+                    <span>{`مصنف: ${prominentArticle.author || OFFICIAL_AUTHOR.name}`}</span>
+                  </div>
                   <Link
                     href={`/articles/${prominentArticle.slug}`}
                     className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-800 hover:bg-emerald-900 text-white text-sm font-bold shadow-md hover:shadow-lg transition-all group-hover:bg-emerald-700"
@@ -321,7 +324,11 @@ export default function ArticlesClient() {
                       </p>
                     </div>
 
-                    <div className="pt-3 border-t border-slate-100 flex items-center justify-end">
+                    <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
+                      <div className="flex items-center gap-1 text-[11px] font-bold text-slate-600">
+                        <User size={12} className="text-emerald-700" />
+                        <span>{article.author || OFFICIAL_AUTHOR.name}</span>
+                      </div>
                       <Link
                         href={`/articles/${article.slug}`}
                         className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-800 hover:text-emerald-950 transition-colors"
@@ -495,9 +502,10 @@ export default function ArticlesClient() {
 
                   {/* Read Article CTA Button */}
                   <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
-                    <span className="text-[11px] text-slate-400 font-bold">
-                      شعبہ تحقیق و افتاء
-                    </span>
+                    <div className="flex items-center gap-1.5 text-xs text-slate-700 font-bold">
+                      <User size={13} className="text-emerald-700 shrink-0" />
+                      <span>{article.author || OFFICIAL_AUTHOR.name}</span>
+                    </div>
                     <Link
                       href={`/articles/${article.slug}`}
                       className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-50 hover:bg-emerald-800 text-emerald-800 hover:text-white text-xs sm:text-sm font-bold transition-all duration-200 group-hover:bg-emerald-800 group-hover:text-white shadow-2xs"

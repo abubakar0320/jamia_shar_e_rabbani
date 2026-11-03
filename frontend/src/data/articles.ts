@@ -7,6 +7,16 @@ export interface ArticleCategory {
   bgLight: string;
 }
 
+export interface AuthorInfo {
+  name: string;
+  designation: string;
+}
+
+export const OFFICIAL_AUTHOR: AuthorInfo = {
+  name: "ابوبکر صدیق",
+  designation: "آئی ٹی اینڈ سسٹم ایڈمنسٹریٹر، جامعہ شیرِ ربانی",
+};
+
 export interface Article {
   id: number;
   title: string;
@@ -21,6 +31,8 @@ export interface Article {
   featured?: boolean;
   featuredPriority?: number; // 1 for primary, 2 and 3 for secondary
   readTime: string;
+  author: string;
+  authorDesignation: string;
   seoTitle?: string;
   seoDescription?: string;
   keywords?: string[];
@@ -109,6 +121,8 @@ export const ARTICLES: Article[] = [
     featured: true,
     featuredPriority: 1,
     readTime: "۱۴ منٹ",
+    author: OFFICIAL_AUTHOR.name,
+    authorDesignation: OFFICIAL_AUTHOR.designation,
     seoTitle: "قرآن مجید کا تعارف، اہمیت اور انسانی زندگی میں اس کا مقام | جامعہ شیرِ ربانی",
     seoDescription: "قرآن مجید کا مفہوم، نزول، اوصاف، اعجاز اور انفرادی و اجتماعی زندگی میں اس کے مقام و عظمت کا تفصیلی، مستند اور تحقیقی جائزہ۔",
     keywords: ["قرآن مجید کا تعارف", "اہمیت قرآن", "نزول قرآن", "اعجاز قرآن", "قرآن اور انسانی زندگی"]
@@ -124,6 +138,8 @@ export const ARTICLES: Article[] = [
     imageAlt: "قرآن کریم کی تعلیمات اور ہماری عملی زندگی",
     status: "شائع شدہ (علمی مقالہ)",
     readTime: "۱۳ منٹ",
+    author: OFFICIAL_AUTHOR.name,
+    authorDesignation: OFFICIAL_AUTHOR.designation,
     seoTitle: "قرآن کریم کی تعلیمات اور ہماری عملی زندگی | جامعہ شیرِ ربانی",
     seoDescription: "روزمرہ معمولات، معاشی معاملات اور باہمی تعلقات میں قرآنی احکام کو عملی جامہ پہنانے کے رہنما اصول اور اسوہ صحابہ کی روشنی میں فکری جائزہ۔",
     keywords: ["قرآن اور عملی زندگی", "قرآنی تعلیمات", "اسلامی اخلاقیات", "روزمرہ معمولات میں قرآن"]
@@ -140,6 +156,8 @@ export const ARTICLES: Article[] = [
     imageAlt: "قرآن مجید میں اخلاقی تربیت اور اصلاح معاشرہ",
     status: "شائع شدہ (علمی مقالہ)",
     readTime: "۱۵ منٹ",
+    author: OFFICIAL_AUTHOR.name,
+    authorDesignation: OFFICIAL_AUTHOR.designation,
     seoTitle: "قرآن مجید میں اخلاقی تربیت اور اصلاح معاشرہ | جامعہ شیرِ ربانی",
     seoDescription: "معاشرتی امن، باہمی احترام، غیبت، تجسس اور بدگمانی کے سدِ باب اور قرآنی اصولِ معاشرت (سورۃ الحجرات کی روشنی میں) کا مدلل تحقیقی جائزہ۔",
     keywords: ["اخلاقی تربیت", "اصلاح معاشرہ", "سورۃ الحجرات", "قرآنی اخلاقیات", "معاشرتی امن"]
@@ -158,6 +176,8 @@ export const ARTICLES: Article[] = [
     imageAlt: "حدیث نبوی ﷺ کی اہمیت اور اسلامی زندگی میں اس کا کردار",
     status: "شائع شدہ (علمی مقالہ)",
     readTime: "۱۶ منٹ",
+    author: OFFICIAL_AUTHOR.name,
+    authorDesignation: OFFICIAL_AUTHOR.designation,
     seoTitle: "حدیث نبوی ﷺ کی اہمیت اور اسلامی زندگی میں اس کا کردار | جامعہ شیرِ ربانی",
     seoDescription: "دینِ اسلام میں حدیث شریف کی حجیت، تشریعی حیثیت، قرآن مجید کی تشریح میں اس کا اساسی مقام اور منکرینِ حدیث کے فتنوں کا مدلل علمی جائزہ۔",
     keywords: ["حدیث نبوی کی اہمیت", "حجیت حدیث", "حدیث اور سنت", "تشریعی حیثیت", "تدوین حدیث"]
@@ -176,6 +196,8 @@ export const ARTICLES: Article[] = [
     featured: true,
     featuredPriority: 2,
     readTime: "۱۴ منٹ",
+    author: OFFICIAL_AUTHOR.name,
+    authorDesignation: OFFICIAL_AUTHOR.designation,
     seoTitle: "سنت نبوی ﷺ کی پیروی اور ہماری روزمرہ زندگی | جامعہ شیرِ ربانی",
     seoDescription: "سنتِ نبوی کی تعریف و مفہوم، اسوہ حسنہ کی جامعیت، روزمرہ عادات، عبادات اور معمولات میں سنت مبارکہ کی برکات اور عملی تطبیق۔",
     keywords: ["سنت نبوی کی پیروی", "اتباع سنت", "اسوہ حسنہ", "روزمرہ معمولات میں سنت"]
@@ -194,6 +216,8 @@ export const ARTICLES: Article[] = [
     imageAlt: "فقہ اسلامی کا تعارف، اہمیت اور بنیادی اصول",
     status: "شائع شدہ (علمی مقالہ)",
     readTime: "۱۵ منٹ",
+    author: OFFICIAL_AUTHOR.name,
+    authorDesignation: OFFICIAL_AUTHOR.designation,
     seoTitle: "فقہ اسلامی کا تعارف، اہمیت اور بنیادی اصول | جامعہ شیرِ ربانی",
     seoDescription: "فقہ اسلامی کا لغوی و اصطلاحی مفہوم، شریعت اور فقہ میں فرق، تاریخی ارتقا، ادلۂ اربعہ اور انسانی زندگی میں فقہی قواعد کی ناگزیریت کا تحقیقی جائزہ۔",
     keywords: ["فقہ اسلامی کا تعارف", "اصول فقہ", "ادلۂ اربعہ", "قیاس اور اجماع", "فقہی قواعد"]
@@ -210,6 +234,8 @@ export const ARTICLES: Article[] = [
     imageAlt: "اسلامی عبادات میں فقہ کی اہمیت",
     status: "شائع شدہ (علمی مقالہ)",
     readTime: "۱۴ منٹ",
+    author: OFFICIAL_AUTHOR.name,
+    authorDesignation: OFFICIAL_AUTHOR.designation,
     seoTitle: "اسلامی عبادات میں فقہ کی اہمیت | جامعہ شیرِ ربانی",
     seoDescription: "نماز، طہارت، روزہ، زکوٰۃ اور حج کی شرعی صحت، ارکان و شروط کی درستی اور عبادات میں فقہی رہنمائی کی ناگزیریت کا مدلل علمی جائزہ۔",
     keywords: ["عبادات میں فقہ کی اہمیت", "طہارت اور نماز کے مسائل", "ارکان صوم", "فقہ زکوٰۃ و حج"]
@@ -230,6 +256,8 @@ export const ARTICLES: Article[] = [
     featured: true,
     featuredPriority: 3,
     readTime: "۱۶ منٹ",
+    author: OFFICIAL_AUTHOR.name,
+    authorDesignation: OFFICIAL_AUTHOR.designation,
     seoTitle: "سیرت النبی ﷺ کے اہم پہلو اور ہمارے لیے عملی اسباق | جامعہ شیرِ ربانی",
     seoDescription: "حضور نبی کریم ﷺ کی پاکیزہ حیاتِ طیبہ، مکی و مدنی ادوار، عفو و درگزر، نبوی معاملات اور عصرِ حاضر میں سیرت طیبہ سے حاصل ہونے والی عملی رہنمائی۔",
     keywords: ["سیرت النبی کے عملی اسباق", "اسوہ حسنہ", "مکی اور مدنی زندگی", "رحمۃ للعالمین"]
@@ -246,6 +274,8 @@ export const ARTICLES: Article[] = [
     imageAlt: "اسلامی تاریخ میں علمائے کرام کی علمی و دینی خدمات",
     status: "شائع شدہ (علمی مقالہ)",
     readTime: "۱۵ منٹ",
+    author: OFFICIAL_AUTHOR.name,
+    authorDesignation: OFFICIAL_AUTHOR.designation,
     seoTitle: "اسلامی تاریخ میں علمائے کرام کی علمی و دینی خدمات | جامعہ شیرِ ربانی",
     seoDescription: "قرونِ اولیٰ سے دورِ حاضر تک ائمہ کرام، محدثین، فقہاء اور مجددین کی بے مثال علمی خدمات، تدوینِ کتب اور اسلامی مدارس کے کردار کا تحقیقی جائزہ۔",
     keywords: ["علمائے کرام کی خدمات", "تاریخ اسلامی کے علماء", "تدوین حدیث و فقہ", "مدارس اسلامیہ کا کردار"]
@@ -262,6 +292,8 @@ export const ARTICLES: Article[] = [
     imageAlt: "اسلامی تہذیب و تمدن اور اس کے بنیادی اصول",
     status: "شائع شدہ (علمی مقالہ)",
     readTime: "۱۵ منٹ",
+    author: OFFICIAL_AUTHOR.name,
+    authorDesignation: OFFICIAL_AUTHOR.designation,
     seoTitle: "اسلامی تہذیب و تمدن اور اس کے بنیادی اصول | جامعہ شیرِ ربانی",
     seoDescription: "توحید، عدل، علم، انسانی حقوق، خاندانی نظام اور فنونِ لطیفہ پر مبنی درخشندہ اسلامی تہذیب کا تاریخی پس منظر اور عصرِ حاضر کے لیے حیات بخش اسباق۔",
     keywords: ["اسلامی تہذیب و تمدن", "اصول تمدن اسلام", "عدل اور مساوات", "انسانی حقوق اسلام میں"]
@@ -280,6 +312,8 @@ export const ARTICLES: Article[] = [
     imageAlt: "تزکیہ نفس کا مفہوم، اہمیت اور عملی طریقے",
     status: "شائع شدہ (علمی مقالہ)",
     readTime: "۱۵ منٹ",
+    author: OFFICIAL_AUTHOR.name,
+    authorDesignation: OFFICIAL_AUTHOR.designation,
     seoTitle: "تزکیہ نفس کا مفہوم، اہمیت اور عملی طریقے | جامعہ شیرِ ربانی",
     seoDescription: "تزکیہ نفس کی قرآنی اہمیت، نفس کے درجات و امراض، توبہ و محاسبہ، ذکرِ الٰہی کا کردار اور روزمرہ زندگی میں باطنی پاکیزگی کے عملی طریقے کار۔",
     keywords: ["تزکیہ نفس", "اصلاح باطن", "محاسبہ نفس", "امراض قلب کا علاج"]
@@ -296,6 +330,8 @@ export const ARTICLES: Article[] = [
     imageAlt: "اسلامی تعلیمات میں اخلاص، تقویٰ اور حسن اخلاق",
     status: "شائع شدہ (علمی مقالہ)",
     readTime: "۱۴ منٹ",
+    author: OFFICIAL_AUTHOR.name,
+    authorDesignation: OFFICIAL_AUTHOR.designation,
     seoTitle: "اسلامی تعلیمات میں اخلاص، تقویٰ اور حسن اخلاق | جامعہ شیرِ ربانی",
     seoDescription: "اعمال کی قبولیت کے لیے اخلاصِ نیت کی شرط، تقویٰ کا قرآنی و نبوی تصور، حسنِ اخلاق کی معراج اور ریاکاری و کبر سے نجات کا مدلل جائزہ۔",
     keywords: ["اخلاص اور نیت", "تقویٰ کا قرآنی تصور", "حسن اخلاق", "ریاکاری سے بچاؤ"]
@@ -312,6 +348,8 @@ export const ARTICLES: Article[] = [
     imageAlt: "اصلاح باطن اور روحانی تربیت کی اہمیت",
     status: "شائع شدہ (علمی مقالہ)",
     readTime: "۱۵ منٹ",
+    author: OFFICIAL_AUTHOR.name,
+    authorDesignation: OFFICIAL_AUTHOR.designation,
     seoTitle: "اصلاح باطن اور روحانی تربیت کی اہمیت | جامعہ شیرِ ربانی",
     seoDescription: "قلب کی صفائی، باطن اور ظاہر کا توازن، صحبتِ صالحین کی برکات، اور مستند قرآنی و نبوی تصوف کی روشنی میں روحانی تربیت کا تحقیقی جائزہ۔",
     keywords: ["اصلاح باطن", "روحانی تربیت", "قلب سلیم", "صحبت صالحین"]
@@ -330,6 +368,8 @@ export const ARTICLES: Article[] = [
     imageAlt: "دینی تعلیم کی اہمیت اور عصر حاضر کے تقاضے",
     status: "شائع شدہ (علمی مقالہ)",
     readTime: "۱۴ منٹ",
+    author: OFFICIAL_AUTHOR.name,
+    authorDesignation: OFFICIAL_AUTHOR.designation,
     seoTitle: "دینی تعلیم کی اہمیت اور عصر حاضر کے تقاضے | جامعہ شیرِ ربانی",
     seoDescription: "اسلام میں علم کی بنیادی حیثیت، پہلی وحی کا پیغام، فکری چیلنجز کے مقابلے میں دینی تعلیم کی ضرورت، اور والدین و اساتذہ کے فرائض کا تحقیقی مطالعہ۔",
     keywords: ["دینی تعلیم کی اہمیت", "عصر حاضر اور دینی تعلیم", "حصول علم کی فضیلت"]
@@ -346,6 +386,8 @@ export const ARTICLES: Article[] = [
     imageAlt: "مدارس دینیہ کا کردار اور معاشرے کی تعمیر",
     status: "شائع شدہ (علمی مقالہ)",
     readTime: "۱۵ منٹ",
+    author: OFFICIAL_AUTHOR.name,
+    authorDesignation: OFFICIAL_AUTHOR.designation,
     seoTitle: "مدارس دینیہ کا کردار اور معاشرے کی تعمیر | جامعہ شیرِ ربانی",
     seoDescription: "دینی مدارس کا تاریخی ارتقاء، قرآن و سنت کی حفاظت، اخلاقی قیادت کی تیاری، مفت فلاحی خدمات اور عصری چیلنجز کے تناظر میں کردار کا تحقیقی جائزہ۔",
     keywords: ["مدارس دینیہ کا کردار", "معاشرے کی تعمیر میں مدارس", "دینی مدارس کی تاریخ"]
@@ -364,6 +406,8 @@ export const ARTICLES: Article[] = [
     imageAlt: "والدین کے حقوق اور اولاد کی ذمہ داریاں",
     status: "شائع شدہ (علمی مقالہ)",
     readTime: "۱۵ منٹ",
+    author: OFFICIAL_AUTHOR.name,
+    authorDesignation: OFFICIAL_AUTHOR.designation,
     seoTitle: "والدین کے حقوق اور اولاد کی ذمہ داریاں | جامعہ شیرِ ربانی",
     seoDescription: "اسلام میں والدین کا عظیم الشان مقام، قرآن و سنت میں بر الوالدین کی تاکید، بڑھاپے میں نگہداشت، نافرمانی کے نقصانات اور وفات کے بعد کے حقوق کا تحقیقی جائزہ۔",
     keywords: ["والدین کے حقوق", "بر الوالدین", "اولاد کی ذمہ داریاں", "عقوق الوالدین", "خاندانی نظام"]
@@ -380,6 +424,8 @@ export const ARTICLES: Article[] = [
     imageAlt: "اسلامی معاشرت میں حسن اخلاق اور حقوق العباد",
     status: "شائع شدہ (علمی مقالہ)",
     readTime: "۱۴ منٹ",
+    author: OFFICIAL_AUTHOR.name,
+    authorDesignation: OFFICIAL_AUTHOR.designation,
     seoTitle: "اسلامی معاشرت میں حسن اخلاق اور حقوق العباد | جامعہ شیرِ ربانی",
     seoDescription: "حسنِ اخلاق کی فضیلت، بندوں کے حقوق، پڑوسیوں اور قرابت داروں کی رعایت، معاشرتی عدل اور اخلاقی قدروں کا جامع قرآنی و نبوی مطالعہ۔",
     keywords: ["حسن اخلاق", "حقوق العباد", "اسلامی معاشرت", "پڑوسیوں کے حقوق", "صلہ رحمی"]
@@ -396,6 +442,8 @@ export const ARTICLES: Article[] = [
     imageAlt: "خاندانی نظام کی مضبوطی میں اسلامی تعلیمات کا کردار",
     status: "شائع شدہ (علمی مقالہ)",
     readTime: "۱۵ منٹ",
+    author: OFFICIAL_AUTHOR.name,
+    authorDesignation: OFFICIAL_AUTHOR.designation,
     seoTitle: "خاندانی نظام کی مضبوطی میں اسلامی تعلیمات کا کردار | جامعہ شیرِ ربانی",
     seoDescription: "نکاح کی پاکیزگی، زوجین کے حقوق و فرائض، اولاد کی تربیت، تنازعات کے حل کے اصول اور مغرب کے خاندانی بگاڑ کے مقابلے میں اسلامی توازن کا تجزیہ۔",
     keywords: ["خاندانی نظام", "نکاح کی اہمیت", "زوجین کے حقوق", "اولاد کی تربیت", "طلاق کی ناپسندیدگی"]
@@ -414,6 +462,8 @@ export const ARTICLES: Article[] = [
     imageAlt: "جدید ٹیکنالوجی اور سوشل میڈیا کا اسلامی نقطۂ نظر",
     status: "شائع شدہ (علمی مقالہ)",
     readTime: "۱۵ منٹ",
+    author: OFFICIAL_AUTHOR.name,
+    authorDesignation: OFFICIAL_AUTHOR.designation,
     seoTitle: "جدید ٹیکنالوجی اور سوشل میڈیا کا اسلامی نقطۂ نظر | جامعہ شیرِ ربانی",
     seoDescription: "ڈیجیٹل انقلاب، سوشل میڈیا اور انٹرنیٹ کا شرعی و اخلاقی ضابطہ، دعوتِ دین، فکری خطرات، پرائیویسی کی حفاظت اور وقت کے تعمیری استعمال کی رہنمائی۔",
     keywords: ["جدید ٹیکنالوجی اور اسلام", "سوشل میڈیا کا شرعی حکم", "ڈیجیٹل دعوت", "انٹرنیٹ کے اخلاقی آداب", "وقت کی حفاظت"]
@@ -430,6 +480,8 @@ export const ARTICLES: Article[] = [
     imageAlt: "نوجوان نسل کے مسائل اور اسلامی تعلیمات کی رہنمائی",
     status: "شائع شدہ (علمی مقالہ)",
     readTime: "۱۶ منٹ",
+    author: OFFICIAL_AUTHOR.name,
+    authorDesignation: OFFICIAL_AUTHOR.designation,
     seoTitle: "نوجوان نسل کے مسائل اور اسلامی تعلیمات کی رہنمائی | جامعہ شیرِ ربانی",
     seoDescription: "نوجوان نسل کے فکری، اخلاقی، نفسیاتی اور نظریاتی چیلنجز، اصحابِ کہف کا اسوہ، نشۂ جوانی کی حفاظت اور اسلامی رہنمائی کے عملی رہنما اصول۔",
     keywords: ["نوجوان نسل کے مسائل", "شباب فی ظل الرحمن", "فکری تشکیک کا علاج", "اصحاب کہف کا اسوہ", "اخلاقی تربیت"]
