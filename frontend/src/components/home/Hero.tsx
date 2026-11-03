@@ -16,13 +16,15 @@ import {
   Pause, 
   Play, 
   ArrowRight,
-  ExternalLink
+  ExternalLink,
+  Sparkles
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 interface SlideData {
   id: string;
   image: string;
+  tabShort: string;
   tabLabel: string;
   tabEn: string;
   badge: string;
@@ -35,6 +37,7 @@ interface SlideData {
   ctaPrimary: { label: string; href: string };
   ctaSecondary: { label: string; href: string };
   fluentAccent: string;
+  featurePill: string;
 }
 
 // Iconic Microsoft 4-Color Quad
@@ -55,11 +58,13 @@ export default function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
+  // Exclusively using the 7 user-provided images (hero section 1 to 7) with tailored features
   const slides: SlideData[] = [
     {
       id: 'slide-1',
-      image: '/images/admission.jpeg',
-      tabLabel: 'داخلہ 2024-2025',
+      image: '/images/hero section 1.jpeg',
+      tabShort: 'داخلہ جاری',
+      tabLabel: 'آن لائن داخلہ 2024-25',
       tabEn: 'Admissions Open',
       badge: '✦ داخلہ برائے سال 2024-2025 جاری ہے • Admissions Open',
       titleStart: 'جامعہ شیرِ ربانی',
@@ -71,54 +76,115 @@ export default function Hero() {
       ctaPrimary: { label: t('apply_now', 'آن لائن داخلہ فارم'), href: '/admissions' },
       ctaSecondary: { label: t('courses', 'شعبہ جات و کورسز'), href: '/courses' },
       fluentAccent: '#0078d4', // Microsoft Fluent Blue
+      featurePill: '100% مفت تعلیم و ہاسٹل',
     },
     {
       id: 'slide-2',
-      image: '/images/mahfil.png',
-      tabLabel: 'Academic Excellence',
-      tabEn: 'Sacred Tradition',
-      badge: '✦ وفاق المدارس الاسلامیہ الرضویہ • Affiliated Institution',
-      titleStart: 'Where Sacred Tradition',
-      titleAccent: 'Meets Academic',
-      titleEnd: 'Excellence',
-      subtitleUrdu: 'Nurturing Scholars of Faith, Character & Wisdom',
-      description: 'A premier Islamic seminary dedicated to sacred Islamic scholarship, research, and holistic spiritual growth under distinguished mentors.',
-      caption: 'سالانہ دستارِ فضیلت و تقسیمِ اسناد ہال',
-      ctaPrimary: { label: t('apply_now', 'Apply Online'), href: '/admissions' },
-      ctaSecondary: { label: t('courses', 'Explore Courses'), href: '/courses' },
+      image: '/images/hero section 2.jpeg',
+      tabShort: 'درسِ نظامی',
+      tabLabel: 'درسِ نظامی و شریعت',
+      tabEn: 'Dars-e-Nizami',
+      badge: '✦ باقاعدہ درسِ نظامی شعبہ • Alim & Fazil Degree Program',
+      titleStart: 'درسِ نظامی',
+      titleAccent: 'عالم و فاضل کورس',
+      titleEnd: 'کی مستند تعلیم',
+      subtitleUrdu: 'قرآن، حدیث، فقہ اور اصولِ فقہ کی گہری اور مدلل تدریس',
+      description: 'مستند جید علماء کرام کی زیرِ سرپرستی قدیم روایتی دینی علوم کے ساتھ ساتھ جدید عصری تقاضوں سے ہم آہنگ نصاب۔',
+      caption: 'تدریسی ہال • شعبہ درسِ نظامی و کتب خانہ',
+      ctaPrimary: { label: 'کورس کی تفصیلات', href: '/courses' },
+      ctaSecondary: { label: 'آن لائن داخلہ', href: '/admissions' },
       fluentAccent: '#107c41', // Microsoft Fluent Green
+      featurePill: 'وفاق المدارس الرضویہ الحاق',
     },
     {
       id: 'slide-3',
-      image: '/images/mahfil1.jpeg',
-      tabLabel: 'روحانی و تعلیمی تربیت',
-      tabEn: 'Convocation & Seminars',
-      badge: '✦ سالانہ محافل و تقاریب دستارِ فضیلت • Convocation & Seminars',
-      titleStart: 'روحانی تربیت و',
-      titleAccent: 'علمی بصیرت',
-      titleEnd: 'کا تابناک گہوارہ',
-      subtitleUrdu: 'طلبہ کے لیے مفت معیاری رہائش، طعام اور پرسکون اسلامی ماحول',
-      description: 'دینی علوم کے ساتھ ساتھ اخلاقی نشوونما اور جدید عصری تقاضوں سے ہم آہنگ کردار سازی کا قابلِ اعتماد ادارہ۔',
-      caption: 'سالانہ روحانی اجتماع و کانفرنس',
-      ctaPrimary: { label: 'نتائج وفاق المدارس', href: '/wafaq-results' },
-      ctaSecondary: { label: 'جامعہ کا تعارف', href: '/about' },
+      image: '/images/hero section 3.jpeg',
+      tabShort: 'حفظ و تجوید',
+      tabLabel: 'شعبہ حفظ و قرات',
+      tabEn: 'Tahfeez & Tajweed',
+      badge: '✦ شعبہ تحفیظ القرآن الکریم • Tehfeez & Tajweed Department',
+      titleStart: 'قرآن فہمی اور',
+      titleAccent: 'تجوید و قرات',
+      titleEnd: 'کا منور راستہ',
+      subtitleUrdu: 'ماہر قراء کرام کی نگرانی میں صحیح مخارج اور لحنِ داؤدی کے ساتھ حفظِ قرآن',
+      description: 'بچوں اور نوجوانوں کی حسنِ قرات، تجوید اور قرآن مجید کو مکمل قواعد کے ساتھ حفظ کروانے کا منظم شعبہ۔',
+      caption: 'شعبہ تجوید و قرات • کلاس روم ویو',
+      ctaPrimary: { label: 'شعبہ حفظ کی معلومات', href: '/courses' },
+      ctaSecondary: { label: 'ہم سے رابطہ کریں', href: '/contact' },
       fluentAccent: '#d83b01', // Microsoft Fluent Orange
+      featurePill: 'ماہر و مستند اساتذہ',
     },
     {
       id: 'slide-4',
-      image: '/images/tajweed.jpeg',
-      tabLabel: 'شعبہ حفظ و تجوید',
-      tabEn: 'Tehfeez & Tajweed',
-      badge: '✦ شعبہ حفظ و تجوید و قرات • Tehfeez & Tajweed Department',
-      titleStart: 'قرآن فہمی اور',
-      titleAccent: 'سنتِ مصطفیٰ ﷺ',
-      titleEnd: 'کی روشنی',
-      subtitleUrdu: 'معروف و مستند اساتذہ کرام کی زیرِ سرپرستی منظم نصابِ تعلیم',
-      description: 'طلبہ کو دورِ جدید کے چیلنجز کا سامنا کرنے کے قابل بنانے کے لیے عربی تکلم اور تحقیقی مہارتوں کی خصوصی تربیت۔',
-      caption: 'علمی و فکری سیمینار ہال',
-      ctaPrimary: { label: 'داخلہ کی معلومات', href: '/admissions' },
-      ctaSecondary: { label: 'ہم سے رابطہ کریں', href: '/contact' },
+      image: '/images/hero section 4.png',
+      tabShort: 'دستارِ فضیلت',
+      tabLabel: 'سالانہ کانووکیشن',
+      tabEn: 'Convocation & Awards',
+      badge: '✦ سالانہ دستارِ فضیلت و تقسیمِ اسناد • Convocation & Degrees',
+      titleStart: 'Where Sacred Tradition',
+      titleAccent: 'Meets Academic',
+      titleEnd: 'Excellence',
+      subtitleUrdu: 'فارغ التحصیل علماء و حفاظِ کرام کی دستار بندی اور اعزازی اسناد کی تقسیم',
+      description: 'A premier Islamic seminary dedicated to sacred Islamic scholarship, research, and holistic spiritual growth under distinguished mentors.',
+      caption: 'مرکزی سالانہ دستارِ فضیلت و تقسیمِ اسناد ہال',
+      ctaPrimary: { label: 'نتائج وفاق المدارس', href: '/wafaq-results' },
+      ctaSecondary: { label: 'جامعہ کی تاریخ', href: '/about' },
+      fluentAccent: '#008272', // Microsoft Fluent Teal
+      featurePill: 'تصدیق شدہ آفیشل ڈگری',
+    },
+    {
+      id: 'slide-5',
+      image: '/images/hero section 5.jpeg',
+      tabShort: 'روحانی تربیت',
+      tabLabel: 'روحانی و اخلاقی تربیت',
+      tabEn: 'Spiritual Seminars',
+      badge: '✦ سالانہ محافل و سیمینارز • Annual Spiritual Gatherings',
+      titleStart: 'روحانی تربیت و',
+      titleAccent: 'علمی بصیرت',
+      titleEnd: 'کا تابناک گہوارہ',
+      subtitleUrdu: 'طلبہ کی باطنی و اخلاقی نشوونما اور پرسکون اسلامی ماحول',
+      description: 'دینی علوم کے ساتھ ساتھ اخلاقی نشوونما، سنتِ نبوی پر عمل پیرا ہونے اور جدید دور کے چیلنجز کا سامنا کرنے کی بصیرت۔',
+      caption: 'سالانہ روحانی اجتماع و کانفرنس ہال',
+      ctaPrimary: { label: 'ہم سے رابطہ کریں', href: '/contact' },
+      ctaSecondary: { label: 'جامعہ کا تعارف', href: '/about' },
       fluentAccent: '#8764b8', // Microsoft Fluent Purple
+      featurePill: 'پرسکون اسلامی ماحول',
+    },
+    {
+      id: 'slide-6',
+      image: '/images/hero section 6.jpeg',
+      tabShort: 'تحقیق و فقہ',
+      tabLabel: 'تخصصات فی الفقہ',
+      tabEn: 'Islamic Research',
+      badge: '✦ شعبہ تخصصات و اسلامی ریسرچ • Islamic Research & Fiqh',
+      titleStart: 'جدید فقہی مسائل اور',
+      titleAccent: 'تحقیقی مہارتوں',
+      titleEnd: 'کا مرکز',
+      subtitleUrdu: 'عصرِ حاضر کے معاشی و سماجی مسائل کا شریعتِ مطہرہ کی روشنی میں حل',
+      description: 'طلبہ کو تخصص فی الفقہ، اصولِ افتاء اور تحقیقی مقالہ جات تحریر کرنے کی اعلیٰ سطحی عملی ٹریننگ۔',
+      caption: 'اسلامک ریسرچ و مفتی کورس ہال',
+      ctaPrimary: { label: 'ریسرچ سنٹر', href: '/islamic-research-center' },
+      ctaSecondary: { label: 'کورسز دیکھیں', href: '/courses' },
+      fluentAccent: '#004e8c', // Microsoft Deep Blue
+      featurePill: 'تخصص فی الفقہ و افتاء',
+    },
+    {
+      id: 'slide-7',
+      image: '/images/hero section 7.jpeg',
+      tabShort: 'ہاسٹل و طعام',
+      tabLabel: 'مفت رہائش و طعام',
+      tabEn: 'Hostel & Facilities',
+      badge: '✦ طلبہ کے لیے مکمل کفالت • 100% Free Hostel & Boarding',
+      titleStart: 'معیاری رہائش،',
+      titleAccent: 'لائبریری و کمپیوٹر لیب',
+      titleEnd: 'کی سہولیات',
+      subtitleUrdu: 'دور دراز سے آنے والے طلبہ کے لیے مکمل مفت معیاری طعام و ہاسٹل',
+      description: 'جامعہ شیرِ ربانی میں مستحق و باصلاحیت طلبہ کو بغیر کسی فیس کے اعلیٰ رہائش، تین وقت کا معیاری کھانا اور طبی نگہداشت فراہم کی جاتی ہے۔',
+      caption: 'طلبہ ہاسٹل و کیمپس رہائشی سہولیات',
+      ctaPrimary: { label: 'داخلہ کی معلومات', href: '/admissions' },
+      ctaSecondary: { label: 'عطیات و تعاون', href: '/donations' },
+      fluentAccent: '#b4009e', // Microsoft Magenta
+      featurePill: 'مفت ہاسٹل و کھانا',
     },
   ];
 
@@ -141,7 +207,7 @@ export default function Hero() {
 
   if (!mounted) {
     return (
-      <section className="relative w-full h-[520px] bg-[#faf9f8] animate-pulse flex items-center justify-center">
+      <section className="relative w-full h-[540px] bg-[#faf9f8] animate-pulse flex items-center justify-center">
         <div className="w-10 h-10 border-2 border-[#0078d4] border-t-transparent rounded-full animate-spin" />
       </section>
     );
@@ -256,7 +322,7 @@ export default function Hero() {
             <div className="bg-white rounded-xl border border-[#edebe9] shadow-lg shadow-black/[0.04] p-4 sm:p-5 relative overflow-hidden backdrop-blur-sm">
               
               {/* Console Top Window Header */}
-              <div className="flex items-center justify-between pb-3.5 mb-4 border-b border-[#edebe9]">
+              <div className="flex items-center justify-between pb-3 mb-3 border-b border-[#edebe9]">
                 <div className="flex items-center gap-2">
                   <MicrosoftQuad />
                   <span className="text-xs font-semibold tracking-wider text-[#605e5c] uppercase">
@@ -281,47 +347,57 @@ export default function Hero() {
                 </div>
               </div>
 
-              {/* Main Image Stage inside Microsoft Side Box */}
-              <div className="relative w-full aspect-[16/10] sm:aspect-[16/10] rounded-lg overflow-hidden border border-[#edebe9] bg-slate-100 shadow-inner group">
+              {/* Main Image Stage inside Microsoft Side Box - Proper Aspect Ratio with 100% full image visibility */}
+              <div className="relative w-full aspect-[16/11] sm:aspect-[16/10] rounded-lg overflow-hidden border border-[#edebe9] bg-[#141414] shadow-inner group">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={currentSlide}
-                    initial={{ opacity: 0, scale: 1.03 }}
+                    initial={{ opacity: 0, scale: 1.02 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0 }}
-                    transition={{ duration: 0.5, ease: 'easeOut' }}
-                    className="absolute inset-0"
+                    transition={{ duration: 0.45, ease: 'easeOut' }}
+                    className="absolute inset-0 flex items-center justify-center overflow-hidden"
                   >
+                    {/* Ambient subtle blur of the exact same image to fill edges seamlessly */}
+                    <Image
+                      src={slide.image}
+                      alt=""
+                      fill
+                      className="object-cover blur-xl opacity-35 scale-110 pointer-events-none"
+                      aria-hidden="true"
+                    />
+
+                    {/* Foreground sharp picture - object-contain ensures 100% of the image is completely visible */}
                     <Image
                       src={slide.image}
                       alt={slide.titleStart}
                       fill
-                      priority
-                      className="object-cover object-center"
+                      priority={currentSlide === 0}
+                      className="object-contain object-center z-10 drop-shadow-md select-none"
                       sizes="(max-width: 1024px) 100vw, 50vw"
                     />
 
-                    {/* Subtle soft gradient at the bottom for caption readability */}
-                    <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/60 via-black/25 to-transparent pointer-events-none" />
+                    {/* Soft gradient at bottom for high-contrast caption legibility */}
+                    <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/75 via-black/35 to-transparent pointer-events-none z-10" />
                   </motion.div>
                 </AnimatePresence>
 
                 {/* Microsoft Fluent Frosted Caption Pill */}
-                <div className="absolute bottom-3 left-3 z-10">
+                <div className="absolute bottom-3 left-3 z-20 max-w-[70%]">
                   <div className="bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-md border border-white/60 shadow-md flex items-center gap-2">
                     <span 
                       className="w-2 h-2 rounded-full shrink-0" 
                       style={{ backgroundColor: slide.fluentAccent }}
                     />
-                    <span className="text-xs font-semibold text-[#201f1e]">{slide.caption}</span>
+                    <span className="text-xs font-semibold text-[#201f1e] truncate">{slide.caption}</span>
                   </div>
                 </div>
 
-                {/* Verified Campus Badge */}
-                <div className="absolute top-3 right-3 z-10">
-                  <div className="bg-black/55 backdrop-blur-md px-2.5 py-1 rounded-md text-[11px] font-semibold text-white flex items-center gap-1.5 border border-white/20 shadow-sm">
+                {/* Verified Department / Feature Pill */}
+                <div className="absolute top-3 right-3 z-20">
+                  <div className="bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-md text-[11px] font-semibold text-white flex items-center gap-1.5 border border-white/20 shadow-sm">
                     <ShieldCheck className="w-3.5 h-3.5 text-[#7fba00]" />
-                    <span>تصدیق شدہ کیمپس</span>
+                    <span>{slide.featurePill}</span>
                   </div>
                 </div>
 
@@ -329,7 +405,7 @@ export default function Hero() {
                 <button
                   onClick={prevSlide}
                   aria-label="Previous Slide"
-                  className="absolute left-2.5 top-1/2 -translate-y-1/2 z-10 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/90 hover:bg-white text-[#201f1e] flex items-center justify-center shadow-md transition-all hover:scale-105"
+                  className="absolute left-2.5 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/90 hover:bg-white text-[#201f1e] flex items-center justify-center shadow-md transition-all hover:scale-105"
                 >
                   <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
                 </button>
@@ -337,39 +413,41 @@ export default function Hero() {
                 <button
                   onClick={nextSlide}
                   aria-label="Next Slide"
-                  className="absolute right-2.5 top-1/2 -translate-y-1/2 z-10 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/90 hover:bg-white text-[#201f1e] flex items-center justify-center shadow-md transition-all hover:scale-105"
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/90 hover:bg-white text-[#201f1e] flex items-center justify-center shadow-md transition-all hover:scale-105"
                 >
                   <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
                 </button>
               </div>
 
-              {/* Microsoft Fluent Segmented Interactive Navigation Tabs */}
-              <div className="mt-4 pt-3.5 border-t border-[#edebe9]">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-[11px] font-semibold text-[#605e5c] uppercase tracking-wider">
-                    Pillars Navigator
-                  </span>
-                  <span className="text-[11px] text-[#605e5c]">
+              {/* Microsoft Fluent Segmented Interactive Navigation Tabs for all 7 Slides */}
+              <div className="mt-3.5 pt-3 border-t border-[#edebe9]">
+                <div className="flex items-center justify-between mb-2 text-[11px]">
+                  <div className="flex items-center gap-1.5 font-semibold text-[#201f1e]">
+                    <span className="text-[#0078d4]">0{currentSlide + 1} / 07:</span>
+                    <span>{slide.tabLabel}</span>
+                  </div>
+                  <span className="text-[#605e5c] hidden sm:inline">
                     وفاق المدارس سے باقاعدہ الحاق شدہ
                   </span>
                 </div>
 
-                {/* 4 Interactive Segmented Tabs */}
-                <div className="grid grid-cols-4 gap-1.5">
+                {/* 7 Interactive Segmented Tabs */}
+                <div className="grid grid-cols-7 gap-1">
                   {slides.map((s, idx) => {
                     const isActive = idx === currentSlide;
                     return (
                       <button
                         key={s.id}
                         onClick={() => setCurrentSlide(idx)}
-                        className={`text-left p-2 rounded-md transition-all relative overflow-hidden ${
+                        className={`text-center py-1.5 px-0.5 rounded transition-all relative overflow-hidden ${
                           isActive 
-                            ? 'bg-[#f3f2f1] text-[#201f1e] font-semibold shadow-2xs' 
+                            ? 'bg-[#f3f2f1] text-[#201f1e] font-bold shadow-2xs' 
                             : 'hover:bg-[#faf9f8] text-[#605e5c]'
                         }`}
+                        title={s.tabLabel}
                       >
-                        <div className="text-[10px] font-mono opacity-60">0{idx + 1}</div>
-                        <div className="text-[11px] font-medium truncate mt-0.5">{s.tabLabel}</div>
+                        <div className="text-[10px] font-mono leading-none">0{idx + 1}</div>
+                        <div className="text-[9px] font-medium truncate mt-0.5 hidden sm:block">{s.tabShort}</div>
                         
                         {/* Animated Fluent Active Progress Line */}
                         {isActive && (
