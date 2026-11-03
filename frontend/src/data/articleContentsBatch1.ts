@@ -827,6 +827,7 @@ export const BATCH_1_ARTICLES_CONTENT: Record<string, CompleteArticleContent> = 
 };
 
 import { BATCH_2_ARTICLES_CONTENT } from './articleContentsBatch2';
+import { BATCH_3_ARTICLES_CONTENT } from './articleContentsBatch3';
 
 export function getCompleteArticleContent(slug: string): CompleteArticleContent | undefined {
   if (BATCH_1_ARTICLES_CONTENT[slug]) {
@@ -834,6 +835,9 @@ export function getCompleteArticleContent(slug: string): CompleteArticleContent 
   }
   if (BATCH_2_ARTICLES_CONTENT[slug]) {
     return BATCH_2_ARTICLES_CONTENT[slug];
+  }
+  if (BATCH_3_ARTICLES_CONTENT[slug]) {
+    return BATCH_3_ARTICLES_CONTENT[slug];
   }
   // Check if alias matches for Batch 1
   if (slug === "quran-introduction-importance") {
@@ -863,6 +867,22 @@ export function getCompleteArticleContent(slug: string): CompleteArticleContent 
   }
   if (slug === "islamic-civilization-principles") {
     return BATCH_2_ARTICLES_CONTENT["islamic-civilization-and-its-principles"];
+  }
+  // Check if alias matches for Batch 3
+  if (slug === "tazkiyah-nafs-importance-methods") {
+    return BATCH_3_ARTICLES_CONTENT["tazkiyah-nafs"];
+  }
+  if (slug === "ikhlas-taqwa-good-character") {
+    return BATCH_3_ARTICLES_CONTENT["ikhlas-taqwa-and-good-character"];
+  }
+  if (slug === "inner-reformation-spiritual-training") {
+    return BATCH_3_ARTICLES_CONTENT["islamic-spiritual-reformation"];
+  }
+  if (slug === "islamic-education-modern-needs") {
+    return BATCH_3_ARTICLES_CONTENT["importance-of-islamic-education"];
+  }
+  if (slug === "madrasas-role-society-building") {
+    return BATCH_3_ARTICLES_CONTENT["role-of-madaris-in-society"];
   }
   return undefined;
 }

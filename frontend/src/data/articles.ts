@@ -271,59 +271,84 @@ export const ARTICLES: Article[] = [
   {
     id: 11,
     title: "تزکیہ نفس کا مفہوم، اہمیت اور عملی طریقے",
-    slug: "tazkiyah-nafs-importance-methods",
+    slug: "tazkiyah-nafs",
+    aliases: ["tazkiyah-nafs-importance-methods"],
     categoryId: "tasawwuf-and-reformation",
     categoryTitle: "تصوف و اصلاح",
     description: "باطنی بیماریوں جیسے کبر، حسد اور ریاکاری سے نجات، صفائی قلب کے قرآنی اسالیب اور ذکر و مراقبہ کے عملی طریقے کار۔",
     image: "/images/hero section 5.jpeg",
-    status: "حالت: جلد شائع ہوگا",
-    readTime: "۱۰ منٹ"
+    imageAlt: "تزکیہ نفس کا مفہوم، اہمیت اور عملی طریقے",
+    status: "شائع شدہ (علمی مقالہ)",
+    readTime: "۱۵ منٹ",
+    seoTitle: "تزکیہ نفس کا مفہوم، اہمیت اور عملی طریقے | جامعہ شیرِ ربانی",
+    seoDescription: "تزکیہ نفس کی قرآنی اہمیت، نفس کے درجات و امراض، توبہ و محاسبہ، ذکرِ الٰہی کا کردار اور روزمرہ زندگی میں باطنی پاکیزگی کے عملی طریقے کار۔",
+    keywords: ["تزکیہ نفس", "اصلاح باطن", "محاسبہ نفس", "امراض قلب کا علاج"]
   },
   {
     id: 12,
     title: "اسلامی تعلیمات میں اخلاص، تقویٰ اور حسن اخلاق",
-    slug: "ikhlas-taqwa-good-character",
+    slug: "ikhlas-taqwa-and-good-character",
+    aliases: ["ikhlas-taqwa-good-character"],
     categoryId: "tasawwuf-and-reformation",
     categoryTitle: "تصوف و اصلاح",
     description: "اعمال کی قبولیت کے لیے خلوصِ نیت کی شرط، تقویٰ کی حقیقت اور مخلوقِ خدا کے ساتھ حسنِ سلوک و نرمی کے درجات۔",
     image: "/images/hero section 6.jpeg",
-    status: "حالت: جلد شائع ہوگا",
-    readTime: "۸ منٹ"
+    imageAlt: "اسلامی تعلیمات میں اخلاص، تقویٰ اور حسن اخلاق",
+    status: "شائع شدہ (علمی مقالہ)",
+    readTime: "۱۴ منٹ",
+    seoTitle: "اسلامی تعلیمات میں اخلاص، تقویٰ اور حسن اخلاق | جامعہ شیرِ ربانی",
+    seoDescription: "اعمال کی قبولیت کے لیے اخلاصِ نیت کی شرط، تقویٰ کا قرآنی و نبوی تصور، حسنِ اخلاق کی معراج اور ریاکاری و کبر سے نجات کا مدلل جائزہ۔",
+    keywords: ["اخلاص اور نیت", "تقویٰ کا قرآنی تصور", "حسن اخلاق", "ریاکاری سے بچاؤ"]
   },
   {
     id: 13,
     title: "اصلاح باطن اور روحانی تربیت کی اہمیت",
-    slug: "inner-reformation-spiritual-training",
+    slug: "islamic-spiritual-reformation",
+    aliases: ["inner-reformation-spiritual-training"],
     categoryId: "tasawwuf-and-reformation",
     categoryTitle: "تصوف و اصلاح",
     description: "ظاہری عبادات کے ساتھ ساتھ باطن کے سدھار کی ضرورت، صحبتِ صالحین کی برکات اور قلبی بیداری کی راہنمائی۔",
     image: "/images/hero section 7.jpeg",
-    status: "حالت: جلد شائع ہوگا",
-    readTime: "۹ منٹ"
+    imageAlt: "اصلاح باطن اور روحانی تربیت کی اہمیت",
+    status: "شائع شدہ (علمی مقالہ)",
+    readTime: "۱۵ منٹ",
+    seoTitle: "اصلاح باطن اور روحانی تربیت کی اہمیت | جامعہ شیرِ ربانی",
+    seoDescription: "قلب کی صفائی، باطن اور ظاہر کا توازن، صحبتِ صالحین کی برکات، اور مستند قرآنی و نبوی تصوف کی روشنی میں روحانی تربیت کا تحقیقی جائزہ۔",
+    keywords: ["اصلاح باطن", "روحانی تربیت", "قلب سلیم", "صحبت صالحین"]
   },
 
   // --- Category 6: دینی تعلیم و تربیت ---
   {
     id: 14,
     title: "دینی تعلیم کی اہمیت اور عصر حاضر کے تقاضے",
-    slug: "islamic-education-modern-needs",
+    slug: "importance-of-islamic-education",
+    aliases: ["islamic-education-modern-needs"],
     categoryId: "islamic-education",
     categoryTitle: "دینی تعلیم و تربیت",
     description: "ہر مسلمان پر بنیادی دینی احکام سیکھنے کی فرضیت اور دورِ جدید کے فکری چیلنجز کے تناظر میں دینی تعلیم کا ناگزیر کردار۔",
     image: "/images/WhatsApp 1.jpeg",
-    status: "حالت: جلد شائع ہوگا",
-    readTime: "۷ منٹ"
+    imageAlt: "دینی تعلیم کی اہمیت اور عصر حاضر کے تقاضے",
+    status: "شائع شدہ (علمی مقالہ)",
+    readTime: "۱۴ منٹ",
+    seoTitle: "دینی تعلیم کی اہمیت اور عصر حاضر کے تقاضے | جامعہ شیرِ ربانی",
+    seoDescription: "اسلام میں علم کی بنیادی حیثیت، پہلی وحی کا پیغام، فکری چیلنجز کے مقابلے میں دینی تعلیم کی ضرورت، اور والدین و اساتذہ کے فرائض کا تحقیقی مطالعہ۔",
+    keywords: ["دینی تعلیم کی اہمیت", "عصر حاضر اور دینی تعلیم", "حصول علم کی فضیلت"]
   },
   {
     id: 15,
     title: "مدارس دینیہ کا کردار اور معاشرے کی تعمیر",
-    slug: "madrasas-role-society-building",
+    slug: "role-of-madaris-in-society",
+    aliases: ["madrasas-role-society-building"],
     categoryId: "islamic-education",
     categoryTitle: "دینی تعلیم و تربیت",
     description: "دینی مدارس کا تعلیمی و تربیتی مشن، اخلاقی انحطاط کے خلاف مضبوط قلعہ اور باکردار قیادت و افراد سازی کی خدمات۔",
     image: "/images/WhatsApp2.jpeg",
-    status: "حالت: جلد شائع ہوگا",
-    readTime: "۸ منٹ"
+    imageAlt: "مدارس دینیہ کا کردار اور معاشرے کی تعمیر",
+    status: "شائع شدہ (علمی مقالہ)",
+    readTime: "۱۵ منٹ",
+    seoTitle: "مدارس دینیہ کا کردار اور معاشرے کی تعمیر | جامعہ شیرِ ربانی",
+    seoDescription: "دینی مدارس کا تاریخی ارتقاء، قرآن و سنت کی حفاظت، اخلاقی قیادت کی تیاری، مفت فلاحی خدمات اور عصری چیلنجز کے تناظر میں کردار کا تحقیقی جائزہ۔",
+    keywords: ["مدارس دینیہ کا کردار", "معاشرے کی تعمیر میں مدارس", "دینی مدارس کی تاریخ"]
   },
 
   // --- Category 7: اسلامی معاشرت ---
