@@ -82,54 +82,58 @@ const Header = () => {
     return (
       <header className="sticky top-0 z-50 bg-white border-b border-gray-200 print:hidden" dir="rtl">
         {/* Skeleton Header: Logo & Title */}
-        <div className="bg-white border-b border-slate-100 py-3 md:py-4">
-          <div className="max-w-[1600px] mx-auto px-4 md:px-8 flex items-center justify-between">
-            <div className="flex items-center gap-3.5">
-              <div className="w-12 h-12 bg-slate-100 rounded-full animate-pulse" />
+        <div className="bg-white border-b border-slate-100 py-2 sm:py-2.5">
+          <div className="max-w-[1600px] mx-auto px-3 sm:px-6 md:px-8 flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-slate-100 rounded-full animate-pulse" />
               <div className="flex flex-col gap-1.5">
-                <div className="h-4 w-44 bg-slate-100 rounded animate-pulse" />
-                <div className="h-2.5 w-28 bg-slate-50 rounded animate-pulse" />
+                <div className="h-4 w-36 sm:w-44 bg-slate-100 rounded animate-pulse" />
+                <div className="h-2.5 w-24 sm:w-28 bg-slate-50 rounded animate-pulse" />
               </div>
+            </div>
+            <div className="flex items-center gap-1.5 sm:gap-2">
+              {[1, 2, 3, 4, 5].map((i) => (
+                <div key={i} className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-slate-100 animate-pulse" />
+              ))}
             </div>
           </div>
         </div>
         {/* Skeleton Navbar */}
-        <div className="bg-emerald-800 h-11" />
+        <div className="bg-emerald-800 h-12" />
       </header>
     );
   }
 
   return (
     <header className="sticky top-0 z-50 bg-white shadow-sm font-sans print:hidden" dir="rtl">
-      {/* 1. TOP HEADER: Logo & Name with National / Affiliation Logos */}
-      <div className="bg-white border-b border-slate-100 py-2 sm:py-3">
-        <div className="max-w-[1600px] mx-auto px-3 sm:px-6 md:px-8 flex items-center justify-between gap-3">
+      {/* 1. TOP HEADER: Logo & Name with National / Affiliation Logos - Single clean horizontal line, NEVER wraps */}
+      <div className="bg-white border-b border-slate-100 py-2 sm:py-2.5">
+        <div className="max-w-[1600px] mx-auto px-3 sm:px-6 md:px-8 flex items-center justify-between gap-2 sm:gap-4 flex-nowrap">
           
           {/* Main Institution Logo & Name (Always on RIGHT in RTL) */}
-          <Link href="/" className="flex items-center gap-2.5 sm:gap-3.5 group flex-shrink-0">
-            <div className="relative w-11 h-11 sm:w-13 sm:h-13 md:w-14 md:h-14 flex-shrink-0">
+          <Link href="/" className="flex items-center gap-2 sm:gap-3 group flex-shrink-0 min-w-0">
+            <div className="relative w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 flex-shrink-0">
               <Image 
                 src="/logo.jpeg" 
                 alt="لوگو جامعہ شیرِ ربانی" 
                 width={56} 
                 height={56} 
-                className="rounded-full shadow-sm group-hover:scale-105 transition-transform border border-emerald-100 object-cover"
+                className="rounded-full shadow-sm group-hover:scale-105 transition-transform border border-emerald-100 object-cover w-full h-full"
                 priority
               />
             </div>
-            <div className="flex flex-col text-right">
-              <span className="text-2xl sm:text-3xl md:text-[32px] font-black text-emerald-800 tracking-tight leading-none group-hover:text-emerald-700 transition-colors font-urdu">
+            <div className="flex flex-col text-right min-w-0">
+              <span className="text-xl sm:text-2xl md:text-[28px] font-black text-emerald-800 tracking-tight leading-none group-hover:text-emerald-700 transition-colors font-urdu truncate">
                 جامعہ شیرِ ربانی
               </span>
-              <span className="text-[12px] sm:text-[13px] md:text-[14px] font-bold text-slate-500 tracking-normal leading-tight mt-1 font-urdu">
-                دینی و عصری تعلیمی مرکز • مانانوالہ، شیخوپورہ
+              <span className="text-[10px] sm:text-[12px] md:text-[13px] font-bold text-slate-500 tracking-normal leading-tight mt-0.5 sm:mt-1 font-urdu truncate">
+                دینی و عصری تعلیمی مرکز • مانانوالہ
               </span>
             </div>
           </Link>
 
-          {/* Affiliation & National Logos (Always on LEFT in RTL) */}
-          <div className="flex items-center gap-2 sm:gap-3 md:gap-3.5 lg:gap-4 flex-wrap">
-            
+          {/* Affiliation & National Logos (Always on LEFT in RTL) - Single clean horizontal line, NEVER wraps or breaks vertically */}
+          <div className="flex items-center gap-1 sm:gap-2 md:gap-3 flex-nowrap flex-shrink-0">
             {officialLogos.map((item) => (
               <a
                 key={item.href}
@@ -137,49 +141,48 @@ const Header = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 title={item.title}
-                className="flex items-center gap-1.5 sm:gap-2 group transition-all duration-200 hover:opacity-95 active:scale-95 cursor-pointer py-0.5 px-1 rounded-md hover:bg-slate-50"
+                className="flex items-center gap-1.5 group transition-all duration-200 hover:opacity-95 active:scale-95 cursor-pointer py-0.5 px-0.5 sm:px-1 rounded-md hover:bg-slate-50 flex-shrink-0"
               >
-                <div className="relative w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 flex-shrink-0 flex items-center justify-center p-0.5 rounded-full bg-slate-50 border border-slate-200/90 shadow-2xs group-hover:scale-110 group-hover:border-emerald-600 group-hover:shadow-xs transition-all duration-200">
+                <div className="relative w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 flex-shrink-0 flex items-center justify-center p-0.5 rounded-full bg-slate-50 border border-slate-200/90 shadow-2xs group-hover:scale-105 group-hover:border-emerald-600 transition-all duration-200">
                   <Image
                     src={item.image}
                     alt={item.nameUrdu}
-                    width={40}
-                    height={40}
-                    className="object-contain max-h-7 sm:max-h-8 md:max-h-9 w-auto"
+                    width={36}
+                    height={36}
+                    className="object-contain max-h-5 sm:max-h-6 md:max-h-7 w-auto"
                   />
                 </div>
-                <div className="flex flex-col text-right leading-tight">
-                  <span className="text-[10px] sm:text-[11px] md:text-[12px] font-black text-slate-800 tracking-tight whitespace-nowrap group-hover:text-emerald-700 transition-colors font-urdu">
+                <div className="hidden lg:flex flex-col text-right leading-tight">
+                  <span className="text-[11px] font-black text-slate-800 tracking-tight whitespace-nowrap group-hover:text-emerald-700 transition-colors font-urdu">
                     {item.nameUrdu}
                   </span>
-                  <span className="text-[8px] sm:text-[9px] font-bold text-slate-500 whitespace-nowrap hidden 2xl:block group-hover:text-slate-700 transition-colors">
+                  <span className="text-[8px] font-bold text-slate-400 whitespace-nowrap hidden 2xl:block">
                     {item.nameSub}
                   </span>
                 </div>
               </a>
             ))}
-
-            {/* Mobile hamburger button */}
-            <div className="xl:hidden flex items-center mr-1">
-              <button
-                onClick={() => setIsOpen(!isOpen)}
-                className="p-1.5 rounded-lg text-slate-700 hover:bg-slate-100 transition-colors"
-                aria-label="Toggle navigation menu"
-              >
-                {isOpen ? <X size={24} /> : <Menu size={24} />}
-              </button>
-            </div>
           </div>
         </div>
       </div>
 
-      {/* 2. NAVBAR: Dedicated bar containing ALL options / menu items */}
+      {/* 2. NAVBAR: Dedicated bar containing Mobile Sidebar Toggle + ALL options / menu items */}
       <nav className="bg-emerald-800 text-white shadow-md border-t border-emerald-700/60" dir="rtl">
-        <div className="max-w-[1600px] mx-auto px-3 sm:px-4 md:px-8">
-          <div className="flex items-center justify-between h-12">
+        <div className="max-w-[1600px] mx-auto px-2 sm:px-4 md:px-8">
+          <div className="flex items-center justify-between h-12 gap-2">
             
-            {/* All Navigation Links visible on ALL screen sizes right next to Home */}
-            <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto scrollbar-none [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden py-1 w-full rtl:space-x-reverse">
+            {/* Mobile Sidebar / Hamburger Toggle Button - Placed directly in the options line */}
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="xl:hidden flex items-center gap-1.5 px-2.5 py-1.5 bg-emerald-900/90 hover:bg-emerald-950 text-white rounded-md text-xs font-bold font-urdu flex-shrink-0 border border-emerald-600/60 shadow-xs transition-colors"
+              aria-label="مینو کھولیں"
+            >
+              {isOpen ? <X size={18} className="text-amber-300" /> : <Menu size={18} className="text-amber-300" />}
+              <span className="text-[12px] leading-none text-emerald-100">مینو</span>
+            </button>
+
+            {/* All Navigation Links visible on ALL screen sizes right in options line */}
+            <div className="flex items-center gap-1 sm:gap-2 overflow-x-auto scrollbar-none [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden py-1 w-full rtl:space-x-reverse">
               {navItems.map((item) => {
                 const isActive = pathname === item.href || (item.href !== '/' && pathname?.startsWith(item.href));
                 return (
