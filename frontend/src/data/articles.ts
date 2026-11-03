@@ -185,61 +185,86 @@ export const ARTICLES: Article[] = [
   {
     id: 6,
     title: "فقہ اسلامی کا تعارف، اہمیت اور بنیادی اصول",
-    slug: "islamic-jurisprudence-introduction",
+    slug: "islamic-jurisprudence",
+    aliases: ["islamic-jurisprudence-introduction"],
     categoryId: "islamic-jurisprudence",
     categoryTitle: "فقہ اسلامی",
     description: "فقہ اسلامی کی تدوین، ماخذِ شریعت، اجتہاد و قیاس کے اصول اور انسانی زندگی کے جدید تقاضوں میں فقہی فہم کی ناگزیریت۔",
     image: "/takhasus.jpeg",
-    status: "حالت: جلد شائع ہوگا",
-    readTime: "۱۰ منٹ"
+    imageAlt: "فقہ اسلامی کا تعارف، اہمیت اور بنیادی اصول",
+    status: "شائع شدہ (علمی مقالہ)",
+    readTime: "۱۵ منٹ",
+    seoTitle: "فقہ اسلامی کا تعارف، اہمیت اور بنیادی اصول | جامعہ شیرِ ربانی",
+    seoDescription: "فقہ اسلامی کا لغوی و اصطلاحی مفہوم، شریعت اور فقہ میں فرق، تاریخی ارتقا، ادلۂ اربعہ اور انسانی زندگی میں فقہی قواعد کی ناگزیریت کا تحقیقی جائزہ۔",
+    keywords: ["فقہ اسلامی کا تعارف", "اصول فقہ", "ادلۂ اربعہ", "قیاس اور اجماع", "فقہی قواعد"]
   },
   {
     id: 7,
     title: "اسلامی عبادات میں فقہ کی اہمیت",
-    slug: "importance-of-fiqh-in-worship",
+    slug: "fiqh-and-islamic-worship",
+    aliases: ["importance-of-fiqh-in-worship"],
     categoryId: "islamic-jurisprudence",
     categoryTitle: "فقہ اسلامی",
     description: "نماز، روزہ، زکوٰۃ، حج اور طہارت کے ارکان و شرائط کی شرعی صحت اور احکامِ الٰہیہ کی درست ادائیگی میں فقہ کا کردار۔",
     image: "/images/hero section 3.jpeg",
-    status: "حالت: جلد شائع ہوگا",
-    readTime: "۷ منٹ"
+    imageAlt: "اسلامی عبادات میں فقہ کی اہمیت",
+    status: "شائع شدہ (علمی مقالہ)",
+    readTime: "۱۴ منٹ",
+    seoTitle: "اسلامی عبادات میں فقہ کی اہمیت | جامعہ شیرِ ربانی",
+    seoDescription: "نماز، طہارت، روزہ، زکوٰۃ اور حج کی شرعی صحت، ارکان و شروط کی درستی اور عبادات میں فقہی رہنمائی کی ناگزیریت کا مدلل علمی جائزہ۔",
+    keywords: ["عبادات میں فقہ کی اہمیت", "طہارت اور نماز کے مسائل", "ارکان صوم", "فقہ زکوٰۃ و حج"]
   },
 
   // --- Category 4: اسلامی تاریخ ---
   {
     id: 8,
     title: "سیرت النبی ﷺ کے اہم پہلو اور ہمارے لیے عملی اسباق",
-    slug: "seerat-un-nabi-practical-lessons",
+    slug: "seerat-un-nabi-and-practical-lessons",
+    aliases: ["seerat-un-nabi-practical-lessons"],
     categoryId: "islamic-history",
     categoryTitle: "اسلامی تاریخ",
     description: "حضور نبی کریم ﷺ کی پاکیزہ حیاتِ طیبہ، اخلاقِ کریمانہ، نبوی قیادت اور عصرِ حاضر میں سیرت طیبہ سے حاصل ہونے والی عملی رہنمائی۔",
     image: "/images/mahfil2.jpeg",
-    status: "حالت: جلد شائع ہوگا",
+    imageAlt: "سیرت النبی ﷺ کے اہم پہلو اور ہمارے لیے عملی اسباق",
+    status: "شائع شدہ (علمی مقالہ)",
     featured: true,
     featuredPriority: 3,
-    readTime: "۱۱ منٹ"
+    readTime: "۱۶ منٹ",
+    seoTitle: "سیرت النبی ﷺ کے اہم پہلو اور ہمارے لیے عملی اسباق | جامعہ شیرِ ربانی",
+    seoDescription: "حضور نبی کریم ﷺ کی پاکیزہ حیاتِ طیبہ، مکی و مدنی ادوار، عفو و درگزر، نبوی معاملات اور عصرِ حاضر میں سیرت طیبہ سے حاصل ہونے والی عملی رہنمائی۔",
+    keywords: ["سیرت النبی کے عملی اسباق", "اسوہ حسنہ", "مکی اور مدنی زندگی", "رحمۃ للعالمین"]
   },
   {
     id: 9,
     title: "اسلامی تاریخ میں علمائے کرام کی علمی و دینی خدمات",
-    slug: "scholars-services-islamic-history",
+    slug: "scholars-contributions-in-islamic-history",
+    aliases: ["scholars-services-islamic-history"],
     categoryId: "islamic-history",
     categoryTitle: "اسلامی تاریخ",
     description: "قرونِ اولیٰ سے لے کر دورِ حاضر تک ائمہ کرام، محدثین، فقہاء اور مجددین کی علمی کاوشیں اور دینِ حق کی حفاظت و ترویج۔",
     image: "/images/hero section 4.jpeg",
-    status: "حالت: جلد شائع ہوگا",
-    readTime: "۹ منٹ"
+    imageAlt: "اسلامی تاریخ میں علمائے کرام کی علمی و دینی خدمات",
+    status: "شائع شدہ (علمی مقالہ)",
+    readTime: "۱۵ منٹ",
+    seoTitle: "اسلامی تاریخ میں علمائے کرام کی علمی و دینی خدمات | جامعہ شیرِ ربانی",
+    seoDescription: "قرونِ اولیٰ سے دورِ حاضر تک ائمہ کرام، محدثین، فقہاء اور مجددین کی بے مثال علمی خدمات، تدوینِ کتب اور اسلامی مدارس کے کردار کا تحقیقی جائزہ۔",
+    keywords: ["علمائے کرام کی خدمات", "تاریخ اسلامی کے علماء", "تدوین حدیث و فقہ", "مدارس اسلامیہ کا کردار"]
   },
   {
     id: 10,
     title: "اسلامی تہذیب و تمدن اور اس کے بنیادی اصول",
-    slug: "islamic-civilization-principles",
+    slug: "islamic-civilization-and-its-principles",
+    aliases: ["islamic-civilization-principles"],
     categoryId: "islamic-history",
     categoryTitle: "اسلامی تاریخ",
     description: "عدل، علم، مساوات، انسانی حرمت اور روحانی ترقی پر مبنی درخشندہ اسلامی تہذیب کا تاریخی پس منظر اور عالمی اثرات۔",
     image: "/images/hero section 2.jpeg",
-    status: "حالت: جلد شائع ہوگا",
-    readTime: "۸ منٹ"
+    imageAlt: "اسلامی تہذیب و تمدن اور اس کے بنیادی اصول",
+    status: "شائع شدہ (علمی مقالہ)",
+    readTime: "۱۵ منٹ",
+    seoTitle: "اسلامی تہذیب و تمدن اور اس کے بنیادی اصول | جامعہ شیرِ ربانی",
+    seoDescription: "توحید، عدل، علم، انسانی حقوق، خاندانی نظام اور فنونِ لطیفہ پر مبنی درخشندہ اسلامی تہذیب کا تاریخی پس منظر اور عصرِ حاضر کے لیے حیات بخش اسباق۔",
+    keywords: ["اسلامی تہذیب و تمدن", "اصول تمدن اسلام", "عدل اور مساوات", "انسانی حقوق اسلام میں"]
   },
 
   // --- Category 5: تصوف و اصلاح ---

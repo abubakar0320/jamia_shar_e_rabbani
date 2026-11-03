@@ -826,11 +826,16 @@ export const BATCH_1_ARTICLES_CONTENT: Record<string, CompleteArticleContent> = 
   }
 };
 
+import { BATCH_2_ARTICLES_CONTENT } from './articleContentsBatch2';
+
 export function getCompleteArticleContent(slug: string): CompleteArticleContent | undefined {
   if (BATCH_1_ARTICLES_CONTENT[slug]) {
     return BATCH_1_ARTICLES_CONTENT[slug];
   }
-  // Check if alias matches
+  if (BATCH_2_ARTICLES_CONTENT[slug]) {
+    return BATCH_2_ARTICLES_CONTENT[slug];
+  }
+  // Check if alias matches for Batch 1
   if (slug === "quran-introduction-importance") {
     return BATCH_1_ARTICLES_CONTENT["quran-introduction"];
   }
@@ -842,6 +847,22 @@ export function getCompleteArticleContent(slug: string): CompleteArticleContent 
   }
   if (slug === "following-sunnah-daily-life") {
     return BATCH_1_ARTICLES_CONTENT["following-sunnah"];
+  }
+  // Check if alias matches for Batch 2
+  if (slug === "islamic-jurisprudence-introduction") {
+    return BATCH_2_ARTICLES_CONTENT["islamic-jurisprudence"];
+  }
+  if (slug === "importance-of-fiqh-in-worship") {
+    return BATCH_2_ARTICLES_CONTENT["fiqh-and-islamic-worship"];
+  }
+  if (slug === "seerat-un-nabi-practical-lessons") {
+    return BATCH_2_ARTICLES_CONTENT["seerat-un-nabi-and-practical-lessons"];
+  }
+  if (slug === "scholars-services-islamic-history") {
+    return BATCH_2_ARTICLES_CONTENT["scholars-contributions-in-islamic-history"];
+  }
+  if (slug === "islamic-civilization-principles") {
+    return BATCH_2_ARTICLES_CONTENT["islamic-civilization-and-its-principles"];
   }
   return undefined;
 }
