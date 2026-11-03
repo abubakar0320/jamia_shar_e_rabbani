@@ -4,7 +4,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { useTranslation } from 'react-i18next';
 import Head from 'next/head';
-import { ChevronLeft, Target, Clock, Users, ArrowLeft } from 'lucide-react';
+import { ChevronLeft, Target, Clock, Users, ArrowLeft, UserCheck, Phone, Mail, MessageCircle } from 'lucide-react';
 import Link from 'next/link';
 
 export default function ProgramDetailsPage() {
@@ -184,6 +184,47 @@ export default function ProgramDetailsPage() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+
+        {/* Supervisor Information Card */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+          <div className="bg-gradient-to-br from-emerald-900 via-teal-950 to-slate-900 text-white p-6 sm:p-10 rounded-3xl shadow-xl border border-emerald-500/20">
+            <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
+              <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-500 flex items-center justify-center text-white text-3xl font-bold shadow-lg shrink-0 border border-white/20">
+                <UserCheck size={44} className="text-white" />
+              </div>
+              <div className="flex-1 text-center md:text-right">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-emerald-500/20 text-emerald-300 rounded-full text-xs font-bold mb-3 border border-emerald-400/30 leading-[2.0]">
+                  <span>★ نگران و ہیڈ آف انٹرن شپ پروگرام</span>
+                </div>
+                <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2 leading-[2.1]">
+                  محترم ابوبکر صدیق (Abubakar Siddique)
+                </h3>
+                <p className="text-emerald-100/90 text-sm sm:text-base leading-[2.3] mb-5 max-w-3xl">
+                  یہ انٹرن شپ پروگرام محترم <strong>ابوبکر صدیق</strong> (انٹرن شپ سپروائزر) کے زیرِ نگرانی چلایا جا رہا ہے۔ پروگرام کے نصاب، پراجیکٹ اسائنمنٹس، اور ٹریننگ کے متعلق کسی بھی سوال یا رہنمائی کے لیے سپروائزر سے براہِ راست رابطہ کیا جا سکتا ہے۔
+                </p>
+                
+                <div className="flex flex-wrap items-center justify-center md:justify-start gap-3">
+                  <a 
+                    href="https://wa.me/923097354874" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-sm font-bold shadow-sm transition-all leading-[2.0]"
+                    dir="ltr"
+                  >
+                    <MessageCircle size={18} /> 0309-7354874 (WhatsApp)
+                  </a>
+                  <a 
+                    href="mailto:abubakr.bgnu@gmail.com" 
+                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/10 hover:bg-white/20 text-white border border-white/20 rounded-xl text-sm font-bold transition-all leading-[2.0]"
+                    dir="ltr"
+                  >
+                    <Mail size={18} /> abubakr.bgnu@gmail.com
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 

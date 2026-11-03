@@ -22,6 +22,7 @@ import {
   Clock,
   Users,
   User,
+  UserCheck,
   ArrowLeft
 } from 'lucide-react';
 import React, { useState, useEffect } from 'react';
@@ -261,6 +262,49 @@ export default function Internship() {
           </div>
         </section>
 
+        {/* --- SUPERVISOR SPOTLIGHT SECTION --- */}
+        <section className="py-14 bg-slate-50 border-b border-[#edebe9]">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="bg-gradient-to-br from-emerald-900 via-teal-950 to-slate-900 text-white p-6 sm:p-10 rounded-3xl shadow-xl border border-emerald-500/20 relative overflow-hidden">
+              <div className="flex flex-col md:flex-row items-center md:items-start gap-6 relative z-10">
+                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-500 flex items-center justify-center text-white text-3xl font-bold shadow-lg shrink-0 border border-white/20">
+                  <UserCheck size={44} className="text-white" />
+                </div>
+                <div className="flex-1 text-center md:text-right">
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-emerald-500/20 text-emerald-300 rounded-full text-xs font-bold mb-3 border border-emerald-400/30 leading-[2.0]">
+                    <span>★ نگران و ہیڈ آف انٹرن شپ پروگرام</span>
+                  </div>
+                  <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2 leading-[2.1]">
+                    محترم ابوبکر صدیق (Abubakar Siddique)
+                  </h3>
+                  <p className="text-emerald-100/90 text-sm sm:text-base leading-[2.3] mb-5 max-w-3xl">
+                    جامعہ شیرِ ربانی کا یہ انٹرن شپ پروگرام محترم <strong>ابوبکر صدیق</strong> (انٹرن شپ سپروائزر) کے زیرِ نگرانی اور سرپرستی میں منعقد کیا جا رہا ہے۔ تمام منتخب امیدواروں کو براہِ راست ان کی زیرِ نگرانی لائیو پراجیکٹس، مینٹورنگ، ٹیکنیکل سیشنز اور پرفارمنس ایویلیوایشن کی سہولت فراہم کی جائے گی۔
+                  </p>
+                  
+                  <div className="flex flex-wrap items-center justify-center md:justify-start gap-3">
+                    <a 
+                      href="https://wa.me/923097354874" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-sm font-bold shadow-sm transition-all leading-[2.0]"
+                      dir="ltr"
+                    >
+                      <MessageCircle size={18} /> 0309-7354874 (WhatsApp)
+                    </a>
+                    <a 
+                      href="mailto:abubakr.bgnu@gmail.com" 
+                      className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/10 hover:bg-white/20 text-white border border-white/20 rounded-xl text-sm font-bold transition-all leading-[2.0]"
+                      dir="ltr"
+                    >
+                      <Mail size={18} /> abubakr.bgnu@gmail.com
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* --- FORM SECTION --- */}
         <section className="py-20 bg-[#faf9f8]" id="apply">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -272,30 +316,50 @@ export default function Internship() {
                   <div>
                     <h2 className="text-2xl md:text-3xl font-bold text-[#323130] mb-4 leading-[2.1]">رہنمائی یا معاونت درکار ہے؟</h2>
                     <p className="text-[#605e5c] text-sm leading-[2.3]">
-                      اگر آپ کو انٹرن شپ فارم جمع کروانے میں کوئی مشکل پیش آئے یا پروگرام سے متعلق کوئی سوال ہو تو ہمارے آفیشل رابطہ نمبرز پر رابطہ کریں۔
+                      انٹرن شپ فارم کے اندراج، سلیکشن یا پروگرام کی تفصیلات کے حوالے سے سپروائزر سے براہِ راست رابطہ فرمائیں۔
                     </p>
                   </div>
 
                   <div className="space-y-4">
-                    <a href="https://wa.me/923144081516" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 bg-white border border-[#edebe9] hover:bg-[#f3f2f1] transition-colors rounded-xl shadow-sm">
-                      <div className="text-emerald-600 shrink-0">
-                         <MessageCircle size={24} />
+                    {/* Supervisor Card in Sidebar */}
+                    <div className="p-5 bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-200 rounded-2xl shadow-xs">
+                      <div className="flex items-center gap-2 text-emerald-900 font-bold text-sm mb-2 leading-[2.0]">
+                        <UserCheck size={18} className="text-emerald-700" />
+                        <span>انٹرن شپ سپروائزر: ابوبکر صدیق</span>
                       </div>
-                      <div>
-                        <h4 className="font-bold text-[#323130] text-sm leading-[2.0]">واٹس ایپ ہیلپ ڈیسک</h4>
-                        <p className="text-xs text-[#605e5c] font-mono" dir="ltr">0314-4081516</p>
-                      </div>
-                    </a>
+                      <p className="text-xs text-slate-600 leading-[2.0] mb-3">
+                        براہِ راست رہنمائی یا استفسار کے لیے سپروائزر سے رابطہ کریں:
+                      </p>
+                      <div className="space-y-2">
+                        <a 
+                          href="https://wa.me/923097354874" 
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          className="flex items-center gap-3 p-3 bg-white border border-emerald-200 hover:border-emerald-400 text-slate-800 hover:text-emerald-800 transition-colors rounded-xl shadow-2xs group"
+                        >
+                          <div className="text-emerald-600 shrink-0">
+                            <MessageCircle size={20} />
+                          </div>
+                          <div>
+                            <h4 className="font-bold text-xs leading-[2.0]">واٹس ایپ و رابطہ (WhatsApp)</h4>
+                            <p className="text-xs text-emerald-700 font-mono font-bold" dir="ltr">0309-7354874</p>
+                          </div>
+                        </a>
 
-                    <a href="mailto:shererabbani@gmail.com" className="flex items-center gap-4 p-4 bg-white border border-[#edebe9] hover:bg-[#f3f2f1] transition-colors rounded-xl shadow-sm">
-                      <div className="text-blue-600 shrink-0">
-                         <Mail size={24} />
+                        <a 
+                          href="mailto:abubakr.bgnu@gmail.com" 
+                          className="flex items-center gap-3 p-3 bg-white border border-emerald-200 hover:border-emerald-400 text-slate-800 hover:text-emerald-800 transition-colors rounded-xl shadow-2xs group"
+                        >
+                          <div className="text-blue-600 shrink-0">
+                            <Mail size={20} />
+                          </div>
+                          <div>
+                            <h4 className="font-bold text-xs leading-[2.0]">آفیشل ای میل (Email)</h4>
+                            <p className="text-xs text-blue-700 font-mono font-bold truncate" dir="ltr">abubakr.bgnu@gmail.com</p>
+                          </div>
+                        </a>
                       </div>
-                      <div>
-                        <h4 className="font-bold text-[#323130] text-sm leading-[2.0]">ای میل سپورٹ</h4>
-                        <p className="text-xs text-[#605e5c] font-mono" dir="ltr">shererabbani@gmail.com</p>
-                      </div>
-                    </a>
+                    </div>
 
                     <div className="flex items-center gap-4 p-4 bg-white border border-[#edebe9] rounded-xl shadow-sm">
                       <div className="text-amber-600 shrink-0">

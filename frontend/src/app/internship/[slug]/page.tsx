@@ -130,6 +130,13 @@ export default function InternshipCertificatePage() {
                     </p>
                     <p className="text-[#323130] font-bold leading-[2.0]">{new Date(profile.issueDate).toLocaleDateString('ur-PK', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
                   </div>
+
+                  <div>
+                    <p className="text-xs font-bold text-[#605e5c] mb-1 flex items-center gap-1.5 leading-[2.0]">
+                      <User size={14} className="text-emerald-700" /> نگرانِ انٹرن شپ (Supervisor)
+                    </p>
+                    <p className="text-[#323130] font-bold leading-[2.0]">ابوبکر صدیق (0309-7354874)</p>
+                  </div>
                 </div>
               </div>
               
