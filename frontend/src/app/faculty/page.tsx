@@ -40,6 +40,16 @@ export default function Faculty() {
       image: '/ali-hamza.jpeg',
       email: 'jamiashererabbani07@gmail.com',
       contact: '03144081516'
+    },
+    {
+      id: 3,
+      name: 'محترم ابوبکر صدیق (Abubakar Siddique)',
+      role: 'ڈائریکٹر انفارمیشن ٹیکنالوجی و ہیڈ آف سافٹ ویئر سسٹمز',
+      education: 'بی ایس انفارمیشن ٹیکنالوجی (BSIT)، بابا گرو نانک یونیورسٹی | گوگل و سسکو سرٹیفائیڈ',
+      specialization: 'فل اسٹیک ویب ڈویلپمنٹ، کلاؤڈ انفراسٹرکچر، تعلیمی سسٹمز و ڈیٹا بیس آرکیٹیکچر',
+      image: '/abubakar-latest.jpeg',
+      email: 'abubakr.bgnu@gmail.com',
+      contact: '03097354874'
     }
   ];
 
@@ -53,8 +63,13 @@ export default function Faculty() {
       .then(res => res.json())
       .then(data => {
         if (data && data.length > 0) {
-          // If backend has custom faculty, map them to ensure Urdu presentation
-          setFaculty(data);
+          // If backend has custom faculty, ensure IT Director Abubakar is preserved
+          const hasAbubakar = data.some((m: FacultyMember) => m.id === 3 || m.name?.includes('ابوبکر'));
+          if (!hasAbubakar) {
+            setFaculty([...data, staticFaculty[2]]);
+          } else {
+            setFaculty(data);
+          }
         } else {
           setFaculty(staticFaculty);
         }
@@ -133,7 +148,7 @@ export default function Faculty() {
                 <div className="text-sm font-bold text-slate-700 font-urdu">اساتذہ کا ڈیٹا لوڈ ہو رہا ہے...</div>
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 max-w-5xl mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-7xl mx-auto">
                 {faculty.map((member, i) => (
                   <motion.div 
                     key={member.id}
@@ -141,22 +156,22 @@ export default function Faculty() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: i * 0.1, duration: 0.5 }}
-                    className="flex flex-col sm:flex-row bg-white border border-slate-200/80 shadow-sm hover:shadow-xl rounded-2xl overflow-hidden transition-all duration-300 group"
+                    className="flex flex-col bg-white border border-slate-200/80 shadow-sm hover:shadow-xl rounded-2xl overflow-hidden transition-all duration-300 group"
                   >
                     {/* Faculty Image */}
-                    <div className="sm:w-2/5 aspect-[4/5] sm:aspect-auto overflow-hidden relative bg-slate-100 shrink-0">
+                    <div className="w-full aspect-[4/5] overflow-hidden relative bg-slate-100 shrink-0">
                       <OptimizedImage 
                         src={member.image || "/images/WhatsApp.jpeg"}
                         alt={member.name}
                         fill
                         section="faculty"
                         className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                        sizes="(max-width: 768px) 100vw, 30vw"
+                        sizes="(max-width: 768px) 100vw, 33vw"
                       />
                     </div>
                     
                     {/* Faculty Information */}
-                    <div className="p-6 md:p-8 flex flex-col justify-between flex-1 text-right">
+                    <div className="p-6 md:p-7 flex flex-col justify-between flex-1 text-right">
                       <div>
                         <span className="text-xs font-bold text-emerald-700 bg-emerald-50 px-3 py-1.5 rounded-lg border border-emerald-200/60 inline-block mb-3 font-urdu">
                           {member.role}
