@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import Image from 'next/image';
 import { useTranslation } from 'react-i18next';
 import Head from 'next/head';
 import { ChevronLeft, Target, Clock, Users, ArrowLeft, UserCheck, Phone, Mail, MessageCircle } from 'lucide-react';
@@ -191,8 +192,15 @@ export default function ProgramDetailsPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
           <div className="bg-gradient-to-br from-emerald-900 via-teal-950 to-slate-900 text-white p-6 sm:p-10 rounded-3xl shadow-xl border border-emerald-500/20">
             <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
-              <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-500 flex items-center justify-center text-white text-3xl font-bold shadow-lg shrink-0 border border-white/20">
-                <UserCheck size={44} className="text-white" />
+              <div className="relative w-28 sm:w-36 aspect-[706/1024] rounded-2xl overflow-hidden border-2 border-emerald-400/40 shadow-xl shrink-0 bg-slate-800">
+                <Image 
+                  src="/abubakar-latest.jpeg" 
+                  alt="محترم ابوبکر صدیق" 
+                  fill 
+                  unoptimized
+                  priority
+                  className="object-cover" 
+                />
               </div>
               <div className="flex-1 text-center md:text-right">
                 <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-emerald-500/20 text-emerald-300 rounded-full text-xs font-bold mb-3 border border-emerald-400/30 leading-[2.0]">

@@ -155,6 +155,7 @@ const Footer = () => {
       title: 'میڈیا و اعلانات',
       headingColor: '#f59e0b', // Amber Orange
       links: [
+        { label: 'تصویری گیلری (Campus Gallery)', href: '/gallery' },
         { label: 'تازہ ترین خبریں و تقاریب', href: '/news' },
         { label: 'علمی مقالات و کالمز', href: '/articles' },
         { label: 'سالانہ دستارِ فضیلت کانفرنس', href: '/news' },
