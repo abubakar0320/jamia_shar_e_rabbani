@@ -3,7 +3,18 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import React, { useState, useEffect } from 'react';
-import { MessageCircle, Send, Video, Users, ExternalLink, ShieldCheck, Code2 } from 'lucide-react';
+import { 
+  MessageCircle, 
+  Send, 
+  Video, 
+  Users, 
+  ExternalLink, 
+  ShieldCheck, 
+  Code2, 
+  Landmark, 
+  Copy, 
+  Check 
+} from 'lucide-react';
 
 interface OfficialAffiliation {
   nameUrdu: string;
@@ -15,10 +26,21 @@ interface OfficialAffiliation {
 
 const Footer = () => {
   const [mounted, setMounted] = useState(false);
+  const [copiedKey, setCopiedKey] = useState<string | null>(null);
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  const handleCopy = (text: string, key: string) => {
+    if (typeof window !== 'undefined' && navigator?.clipboard) {
+      navigator.clipboard.writeText(text);
+      setCopiedKey(key);
+      setTimeout(() => {
+        setCopiedKey((prev) => (prev === key ? null : prev));
+      }, 2500);
+    }
+  };
 
   if (!mounted) {
     return (
@@ -66,6 +88,40 @@ const Footer = () => {
       image: '/images/army-logo.png',
       href: 'https://pakistanarmy.gov.pk',
       title: 'پاک فوج - آفیشل پورٹل',
+    },
+  ];
+
+  // Official Accounts for Direct Donations and Financial Support
+  const donationAccounts = [
+    {
+      key: 'nbp',
+      bankName: 'نیشنل بینک آف پاکستان (NBP)',
+      personTitle: 'ڈاکٹر فاروق علی',
+      accountNumber: 'PK19NBPA1985003052969759',
+      displayNumber: 'PK19 NBPA 1985 0030 5296 9759',
+      badge: 'آئی بی اے این / اکاؤنٹ نمبر',
+      accentColor: 'border-emerald-200 bg-emerald-50/70',
+      tagColor: 'bg-emerald-100 text-emerald-900 border-emerald-300',
+    },
+    {
+      key: 'easypaisa',
+      bankName: 'ایزی پیسہ (Easypaisa)',
+      personTitle: 'ڈاکٹر فاروق علی',
+      accountNumber: '03144081516',
+      displayNumber: '0314 4081516',
+      badge: 'موبائل والٹ نمبر',
+      accentColor: 'border-teal-200 bg-teal-50/70',
+      tagColor: 'bg-teal-100 text-teal-900 border-teal-300',
+    },
+    {
+      key: 'meezan',
+      bankName: 'میزان بینک (Meezan Bank)',
+      personTitle: 'حافظ احمد علی',
+      accountNumber: '98690112101313',
+      displayNumber: '9869 0112 1013 13',
+      badge: 'بینک اکاؤنٹ نمبر',
+      accentColor: 'border-sky-200 bg-sky-50/70',
+      tagColor: 'bg-sky-100 text-sky-900 border-sky-300',
     },
   ];
 
@@ -215,7 +271,7 @@ const Footer = () => {
         <div className="mb-10 pt-8 border-t border-slate-200">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-5">
             <div className="flex items-center gap-2">
-              <ShieldCheck className="text-emerald-700 w-5 h-5" />
+              <ShieldCheck className="text-emerald-700 w-5 h-5 shrink-0" />
               <h4 className="text-sm sm:text-base font-bold text-slate-900 font-urdu">
                 قومی الحاق و باضابطہ آفیشل پورٹلز
               </h4>
@@ -254,6 +310,91 @@ const Footer = () => {
                 </div>
                 <ExternalLink size={13} className="text-slate-400 group-hover:text-emerald-600 transition-colors shrink-0" />
               </a>
+            ))}
+          </div>
+        </div>
+
+        {/* Official Donation Bank Accounts Section (الحاق کے نیچے) */}
+        <div className="mb-10 pt-8 border-t border-slate-200">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-5">
+            <div className="flex items-center gap-2">
+              <Landmark className="text-emerald-700 w-5 h-5 shrink-0" />
+              <h4 className="text-sm sm:text-base font-bold text-slate-900 font-urdu">
+                عطیات، زکوٰۃ و مالی تعاون کے باضابطہ اکاؤنٹس
+              </h4>
+            </div>
+            <div className="flex items-center gap-3">
+              <p className="text-xs text-slate-500 font-urdu hidden sm:block">
+                جامعہ کے دینی و تعلیمی شعبہ جات کے تعاون کے لیے براہِ راست بینک اکاؤنٹ یا ایزی پیسہ میں فنڈز منتقل فرما سکتے ہیں۔
+              </p>
+              <Link 
+                href="/donations" 
+                className="text-xs font-bold text-emerald-800 hover:text-emerald-950 underline font-urdu shrink-0"
+              >
+                عطیات پورٹل وزٹ کریں ←
+              </Link>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {donationAccounts.map((acc) => (
+              <div
+                key={acc.key}
+                className={`rounded-2xl p-4 border transition-all duration-200 shadow-2xs hover:shadow-sm flex flex-col justify-between ${acc.accentColor}`}
+              >
+                <div>
+                  <div className="flex items-center justify-between gap-2 mb-2.5">
+                    <span className={`text-[11px] font-bold px-2.5 py-0.5 rounded-full border ${acc.tagColor} font-urdu`}>
+                      {acc.bankName}
+                    </span>
+                    <span className="text-[10px] text-slate-500 font-urdu">
+                      {acc.badge}
+                    </span>
+                  </div>
+
+                  <div className="mb-3">
+                    <span className="text-[11px] text-slate-600 font-urdu block">اکاؤنٹ ٹائٹل:</span>
+                    <span className="text-sm sm:text-base font-black text-slate-900 font-urdu">
+                      {acc.personTitle}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="bg-white rounded-xl p-2.5 border border-slate-200 shadow-2xs flex items-center justify-between gap-2">
+                  <div className="flex flex-col min-w-0 flex-1">
+                    <span className="text-[9px] text-slate-400 font-urdu">نمبر:</span>
+                    <span 
+                      className="font-mono text-xs sm:text-sm font-black text-slate-900 tracking-wider truncate" 
+                      dir="ltr"
+                    >
+                      {acc.displayNumber}
+                    </span>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => handleCopy(acc.accountNumber, acc.key)}
+                    className={`inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-bold transition-all shrink-0 cursor-pointer ${
+                      copiedKey === acc.key
+                        ? 'bg-emerald-700 text-white shadow-xs'
+                        : 'bg-slate-100 hover:bg-emerald-600 hover:text-white text-slate-700 border border-slate-200 hover:border-emerald-600'
+                    }`}
+                    title="اکاؤنٹ نمبر کاپی کریں"
+                  >
+                    {copiedKey === acc.key ? (
+                      <>
+                        <Check size={13} />
+                        <span className="text-[11px] font-urdu">کاپی ہو گیا!</span>
+                      </>
+                    ) : (
+                      <>
+                        <Copy size={13} />
+                        <span className="text-[11px] font-urdu">کاپی کریں</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+              </div>
             ))}
           </div>
         </div>
