@@ -355,7 +355,101 @@ function CourseDetailsContent() {
                     </div>
                   </div>
                 )}
+
+                {detail && (
+                  <div className="mt-6 pt-5 border-t border-slate-100 grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="bg-amber-50/70 p-4 rounded-xl border border-amber-200">
+                      <h4 className="text-sm font-bold text-amber-950 mb-2 font-urdu">شرائطِ داخلہ و اہلیت:</h4>
+                      <ul className="space-y-1.5 text-xs sm:text-sm text-amber-950 font-urdu">
+                        {detail.eligibility.map((item, i) => (
+                          <li key={i} className="flex items-start gap-2">
+                            <span className="text-amber-700 font-bold">✓</span>
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <div className="bg-emerald-50/70 p-4 rounded-xl border border-emerald-200">
+                      <h4 className="text-sm font-bold text-emerald-950 mb-2 font-urdu">جامعہ کی مفت سہولیات:</h4>
+                      <ul className="space-y-1.5 text-xs sm:text-sm text-emerald-950 font-urdu">
+                        {detail.facilities.map((fac, i) => (
+                          <li key={i} className="flex items-start gap-2">
+                            <span className="text-emerald-700 font-bold">✓</span>
+                            <span>{fac}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                )}
               </div>
+
+              {/* 8-YEARS DETAILED DARS-E-NIZAMI YEARLY BREAKDOWN (تمام آٹھ سالوں کے نام و نصاب) */}
+              {detail?.eightYearsBreakdown && (
+                <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/80 shadow-md">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-600 animate-pulse" />
+                    <span className="text-xs font-bold text-emerald-800 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-md font-urdu">
+                      درسِ نظامی کا مکمل ۸ سالہ تعلیمی نصاب
+                    </span>
+                  </div>
+                  
+                  <h3 className="text-2xl sm:text-3xl font-black text-slate-900 mb-2 leading-[2.0] font-urdu">
+                    ۸ سالہ ڈگری پروگرام — تمام آٹھ سالوں کے نام، درجات اور نصابی کتب
+                  </h3>
+                  
+                  <p className="text-slate-600 text-xs sm:text-sm leading-[2.2] mb-6 font-urdu">
+                    جامعہ شیرِ ربانی میں درسِ نظامی (عالم و فاضل کورس) ۸ باقاعدہ تعلیمی سالوں پر مشتمل ہے۔ ہر سال کا باضابطہ نام، تعلیمی درجہ، پڑھائے جانے والے مضامین اور نصابی کتب درج ذیل ہیں:
+                  </p>
+
+                  <div className="space-y-4">
+                    {detail.eightYearsBreakdown.map((yr) => (
+                      <div 
+                        key={yr.yearNumber} 
+                        className="p-5 sm:p-6 rounded-2xl border border-slate-200/90 bg-slate-50/70 hover:bg-white hover:border-emerald-300 hover:shadow-md transition-all font-urdu text-right relative overflow-hidden"
+                      >
+                        <div className="absolute top-0 right-0 left-0 h-1 bg-gradient-to-r from-emerald-600 via-amber-400 to-emerald-800" />
+                        
+                        <div className="flex items-center justify-between flex-wrap gap-2 mb-3">
+                          <div className="flex items-center gap-3">
+                            <span className="w-9 h-9 rounded-xl bg-emerald-800 text-white font-black text-sm flex items-center justify-center shrink-0 shadow-2xs font-urdu">
+                              {`۰${yr.yearNumber}`}
+                            </span>
+                            <div>
+                              <h4 className="text-base sm:text-lg font-black text-slate-900 leading-tight">
+                                {yr.yearName}
+                              </h4>
+                              <span className="text-xs text-slate-500 font-bold">
+                                {yr.stageTitle}
+                              </span>
+                            </div>
+                          </div>
+                          
+                          <span className="text-xs font-bold px-3 py-1 rounded-full bg-emerald-100 text-emerald-900 border border-emerald-200">
+                            {yr.equivalent}
+                          </span>
+                        </div>
+
+                        <p className="text-xs sm:text-sm text-slate-700 leading-relaxed mb-4">
+                          {yr.description}
+                        </p>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-3 border-t border-slate-200/70 text-xs">
+                          <div className="bg-white p-3 rounded-xl border border-slate-200/60">
+                            <strong className="text-emerald-900 block mb-1">تدریسی مضامین:</strong>
+                            <span className="text-slate-700 leading-relaxed">{yr.subjects.join(' • ')}</span>
+                          </div>
+                          <div className="bg-white p-3 rounded-xl border border-slate-200/60">
+                            <strong className="text-emerald-900 block mb-1">نصابی و درسی کتب:</strong>
+                            <span className="text-slate-700 leading-relaxed">{yr.books.join(' • ')}</span>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               {/* DYNAMIC VIDEO PLAYLISTS (Preserved exactly from course data) */}
               {(course.playlistId || (course.playlists && course.playlists.length > 0)) && (

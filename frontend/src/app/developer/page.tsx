@@ -111,9 +111,10 @@ export default function DeveloperProfilePage() {
               <div className="flex flex-col items-center shrink-0 text-center">
                 <div className="relative w-36 h-36 sm:w-44 sm:h-44 rounded-3xl bg-slate-900 shadow-2xl border-4 border-white ring-4 ring-emerald-100 overflow-hidden">
                   <Image
-                    src="/abubakar.jpeg"
+                    src="/abubakar-siddique.jpeg"
                     alt="ابوبکر صدیق"
                     fill
+                    unoptimized
                     sizes="(max-width: 640px) 144px, 176px"
                     className="object-cover object-top"
                     priority

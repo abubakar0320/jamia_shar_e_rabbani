@@ -31,7 +31,6 @@ export default function Courses() {
   const [mounted, setMounted] = useState(false);
   const [activeFilter, setActiveFilter] = useState<'all' | 'hifz' | 'dars' | 'takhasus'>('all');
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [selectedCourse, setSelectedCourse] = useState<CourseDetail | null>(null);
   const [expandedAccordionId, setExpandedAccordionId] = useState<number | null>(null);
 
   React.useEffect(() => {
@@ -222,13 +221,13 @@ export default function Courses() {
 
                     {/* Action Buttons */}
                     <div className="grid grid-cols-2 gap-2 pt-2 border-t border-slate-100">
-                      <button
-                        onClick={() => setSelectedCourse(course)}
-                        className="text-center py-2 text-xs font-bold rounded-lg border border-emerald-600 text-emerald-800 bg-emerald-50/60 hover:bg-emerald-100 transition-colors font-urdu flex items-center justify-center gap-1"
+                      <Link
+                        href={`/program?id=${course.id}`}
+                        className="text-center py-2 text-xs font-bold rounded-lg border border-slate-300 text-slate-700 bg-white hover:bg-slate-50 hover:border-emerald-600 hover:text-emerald-800 transition-colors font-urdu flex items-center justify-center gap-1"
                       >
-                        <Info size={13} />
-                        <span>مکمل تفصیل دیکھیں</span>
-                      </button>
+                        <BookOpen size={13} />
+                        <span>کورس تفصیلات</span>
+                      </Link>
 
                       <Link
                         href={`/admissions?course=${encodeURIComponent(course.title)}`}
@@ -419,6 +418,12 @@ export default function Courses() {
 
                           <div className="flex items-center gap-3 w-full sm:w-auto">
                             <Link
+                              href={`/program?id=${course.id}`}
+                              className="flex-1 sm:flex-initial px-5 py-2.5 rounded-xl border border-emerald-600 text-emerald-800 bg-emerald-50 hover:bg-emerald-100 font-bold text-xs sm:text-sm transition-all text-center"
+                            >
+                              کورس کا مکمل صفحہ دیکھیں
+                            </Link>
+                            <Link
                               href={`/admissions?course=${encodeURIComponent(course.title)}`}
                               className="flex-1 sm:flex-initial px-5 py-2.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs sm:text-sm transition-all text-center shadow-xs"
                             >
@@ -593,219 +598,6 @@ export default function Courses() {
           </div>
         </section>
       </main>
-
-      {/* --- DETAILED COURSE POPUP MODAL --- */}
-      <AnimatePresence>
-        {selectedCourse && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setSelectedCourse(null)}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 p-3 sm:p-6 overflow-y-auto backdrop-blur-xs"
-            dir="rtl"
-          >
-            <motion.div
-              initial={{ scale: 0.95, opacity: 0, y: 20 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.95, opacity: 0, y: 20 }}
-              onClick={(e) => e.stopPropagation()}
-              className="relative w-full max-w-4xl bg-white rounded-3xl shadow-2xl overflow-hidden my-auto max-h-[90vh] flex flex-col border border-slate-200"
-            >
-              {/* Modal Header */}
-              <div className="p-6 sm:p-7 bg-gradient-to-r from-emerald-900 via-emerald-800 to-slate-900 text-white relative shrink-0">
-                <button
-                  onClick={() => setSelectedCourse(null)}
-                  className="absolute top-5 left-5 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
-                  aria-label="بند کریں"
-                >
-                  <X size={20} />
-                </button>
-
-                <div className="flex items-center gap-2 mb-2 flex-wrap">
-                  <span className="text-xs font-bold px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-200 border border-emerald-400/30 font-urdu">
-                    {selectedCourse.level}
-                  </span>
-                  <span className="text-xs font-bold text-amber-300 font-urdu flex items-center gap-1">
-                    <Clock size={13} /> {selectedCourse.duration}
-                  </span>
-                  <span className="text-xs text-slate-300 font-urdu">
-                    • وفاق المدارس الاسلامیہ الرضویہ پاکستان سے الحاق شدہ
-                  </span>
-                </div>
-
-                <div className="text-xs text-amber-200/90 font-urdu mb-1">
-                  {selectedCourse.arabicTitle}
-                </div>
-
-                <h3 className="text-2xl sm:text-3xl font-black text-white font-urdu leading-tight">
-                  {selectedCourse.title}
-                </h3>
-              </div>
-
-              {/* Modal Body Scrollable */}
-              <div className="p-6 sm:p-8 space-y-7 overflow-y-auto flex-1 font-urdu text-right">
-                {/* 1. Overview */}
-                <div>
-                  <h4 className="text-base font-black text-slate-900 mb-2 flex items-center gap-2 text-emerald-800">
-                    <BookOpen size={18} />
-                    <span>کورس کا تفصیلی تعارف و مقاصد:</span>
-                  </h4>
-                  <p className="text-sm sm:text-base text-slate-700 leading-[2.3]">
-                    {selectedCourse.overview}
-                  </p>
-                </div>
-
-                {/* 2. Key Highlights */}
-                <div>
-                  <h4 className="text-base font-black text-slate-900 mb-3 flex items-center gap-2 text-emerald-800">
-                    <Sparkles size={18} />
-                    <span>اہم تعلیمی خصوصیات:</span>
-                  </h4>
-                  <div className="grid grid-cols-1 gap-2.5 bg-slate-50 p-4 rounded-2xl border border-slate-200">
-                    {selectedCourse.highlights.map((item, idx) => (
-                      <div key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-800">
-                        <Check size={16} className="text-emerald-600 shrink-0 mt-1" />
-                        <span className="leading-relaxed">{item}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* 3. Stages if applicable (Dars-e-Nizami) */}
-                {selectedCourse.curriculumStages && (
-                  <div>
-                    <h4 className="text-base font-black text-slate-900 mb-3 flex items-center gap-2 text-emerald-800">
-                      <GraduationCap size={18} />
-                      <span>تعلیمی مراحل (عامہ، خاصہ، عالیہ، عالمیہ):</span>
-                    </h4>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                      {selectedCourse.curriculumStages.map((stg, idx) => (
-                        <div key={idx} className="p-4 rounded-xl bg-slate-50 border border-slate-200">
-                          <div className="font-black text-slate-900 text-sm mb-1">{stg.stage}</div>
-                          <div className="text-xs font-bold text-emerald-700 mb-2">{stg.equivalent}</div>
-                          <div className="text-xs text-slate-600 space-y-1">
-                            <div><strong>مضامین: </strong>{stg.subjects.join('، ')}</div>
-                            <div><strong>کتب: </strong>{stg.books.join('، ')}</div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {/* 4. Curriculum Subjects & Books */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <h4 className="text-sm font-black text-slate-900 mb-2.5 flex items-center gap-2 text-emerald-800">
-                      <FileText size={16} />
-                      <span>تدریسی مضامین و نصاب:</span>
-                    </h4>
-                    <ul className="space-y-1.5 text-xs sm:text-sm text-slate-700 bg-slate-50 p-4 rounded-xl border border-slate-100">
-                      {selectedCourse.curriculumSubjects.map((sub, idx) => (
-                        <li key={idx} className="flex items-start gap-2">
-                          <Check size={14} className="text-emerald-600 shrink-0 mt-1" />
-                          <span>{sub}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div>
-                    <h4 className="text-sm font-black text-slate-900 mb-2.5 flex items-center gap-2 text-emerald-800">
-                      <Book size={16} />
-                      <span>شامل نصابی کتب:</span>
-                    </h4>
-                    <ul className="space-y-1.5 text-xs sm:text-sm text-slate-700 bg-slate-50 p-4 rounded-xl border border-slate-100">
-                      {selectedCourse.booksTaught.map((book, idx) => (
-                        <li key={idx} className="flex items-start gap-2">
-                          <Check size={14} className="text-emerald-600 shrink-0 mt-1" />
-                          <span>{book}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-
-                {/* 5. Eligibility & Facilities */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="bg-amber-50/70 p-4 rounded-xl border border-amber-200">
-                    <h4 className="text-sm font-black text-amber-950 mb-2 flex items-center gap-2">
-                      <Calendar size={16} className="text-amber-700" />
-                      <span>شرائطِ داخلہ و اہلیت:</span>
-                    </h4>
-                    <ul className="space-y-1.5 text-xs sm:text-sm text-amber-950">
-                      {selectedCourse.eligibility.map((item, idx) => (
-                        <li key={idx} className="flex items-start gap-2">
-                          <CheckCircle2 size={14} className="text-amber-700 shrink-0 mt-1" />
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div className="bg-emerald-50/70 p-4 rounded-xl border border-emerald-200">
-                    <h4 className="text-sm font-black text-emerald-950 mb-2 flex items-center gap-2">
-                      <Building2 size={16} className="text-emerald-700" />
-                      <span>جامعہ کی مفت سہولیات:</span>
-                    </h4>
-                    <ul className="space-y-1.5 text-xs sm:text-sm text-emerald-950">
-                      {selectedCourse.facilities.map((fac, idx) => (
-                        <li key={idx} className="flex items-start gap-2">
-                          <ShieldCheck size={14} className="text-emerald-700 shrink-0 mt-1" />
-                          <span>{fac}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-
-                {/* 6. Learning Outcomes */}
-                <div>
-                  <h4 className="text-sm font-black text-slate-900 mb-2 flex items-center gap-2 text-emerald-800">
-                    <Award size={16} />
-                    <span>حاصلاتِ تعلّم اور فکری نتائج:</span>
-                  </h4>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 bg-slate-50 p-4 rounded-xl border border-slate-200">
-                    {selectedCourse.learningOutcomes.map((out, idx) => (
-                      <div key={idx} className="flex items-start gap-2 text-xs sm:text-sm text-slate-800">
-                        <CheckCircle2 size={14} className="text-emerald-600 shrink-0 mt-1" />
-                        <span>{out}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* Modal Footer CTAs */}
-              <div className="p-4 sm:p-5 bg-slate-50 border-t border-slate-200 flex flex-wrap items-center justify-between gap-3 shrink-0">
-                <button
-                  onClick={() => setSelectedCourse(null)}
-                  className="px-5 py-2.5 rounded-xl border border-slate-300 text-slate-700 font-bold text-xs sm:text-sm hover:bg-slate-100 font-urdu"
-                >
-                  بند کریں
-                </button>
-
-                <div className="flex items-center gap-2.5">
-                  <Link
-                    href="/contact"
-                    className="px-5 py-2.5 rounded-xl border border-emerald-700 text-emerald-800 font-bold text-xs sm:text-sm hover:bg-emerald-50 font-urdu"
-                  >
-                    تعلیمی مشیر سے رابطہ
-                  </Link>
-
-                  <Link
-                    href={`/admissions?course=${encodeURIComponent(selectedCourse.title)}`}
-                    className="px-6 py-2.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs sm:text-sm font-urdu shadow-sm"
-                  >
-                    آن لائن داخلہ فارم پر کریں
-                  </Link>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
       {/* --- LIGHTBOX FOR FULLSCREEN IMAGE PREVIEW --- */}
       <AnimatePresence>
