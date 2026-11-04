@@ -1,7 +1,6 @@
 import React from "react";
 import { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
 import {
   Database,
   Globe,
@@ -14,20 +13,17 @@ import {
   Award,
   Briefcase,
   Mail,
-  Phone,
   ExternalLink,
   CheckCircle2,
   FileText,
-  Code2,
-  Terminal,
-  Cpu,
-  Layers,
   Sparkles,
   Building2,
   ShieldCheck,
-  Calendar,
-  Check,
-  UserCheck
+  Code2,
+  Phone,
+  Layers,
+  Terminal,
+  Cpu
 } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -38,12 +34,11 @@ export const metadata: Metadata = {
   keywords: [
     "ابوبکر صدیق",
     "Abu Bakar Siddique",
-    "IT Administrator Jamia Sher-e-Rabbani",
     "آئی ٹی اینڈ سسٹم ایڈمنسٹریٹر",
     "جامعہ شیر ربانی ڈویلپر",
-    "Full Stack Developer Pakistan",
-    "Next.js Developer",
-    "MERN Stack Developer Sheikhupura"
+    "فل اسٹیک ویب ڈویلپر",
+    "Next.js Developer Pakistan",
+    "MERN Stack Developer"
   ],
   openGraph: {
     title: "ابوبکر صدیق | آئی ٹی اینڈ سسٹم ایڈمنسٹریٹر - جامعہ شیرِ ربانی",
@@ -74,7 +69,7 @@ const WhatsAppIcon = (props: React.SVGProps<SVGSVGElement>) => (
 
 const getTagColor = (tag: string) => {
   const t = tag.toLowerCase();
-  if (t.includes('react')) return 'text-sky-700 bg-sky-50 border-sky-300';
+  if (t.includes('react')) return 'text-sky-800 bg-sky-50 border-sky-300';
   if (t.includes('next.js')) return 'text-slate-900 bg-slate-100 border-slate-400';
   if (t.includes('node')) return 'text-emerald-800 bg-emerald-50 border-emerald-300';
   if (t.includes('mongo')) return 'text-green-800 bg-green-50 border-green-300';
@@ -92,37 +87,35 @@ export default function DeveloperProfilePage() {
     <>
       <Header />
 
-      <div className="min-h-screen bg-slate-50 font-sans text-slate-800 selection:bg-emerald-800 selection:text-white pb-20 overflow-x-hidden" dir="ltr">
+      <div className="min-h-screen bg-slate-50 font-urdu text-slate-800 selection:bg-emerald-800 selection:text-white pb-20 overflow-x-hidden" dir="rtl">
 
         {/* 1. TOP BREADCRUMB & BANNER */}
         <div className="bg-gradient-to-r from-emerald-950 via-emerald-900 to-slate-900 text-white border-b-4 border-amber-400 py-10 px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-6">
-            <div>
-              {/* Institution Breadcrumb / Tag */}
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-800/80 border border-emerald-600/70 text-amber-300 text-xs font-bold mb-3 font-urdu" dir="rtl">
+            <div className="space-y-2">
+              {/* Institution Breadcrumb */}
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-800/80 border border-emerald-600/70 text-amber-300 text-xs font-bold shadow-xs">
                 <Building2 size={14} className="text-amber-400" />
-                <span>جامعہ شیرِ ربانی مانانوالہ • شعبہ انفارمیشن ٹیکنالوجی و کمپیوٹر سائنس</span>
+                <span>جامعہ شیرِ ربانی مانانوالہ • شعبہ انفارمیشن ٹیکنالوجی و کمپیوٹر سروسز</span>
               </div>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight">
-                System Administrator & Lead Developer
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-[1.8] sm:leading-[1.9]">
+                سسٹم ایڈمنسٹریٹر و چیف ویب ڈویلپر
               </h1>
-              <p className="text-emerald-200 text-sm sm:text-base mt-2 font-medium max-w-2xl font-urdu" dir="rtl">
-                جامعہ شیرِ ربانی کا آفیشل ڈیجیٹل انفراسٹرکچر، آن لائن پورٹلز اور سسٹمز کی تکنیکی تیاری اور انتظام۔
+              <p className="text-emerald-200 text-sm sm:text-base font-normal leading-[2.1] max-w-2xl">
+                جامعہ شیرِ ربانی کا آفیشل ڈیجیٹل انفراسٹرکچر، آن لائن پورٹلز، مقالہ جات اور مرکزی ڈیٹا سسٹمز کی تکنیکی تیاری اور باقاعدہ انتظام۔
               </p>
             </div>
 
             <div className="flex items-center gap-3 self-start md:self-center">
               <Link
                 href="/"
-                className="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs sm:text-sm font-bold border border-white/20 transition-all font-urdu"
-                dir="rtl"
+                className="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs sm:text-sm font-bold border border-white/20 transition-all shadow-xs"
               >
                 ہوم پیج پر جائیں
               </Link>
               <Link
                 href="/articles"
-                className="px-4 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 text-xs sm:text-sm font-black transition-all shadow-md font-urdu"
-                dir="rtl"
+                className="px-4 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 text-xs sm:text-sm font-black transition-all shadow-md"
               >
                 علمی مضامین دیکھیں
               </Link>
@@ -143,9 +136,9 @@ export default function DeveloperProfilePage() {
               {/* Profile Avatar & Quick Status */}
               <div className="flex flex-col items-center shrink-0 text-center">
                 <div className="relative w-36 h-36 sm:w-44 sm:h-44 rounded-3xl bg-gradient-to-br from-emerald-800 via-emerald-700 to-slate-900 text-white flex items-center justify-center text-4xl sm:text-5xl font-black shadow-2xl border-4 border-white ring-4 ring-emerald-100 overflow-hidden">
-                  <span>AS</span>
+                  <span>ابوبکر</span>
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent" />
-                  <div className="absolute bottom-2 left-2 right-2 text-center text-[11px] font-bold text-amber-300 bg-slate-950/70 py-0.5 rounded-md backdrop-blur-xs font-urdu" dir="rtl">
+                  <div className="absolute bottom-2 left-2 right-2 text-center text-[12px] font-bold text-amber-300 bg-slate-950/80 py-1 rounded-md backdrop-blur-xs font-urdu">
                     ابوبکر صدیق
                   </div>
                 </div>
@@ -153,30 +146,27 @@ export default function DeveloperProfilePage() {
                 {/* Available Badge */}
                 <div className="mt-4 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 text-emerald-900 border border-emerald-300 text-xs font-bold shadow-2xs">
                   <span className="w-2.5 h-2.5 rounded-full bg-emerald-600 animate-pulse" />
-                  <span>Available for Engineering</span>
+                  <span>تکنیکی رہنمائی کے لیے دستیاب</span>
                 </div>
               </div>
 
               {/* Identity & Institutional Titles */}
-              <div className="flex-1 text-center lg:text-left space-y-4">
+              <div className="flex-1 text-center lg:text-right space-y-4">
                 
                 <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2.5">
-                  <span className="px-3.5 py-1 rounded-full bg-emerald-800 text-white text-xs font-bold shadow-2xs font-urdu" dir="rtl">
+                  <span className="px-3.5 py-1 rounded-full bg-emerald-800 text-white text-xs font-bold shadow-2xs">
                     آئی ٹی اینڈ سسٹم ایڈمنسٹریٹر
                   </span>
                   <span className="px-3.5 py-1 rounded-full bg-amber-100 text-amber-950 border border-amber-300 text-xs font-bold">
-                    Full Stack Web Developer (MERN & Next.js)
+                    فل اسٹیک ویب ڈویلپر (MERN Stack & Next.js)
                   </span>
                 </div>
 
                 <div className="space-y-1">
-                  <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight">
-                    Abu Bakar Siddique
+                  <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 leading-[1.8] sm:leading-[1.9]">
+                    ابوبکر صدیق (Abu Bakar Siddique)
                   </h2>
-                  <p className="text-xl sm:text-2xl font-black text-emerald-800 font-urdu leading-relaxed" dir="rtl">
-                    ابوبکر صدیق
-                  </p>
-                  <p className="text-sm sm:text-base font-bold text-slate-600 font-urdu" dir="rtl">
+                  <p className="text-base sm:text-lg font-bold text-emerald-800 leading-relaxed">
                     آئی ٹی اینڈ سسٹم ایڈمنسٹریٹر، جامعہ شیرِ ربانی مانانوالہ
                   </p>
                 </div>
@@ -191,7 +181,7 @@ export default function DeveloperProfilePage() {
                     className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-900 font-bold border border-emerald-300 transition-colors shadow-2xs"
                   >
                     <WhatsAppIcon className="w-4 h-4 text-emerald-700" />
-                    <span>0309-7354874</span>
+                    <span>واٹس ایپ: 0309-7354874</span>
                   </a>
 
                   {/* Primary Email */}
@@ -200,13 +190,13 @@ export default function DeveloperProfilePage() {
                     className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold border border-slate-300 transition-colors shadow-2xs"
                   >
                     <Mail size={16} className="text-rose-600" />
-                    <span>abubakr.bgnu@gmail.com</span>
+                    <span dir="ltr">abubakr.bgnu@gmail.com</span>
                   </a>
 
                   {/* Location */}
                   <div className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-50 text-slate-600 font-medium border border-slate-200">
                     <MapPin size={16} className="text-emerald-700" />
-                    <span>Sheikhupura, Punjab, Pakistan</span>
+                    <span>شیخوپورہ / ننکانہ صاحب، پنجاب، پاکستان</span>
                   </div>
                 </div>
 
@@ -219,7 +209,7 @@ export default function DeveloperProfilePage() {
                     className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-800 hover:bg-emerald-900 text-white font-bold text-xs sm:text-sm shadow-sm transition-all"
                   >
                     <Globe size={15} />
-                    <span>iamabubakar.site</span>
+                    <span dir="ltr">iamabubakar.site</span>
                     <ExternalLink size={13} className="text-emerald-200" />
                   </a>
 
@@ -230,7 +220,7 @@ export default function DeveloperProfilePage() {
                     className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs sm:text-sm shadow-sm transition-all"
                   >
                     <GithubIcon className="w-4 h-4" />
-                    <span>GitHub / abubakar0320</span>
+                    <span dir="ltr">GitHub / abubakar0320</span>
                   </a>
 
                   <a
@@ -240,17 +230,17 @@ export default function DeveloperProfilePage() {
                     className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#0077B5] hover:bg-[#005E93] text-white font-bold text-xs sm:text-sm shadow-sm transition-all"
                   >
                     <LinkedinIcon className="w-4 h-4" />
-                    <span>LinkedIn Profile</span>
+                    <span>لنکڈ اِن پروفائل</span>
                   </a>
                 </div>
 
                 {/* Bio Description */}
-                <div className="pt-4 border-t border-slate-100 text-slate-700 text-sm sm:text-base leading-relaxed space-y-2">
+                <div className="pt-4 border-t border-slate-100 text-slate-700 text-sm sm:text-base leading-[2.3] space-y-2">
                   <p>
-                    I am <strong className="text-slate-900 font-bold">Abu Bakar Siddique</strong>, serving as the <strong className="text-emerald-900 font-bold">IT & System Administrator</strong> at Jamia Sher-e-Rabbani and working as a Full Stack Web Developer specializing in the modern <strong className="text-emerald-800 font-bold">MERN stack (MongoDB, Express, React, Node.js)</strong> and <strong className="text-slate-900 font-bold">Next.js 16</strong>.
+                    میرا نام <strong className="text-slate-900 font-bold">ابوبکر صدیق</strong> ہے۔ میں جامعہ شیرِ ربانی میں بطور <strong className="text-emerald-900 font-bold">آئی ٹی اینڈ سسٹم ایڈمنسٹریٹر</strong> خدمات سرانجام دے رہا ہوں اور بیک وقت جدید ویب ٹیکنالوجیز (MERN اسٹیک اور Next.js 16) کا ماہر فل اسٹیک ویب ڈویلپر ہوں۔
                   </p>
-                  <p className="font-urdu text-right text-slate-800 leading-loose pt-1" dir="rtl">
-                    میں جامعہ شیرِ ربانی کے تمام کمپیوٹر نیٹ ورکس، سرور سسٹمز، اور ویب ایپلیکیشنز کی تعمیر و دیکھ بھال کی ذمہ داری سنبھال رہا ہوں۔ اس ویب پورٹل کے تمام جدید فیچرز (بشمول ۲۰ علمی مقالات، آن لائن داخلہ و چالان جنریٹر، وفاق نتائج اور ڈیٹابیس ریکارڈز) میری زیرِ نگرانی تیار کیے گئے ہیں۔
+                  <p>
+                    میرا بنیادی ہدف جدید ڈیجیٹل سسٹمز، محفوظ کلاؤڈ آرکیٹیکچر، خودکار ڈیٹابیس بیک اپس اور اعلیٰ معیار کی فرنٹ اینڈ و بیک اینڈ پروگرامنگ کے ذریعے دینی اور تعلیمی اداروں کو ٹیکنالوجی کے میدان میں خود کفیل بنانا ہے۔
                   </p>
                 </div>
 
@@ -263,58 +253,58 @@ export default function DeveloperProfilePage() {
           <section className="bg-gradient-to-br from-emerald-950 via-emerald-900 to-slate-900 rounded-3xl p-6 sm:p-10 text-white border-2 border-emerald-700 shadow-xl relative overflow-hidden">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-emerald-800">
               <div className="space-y-1">
-                <span className="text-amber-400 text-xs font-bold tracking-wider uppercase flex items-center gap-2">
-                  <Sparkles size={16} /> Flagship Institutional Project
+                <span className="text-amber-400 text-xs font-bold tracking-wider flex items-center gap-2">
+                  <Sparkles size={16} /> مرکزی ادارتی کارنامہ و پراجیکٹ
                 </span>
-                <h3 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
-                  Jamia Sher-e-Rabbani Official Web Platform
+                <h3 className="text-2xl sm:text-3xl font-black text-white leading-[1.9]">
+                  جامعہ شیرِ ربانی کا مکمل آفیشل ویب پلیٹ فارم
                 </h3>
               </div>
-              <div className="px-4 py-2 rounded-xl bg-emerald-800/80 border border-emerald-600 text-xs font-bold text-amber-300 font-urdu" dir="rtl">
-                مکمل آرکیٹیکچر و ڈیجیٹل سسٹم ڈویلپمنٹ
+              <div className="px-4 py-2 rounded-xl bg-emerald-800/80 border border-emerald-600 text-xs font-bold text-amber-300">
+                مکمل آرکیٹیکچر، سیکیورٹی اور سافٹ ویئر ڈویلپمنٹ
               </div>
             </div>
 
-            <p className="text-emerald-100 text-sm sm:text-base leading-relaxed mt-6 max-w-4xl">
-              Engineered an end-to-end institutional web ecosystem tailored to Islamic academia and student administration. Key components conceptualized, engineered, and maintained include:
+            <p className="text-emerald-100 text-sm sm:text-base leading-[2.2] mt-6 max-w-4xl">
+              جامعہ شیرِ ربانی کے لیے ایک مکمل کلاؤڈ بیسڈ، جدید اور تیز رفتار ادارتی ویب پلیٹ فارم تیار کیا گیا ہے جو ہزاروں طلبہ، اساتذہ، محققین اور معاونین کو آن لائن تعلیمی سہولیات فراہم کرتا ہے۔ اس پلیٹ فارم کے نمایاں فیچرز درج ذیل ہیں:
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mt-8">
               {[
                 {
-                  title: "20 Scholarly Islamic Articles Portal",
-                  urdu: "۲۰ تحقیقی علمی مقالات پورٹل",
-                  desc: "Complete scholarly articles portal featuring 8 distinct categories, Noori Nastaleeq RTL rendering, verified Hadith references, Quranic verses with Arabic font, and author attribution.",
+                  title: "۲۰ تحقیقی علمی و فکری مقالات کا پورٹل",
+                  category: "علمی و تحقیقی اشاعت",
+                  desc: "۸ مختلف زمرہ جات پر مشتمل ۲۰ مفصل علمی مقالے، نوری نستعلیق رسم الخط، قرآنی آیات مع اعراب و ترجمہ، مستند کتب سے احادیث کی تخریج اور مصنف کی تصدیق۔",
                   icon: FileText
                 },
                 {
-                  title: "Online Admissions & Fee Challan",
-                  urdu: "آن لائن داخلہ و چالان جنریٹر",
-                  desc: "Digital admission application workflows with automated dynamic 3-copy bank fee challan generation, printable slips, and real-time application tracking.",
+                  title: "آن لائن داخلہ اور خودکار بینک فیس چالان",
+                  category: "تعلیمی داخلہ و فیس",
+                  desc: "مکمل آن لائن داخلہ درخواست فارم، ۳ کاپیوں پر مشتمل خودکار بینک فیس چالان جنریشن، پرنٹ ایبل سلپ اور داخلہ اسٹیٹس کی براہ راست ٹریکنگ۔",
                   icon: Layout
                 },
                 {
-                  title: "Wafaq-ul-Madaris Results Portal",
-                  urdu: "نتائج وفاق المدارس الرضویہ",
-                  desc: "Examination results search engine providing fast, reliable lookup for students across diverse Dars-e-Nizami and Tajweed educational programs.",
+                  title: "وفاق المدارس الرضویہ کے سالانہ نتائج",
+                  category: "امتحانی نتائج سرچ انجن",
+                  desc: "درسِ نظامی، حفظ القرآن اور تجوید کے تمام امتحانی درجات کے سالانہ نتائج کی آن لائن اور فوری تلاش کا تیز رفتار سرچ سسٹم۔",
                   icon: Award
                 },
                 {
-                  title: "Records & Verification Engine",
-                  urdu: "طلبہ و اسناد تصدیقی نظام",
-                  desc: "Centralized institutional verification portal with secure admin authorization to inspect student transcripts and academic credentials.",
+                  title: "طلبہ، اسناد اور سسٹم ریکارڈز کی تصدیق",
+                  category: "محفوظ تصدیقی نظام",
+                  desc: "مرکزی ڈیجیٹل ڈیٹابیس کے ذریعے طلبہ کے کوائف، تعلیمی ریکارڈز اور اسناد کی تصدیق کے لیے جدید ایڈمن سسٹم۔",
                   icon: ShieldCheck
                 },
                 {
-                  title: "Internship Management System",
-                  urdu: "انٹرن شپ مینجمنٹ سسٹم",
-                  desc: "Comprehensive developer internship portal with supervisory coordination, application pipelines, and program tracking under IT leadership.",
+                  title: "انٹرن شپ مینجمنٹ و سپروائزری رابطہ",
+                  category: "طلبہ ٹریننگ پروگرام",
+                  desc: "کمپیوٹر سائنس کے طلبہ کے لیے باقاعدہ انٹرن شپ پورٹل، سپروائزر رابطہ، رہنمائی اور پروگرام کی تفصیلات۔",
                   icon: Briefcase
                 },
                 {
-                  title: "Automated Daily Backups & Security",
-                  urdu: "خودکار روزانہ بیک اپ و سیکیورٹی",
-                  desc: "Automated cron-based database backup rotation, rate limiting, secure authorization guards, and strict environment validation.",
+                  title: "خودکار روزانہ ڈیٹابیس بیک اپ و سیکیورٹی",
+                  category: "کلاؤڈ سیکیورٹی و بیک اپ",
+                  desc: "روزانہ کی بنیاد پر ڈیٹا کے خودکار کلاؤڈ بیک اپ روٹیشن، ریٹ لمٹنگ، ڈیٹا تحفظ اور سائبر سیکیورٹی مانیٹرنگ۔",
                   icon: Database
                 }
               ].map((feat, idx) => (
@@ -327,14 +317,14 @@ export default function DeveloperProfilePage() {
                       <div className="w-9 h-9 rounded-xl bg-amber-400 text-slate-950 flex items-center justify-center font-bold">
                         <feat.icon size={18} />
                       </div>
-                      <span className="text-[11px] font-bold text-amber-300 font-urdu" dir="rtl">
-                        {feat.urdu}
+                      <span className="text-[11px] font-bold text-amber-300">
+                        {feat.category}
                       </span>
                     </div>
-                    <h4 className="text-base font-bold text-white mb-2">
+                    <h4 className="text-base sm:text-lg font-bold text-white mb-2 leading-[1.8]">
                       {feat.title}
                     </h4>
-                    <p className="text-xs sm:text-sm text-emerald-200 leading-relaxed font-normal">
+                    <p className="text-xs sm:text-sm text-emerald-100 leading-[2.1] font-normal">
                       {feat.desc}
                     </p>
                   </div>
@@ -343,33 +333,41 @@ export default function DeveloperProfilePage() {
             </div>
           </section>
 
-          {/* 5. TECHNICAL SKILLS & STACK */}
+          {/* 5. TECHNICAL SKILLS & STACK (EXACT ENGLISH TAGS PRESERVED AS REQUESTED) */}
           <section className="space-y-6">
             <div className="border-b-2 border-slate-200 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <div>
-                <span className="text-xs font-bold text-emerald-800 uppercase tracking-widest">Core Competencies</span>
-                <h3 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-                  Technical Expertise & Technology Stack
+                <span className="text-xs font-bold text-emerald-800 uppercase tracking-widest">تکنیکی صلاحیتیں</span>
+                <h3 className="text-2xl sm:text-3xl font-black text-slate-900 leading-[1.9]">
+                  تکنیکی مہارتیں اور ٹیکنالوجی اسٹیک (Technical Skills)
                 </h3>
               </div>
-              <p className="text-xs sm:text-sm text-slate-500 font-bold">Full Stack Architecture • DevOps • Security</p>
+              <p className="text-xs sm:text-sm text-slate-500 font-bold">فل اسٹیک ویب ڈویلپمنٹ • سرور مینجمنٹ • کلاؤڈ انفراسٹرکچر</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               
-              {/* Frontend */}
+              {/* Frontend Card */}
               <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-center gap-3 mb-4 pb-3 border-b border-slate-100">
                   <div className="p-2.5 rounded-xl bg-sky-100 text-sky-700">
                     <Layout size={22} />
                   </div>
                   <div>
-                    <h4 className="font-black text-slate-900 text-base">Frontend</h4>
-                    <span className="text-xs text-slate-500 font-medium">UI / UX / Web</span>
+                    <h4 className="font-black text-slate-900 text-base" dir="ltr">Frontend</h4>
+                    <span className="text-xs text-slate-500 font-medium" dir="ltr">UI / UX / Web</span>
                   </div>
                 </div>
-                <div className="flex flex-wrap gap-2">
-                  {["Next.js 16", "React 19", "TypeScript", "JavaScript (ES6+)", "Tailwind CSS", "Noori Nastaleeq RTL", "HTML5 & CSS3"].map(item => (
+                <div className="flex flex-wrap gap-2" dir="ltr">
+                  {[
+                    "Next.js 16",
+                    "React 19",
+                    "TypeScript",
+                    "JavaScript (ES6+)",
+                    "Tailwind CSS",
+                    "Noori Nastaleeq RTL",
+                    "HTML5 & CSS3"
+                  ].map(item => (
                     <span key={item} className={`px-2.5 py-1 text-xs font-bold rounded-lg border ${getTagColor(item)}`}>
                       {item}
                     </span>
@@ -377,19 +375,27 @@ export default function DeveloperProfilePage() {
                 </div>
               </div>
 
-              {/* Backend */}
+              {/* Backend Card */}
               <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-center gap-3 mb-4 pb-3 border-b border-slate-100">
                   <div className="p-2.5 rounded-xl bg-emerald-100 text-emerald-700">
                     <Server size={22} />
                   </div>
                   <div>
-                    <h4 className="font-black text-slate-900 text-base">Backend & APIs</h4>
-                    <span className="text-xs text-slate-500 font-medium">Microservices & APIs</span>
+                    <h4 className="font-black text-slate-900 text-base" dir="ltr">Backend & APIs</h4>
+                    <span className="text-xs text-slate-500 font-medium" dir="ltr">Microservices & APIs</span>
                   </div>
                 </div>
-                <div className="flex flex-wrap gap-2">
-                  {["Node.js", "Express.js", "RESTful APIs", "JWT Auth", "MVC Architecture", "PHP", "API Security"].map(item => (
+                <div className="flex flex-wrap gap-2" dir="ltr">
+                  {[
+                    "Node.js",
+                    "Express.js",
+                    "RESTful APIs",
+                    "JWT Auth",
+                    "MVC Architecture",
+                    "PHP",
+                    "API Security"
+                  ].map(item => (
                     <span key={item} className={`px-2.5 py-1 text-xs font-bold rounded-lg border ${getTagColor(item)}`}>
                       {item}
                     </span>
@@ -397,19 +403,26 @@ export default function DeveloperProfilePage() {
                 </div>
               </div>
 
-              {/* Database */}
+              {/* Database Card */}
               <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-center gap-3 mb-4 pb-3 border-b border-slate-100">
                   <div className="p-2.5 rounded-xl bg-indigo-100 text-indigo-700">
                     <Database size={22} />
                   </div>
                   <div>
-                    <h4 className="font-black text-slate-900 text-base">Databases</h4>
-                    <span className="text-xs text-slate-500 font-medium">Storage & Schemas</span>
+                    <h4 className="font-black text-slate-900 text-base" dir="ltr">Databases</h4>
+                    <span className="text-xs text-slate-500 font-medium" dir="ltr">Storage & Schemas</span>
                   </div>
                 </div>
-                <div className="flex flex-wrap gap-2">
-                  {["MongoDB", "Mongoose ORM", "MySQL", "PostgreSQL", "Database Design", "Indexing & Backups"].map(item => (
+                <div className="flex flex-wrap gap-2" dir="ltr">
+                  {[
+                    "MongoDB",
+                    "Mongoose ORM",
+                    "MySQL",
+                    "PostgreSQL",
+                    "Database Design",
+                    "Indexing & Backups"
+                  ].map(item => (
                     <span key={item} className={`px-2.5 py-1 text-xs font-bold rounded-lg border ${getTagColor(item)}`}>
                       {item}
                     </span>
@@ -417,19 +430,27 @@ export default function DeveloperProfilePage() {
                 </div>
               </div>
 
-              {/* DevOps & Tools */}
+              {/* DevOps & Tools Card */}
               <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-center gap-3 mb-4 pb-3 border-b border-slate-100">
                   <div className="p-2.5 rounded-xl bg-rose-100 text-rose-700">
                     <Shield size={22} />
                   </div>
                   <div>
-                    <h4 className="font-black text-slate-900 text-base">DevOps & Admin</h4>
-                    <span className="text-xs text-slate-500 font-medium">Infrastructure</span>
+                    <h4 className="font-black text-slate-900 text-base" dir="ltr">DevOps & Admin</h4>
+                    <span className="text-xs text-slate-500 font-medium" dir="ltr">Infrastructure</span>
                   </div>
                 </div>
-                <div className="flex flex-wrap gap-2">
-                  {["Git & GitHub", "Vercel", "cPanel Hosting", "System Admin", "Cybersecurity", "Networking", "Postman"].map(item => (
+                <div className="flex flex-wrap gap-2" dir="ltr">
+                  {[
+                    "Git & GitHub",
+                    "Vercel",
+                    "cPanel Hosting",
+                    "System Admin",
+                    "Cybersecurity",
+                    "Networking",
+                    "Postman"
+                  ].map(item => (
                     <span key={item} className={`px-2.5 py-1 text-xs font-bold rounded-lg border ${getTagColor(item)}`}>
                       {item}
                     </span>
@@ -443,45 +464,45 @@ export default function DeveloperProfilePage() {
           {/* 6. PROFESSIONAL PROJECTS PORTFOLIO */}
           <section className="space-y-6">
             <div className="border-b-2 border-slate-200 pb-4">
-              <span className="text-xs font-bold text-emerald-800 uppercase tracking-widest">Track Record</span>
-              <h3 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-                Featured Production Web Projects
+              <span className="text-xs font-bold text-emerald-800 uppercase tracking-widest">پراجیکٹس پورٹ فولیو</span>
+              <h3 className="text-2xl sm:text-3xl font-black text-slate-900 leading-[1.9]">
+                عملی اور لائیو پروڈکشن پراجیکٹس
               </h3>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
               {[
                 {
-                  name: "Jamia Sher-e-Rabbani Official Web Portal",
-                  category: "Institutional & Academic Architecture",
-                  desc: "Comprehensive enterprise web portal serving thousands of students, scholars, and patrons with 20 scholarly articles, online admissions, challan generation, examination results, and automated daily backup rotators.",
+                  name: "جامعہ شیرِ ربانی آفیشل ویب پورٹل",
+                  category: "ادارتی و تعلیمی ویب پلیٹ فارم",
+                  desc: "جامعہ شیرِ ربانی کا مکمل ادارتی ویب سسٹم جس میں ۲۰ تحقیقی مقالات، آن لائن داخلہ فارم، فیس چالان جنریٹر، سالانہ نتائج سرچ اور خودکار کلاؤڈ بیک اپ روٹیشن شامل ہے۔",
                   tags: ["Next.js 16", "React 19", "TypeScript", "Node.js", "Express", "MongoDB", "Tailwind CSS"],
                   url: "https://jamiashererabbani.com",
-                  badge: "Production Live"
+                  badge: "لائیو پراجیکٹ"
                 },
                 {
-                  name: "EstateHub",
-                  category: "Real Estate & Rental Management",
-                  desc: "Smart Property and Rental Management System with verified listings, complete tenant-landlord workflows, role-based dashboards, and intuitive search filters.",
+                  name: "اسٹیٹ ہب (EstateHub)",
+                  category: "پراپرٹی و رینٹل مینجمنٹ سسٹم",
+                  desc: "جائیدادوں اور کرایہ داری کے معاملات کو سنبھالنے والا سمارٹ ویب سسٹم جس میں تفصیلی فلٹرز، کرایہ دار و مالک کے ورک فلوز اور محفوظ یوزر ڈیش بورڈز شامل ہیں۔",
                   tags: ["React.js", "Node.js", "Express.js", "MongoDB", "REST APIs"],
                   url: "https://estatehub.site",
-                  badge: "Production Live"
+                  badge: "لائیو پراجیکٹ"
                 },
                 {
-                  name: "DiabetFree Pakistan",
-                  category: "Healthcare & Patient Education",
-                  desc: "A comprehensive health and wellness portal dedicated to diabetes prevention, clinical dietary management resources, doctor directory, and responsive public guidance.",
+                  name: "ذیابیطس فری پاکستان (DiabetFree Pakistan)",
+                  category: "عوامی صحت و طبی آگاہی کا پلیٹ فارم",
+                  desc: "ذیابیطس کے تدارک، غذائی پرہیز اور رہنمائی پر مبنی طبی پورٹل جس میں ڈاکٹروں کی ہدایات، احتیاطی تدابیر اور جدید ریسپانسو ڈیزائن شامل ہے۔",
                   tags: ["Next.js", "React", "Tailwind CSS", "SEO Architecture"],
                   url: "https://diabetfreepakistan.site",
-                  badge: "Production Live"
+                  badge: "لائیو پراجیکٹ"
                 },
                 {
-                  name: "MobileHub Pro",
-                  category: "E-Commerce & Technology",
-                  desc: "Intelligent online smartphone shopping and comparison system with multi-criteria filtering, technical specification grids, and responsive customer workflows.",
+                  name: "موبائل ہب پرو (MobileHub Pro)",
+                  category: "ای کامرس و سمارٹ فون کیٹلاگ",
+                  desc: "جدید اسمارٹ فونز کی خصوصیات، قیمتوں کے تقابل اور تکنیکی تجزیوں کے لیے تیار کیا گیا ای کامرس و ڈائنامک کیٹلاگ پورٹل۔",
                   tags: ["Next.js", "React", "Tailwind CSS", "MongoDB"],
                   url: "https://iamabubakar.site",
-                  badge: "Production Live"
+                  badge: "لائیو پراجیکٹ"
                 }
               ].map((proj, idx) => (
                 <div 
@@ -494,7 +515,7 @@ export default function DeveloperProfilePage() {
                         <span className="text-xs font-bold text-emerald-800 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 inline-block mb-2">
                           {proj.category}
                         </span>
-                        <h4 className="text-xl sm:text-2xl font-black text-slate-900 group-hover:text-emerald-800 transition-colors">
+                        <h4 className="text-xl sm:text-2xl font-black text-slate-900 group-hover:text-emerald-800 transition-colors leading-[1.8]">
                           {proj.name}
                         </h4>
                       </div>
@@ -503,17 +524,17 @@ export default function DeveloperProfilePage() {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="p-2.5 rounded-xl bg-slate-100 hover:bg-emerald-800 text-slate-700 hover:text-white transition-colors shrink-0"
-                        title="Live Website"
+                        title="ویب سائٹ وزٹ کریں"
                       >
                         <ExternalLink size={18} />
                       </a>
                     </div>
-                    <p className="text-sm sm:text-base text-slate-600 leading-relaxed mb-6 font-normal">
+                    <p className="text-sm sm:text-base text-slate-600 leading-[2.2] mb-6 font-normal">
                       {proj.desc}
                     </p>
                   </div>
 
-                  <div className="pt-4 border-t border-slate-100 flex flex-wrap gap-2">
+                  <div className="pt-4 border-t border-slate-100 flex flex-wrap gap-2" dir="ltr">
                     {proj.tags.map(tag => (
                       <span key={tag} className={`text-xs font-bold px-2.5 py-1 rounded-lg border ${getTagColor(tag)}`}>
                         {tag}
@@ -535,45 +556,45 @@ export default function DeveloperProfilePage() {
                   <GraduationCap size={24} />
                 </div>
                 <div>
-                  <h3 className="text-xl sm:text-2xl font-black text-slate-900">
-                    Academic Education
+                  <h3 className="text-xl sm:text-2xl font-black text-slate-900 leading-[1.8]">
+                    تعلیمی پس منظر اور یونیورسٹی ڈگری
                   </h3>
-                  <span className="text-xs text-slate-500 font-bold">University Degree</span>
+                  <span className="text-xs text-slate-500 font-bold">بی ایس انفارمیشن ٹیکنالوجی</span>
                 </div>
               </div>
 
               <div className="bg-gradient-to-br from-indigo-50/50 to-slate-50 rounded-2xl p-6 border border-indigo-200/80 space-y-3">
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <h4 className="text-lg font-black text-indigo-950">
-                    Bachelor of Science in Information Technology (BSIT)
+                    بی ایس انفارمیشن ٹیکنالوجی (BSIT)
                   </h4>
                   <span className="text-xs font-bold px-3 py-1 rounded-full bg-indigo-800 text-white">
-                    6th Semester
+                    چھٹا سمسٹر (6th Semester)
                   </span>
                 </div>
 
                 <p className="text-sm font-bold text-indigo-900">
-                  Baba Guru Nanak University (BGNU), Nankana Sahib
+                  بابا گرو نانک یونیورسٹی (BGNU)، ننکانہ صاحب
                 </p>
 
-                <p className="text-xs text-slate-600 leading-relaxed font-medium">
-                  Focused on core software engineering principles, object-oriented programming (OOP), relational & NoSQL databases, computer networks, distributed systems, and web technologies.
+                <p className="text-xs sm:text-sm text-slate-600 leading-[2.1] font-medium">
+                  سافٹ ویئر انجینئرنگ، آبجیکٹ اورینٹڈ پروگرامنگ (OOP)، ڈیٹا بیس ڈیزائن، نیٹ ورک سیکیورٹی، ڈیٹا اسٹرکچرز اور ویب ایپلیکیشن آرکیٹیکچر کے جدید کورسز۔
                 </p>
               </div>
 
               {/* Active Software Development Experience */}
               <div className="space-y-3 pt-2">
-                <h4 className="text-sm font-bold uppercase tracking-wider text-slate-500">
-                  Participating Software Internships & Industry Exposure
+                <h4 className="text-xs sm:text-sm font-bold text-slate-600">
+                  مختلف سافٹ ویئر اداروں میں عملی کام کا تجربہ و انٹرن شپس:
                 </h4>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 text-xs font-bold">
                   {[
-                    "IT Genesis Software House",
-                    "CodeAlpha",
-                    "DecodeLabs",
-                    "Oasis Infobyte",
-                    "Cognifyz Technologies",
-                    "Codveda Technologies"
+                    "آئی ٹی جینسس (IT Genesis)",
+                    "کوڈ الفا (CodeAlpha)",
+                    "ڈیکوڈ لیبز (DecodeLabs)",
+                    "نخلستان انفو بائٹ (Oasis)",
+                    "کوگنیفائز (Cognifyz)",
+                    "کوڈویدا (Codveda)"
                   ].map((org, i) => (
                     <div key={i} className="p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 text-center hover:bg-emerald-50 hover:text-emerald-900 hover:border-emerald-300 transition-colors">
                       {org}
@@ -590,10 +611,10 @@ export default function DeveloperProfilePage() {
                   <Award size={24} />
                 </div>
                 <div>
-                  <h3 className="text-xl sm:text-2xl font-black text-slate-900">
-                    Industry Certifications
+                  <h3 className="text-xl sm:text-2xl font-black text-slate-900 leading-[1.8]">
+                    بین الاقوامی تصدیق شدہ اسناد
                   </h3>
-                  <span className="text-xs text-slate-500 font-bold">Verified Credentials</span>
+                  <span className="text-xs text-slate-500 font-bold">گوگل اور سسکو سرٹیفیکیشنز</span>
                 </div>
               </div>
 
@@ -605,18 +626,18 @@ export default function DeveloperProfilePage() {
                       G
                     </span>
                     <div>
-                      <h4 className="text-base font-black text-amber-950">Google</h4>
-                      <p className="text-xs text-amber-800 font-medium">Project Management Professional Track</p>
+                      <h4 className="text-base font-black text-amber-950">گوگل (Google)</h4>
+                      <p className="text-xs text-amber-800 font-medium">پراجیکٹ مینجمنٹ پروفیشنل ٹریک</p>
                     </div>
                   </div>
-                  <ul className="space-y-1.5 text-xs text-slate-700 font-bold">
+                  <ul className="space-y-2 text-xs sm:text-sm text-slate-700 font-bold">
                     <li className="flex items-center gap-2">
-                      <CheckCircle2 size={14} className="text-emerald-600 shrink-0" />
-                      <span>Foundations of Project Management</span>
+                      <CheckCircle2 size={15} className="text-emerald-600 shrink-0" />
+                      <span>فاؤنڈیشنز آف پراجیکٹ مینجمنٹ (Foundations of Project Management)</span>
                     </li>
                     <li className="flex items-center gap-2">
-                      <CheckCircle2 size={14} className="text-emerald-600 shrink-0" />
-                      <span>Project Initiation: Starting a Successful Project</span>
+                      <CheckCircle2 size={15} className="text-emerald-600 shrink-0" />
+                      <span>پراجیکٹ انیشی ایشن اینڈ ایگزیکیوشن (Project Initiation)</span>
                     </li>
                   </ul>
                 </div>
@@ -628,18 +649,18 @@ export default function DeveloperProfilePage() {
                       C
                     </span>
                     <div>
-                      <h4 className="text-base font-black text-sky-950">Cisco Networking Academy</h4>
-                      <p className="text-xs text-sky-800 font-medium">Cybersecurity & Networking Essentials</p>
+                      <h4 className="text-base font-black text-sky-950">سسکو نیٹ ورکنگ اکیڈمی (Cisco)</h4>
+                      <p className="text-xs text-sky-800 font-medium">سائبر سیکیورٹی و نیٹ ورک اسنشلز</p>
                     </div>
                   </div>
-                  <ul className="space-y-1.5 text-xs text-slate-700 font-bold">
+                  <ul className="space-y-2 text-xs sm:text-sm text-slate-700 font-bold">
                     <li className="flex items-center gap-2">
-                      <CheckCircle2 size={14} className="text-emerald-600 shrink-0" />
-                      <span>Cybersecurity Essentials & OS Fundamentals</span>
+                      <CheckCircle2 size={15} className="text-emerald-600 shrink-0" />
+                      <span>سائبر سیکیورٹی اسنشلز و او ایس فاؤنڈیشنز (Cybersecurity & OS Basics)</span>
                     </li>
                     <li className="flex items-center gap-2">
-                      <CheckCircle2 size={14} className="text-emerald-600 shrink-0" />
-                      <span>Network Scanning & Security Protocols</span>
+                      <CheckCircle2 size={15} className="text-emerald-600 shrink-0" />
+                      <span>نیٹ ورک اسکیننگ و سیکیورٹی پروٹوکولز (Vulnerability Scanning)</span>
                     </li>
                   </ul>
                 </div>
@@ -651,14 +672,14 @@ export default function DeveloperProfilePage() {
           {/* 8. DIRECT CONTACT & INVITATION SECTION */}
           <section className="bg-gradient-to-r from-emerald-900 via-emerald-800 to-slate-900 rounded-3xl p-8 sm:p-12 text-white border-2 border-amber-400 text-center space-y-6 shadow-xl">
             <div className="max-w-2xl mx-auto space-y-3">
-              <span className="px-3.5 py-1 rounded-full bg-emerald-950 text-amber-300 text-xs font-bold border border-emerald-600 font-urdu" dir="rtl">
-                براہ راست رابطہ و تکنیکی رہنمائی
+              <span className="px-3.5 py-1 rounded-full bg-emerald-950 text-amber-300 text-xs font-bold border border-emerald-600">
+                براہِ راست تکنیکی رابطہ
               </span>
-              <h3 className="text-2xl sm:text-4xl font-black text-white tracking-tight">
-                Get In Touch With The Developer
+              <h3 className="text-2xl sm:text-4xl font-black text-white leading-[1.8] sm:leading-[1.9]">
+                ڈویلپر اور سسٹم ایڈمنسٹریٹر سے رابطہ کریں
               </h3>
-              <p className="text-emerald-100 text-sm sm:text-base font-normal leading-relaxed">
-                For inquiries regarding Jamia Sher-e-Rabbani digital portals, technical web development projects, or software collaboration, feel free to reach out directly.
+              <p className="text-emerald-100 text-sm sm:text-base font-normal leading-[2.2]">
+                جامعہ شیرِ ربانی کے ویب پلیٹ فارم، کسی تکنیکی استفسار یا سافٹ ویئر ڈویلپمنٹ کے حوالے سے کسی بھی وقت براہِ راست رابطہ کیا جا سکتا ہے۔
               </p>
             </div>
 
@@ -667,28 +688,28 @@ export default function DeveloperProfilePage() {
                 href="https://wa.me/923097354874"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-bold shadow-lg transition-all"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-bold shadow-lg transition-all"
               >
                 <WhatsAppIcon className="w-5 h-5" />
-                <span>WhatsApp: 0309-7354874</span>
+                <span>واٹس ایپ پر رابطہ: 0309-7354874</span>
               </a>
 
               <a
                 href="mailto:abubakr.bgnu@gmail.com"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white hover:bg-slate-100 text-slate-900 text-sm font-black shadow-lg transition-all"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-white hover:bg-slate-100 text-slate-900 text-sm font-black shadow-lg transition-all"
               >
                 <Mail size={18} className="text-rose-600" />
-                <span>abubakr.bgnu@gmail.com</span>
+                <span dir="ltr">abubakr.bgnu@gmail.com</span>
               </a>
 
               <a
                 href="https://iamabubakar.site"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-emerald-950/80 hover:bg-emerald-950 text-amber-300 border border-emerald-600 text-sm font-bold shadow-lg transition-all"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-emerald-950/80 hover:bg-emerald-950 text-amber-300 border border-emerald-600 text-sm font-bold shadow-lg transition-all"
               >
                 <Globe size={18} />
-                <span>iamabubakar.site</span>
+                <span>پورٹ فولیو وزٹ کریں</span>
               </a>
             </div>
           </section>
