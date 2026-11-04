@@ -5,44 +5,32 @@ import {
   Database,
   Globe,
   Layout,
-  Server,
-  Shield,
-  Smartphone,
   MapPin,
-  GraduationCap,
   Award,
   Briefcase,
   Mail,
   ExternalLink,
-  CheckCircle2,
   FileText,
   Sparkles,
   Building2,
-  ShieldCheck,
-  Code2,
-  Phone,
-  Layers,
-  Terminal,
-  Cpu
+  ShieldCheck
 } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "ڈویلپر و سسٹم ایڈمنسٹریٹر | ابوبکر صدیق - جامعہ شیرِ ربانی",
-  description: "ابوبکر صدیق - آئی ٹی اینڈ سسٹم ایڈمنسٹریٹر، جامعہ شیرِ ربانی مانانوالہ۔ فل اسٹیک ویب ڈویلپر (MERN Stack & Next.js)، بی ایس انفارمیشن ٹیکنالوجی (بابا گرو نانک یونیورسٹی)۔",
+  description: "ابوبکر صدیق - آئی ٹی اینڈ سسٹم ایڈمنسٹریٹر، جامعہ شیرِ ربانی مانانوالہ۔ جامعہ شیرِ ربانی کے مکمل ڈیجیٹل سسٹم و ویب انفراسٹرکچر کے ڈویلپر۔",
   keywords: [
     "ابوبکر صدیق",
     "Abu Bakar Siddique",
     "آئی ٹی اینڈ سسٹم ایڈمنسٹریٹر",
     "جامعہ شیر ربانی ڈویلپر",
-    "فل اسٹیک ویب ڈویلپر",
-    "Next.js Developer Pakistan",
-    "MERN Stack Developer"
+    "ویب ڈویلپر جامعہ شیرِ ربانی"
   ],
   openGraph: {
     title: "ابوبکر صدیق | آئی ٹی اینڈ سسٹم ایڈمنسٹریٹر - جامعہ شیرِ ربانی",
-    description: "فل اسٹیک ویب ڈویلپر (MERN Stack & Next.js) اور جامعہ شیرِ ربانی کا مکمل ڈیجیٹل سسٹم ڈویلپر۔",
+    description: "جامعہ شیرِ ربانی کا مکمل ڈیجیٹل انفراسٹرکچر و ویب سسٹم ڈویلپر۔",
     url: "https://jamiashererabbani.com/developer",
     type: "profile"
   }
@@ -66,21 +54,6 @@ const WhatsAppIcon = (props: React.SVGProps<SVGSVGElement>) => (
     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
   </svg>
 );
-
-const getTagColor = (tag: string) => {
-  const t = tag.toLowerCase();
-  if (t.includes('react')) return 'text-sky-800 bg-sky-50 border-sky-300';
-  if (t.includes('next.js')) return 'text-slate-900 bg-slate-100 border-slate-400';
-  if (t.includes('node')) return 'text-emerald-800 bg-emerald-50 border-emerald-300';
-  if (t.includes('mongo')) return 'text-green-800 bg-green-50 border-green-300';
-  if (t.includes('tailwind')) return 'text-teal-800 bg-teal-50 border-teal-300';
-  if (t.includes('express')) return 'text-slate-800 bg-slate-100 border-slate-300';
-  if (t.includes('frontend')) return 'text-violet-800 bg-violet-50 border-violet-300';
-  if (t.includes('seo')) return 'text-amber-800 bg-amber-50 border-amber-300';
-  if (t.includes('responsive')) return 'text-indigo-800 bg-indigo-50 border-indigo-300';
-  if (t.includes('typescript')) return 'text-blue-800 bg-blue-50 border-blue-300';
-  return 'text-emerald-800 bg-emerald-50 border-emerald-200';
-};
 
 export default function DeveloperProfilePage() {
   return (
@@ -158,7 +131,7 @@ export default function DeveloperProfilePage() {
                     آئی ٹی اینڈ سسٹم ایڈمنسٹریٹر
                   </span>
                   <span className="px-3.5 py-1 rounded-full bg-amber-100 text-amber-950 border border-amber-300 text-xs font-bold">
-                    فل اسٹیک ویب ڈویلپر (MERN Stack & Next.js)
+                    چیف ویب ڈویلپر، جامعہ شیرِ ربانی
                   </span>
                 </div>
 
@@ -237,10 +210,10 @@ export default function DeveloperProfilePage() {
                 {/* Bio Description */}
                 <div className="pt-4 border-t border-slate-100 text-slate-700 text-sm sm:text-base leading-[2.3] space-y-2">
                   <p>
-                    میرا نام <strong className="text-slate-900 font-bold">ابوبکر صدیق</strong> ہے۔ میں جامعہ شیرِ ربانی میں بطور <strong className="text-emerald-900 font-bold">آئی ٹی اینڈ سسٹم ایڈمنسٹریٹر</strong> خدمات سرانجام دے رہا ہوں اور بیک وقت جدید ویب ٹیکنالوجیز (MERN اسٹیک اور Next.js 16) کا ماہر فل اسٹیک ویب ڈویلپر ہوں۔
+                    میرا نام <strong className="text-slate-900 font-bold">ابوبکر صدیق</strong> ہے۔ میں جامعہ شیرِ ربانی میں بطور <strong className="text-emerald-900 font-bold">آئی ٹی اینڈ سسٹم ایڈمنسٹریٹر</strong> خدمات سرانجام دے رہا ہوں اور ادارے کے مکمل ویب پلیٹ فارم، ڈیٹا سسٹمز اور کلاؤڈ انفراسٹرکچر کا نگران ہوں۔
                   </p>
                   <p>
-                    میرا بنیادی ہدف جدید ڈیجیٹل سسٹمز، محفوظ کلاؤڈ آرکیٹیکچر، خودکار ڈیٹابیس بیک اپس اور اعلیٰ معیار کی فرنٹ اینڈ و بیک اینڈ پروگرامنگ کے ذریعے دینی اور تعلیمی اداروں کو ٹیکنالوجی کے میدان میں خود کفیل بنانا ہے۔
+                    میرا بنیادی ہدف جدید ڈیجیٹل سسٹمز، محفوظ کلاؤڈ آرکیٹیکچر، خودکار ڈیٹابیس بیک اپس اور اعلیٰ معیار کے پورٹلز کے ذریعے دینی اور تعلیمی اداروں کو ٹیکنالوجی کے میدان میں خود کفیل بنانا ہے۔
                   </p>
                 </div>
 
@@ -333,343 +306,7 @@ export default function DeveloperProfilePage() {
             </div>
           </section>
 
-          {/* 5. TECHNICAL SKILLS & STACK (EXACT ENGLISH TAGS PRESERVED AS REQUESTED) */}
-          <section className="space-y-6">
-            <div className="border-b-2 border-slate-200 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-              <div>
-                <span className="text-xs font-bold text-emerald-800 uppercase tracking-widest">تکنیکی صلاحیتیں</span>
-                <h3 className="text-2xl sm:text-3xl font-black text-slate-900 leading-[1.9]">
-                  تکنیکی مہارتیں اور ٹیکنالوجی اسٹیک (Technical Skills)
-                </h3>
-              </div>
-              <p className="text-xs sm:text-sm text-slate-500 font-bold">فل اسٹیک ویب ڈویلپمنٹ • سرور مینجمنٹ • کلاؤڈ انفراسٹرکچر</p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              
-              {/* Frontend Card */}
-              <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-                <div className="flex items-center gap-3 mb-4 pb-3 border-b border-slate-100">
-                  <div className="p-2.5 rounded-xl bg-sky-100 text-sky-700">
-                    <Layout size={22} />
-                  </div>
-                  <div>
-                    <h4 className="font-black text-slate-900 text-base" dir="ltr">Frontend</h4>
-                    <span className="text-xs text-slate-500 font-medium" dir="ltr">UI / UX / Web</span>
-                  </div>
-                </div>
-                <div className="flex flex-wrap gap-2" dir="ltr">
-                  {[
-                    "Next.js 16",
-                    "React 19",
-                    "TypeScript",
-                    "JavaScript (ES6+)",
-                    "Tailwind CSS",
-                    "Noori Nastaleeq RTL",
-                    "HTML5 & CSS3"
-                  ].map(item => (
-                    <span key={item} className={`px-2.5 py-1 text-xs font-bold rounded-lg border ${getTagColor(item)}`}>
-                      {item}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Backend Card */}
-              <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-                <div className="flex items-center gap-3 mb-4 pb-3 border-b border-slate-100">
-                  <div className="p-2.5 rounded-xl bg-emerald-100 text-emerald-700">
-                    <Server size={22} />
-                  </div>
-                  <div>
-                    <h4 className="font-black text-slate-900 text-base" dir="ltr">Backend & APIs</h4>
-                    <span className="text-xs text-slate-500 font-medium" dir="ltr">Microservices & APIs</span>
-                  </div>
-                </div>
-                <div className="flex flex-wrap gap-2" dir="ltr">
-                  {[
-                    "Node.js",
-                    "Express.js",
-                    "RESTful APIs",
-                    "JWT Auth",
-                    "MVC Architecture",
-                    "PHP",
-                    "API Security"
-                  ].map(item => (
-                    <span key={item} className={`px-2.5 py-1 text-xs font-bold rounded-lg border ${getTagColor(item)}`}>
-                      {item}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Database Card */}
-              <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-                <div className="flex items-center gap-3 mb-4 pb-3 border-b border-slate-100">
-                  <div className="p-2.5 rounded-xl bg-indigo-100 text-indigo-700">
-                    <Database size={22} />
-                  </div>
-                  <div>
-                    <h4 className="font-black text-slate-900 text-base" dir="ltr">Databases</h4>
-                    <span className="text-xs text-slate-500 font-medium" dir="ltr">Storage & Schemas</span>
-                  </div>
-                </div>
-                <div className="flex flex-wrap gap-2" dir="ltr">
-                  {[
-                    "MongoDB",
-                    "Mongoose ORM",
-                    "MySQL",
-                    "PostgreSQL",
-                    "Database Design",
-                    "Indexing & Backups"
-                  ].map(item => (
-                    <span key={item} className={`px-2.5 py-1 text-xs font-bold rounded-lg border ${getTagColor(item)}`}>
-                      {item}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* DevOps & Tools Card */}
-              <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-                <div className="flex items-center gap-3 mb-4 pb-3 border-b border-slate-100">
-                  <div className="p-2.5 rounded-xl bg-rose-100 text-rose-700">
-                    <Shield size={22} />
-                  </div>
-                  <div>
-                    <h4 className="font-black text-slate-900 text-base" dir="ltr">DevOps & Admin</h4>
-                    <span className="text-xs text-slate-500 font-medium" dir="ltr">Infrastructure</span>
-                  </div>
-                </div>
-                <div className="flex flex-wrap gap-2" dir="ltr">
-                  {[
-                    "Git & GitHub",
-                    "Vercel",
-                    "cPanel Hosting",
-                    "System Admin",
-                    "Cybersecurity",
-                    "Networking",
-                    "Postman"
-                  ].map(item => (
-                    <span key={item} className={`px-2.5 py-1 text-xs font-bold rounded-lg border ${getTagColor(item)}`}>
-                      {item}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-            </div>
-          </section>
-
-          {/* 6. PROFESSIONAL PROJECTS PORTFOLIO */}
-          <section className="space-y-6">
-            <div className="border-b-2 border-slate-200 pb-4">
-              <span className="text-xs font-bold text-emerald-800 uppercase tracking-widest">پراجیکٹس پورٹ فولیو</span>
-              <h3 className="text-2xl sm:text-3xl font-black text-slate-900 leading-[1.9]">
-                عملی اور لائیو پروڈکشن پراجیکٹس
-              </h3>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
-              {[
-                {
-                  name: "جامعہ شیرِ ربانی آفیشل ویب پورٹل",
-                  category: "ادارتی و تعلیمی ویب پلیٹ فارم",
-                  desc: "جامعہ شیرِ ربانی کا مکمل ادارتی ویب سسٹم جس میں ۲۰ تحقیقی مقالات، آن لائن داخلہ فارم، فیس چالان جنریٹر، سالانہ نتائج سرچ اور خودکار کلاؤڈ بیک اپ روٹیشن شامل ہے۔",
-                  tags: ["Next.js 16", "React 19", "TypeScript", "Node.js", "Express", "MongoDB", "Tailwind CSS"],
-                  url: "https://jamiashererabbani.com",
-                  badge: "لائیو پراجیکٹ"
-                },
-                {
-                  name: "اسٹیٹ ہب (EstateHub)",
-                  category: "پراپرٹی و رینٹل مینجمنٹ سسٹم",
-                  desc: "جائیدادوں اور کرایہ داری کے معاملات کو سنبھالنے والا سمارٹ ویب سسٹم جس میں تفصیلی فلٹرز، کرایہ دار و مالک کے ورک فلوز اور محفوظ یوزر ڈیش بورڈز شامل ہیں۔",
-                  tags: ["React.js", "Node.js", "Express.js", "MongoDB", "REST APIs"],
-                  url: "https://estatehub.site",
-                  badge: "لائیو پراجیکٹ"
-                },
-                {
-                  name: "ذیابیطس فری پاکستان (DiabetFree Pakistan)",
-                  category: "عوامی صحت و طبی آگاہی کا پلیٹ فارم",
-                  desc: "ذیابیطس کے تدارک، غذائی پرہیز اور رہنمائی پر مبنی طبی پورٹل جس میں ڈاکٹروں کی ہدایات، احتیاطی تدابیر اور جدید ریسپانسو ڈیزائن شامل ہے۔",
-                  tags: ["Next.js", "React", "Tailwind CSS", "SEO Architecture"],
-                  url: "https://diabetfreepakistan.site",
-                  badge: "لائیو پراجیکٹ"
-                },
-                {
-                  name: "موبائل ہب پرو (MobileHub Pro)",
-                  category: "ای کامرس و سمارٹ فون کیٹلاگ",
-                  desc: "جدید اسمارٹ فونز کی خصوصیات، قیمتوں کے تقابل اور تکنیکی تجزیوں کے لیے تیار کیا گیا ای کامرس و ڈائنامک کیٹلاگ پورٹل۔",
-                  tags: ["Next.js", "React", "Tailwind CSS", "MongoDB"],
-                  url: "https://iamabubakar.site",
-                  badge: "لائیو پراجیکٹ"
-                }
-              ].map((proj, idx) => (
-                <div 
-                  key={idx}
-                  className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm hover:shadow-lg transition-all flex flex-col justify-between group"
-                >
-                  <div>
-                    <div className="flex items-start justify-between gap-4 mb-4">
-                      <div>
-                        <span className="text-xs font-bold text-emerald-800 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 inline-block mb-2">
-                          {proj.category}
-                        </span>
-                        <h4 className="text-xl sm:text-2xl font-black text-slate-900 group-hover:text-emerald-800 transition-colors leading-[1.8]">
-                          {proj.name}
-                        </h4>
-                      </div>
-                      <a
-                        href={proj.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="p-2.5 rounded-xl bg-slate-100 hover:bg-emerald-800 text-slate-700 hover:text-white transition-colors shrink-0"
-                        title="ویب سائٹ وزٹ کریں"
-                      >
-                        <ExternalLink size={18} />
-                      </a>
-                    </div>
-                    <p className="text-sm sm:text-base text-slate-600 leading-[2.2] mb-6 font-normal">
-                      {proj.desc}
-                    </p>
-                  </div>
-
-                  <div className="pt-4 border-t border-slate-100 flex flex-wrap gap-2" dir="ltr">
-                    {proj.tags.map(tag => (
-                      <span key={tag} className={`text-xs font-bold px-2.5 py-1 rounded-lg border ${getTagColor(tag)}`}>
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* 7. EDUCATION, INTERNSHIPS & CERTIFICATIONS */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            
-            {/* Education & Academic Credentials */}
-            <section className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6">
-              <div className="flex items-center gap-3 pb-4 border-b border-slate-100">
-                <div className="p-2.5 rounded-xl bg-indigo-100 text-indigo-800">
-                  <GraduationCap size={24} />
-                </div>
-                <div>
-                  <h3 className="text-xl sm:text-2xl font-black text-slate-900 leading-[1.8]">
-                    تعلیمی پس منظر اور یونیورسٹی ڈگری
-                  </h3>
-                  <span className="text-xs text-slate-500 font-bold">بی ایس انفارمیشن ٹیکنالوجی</span>
-                </div>
-              </div>
-
-              <div className="bg-gradient-to-br from-indigo-50/50 to-slate-50 rounded-2xl p-6 border border-indigo-200/80 space-y-3">
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <h4 className="text-lg font-black text-indigo-950">
-                    بی ایس انفارمیشن ٹیکنالوجی (BSIT)
-                  </h4>
-                  <span className="text-xs font-bold px-3 py-1 rounded-full bg-indigo-800 text-white">
-                    چھٹا سمسٹر (6th Semester)
-                  </span>
-                </div>
-
-                <p className="text-sm font-bold text-indigo-900">
-                  بابا گرو نانک یونیورسٹی (BGNU)، ننکانہ صاحب
-                </p>
-
-                <p className="text-xs sm:text-sm text-slate-600 leading-[2.1] font-medium">
-                  سافٹ ویئر انجینئرنگ، آبجیکٹ اورینٹڈ پروگرامنگ (OOP)، ڈیٹا بیس ڈیزائن، نیٹ ورک سیکیورٹی، ڈیٹا اسٹرکچرز اور ویب ایپلیکیشن آرکیٹیکچر کے جدید کورسز۔
-                </p>
-              </div>
-
-              {/* Active Software Development Experience */}
-              <div className="space-y-3 pt-2">
-                <h4 className="text-xs sm:text-sm font-bold text-slate-600">
-                  مختلف سافٹ ویئر اداروں میں عملی کام کا تجربہ و انٹرن شپس:
-                </h4>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 text-xs font-bold">
-                  {[
-                    "آئی ٹی جینسس (IT Genesis)",
-                    "کوڈ الفا (CodeAlpha)",
-                    "ڈیکوڈ لیبز (DecodeLabs)",
-                    "نخلستان انفو بائٹ (Oasis)",
-                    "کوگنیفائز (Cognifyz)",
-                    "کوڈویدا (Codveda)"
-                  ].map((org, i) => (
-                    <div key={i} className="p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 text-center hover:bg-emerald-50 hover:text-emerald-900 hover:border-emerald-300 transition-colors">
-                      {org}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </section>
-
-            {/* Verified Certifications */}
-            <section className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6">
-              <div className="flex items-center gap-3 pb-4 border-b border-slate-100">
-                <div className="p-2.5 rounded-xl bg-amber-100 text-amber-800">
-                  <Award size={24} />
-                </div>
-                <div>
-                  <h3 className="text-xl sm:text-2xl font-black text-slate-900 leading-[1.8]">
-                    بین الاقوامی تصدیق شدہ اسناد
-                  </h3>
-                  <span className="text-xs text-slate-500 font-bold">گوگل اور سسکو سرٹیفیکیشنز</span>
-                </div>
-              </div>
-
-              <div className="space-y-4">
-                {/* Google Certification */}
-                <div className="bg-amber-50/50 rounded-2xl p-5 border border-amber-200/90">
-                  <div className="flex items-center gap-3 mb-3">
-                    <span className="w-8 h-8 rounded-lg bg-amber-500 text-white flex items-center justify-center font-bold text-xs">
-                      G
-                    </span>
-                    <div>
-                      <h4 className="text-base font-black text-amber-950">گوگل (Google)</h4>
-                      <p className="text-xs text-amber-800 font-medium">پراجیکٹ مینجمنٹ پروفیشنل ٹریک</p>
-                    </div>
-                  </div>
-                  <ul className="space-y-2 text-xs sm:text-sm text-slate-700 font-bold">
-                    <li className="flex items-center gap-2">
-                      <CheckCircle2 size={15} className="text-emerald-600 shrink-0" />
-                      <span>فاؤنڈیشنز آف پراجیکٹ مینجمنٹ (Foundations of Project Management)</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <CheckCircle2 size={15} className="text-emerald-600 shrink-0" />
-                      <span>پراجیکٹ انیشی ایشن اینڈ ایگزیکیوشن (Project Initiation)</span>
-                    </li>
-                  </ul>
-                </div>
-
-                {/* Cisco Networking Academy */}
-                <div className="bg-sky-50/50 rounded-2xl p-5 border border-sky-200/90">
-                  <div className="flex items-center gap-3 mb-3">
-                    <span className="w-8 h-8 rounded-lg bg-sky-600 text-white flex items-center justify-center font-bold text-xs">
-                      C
-                    </span>
-                    <div>
-                      <h4 className="text-base font-black text-sky-950">سسکو نیٹ ورکنگ اکیڈمی (Cisco)</h4>
-                      <p className="text-xs text-sky-800 font-medium">سائبر سیکیورٹی و نیٹ ورک اسنشلز</p>
-                    </div>
-                  </div>
-                  <ul className="space-y-2 text-xs sm:text-sm text-slate-700 font-bold">
-                    <li className="flex items-center gap-2">
-                      <CheckCircle2 size={15} className="text-emerald-600 shrink-0" />
-                      <span>سائبر سیکیورٹی اسنشلز و او ایس فاؤنڈیشنز (Cybersecurity & OS Basics)</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <CheckCircle2 size={15} className="text-emerald-600 shrink-0" />
-                      <span>نیٹ ورک اسکیننگ و سیکیورٹی پروٹوکولز (Vulnerability Scanning)</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </section>
-
-          </div>
-
-          {/* 8. DIRECT CONTACT & INVITATION SECTION */}
+          {/* 5. DIRECT CONTACT & INVITATION SECTION */}
           <section className="bg-gradient-to-r from-emerald-900 via-emerald-800 to-slate-900 rounded-3xl p-8 sm:p-12 text-white border-2 border-amber-400 text-center space-y-6 shadow-xl">
             <div className="max-w-2xl mx-auto space-y-3">
               <span className="px-3.5 py-1 rounded-full bg-emerald-950 text-amber-300 text-xs font-bold border border-emerald-600">
