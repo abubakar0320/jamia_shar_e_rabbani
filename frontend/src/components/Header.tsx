@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
 import React from 'react';
-import { Menu, X, ExternalLink } from 'lucide-react';
+import { Menu, X, ExternalLink, Code2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
@@ -322,6 +322,35 @@ const Header = () => {
                       </a>
                     ))}
                   </div>
+                </div>
+
+                {/* Mobile Developer Profile Section */}
+                <div className="pt-4 mt-4 border-t border-slate-100">
+                  <div className="px-4 pb-2 text-[12px] font-bold text-slate-400 tracking-wider font-urdu">
+                    سسٹم و ویب سائٹ ڈویلپر
+                  </div>
+                  <Link
+                    href="/developer"
+                    onClick={() => setIsOpen(false)}
+                    className="flex items-center justify-between p-3 mx-1 rounded-xl bg-gradient-to-r from-emerald-50 to-slate-50 hover:from-emerald-100 hover:to-slate-100 border border-emerald-200/90 transition-all group shadow-2xs"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-xl bg-emerald-800 text-white flex items-center justify-center shrink-0 shadow-xs group-hover:scale-105 transition-transform">
+                        <Code2 size={20} className="text-amber-300" />
+                      </div>
+                      <div className="text-right">
+                        <div className="text-sm font-black text-slate-900 font-urdu leading-tight">
+                          ابوبکر صدیق
+                        </div>
+                        <div className="text-[11px] font-bold text-emerald-800 font-urdu leading-tight mt-0.5">
+                          آئی ٹی اینڈ سسٹم ایڈمنسٹریٹر
+                        </div>
+                      </div>
+                    </div>
+                    <span className="text-[11px] font-bold text-emerald-800 font-urdu bg-white px-2.5 py-1 rounded-lg border border-emerald-200 shadow-2xs group-hover:bg-emerald-800 group-hover:text-white transition-colors">
+                      پروفائل دیکھیں
+                    </span>
+                  </Link>
                 </div>
               </div>
 
