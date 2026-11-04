@@ -1,5 +1,7 @@
 import React from 'react';
-import { User, ShieldCheck } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { ShieldCheck, ChevronLeft } from 'lucide-react';
 import { OFFICIAL_AUTHOR } from '@/data/articles';
 
 interface ArticleAuthorCardProps {
@@ -11,13 +13,23 @@ export default function ArticleAuthorCard({
   className = '',
   variant = 'card'
 }: ArticleAuthorCardProps) {
+  const authorImg = OFFICIAL_AUTHOR.image || '/abubakar-latest.jpeg';
+
   if (variant === 'badge') {
     return (
       <div 
         className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 text-slate-700 text-xs font-bold border border-slate-200/80 ${className}`}
         dir="rtl"
       >
-        <User size={14} className="text-emerald-700 shrink-0" />
+        <div className="relative w-5 h-5 rounded-full overflow-hidden border border-emerald-600/40 shrink-0 bg-slate-200">
+          <Image 
+            src={authorImg} 
+            alt={OFFICIAL_AUTHOR.name} 
+            fill 
+            unoptimized 
+            className="object-cover object-top" 
+          />
+        </div>
         <span>مصنف: {OFFICIAL_AUTHOR.name}</span>
       </div>
     );
@@ -29,9 +41,15 @@ export default function ArticleAuthorCard({
         className={`inline-flex items-center gap-3 text-xs sm:text-sm text-slate-700 font-bold ${className}`}
         dir="rtl"
       >
-        <span className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0 shadow-2xs">
-          <User size={15} />
-        </span>
+        <div className="relative w-8 h-8 rounded-full overflow-hidden border-2 border-emerald-600/40 shadow-xs shrink-0 bg-slate-200">
+          <Image 
+            src={authorImg} 
+            alt={OFFICIAL_AUTHOR.name} 
+            fill 
+            unoptimized 
+            className="object-cover object-top" 
+          />
+        </div>
         <div className="flex flex-col sm:flex-row sm:items-center gap-0.5 sm:gap-2 text-right">
           <div className="flex items-center gap-1.5">
             <span className="text-emerald-900 font-black">مصنف:</span>
@@ -51,16 +69,23 @@ export default function ArticleAuthorCard({
       dir="rtl"
     >
       <div className="flex items-center justify-between flex-wrap gap-4">
-        <div className="flex items-center gap-3.5">
-          <div className="w-12 h-12 rounded-2xl bg-emerald-800 text-white flex items-center justify-center shrink-0 shadow-sm">
-            <User size={22} className="text-emerald-100" />
+        <div className="flex items-center gap-4">
+          <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-2xl overflow-hidden border-2 border-emerald-600/60 shadow-md shrink-0 bg-slate-800">
+            <Image 
+              src={authorImg} 
+              alt={OFFICIAL_AUTHOR.name} 
+              fill 
+              unoptimized 
+              priority
+              className="object-cover object-top" 
+            />
           </div>
           <div>
-            <div className="flex items-center gap-2 mb-0.5">
-              <span className="text-xs font-bold px-2 py-0.5 rounded-md bg-emerald-100 text-emerald-900 border border-emerald-200">
-                مضمون نگار
+            <div className="flex items-center gap-2 mb-1">
+              <span className="text-xs font-bold px-2.5 py-0.5 rounded-md bg-emerald-100 text-emerald-900 border border-emerald-200">
+                مضمون نگار و محقق
               </span>
-              <h3 className="text-base sm:text-lg font-black text-slate-900 leading-tight">
+              <h3 className="text-base sm:text-xl font-black text-slate-900 leading-tight">
                 {`مصنف: ${OFFICIAL_AUTHOR.name}`}
               </h3>
             </div>
@@ -70,9 +95,18 @@ export default function ArticleAuthorCard({
           </div>
         </div>
 
-        <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-xs font-bold text-slate-600 shadow-2xs">
-          <ShieldCheck size={15} className="text-emerald-700" />
-          <span>جامعہ شیرِ ربانی مانانوالہ، ضلع شیخوپورہ</span>
+        <div className="flex items-center gap-2.5">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-xs font-bold text-slate-600 shadow-2xs">
+            <ShieldCheck size={15} className="text-emerald-700" />
+            <span>جامعہ شیرِ ربانی مانانوالہ</span>
+          </div>
+          <Link
+            href="/faculty-profile?id=3"
+            className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold shadow-xs transition-colors"
+          >
+            <span>پروفائل دیکھیں</span>
+            <ChevronLeft size={13} />
+          </Link>
         </div>
       </div>
     </div>

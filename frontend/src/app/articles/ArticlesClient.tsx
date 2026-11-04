@@ -272,8 +272,16 @@ export default function ArticlesClient() {
                 </div>
 
                 <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
-                  <div className="flex items-center gap-1.5 text-xs font-bold text-slate-700">
-                    <User size={14} className="text-emerald-700" />
+                  <div className="flex items-center gap-2 text-xs font-bold text-slate-700">
+                    <div className="relative w-6 h-6 rounded-full overflow-hidden border border-emerald-600/40 shrink-0 bg-slate-200">
+                      <Image 
+                        src="/abubakar-latest.jpeg" 
+                        alt={prominentArticle.author || OFFICIAL_AUTHOR.name} 
+                        fill 
+                        unoptimized 
+                        className="object-cover object-top" 
+                      />
+                    </div>
                     <span>{`مصنف: ${prominentArticle.author || OFFICIAL_AUTHOR.name}`}</span>
                   </div>
                   <Link
@@ -325,8 +333,16 @@ export default function ArticlesClient() {
                     </div>
 
                     <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
-                      <div className="flex items-center gap-1 text-[11px] font-bold text-slate-600">
-                        <User size={12} className="text-emerald-700" />
+                      <div className="flex items-center gap-2 text-[11px] font-bold text-slate-600">
+                        <div className="relative w-5 h-5 rounded-full overflow-hidden border border-emerald-600/40 shrink-0 bg-slate-200">
+                          <Image 
+                            src="/abubakar-latest.jpeg" 
+                            alt={article.author || OFFICIAL_AUTHOR.name} 
+                            fill 
+                            unoptimized 
+                            className="object-cover object-top" 
+                          />
+                        </div>
                         <span>{article.author || OFFICIAL_AUTHOR.name}</span>
                       </div>
                       <Link
@@ -502,8 +518,16 @@ export default function ArticlesClient() {
 
                   {/* Read Article CTA Button */}
                   <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
-                    <div className="flex items-center gap-1.5 text-xs text-slate-700 font-bold">
-                      <User size={13} className="text-emerald-700 shrink-0" />
+                    <div className="flex items-center gap-2 text-xs text-slate-700 font-bold">
+                      <div className="relative w-6 h-6 rounded-full overflow-hidden border border-emerald-600/40 shrink-0 bg-slate-200">
+                        <Image 
+                          src="/abubakar-latest.jpeg" 
+                          alt={article.author || OFFICIAL_AUTHOR.name} 
+                          fill 
+                          unoptimized 
+                          className="object-cover object-top" 
+                        />
+                      </div>
                       <span>{article.author || OFFICIAL_AUTHOR.name}</span>
                     </div>
                     <Link

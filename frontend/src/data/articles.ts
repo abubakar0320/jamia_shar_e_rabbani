@@ -10,11 +10,13 @@ export interface ArticleCategory {
 export interface AuthorInfo {
   name: string;
   designation: string;
+  image?: string;
 }
 
 export const OFFICIAL_AUTHOR: AuthorInfo = {
   name: "ابوبکر صدیق",
-  designation: "آئی ٹی اینڈ سسٹم ایڈمنسٹریٹر، جامعہ شیرِ ربانی",
+  designation: "ڈائریکٹر انفارمیشن ٹیکنالوجی و ہیڈ آف سافٹ ویئر سسٹمز",
+  image: "/abubakar-latest.jpeg",
 };
 
 export interface Article {

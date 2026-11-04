@@ -246,7 +246,15 @@ export default async function ArticleDetailPage({ params }: PageProps) {
           {/* Publishing & Academic Attribution Metadata */}
           <div className="flex flex-wrap items-center gap-4 sm:gap-6 pt-4 border-t border-slate-100 text-xs sm:text-sm text-slate-600 font-bold">
             <div className="flex items-center gap-2">
-              <User size={16} className="text-emerald-700" />
+              <div className="relative w-6 h-6 rounded-full overflow-hidden border border-emerald-600/40 shrink-0 bg-slate-200">
+                <Image 
+                  src="/abubakar-latest.jpeg" 
+                  alt={OFFICIAL_AUTHOR.name} 
+                  fill 
+                  unoptimized 
+                  className="object-cover object-top" 
+                />
+              </div>
               <span>{`مصنف: ${OFFICIAL_AUTHOR.name}`}</span>
             </div>
             <span>•</span>
@@ -618,6 +626,43 @@ export default async function ArticleDetailPage({ params }: PageProps) {
           </div>
         )}
 
+        {/* Author Bio Box at end of article */}
+        <div className="my-12 bg-gradient-to-br from-slate-50 via-emerald-50/40 to-white rounded-2xl p-6 sm:p-8 border border-emerald-200/90 shadow-xs text-right font-urdu">
+          <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5">
+            <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl overflow-hidden border-2 border-emerald-600 shadow-md shrink-0 bg-slate-800">
+              <Image 
+                src="/abubakar-latest.jpeg" 
+                alt={OFFICIAL_AUTHOR.name} 
+                fill 
+                unoptimized 
+                priority
+                className="object-cover object-top" 
+              />
+            </div>
+            <div className="flex-1 text-center sm:text-right">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 text-emerald-900 text-xs font-bold mb-2">
+                <span>★ مصنف و محقق تعارف</span>
+              </div>
+              <h3 className="text-xl sm:text-2xl font-black text-slate-900 leading-tight mb-1">
+                {OFFICIAL_AUTHOR.name}
+              </h3>
+              <p className="text-xs sm:text-sm text-emerald-800 font-bold mb-3">
+                {OFFICIAL_AUTHOR.designation}
+              </p>
+              <p className="text-slate-600 text-xs sm:text-sm leading-[2.2] mb-4">
+                جامعہ شیرِ ربانی مانانوالہ کے علمی و تحقیقی مضامین اور ڈیجیٹل پورٹلز کی تالیف و نگرانی۔ علومِ نافع، جدید ٹیکنالوجی اور فکری رہنمائی کا مستند سلسلہ۔
+              </p>
+              <Link
+                href="/faculty-profile?id=3"
+                className="inline-flex items-center gap-1.5 px-4 py-2 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-xs font-bold shadow-xs transition-colors"
+              >
+                <span>مصنف کی تفصیلی فیکلٹی پروفائل دیکھیں</span>
+                <ArrowRight size={13} className="rotate-180" />
+              </Link>
+            </div>
+          </div>
+        </div>
+
         {/* Action Buttons: Back & Contact */}
         <div className="flex flex-wrap items-center justify-between gap-4 pt-8 border-t border-slate-200 mt-12 mb-16">
           <Link
@@ -686,8 +731,16 @@ export default async function ArticleDetailPage({ params }: PageProps) {
                     </div>
 
                     <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
-                      <div className="flex items-center gap-1 text-[11px] text-slate-600 font-bold">
-                        <User size={12} className="text-emerald-700" />
+                      <div className="flex items-center gap-1.5 text-[11px] text-slate-600 font-bold">
+                        <div className="relative w-5 h-5 rounded-full overflow-hidden border border-emerald-600/40 shrink-0 bg-slate-200">
+                          <Image 
+                            src="/abubakar-latest.jpeg" 
+                            alt={rel.author || OFFICIAL_AUTHOR.name} 
+                            fill 
+                            unoptimized 
+                            className="object-cover object-top" 
+                          />
+                        </div>
                         <span>{rel.author || OFFICIAL_AUTHOR.name}</span>
                       </div>
                       <Link
