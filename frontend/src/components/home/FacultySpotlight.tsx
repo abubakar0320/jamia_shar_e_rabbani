@@ -25,6 +25,14 @@ export default function FacultySpotlight() {
       link: '/faculty-profile?id=1'
     },
     {
+      id: '4',
+      name: 'مولانا حافظ احمد علی ربانی',
+      role: 'نائب مہتمم و ناظمِ تعلیمات (Director of Education)',
+      bio: 'جامعہ شیرِ ربانی کے تدریسی شعبہ جات کے ناظمِ اعلیٰ، امتحانی نظم و ضبط اور طلبہ کے تعلیمی معیار کے سرپرست۔',
+      image: '/hafiz-ahmad-ali.jpeg',
+      link: '/faculty-profile?id=4'
+    },
+    {
       id: '2',
       name: 'مولانا علی حمزہ ربانی',
       role: 'استاذ الحدیث و شعبہ درسِ نظامی',
@@ -60,7 +68,7 @@ export default function FacultySpotlight() {
         </div>
 
         {/* Faculty Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {faculty.map((member, i) => (
             <motion.div 
               key={member.id}
@@ -77,7 +85,7 @@ export default function FacultySpotlight() {
                   section="faculty"
                   className="object-cover object-top group-hover:scale-105 transition-transform duration-500" 
                   alt={member.name} 
-                  sizes="(max-width: 768px) 100vw, 33vw"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                 />
               </div>
 

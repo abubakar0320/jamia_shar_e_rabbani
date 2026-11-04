@@ -352,9 +352,9 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     title: 'مولانا حافظ احمد علی ربانی',
     category: 'faculty',
     categoryLabel: 'ادارتی قیادت و اساتذہ',
-    image: '/ahmad.png',
-    description: 'نائب مہتمم و ناظمِ تعلیمات جامعہ شیرِ ربانی۔ تدریسی شعبہ جات کے نگران، منتظمِ اعلیٰ اور معتمدِ شوریٰ۔',
-    tag: 'نائب مہتمم',
+    image: '/hafiz-ahmad-ali.jpeg',
+    description: 'نائب مہتمم و ناظمِ تعلیمات (Director of Education) جامعہ شیرِ ربانی۔ تدریسی شعبہ جات کے نگران، منتظمِ اعلیٰ اور معتمدِ شوریٰ۔',
+    tag: 'ناظمِ تعلیمات (Director of Education)',
     year: 'قیادت',
     badgeColor: 'bg-teal-800 text-white'
   },

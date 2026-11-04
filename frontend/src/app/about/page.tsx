@@ -14,7 +14,8 @@ import {
   Sparkles,
   Building2,
   ShieldCheck,
-  HeartHandshake
+  HeartHandshake,
+  ChevronLeft
 } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -322,79 +323,107 @@ export default function About() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch">
               
               {/* Leader 1: Principal Dr. Farooq Ali Rabbani */}
-              <div className="p-6 sm:p-7 rounded-3xl bg-slate-50 border border-slate-200 shadow-sm flex flex-col items-center text-center group hover:border-emerald-300 transition-all">
-                <div className="relative w-32 h-32 sm:w-40 sm:h-40 rounded-full overflow-hidden border-4 border-white shadow-lg mb-5 ring-2 ring-emerald-600/30">
-                  <Image 
-                    src="/farooq-ali-rabbani.jpeg" 
-                    alt="Dr. Farooq Ali Rabbani" 
-                    fill 
-                    className="object-cover group-hover:scale-105 transition-transform duration-300" 
-                  />
+              <div className="p-6 sm:p-7 rounded-3xl bg-slate-50 border border-slate-200 shadow-sm flex flex-col items-center text-center group hover:border-emerald-300 transition-all justify-between">
+                <div className="flex flex-col items-center">
+                  <div className="relative w-32 h-32 sm:w-40 sm:h-40 rounded-full overflow-hidden border-4 border-white shadow-lg mb-5 ring-2 ring-emerald-600/30">
+                    <Image 
+                      src="/farooq-ali-rabbani.jpeg" 
+                      alt="Dr. Farooq Ali Rabbani" 
+                      fill 
+                      className="object-cover group-hover:scale-105 transition-transform duration-300" 
+                    />
+                  </div>
+                  <span className="px-3 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 uppercase tracking-wider mb-2 font-urdu">
+                    پرنسپل / Principal
+                  </span>
+                  <h3 className="text-lg sm:text-xl font-black text-slate-900 font-urdu">
+                    پروفیسر ڈاکٹر فاروق علی ربانی
+                  </h3>
+                  <p className="text-xs sm:text-sm font-bold text-emerald-700 mt-1 mb-3 font-urdu">
+                    پرنسپل، جامعہ شیرِ ربانی (2008ء تا حال)
+                  </p>
+                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-sm font-urdu" dir="rtl">
+                    سن 2008ء سے تا حال پرنسپل کے فرائض سرانجام دے رہے ہیں۔ ڈاکٹر صاحب نے جامعہ کے تعلیمی ارتقاء، جدید نصابی اصلاحات، اور وفاق المدارس الاسلامیہ الرضویہ و وزارتِ تعلیم سے رجسٹریشن میں کلیدی کردار ادا کیا۔
+                  </p>
                 </div>
-                <span className="px-3 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 uppercase tracking-wider mb-2 font-urdu">
-                  پرنسپل / Principal
-                </span>
-                <h3 className="text-lg sm:text-xl font-black text-slate-900 font-urdu">
-                  پروفیسر ڈاکٹر فاروق علی ربانی
-                </h3>
-                <p className="text-xs sm:text-sm font-bold text-emerald-700 mt-1 mb-3 font-urdu">
-                  پرنسپل، جامعہ شیرِ ربانی (2008ء تا حال)
-                </p>
-                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-sm font-urdu" dir="rtl">
-                  سن 2008ء سے تا حال پرنسپل کے فرائض سرانجام دے رہے ہیں۔ ڈاکٹر صاحب نے جامعہ کے تعلیمی ارتقاء، جدید نصابی اصلاحات، اور وفاق المدارس الاسلامیہ الرضویہ و وزارتِ تعلیم سے رجسٹریشن میں کلیدی کردار ادا کیا۔
-                </p>
+                <Link
+                  href="/faculty-profile?id=1"
+                  className="mt-6 inline-flex items-center gap-1.5 px-5 py-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold shadow-xs transition-colors font-urdu"
+                >
+                  <span>تفصیلی پروفائل دیکھیں</span>
+                  <ChevronLeft size={13} />
+                </Link>
               </div>
 
               {/* Leader 2: Nazim-e-Taleem Hafiz Muhammad Ahmad Rabbani */}
-              <div className="p-6 sm:p-7 rounded-3xl bg-slate-50 border border-slate-200 shadow-sm flex flex-col items-center text-center group hover:border-emerald-300 transition-all">
-                <div className="relative w-32 h-32 sm:w-40 sm:h-40 rounded-full overflow-hidden border-4 border-white shadow-lg mb-5 ring-2 ring-emerald-600/30">
-                  <Image 
-                    src="/ahmad.png" 
-                    alt="Hafiz Muhammad Ahmad Rabbani" 
-                    fill 
-                    className="object-cover group-hover:scale-105 transition-transform duration-300" 
-                  />
+              <div className="p-6 sm:p-7 rounded-3xl bg-slate-50 border border-slate-200 shadow-sm flex flex-col items-center text-center group hover:border-emerald-300 transition-all justify-between">
+                <div className="flex flex-col items-center">
+                  <div className="relative w-32 h-32 sm:w-40 sm:h-40 rounded-full overflow-hidden border-4 border-white shadow-lg mb-5 ring-2 ring-emerald-600/30 bg-slate-100">
+                    <Image 
+                      src="/hafiz-ahmad-ali.jpeg" 
+                      alt="مولانا حافظ احمد علی ربانی" 
+                      fill 
+                      unoptimized
+                      priority
+                      className="object-cover object-top group-hover:scale-105 transition-transform duration-300" 
+                    />
+                  </div>
+                  <span className="px-3 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 uppercase tracking-wider mb-2 font-urdu">
+                    نائب مہتمم و ناظمِ تعلیمات / Director of Education
+                  </span>
+                  <h3 className="text-lg sm:text-xl font-black text-slate-900 font-urdu">
+                    مولانا حافظ احمد علی ربانی
+                  </h3>
+                  <p className="text-xs sm:text-sm font-bold text-emerald-700 mt-1 mb-3 font-urdu">
+                    ناظمِ تعلیم، جامعہ شیرِ ربانی (2022ء تا حال)
+                  </p>
+                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-sm font-urdu" dir="rtl">
+                    سن 2022ء سے تا حال ناظمِ تعلیم کے طور پر خدمات سرانجام دے رہے ہیں۔ روزمرہ کے تدریسی نظم و ضبط، اساتذہ کی رہنمائی اور طلبہ کے امتحانی و تربیتی معیار کی مکمل نگرانی فرماتے ہیں۔
+                  </p>
                 </div>
-                <span className="px-3 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 uppercase tracking-wider mb-2 font-urdu">
-                  ناظمِ تعلیم / Director of Education
-                </span>
-                <h3 className="text-lg sm:text-xl font-black text-slate-900 font-urdu">
-                  حافظ محمد احمد ربانی
-                </h3>
-                <p className="text-xs sm:text-sm font-bold text-emerald-700 mt-1 mb-3 font-urdu">
-                  ناظمِ تعلیم، جامعہ شیرِ ربانی (2022ء تا حال)
-                </p>
-                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-sm font-urdu" dir="rtl">
-                  سن 2022ء سے تا حال ناظمِ تعلیم کے طور پر خدمات سرانجام دے رہے ہیں۔ روزمرہ کے تدریسی نظم و ضبط، اساتذہ کی رہنمائی اور طلبہ کے امتحانی و تربیتی معیار کی مکمل نگرانی فرماتے ہیں۔
-                </p>
+                <Link
+                  href="/faculty-profile?id=4"
+                  className="mt-6 inline-flex items-center gap-1.5 px-5 py-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold shadow-xs transition-colors font-urdu"
+                >
+                  <span>تفصیلی پروفائل دیکھیں</span>
+                  <ChevronLeft size={13} />
+                </Link>
               </div>
 
               {/* Leader 3: IT & System Administrator Muhammad Abu Bakar */}
-              <div className="p-6 sm:p-7 rounded-3xl bg-slate-50 border border-slate-200 shadow-sm flex flex-col items-center text-center group hover:border-emerald-300 transition-all">
-                <div className="relative w-44 sm:w-52 aspect-[706/1024] rounded-2xl overflow-hidden border-4 border-white shadow-lg mb-5 ring-2 ring-emerald-600/30 bg-slate-100">
-                  <Image 
-                    src="/abubakar-latest.jpeg" 
-                    alt="محمد ابوبکر صدیق" 
-                    fill 
-                    unoptimized
-                    priority
-                    className="object-cover group-hover:scale-105 transition-transform duration-300" 
-                  />
+              <div className="p-6 sm:p-7 rounded-3xl bg-slate-50 border border-slate-200 shadow-sm flex flex-col items-center text-center group hover:border-emerald-300 transition-all justify-between">
+                <div className="flex flex-col items-center">
+                  <div className="relative w-44 sm:w-52 aspect-[706/1024] rounded-2xl overflow-hidden border-4 border-white shadow-lg mb-5 ring-2 ring-emerald-600/30 bg-slate-100">
+                    <Image 
+                      src="/abubakar-latest.jpeg" 
+                      alt="محمد ابوبکر صدیق" 
+                      fill 
+                      unoptimized
+                      priority
+                      className="object-cover group-hover:scale-105 transition-transform duration-300" 
+                    />
+                  </div>
+                  <span className="px-3 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 uppercase tracking-wider mb-2 font-urdu">
+                    ڈائریکٹر انفارمیشن ٹیکنالوجی / Director IT
+                  </span>
+                  <h3 className="text-lg sm:text-xl font-black text-slate-900 font-urdu">
+                    محترم محمد ابوبکر صدیق
+                  </h3>
+                  <p className="text-xs sm:text-sm font-bold text-emerald-700 mt-1 mb-3 font-urdu">
+                    Director IT & Software Systems (2022ء تا حال)
+                  </p>
+                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-sm font-urdu" dir="rtl">
+                    سن 2022ء سے تا حال جامعہ شیرِ ربانی کے آئی ٹی و سسٹم ایڈمنسٹریشن کے فرائض سنبھالے ہوئے ہیں۔ جن میں آفیشل پورٹل، ڈیٹابیس، ریکارڈ مینجمنٹ سسٹم، آن لائن داخلہ جات اور ڈیجیٹل انفراسٹرکچر کی مکمل نگرانی شامل ہے۔
+                  </p>
                 </div>
-                <span className="px-3 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 uppercase tracking-wider mb-2 font-urdu">
-                  آئی ٹی اینڈ سسٹم ایڈمنسٹریٹر / IT Admin
-                </span>
-                <h3 className="text-lg sm:text-xl font-black text-slate-900 font-urdu">
-                  محمد ابوبکر صدیق
-                </h3>
-                <p className="text-xs sm:text-sm font-bold text-emerald-700 mt-1 mb-3 font-urdu">
-                  IT & System Administrator (2022ء تا حال)
-                </p>
-                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-sm font-urdu" dir="rtl">
-                  سن 2022ء سے تا حال جامعہ شیرِ ربانی کے آئی ٹی و سسٹم ایڈمنسٹریشن کے فرائض سنبھالے ہوئے ہیں۔ جن میں آفیشل پورٹل، ڈیٹابیس، ریکارڈ مینجمنٹ سسٹم، آن لائن داخلہ جات اور ڈیجیٹل انفراسٹرکچر کی مکمل نگرانی شامل ہے۔
-                </p>
+                <Link
+                  href="/faculty-profile?id=3"
+                  className="mt-6 inline-flex items-center gap-1.5 px-5 py-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold shadow-xs transition-colors font-urdu"
+                >
+                  <span>تفصیلی پروفائل دیکھیں</span>
+                  <ChevronLeft size={13} />
+                </Link>
               </div>
-
             </div>
           </div>
         </section>

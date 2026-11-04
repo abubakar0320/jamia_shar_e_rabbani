@@ -32,6 +32,16 @@ export default function Faculty() {
       contact: '03144081516'
     },
     {
+      id: 4,
+      name: 'مولانا حافظ احمد علی ربانی',
+      role: 'نائب مہتمم و ناظمِ تعلیمات (Director of Education)',
+      education: 'عالمیہ (درسِ نظامی)، وفاق المدارس الاسلامیہ الرضویہ',
+      specialization: 'علومِ شریعہ، تدریسی نظم و نسق، نصاب سازی و تعلیمی ایڈمنسٹریشن',
+      image: '/hafiz-ahmad-ali.jpeg',
+      email: 'jamiashererabbani07@gmail.com',
+      contact: '+966540532511'
+    },
+    {
       id: 2,
       name: 'مولانا علی حمزہ ربانی',
       role: 'استاذ الحدیث و شعبہ درسِ نظامی',
@@ -63,13 +73,15 @@ export default function Faculty() {
       .then(res => res.json())
       .then(data => {
         if (data && data.length > 0) {
-          // If backend has custom faculty, ensure IT Director Abubakar is preserved
-          const hasAbubakar = data.some((m: FacultyMember) => m.id === 3 || m.name?.includes('ابوبکر'));
-          if (!hasAbubakar) {
-            setFaculty([...data, staticFaculty[2]]);
-          } else {
-            setFaculty(data);
+          // If backend has custom faculty, ensure leadership (Hafiz Ahmad Ali & Abubakar) are preserved
+          const list = [...data];
+          if (!list.some((m: FacultyMember) => m.id === 4 || m.name?.includes('احمد علی'))) {
+            list.splice(1, 0, staticFaculty[1]);
           }
+          if (!list.some((m: FacultyMember) => m.id === 3 || m.name?.includes('ابوبکر'))) {
+            list.push(staticFaculty[3]);
+          }
+          setFaculty(list);
         } else {
           setFaculty(staticFaculty);
         }
@@ -148,7 +160,7 @@ export default function Faculty() {
                 <div className="text-sm font-bold text-slate-700 font-urdu">اساتذہ کا ڈیٹا لوڈ ہو رہا ہے...</div>
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-7xl mx-auto">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
                 {faculty.map((member, i) => (
                   <motion.div 
                     key={member.id}
@@ -166,7 +178,7 @@ export default function Faculty() {
                         fill
                         section="faculty"
                         className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                        sizes="(max-width: 768px) 100vw, 33vw"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                       />
                     </div>
                     
