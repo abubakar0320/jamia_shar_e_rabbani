@@ -132,7 +132,7 @@ function translateLevel(raw: string): string {
 function translateDesc(raw: string, title: string): string {
   const t = title.toLowerCase();
   if (t.includes('hifz')) return 'تجوید و حسنِ قراءت کے بنیادی و اعلیٰ قواعد کے ساتھ قرآن مجید کا مکمل حفظ اور روزانہ کی بنیاد پر باقاعدہ دور۔';
-  if (t.includes('dars')) return 'قرآن، حدیث، فقہ، اصولِ فقہ، منطق اور عربی ادب کا باقاعدہ جامع نصاب، وفاق المدارس الرضویہ سے تصدیق شدہ۔';
+  if (t.includes('dars')) return 'قرآن، حدیث، فقہ، اصولِ فقہ، منطق اور عربی ادب کا باقاعدہ جامع نصاب، وفاق المدارس الاسلامیہ الرضویہ سے تصدیق شدہ۔';
   if (t.includes('tajweed') || t.includes('qira')) return 'مستند قراء کرام کے زیرِ نگرانی مخارج و صفات کی درستی، ترتیل و حدر اور قرات کی عملی مشق۔';
   if (t.includes('arabic')) return 'جدید و کلاسیکی عربی بول چال، نحو و صرف اور فصیح عربی تحریر و تقریر پر خصوصی عملی توجہ۔';
   if (t.includes('takhasus')) return 'فقہِ اسلامی، معاشی و جدید معاصر مسائل پر فتوٰی نویسی اور اصولِ افتاء کی گہری تحقیقی و عملی تربیت۔';
@@ -503,7 +503,7 @@ function CourseDetailsContent() {
                     </div>
                     <div>
                       <p className="text-[11px] font-bold text-slate-400 font-urdu mb-0.5">ای میل و رابطہ</p>
-                      <p className="text-xs font-mono font-bold text-slate-200">shererabbani@gmail.com</p>
+                      <p className="text-xs font-mono font-bold text-slate-200">jamiashererabbani07@gmail.com</p>
                     </div>
                   </div>
                 </div>

@@ -45,7 +45,7 @@ export default function Courses() {
       title: 'درسِ نظامی (عالم و فاضل ڈگری کورس)',
       duration: '8 سالہ باقاعدہ ڈگری',
       level: 'شریعہ و علومِ اسلامیہ',
-      desc: 'قرآن، حدیث، فقہ، اصولِ فقہ، منطق اور عربی ادب کا باقاعدہ جامع نصاب، وفاق المدارس الرضویہ اور ہائر ایجوکیشن کمیشن سے تصدیق شدہ۔',
+      desc: 'قرآن، حدیث، فقہ، اصولِ فقہ، منطق اور عربی ادب کا باقاعدہ جامع نصاب، وفاق المدارس الاسلامیہ الرضویہ اور ہائر ایجوکیشن کمیشن سے تصدیق شدہ۔',
       image: '/hadith.jpg',
       categoryFilter: 'dars'
     },
@@ -250,7 +250,7 @@ export default function Courses() {
                       </div>
                       <div className="flex items-center gap-1.5 text-slate-700">
                         <Award size={14} className="text-amber-600 shrink-0" />
-                        <span>وفاق المدارس سے تصدیق شدہ</span>
+                        <span>وفاق المدارس الاسلامیہ الرضویہ سے تصدیق شدہ</span>
                       </div>
                     </div>
                     

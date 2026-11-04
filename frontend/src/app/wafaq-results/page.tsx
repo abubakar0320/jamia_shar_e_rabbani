@@ -35,11 +35,11 @@ export default function WafaqResultsPage() {
             </div>
 
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.9] md:leading-[2.1] mb-6">
-              وفاق المدارس <span className="text-emerald-700">سالانہ امتحانی نتائج</span> و رزلٹ کارڈ
+              وفاق المدارس الاسلامیہ الرضویہ <span className="text-emerald-700">سالانہ امتحانی نتائج</span> و رزلٹ کارڈ
             </h1>
 
             <p className="text-base sm:text-lg md:text-xl text-slate-600 max-w-3xl mx-auto leading-[2.2] md:leading-[2.4]">
-              جامعہ شیرِ ربانی کے طلبہ و طالبات کے لیے وفاق المدارس کے باقاعدہ و تصدیق شدہ سالانہ نتائج کی تصدیق اور ڈاؤن لوڈ کا آفیشل پورٹل۔
+              جامعہ شیرِ ربانی کے طلبہ و طالبات کے لیے وفاق المدارس الاسلامیہ الرضویہ کے باقاعدہ و تصدیق شدہ سالانہ نتائج کی تصدیق اور ڈاؤن لوڈ کا آفیشل پورٹل۔
             </p>
           </motion.div>
         </div>
@@ -60,7 +60,7 @@ export default function WafaqResultsPage() {
           <div className="w-24 h-24 bg-emerald-50 border-2 border-emerald-200 rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm overflow-hidden p-2">
             <Image 
               src="/images/wafaq-logo.png" 
-              alt="وفاق المدارس الرضویہ لوگو" 
+              alt="وفاق المدارس الاسلامیہ الرضویہ لوگو" 
               width={80} 
               height={80} 
               className="object-contain"
@@ -72,12 +72,12 @@ export default function WafaqResultsPage() {
           </span>
 
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 mb-5 leading-[1.9] md:leading-[2.1]">
-            وفاق المدارس آفیشل رزلٹ پورٹل
+            وفاق المدارس الاسلامیہ الرضویہ آفیشل رزلٹ پورٹل
           </h2>
 
           <div className="max-w-2xl mx-auto text-slate-600 mb-10 text-base md:text-lg leading-[2.3]">
             <p className="mb-4">
-              امتحانی رازداری اور سیکیورٹی قواعد کے پیشِ نظر وفاق المدارس کا رزلٹ پورٹل براہِ راست کسی بیرونی ویب سائٹ پر ایمبیڈ نہیں کیا جاتا۔
+              امتحانی رازداری اور سیکیورٹی قواعد کے پیشِ نظر وفاق المدارس الاسلامیہ الرضویہ کا رزلٹ پورٹل براہِ راست کسی بیرونی ویب سائٹ پر ایمبیڈ نہیں کیا جاتا۔
             </p>
             <p>
               جامعہ شیرِ ربانی کے تمام طلبہ، طالبات اور معزز والدین نیچے دیے گئے بٹن پر کلک کر کے وفاق کے آفیشل پورٹل پر اپنا رول نمبر درج کر کے اپنا مکمل رزلٹ کارڈ اور تفصیلی مارکس با آسانی چیک اور پرنٹ کر سکتے ہیں۔

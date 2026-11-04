@@ -57,7 +57,7 @@ export default function Hero() {
       titleEnd: 'کا عظیم تعلیمی مرکز',
       subtitleUrdu: 'وفاق المدارس الاسلامیہ الرضویہ پاکستان سے باقاعدہ الحاق شدہ ادارہ',
       description: 'حفظِ قرآن، درسِ نظامی (عالم و فاضل کورس)، تجوید و قرات اور تخصصات فی الفقہ کی اعلیٰ ترین دینی و عصری تعلیم۔',
-      caption: 'مرکزی کیمپس • جامعہ شیرِ ربانی مانانوالہ',
+      caption: 'مرکزی کیمپس • جامعہ شیرِ ربانی مانانوالہ، ضلع شیخوپورہ',
       ctaPrimary: { label: 'آن لائن داخلہ فارم', href: '/admissions' },
       ctaSecondary: { label: 'شعبہ جات و کورسز', href: '/courses' },
       fluentAccent: '#0078d4', // Microsoft Fluent Blue
@@ -78,7 +78,7 @@ export default function Hero() {
       ctaPrimary: { label: 'کورس کی تفصیلات', href: '/courses' },
       ctaSecondary: { label: 'آن لائن داخلہ', href: '/admissions' },
       fluentAccent: '#107c41', // Microsoft Fluent Green
-      featurePill: 'وفاق المدارس الرضویہ الحاق',
+      featurePill: 'وفاق المدارس الاسلامیہ الرضویہ سے الحاق',
     },
     {
       id: 'slide-3',
@@ -109,7 +109,7 @@ export default function Hero() {
       subtitleUrdu: 'فارغ التحصیل علماء و حفاظِ کرام کی دستار بندی اور اعزازی اسناد کی تقسیم',
       description: 'جامعہ کے فارغ التحصیل علماء، حفاظ اور قراء کرام کی خدمات کے اعتراف میں سالانہ عظیم الشان کانووکیشن اور دستارِ فضیلت کا پروقار انعقاد۔',
       caption: 'مرکزی سالانہ دستارِ فضیلت و تقسیمِ اسناد ہال',
-      ctaPrimary: { label: 'نتائج وفاق المدارس', href: '/wafaq-results' },
+      ctaPrimary: { label: 'نتائج وفاق المدارس الاسلامیہ الرضویہ', href: '/wafaq-results' },
       ctaSecondary: { label: 'جامعہ کا تعارف', href: '/about' },
       fluentAccent: '#008272', // Microsoft Fluent Teal
       featurePill: 'تصدیق شدہ آفیشل ڈگری',
@@ -288,7 +288,7 @@ export default function Hero() {
             <div className="pt-4 border-t border-[#edebe9] flex flex-wrap gap-2.5 sm:gap-4 text-xs sm:text-sm font-medium text-[#323130]">
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-white border border-[#edebe9] shadow-2xs">
                 <CheckCircle2 className="w-4 h-4 text-[#107c41] shrink-0" />
-                <span className="font-urdu">وفاق المدارس سے باقاعدہ الحاق</span>
+                <span className="font-urdu">وفاق المدارس الاسلامیہ الرضویہ سے باقاعدہ الحاق</span>
               </div>
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-white border border-[#edebe9] shadow-2xs">
                 <CheckCircle2 className="w-4 h-4 text-[#107c41] shrink-0" />
@@ -414,7 +414,7 @@ export default function Hero() {
                     <span className="font-urdu">{slide.tabLabel}</span>
                   </div>
                   <span className="text-[#605e5c] hidden sm:inline font-urdu">
-                    وفاق المدارس سے باقاعدہ الحاق شدہ
+                    وفاق المدارس الاسلامیہ الرضویہ سے باقاعدہ الحاق شدہ
                   </span>
                 </div>
 
@@ -479,7 +479,7 @@ export default function Hero() {
                 <Award className="w-5 h-5" />
               </div>
               <div className="leading-tight">
-                <div className="text-xs sm:text-sm font-semibold text-[#201f1e] font-urdu">وفاق المدارس الرضویہ</div>
+                <div className="text-xs sm:text-sm font-semibold text-[#201f1e] font-urdu">وفاق المدارس الاسلامیہ الرضویہ</div>
                 <div className="text-[11px] text-[#605e5c] mt-0.5 font-urdu">الحاق شدہ تعلیمی بورڈ</div>
               </div>
             </div>
@@ -499,7 +499,7 @@ export default function Hero() {
                 <MapPin className="w-5 h-5" />
               </div>
               <div className="leading-tight">
-                <div className="text-xs sm:text-sm font-semibold text-[#201f1e] font-urdu">مانانوالہ، شیخوپورہ</div>
+                <div className="text-xs sm:text-sm font-semibold text-[#201f1e] font-urdu">مانانوالہ، ضلع شیخوپورہ</div>
                 <div className="text-[11px] text-[#605e5c] mt-0.5 font-urdu">نزد ریلوے اسٹیشن</div>
               </div>
             </div>

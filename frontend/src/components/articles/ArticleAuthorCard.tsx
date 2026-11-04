@@ -72,7 +72,7 @@ export default function ArticleAuthorCard({
 
         <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-xs font-bold text-slate-600 shadow-2xs">
           <ShieldCheck size={15} className="text-emerald-700" />
-          <span>جامعہ شیرِ ربانی مانانوالہ</span>
+          <span>جامعہ شیرِ ربانی مانانوالہ، ضلع شیخوپورہ</span>
         </div>
       </div>
     </div>

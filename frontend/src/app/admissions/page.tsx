@@ -257,7 +257,7 @@ export default function Admissions() {
                       </div>
                       <div className="flex items-center gap-3 font-bold text-sm" dir="ltr">
                         <Mail size={16} className="text-emerald-300" />
-                        <a href="mailto:shererabbani@gmail.com" className="hover:text-emerald-200">shererabbani@gmail.com</a>
+                        <a href="mailto:jamiashererabbani07@gmail.com" className="hover:text-emerald-200">jamiashererabbani07@gmail.com</a>
                       </div>
                     </div>
                   </div>

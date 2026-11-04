@@ -367,7 +367,7 @@ export default function Internship() {
                       </div>
                       <div>
                         <h4 className="font-bold text-[#323130] text-sm leading-[2.0]">کیمپس کی لوکیشن</h4>
-                        <p className="text-xs text-[#605e5c] leading-[2.0]">مانانوالہ روڈ، ننکانہ صاحب</p>
+                        <p className="text-xs text-[#605e5c] leading-[2.0]">جامعہ شیرِ ربانی، مانانوالہ، ضلع شیخوپورہ</p>
                       </div>
                     </div>
                   </div>

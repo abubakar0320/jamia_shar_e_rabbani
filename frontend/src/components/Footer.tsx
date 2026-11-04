@@ -135,7 +135,7 @@ const Footer = () => {
         { label: 'حفظ القرآن الکریم مع تجوید', href: '/courses' },
         { label: 'درسِ نظامی (عالم و فاضل کورس)', href: '/courses' },
         { label: 'معزز اساتذہ کرام', href: '/faculty' },
-        { label: 'نتائج وفاق المدارس الرضویہ', href: '/wafaq-results' },
+        { label: 'نتائج وفاق المدارس الاسلامیہ الرضویہ', href: '/wafaq-results' },
       ],
     },
     {
@@ -198,7 +198,7 @@ const Footer = () => {
                   جامعہ شیرِ ربانی مانانوالہ
                 </span>
                 <span className="text-[11px] md:text-xs font-bold text-slate-500 tracking-normal leading-tight mt-1 font-urdu">
-                  دینی و عصری علوم کا مستند تعلیمی مرکز
+                  دینی و عصری علوم کا مستند تعلیمی مرکز • مانانوالہ، ضلع شیخوپورہ
                 </span>
               </div>
             </Link>
@@ -281,7 +281,7 @@ const Footer = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3.5">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5">
             {officialAffiliations.map((item, idx) => (
               <a
                 key={idx}
@@ -289,26 +289,29 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 title={item.title}
-                className="group relative flex items-center gap-3 p-3 rounded-xl bg-slate-50 hover:bg-emerald-50/70 border border-slate-200 hover:border-emerald-300 transition-all duration-200 shadow-2xs hover:shadow-sm transform hover:-translate-y-0.5"
+                className="group flex flex-col items-center justify-between text-center p-3.5 sm:p-4 rounded-2xl bg-slate-50 hover:bg-emerald-50/80 border border-slate-200 hover:border-emerald-300 transition-all duration-200 shadow-2xs hover:shadow-sm transform hover:-translate-y-0.5"
               >
-                <div className="w-11 h-11 rounded-lg bg-white p-1 border border-slate-200/80 shadow-2xs flex items-center justify-center shrink-0 group-hover:border-emerald-300 transition-colors">
+                <div className="w-12 h-12 rounded-xl bg-white p-1.5 border border-slate-200/90 shadow-2xs flex items-center justify-center shrink-0 group-hover:border-emerald-300 mb-2.5 transition-colors">
                   <Image
                     src={item.image}
                     alt={item.nameUrdu}
-                    width={36}
-                    height={36}
+                    width={40}
+                    height={40}
                     className="w-full h-full object-contain"
                   />
                 </div>
-                <div className="flex flex-col min-w-0 flex-1">
-                  <span className="text-xs font-bold text-slate-800 group-hover:text-emerald-900 transition-colors font-urdu truncate leading-tight">
+                <div className="flex flex-col items-center flex-1 justify-center w-full">
+                  <span className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-emerald-900 transition-colors font-urdu leading-[1.8] block px-1 text-center">
                     {item.nameUrdu}
                   </span>
-                  <span className="text-[10px] text-slate-500 font-sans truncate leading-tight mt-0.5 text-left" dir="ltr">
-                    {item.nameSub}
+                  <span 
+                    className="inline-flex items-center justify-center gap-1 text-[11px] text-slate-500 group-hover:text-emerald-700 font-sans font-medium mt-1 transition-colors" 
+                    dir="ltr"
+                  >
+                    <span>{item.nameSub}</span>
+                    <ExternalLink size={11} className="text-slate-400 group-hover:text-emerald-600 shrink-0" />
                   </span>
                 </div>
-                <ExternalLink size={13} className="text-slate-400 group-hover:text-emerald-600 transition-colors shrink-0" />
               </a>
             ))}
           </div>
@@ -402,7 +405,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="flex flex-col md:flex-row justify-between items-center pt-6 border-t border-slate-200 gap-3.5 text-xs text-slate-500 font-urdu">
           <div>
-            © {new Date().getFullYear()} جامعہ شیرِ ربانی مانانوالہ، ضلع شیخوپورہ۔ جملہ حقوق محفوظ ہیں۔
+            © {new Date().getFullYear()} جامعہ شیرِ ربانی مانانوالہ، ضلع شیخوپورہ، پنجاب، پاکستان۔ جملہ حقوق محفوظ ہیں۔
           </div>
           
           <div className="flex flex-wrap items-center justify-center gap-3 text-slate-600">

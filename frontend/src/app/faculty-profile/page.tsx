@@ -42,7 +42,7 @@ const staticFaculty: FacultyMember[] = [
     education: 'عالمیہ (درسِ نظامی) و تخصص فی الحدیث',
     specialization: 'علومِ حدیث، تفاسیر اور فقہِ اسلامی',
     image: '/farooq-ali-rabbani.jpeg',
-    email: 'shererabbani@gmail.com',
+    email: 'jamiashererabbani07@gmail.com',
     contact: '03144081516',
     bio: 'پروفیسر ڈاکٹر فاروق علی ربانی جامعہ شیرِ ربانی کے شیخ الحدیث اور پرنسپل ہیں۔ آپ نے 25 سال سے زائد عرصے میں ہزاروں طلبہ کو صحاحِ ستہ اور علومِ شریعہ کی تدریس فرمائی ہے۔ آپ عالمِ اسلام کے مقتدر علماء سے سند و اجازات کے حامل ہیں اور متعدد تحقیقی مقالات و کتب کے مصنف ہیں۔',
     experience: '25+ سال کا تدریسی تجربہ',
@@ -63,7 +63,7 @@ const staticFaculty: FacultyMember[] = [
     education: 'عالمیہ (درسِ نظامی) و تخصص فی الفقہ',
     specialization: 'فقہِ اسلامی، اصولِ فقہ و عربی ادب',
     image: '/ali-hamza.jpeg',
-    email: 'shererabbani@gmail.com',
+    email: 'jamiashererabbani07@gmail.com',
     contact: '03144081516',
     bio: 'مولانا علی حمزہ ربانی جامعہ شیرِ ربانی میں فقہ، اصولِ فقہ اور عربی ادب کے نامور مدرس ہیں۔ آپ دار الافتاء کے نگران اور طلبہ کی علمی، اخلاقی اور فکری رہنمائی میں ہمہ وقت سرگرم رہتے ہیں۔',
     experience: '15+ سال کا تدریسی تجربہ',
@@ -143,7 +143,7 @@ function FacultyProfileContent() {
               {/* Contact Action Buttons */}
               <div className="w-full lg:w-auto flex flex-wrap sm:flex-nowrap gap-3 z-20 lg:mb-2">
                 <Link 
-                  href={`mailto:${member.email || 'shererabbani@gmail.com'}`} 
+                  href={`mailto:${member.email || 'jamiashererabbani07@gmail.com'}`} 
                   className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-white text-slate-900 font-bold rounded-xl shadow-md hover:bg-slate-100 transition-all text-xs sm:text-sm font-urdu"
                 >
                   <Mail size={16} /> <span>ای میل بھیجیں</span>

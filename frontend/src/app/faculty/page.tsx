@@ -28,7 +28,7 @@ export default function Faculty() {
       education: 'عالمیہ (درسِ نظامی) و تخصص فی الحدیث',
       specialization: 'علومِ حدیث، تفاسیر اور فقہِ اسلامی',
       image: '/farooq-ali-rabbani.jpeg',
-      email: 'shererabbani@gmail.com',
+      email: 'jamiashererabbani07@gmail.com',
       contact: '03144081516'
     },
     {
@@ -38,7 +38,7 @@ export default function Faculty() {
       education: 'عالمیہ (درسِ نظامی) و تخصص فی الفقہ',
       specialization: 'فقہِ اسلامی، اصولِ فقہ و عربی ادب',
       image: '/ali-hamza.jpeg',
-      email: 'shererabbani@gmail.com',
+      email: 'jamiashererabbani07@gmail.com',
       contact: '03144081516'
     }
   ];
@@ -189,7 +189,7 @@ export default function Faculty() {
                       <div className="flex items-center justify-between pt-4 border-t border-slate-100 gap-2">
                         <div className="flex gap-2">
                           <Link 
-                            href={`mailto:${member.email || 'shererabbani@gmail.com'}`} 
+                            href={`mailto:${member.email || 'jamiashererabbani07@gmail.com'}`} 
                             className="p-2 rounded-lg bg-slate-100 hover:bg-emerald-100 text-slate-600 hover:text-emerald-800 transition-colors"
                             title="ای میل کریں"
                           >

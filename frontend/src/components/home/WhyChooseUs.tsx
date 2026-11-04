@@ -32,7 +32,7 @@ export default function WhyChooseUs() {
       icon: <Landmark className="text-emerald-700" size={24} />
     },
     {
-      title: 'وفاق المدارس سے باقاعدہ الحاق',
+      title: 'وفاق المدارس الاسلامیہ الرضویہ سے باقاعدہ الحاق',
       desc: 'وفاق المدارس الاسلامیہ الرضویہ پاکستان سے الحاق شدہ اور ہائر ایجوکیشن کمیشن (HEC) سے باقاعدہ معتبر اسناد۔',
       icon: <Award className="text-emerald-700" size={24} />
     },

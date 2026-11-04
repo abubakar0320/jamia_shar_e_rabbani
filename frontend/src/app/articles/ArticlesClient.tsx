@@ -532,7 +532,7 @@ export default function ArticlesClient() {
             تمام علمی و تحقیقی مضامین قرآن مجید، احادیثِ صحیحہ اور ائمہ سلف کے معتبر مراجع کی روشنی میں تیار کیے جاتے ہیں۔ ہماری کوشش ہے کہ امتِ مسلمہ اور بالخصوص نوجوان نسل تک خالص دینی علوم جدید اسلوب میں پہنچائے جائیں۔
           </p>
           <div className="inline-flex items-center gap-2 text-xs text-amber-300 bg-emerald-950/60 px-4 py-2 rounded-full border border-emerald-700/60 font-bold">
-            <span>تحقیق و تدوین: شعبہ تصنیف و تالیف جامعہ شیرِ ربانی مانانوالہ</span>
+            <span>تحقیق و تدوین: شعبہ تصنیف و تالیف، جامعہ شیرِ ربانی مانانوالہ، ضلع شیخوپورہ</span>
           </div>
         </div>
       </section>

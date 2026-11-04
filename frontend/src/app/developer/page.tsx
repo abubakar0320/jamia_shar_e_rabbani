@@ -20,7 +20,7 @@ import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "ڈویلپر و سسٹم ایڈمنسٹریٹر | ابوبکر صدیق - جامعہ شیرِ ربانی",
-  description: "ابوبکر صدیق - آئی ٹی اینڈ سسٹم ایڈمنسٹریٹر، جامعہ شیرِ ربانی مانانوالہ۔ جامعہ شیرِ ربانی کے مکمل ڈیجیٹل سسٹم و ویب انفراسٹرکچر کے ڈویلپر۔",
+  description: "ابوبکر صدیق - آئی ٹی اینڈ سسٹم ایڈمنسٹریٹر، جامعہ شیرِ ربانی مانانوالہ، ضلع شیخوپورہ۔ جامعہ شیرِ ربانی کے مکمل ڈیجیٹل سسٹم و ویب انفراسٹرکچر کے ڈویلپر۔",
   keywords: [
     "ابوبکر صدیق",
     "Abu Bakar Siddique",
@@ -69,7 +69,7 @@ export default function DeveloperProfilePage() {
               {/* Institution Breadcrumb */}
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-800/80 border border-emerald-600/70 text-amber-300 text-xs font-bold shadow-xs">
                 <Building2 size={14} className="text-amber-400" />
-                <span>جامعہ شیرِ ربانی مانانوالہ • شعبہ انفارمیشن ٹیکنالوجی و کمپیوٹر سروسز</span>
+                <span>جامعہ شیرِ ربانی مانانوالہ، ضلع شیخوپورہ • شعبہ انفارمیشن ٹیکنالوجی و کمپیوٹر سروسز</span>
               </div>
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-[1.8] sm:leading-[1.9]">
                 سسٹم ایڈمنسٹریٹر و چیف ویب ڈویلپر
@@ -140,7 +140,7 @@ export default function DeveloperProfilePage() {
                     ابوبکر صدیق (Abu Bakar Siddique)
                   </h2>
                   <p className="text-base sm:text-lg font-bold text-emerald-800 leading-relaxed">
-                    آئی ٹی اینڈ سسٹم ایڈمنسٹریٹر، جامعہ شیرِ ربانی مانانوالہ
+                    آئی ٹی اینڈ سسٹم ایڈمنسٹریٹر، جامعہ شیرِ ربانی مانانوالہ، ضلع شیخوپورہ
                   </p>
                 </div>
 
@@ -257,7 +257,7 @@ export default function DeveloperProfilePage() {
                   icon: Layout
                 },
                 {
-                  title: "وفاق المدارس الرضویہ کے سالانہ نتائج",
+                  title: "وفاق المدارس الاسلامیہ الرضویہ کے سالانہ نتائج",
                   category: "امتحانی نتائج سرچ انجن",
                   desc: "درسِ نظامی، حفظ القرآن اور تجوید کے تمام امتحانی درجات کے سالانہ نتائج کی آن لائن اور فوری تلاش کا تیز رفتار سرچ سسٹم۔",
                   icon: Award

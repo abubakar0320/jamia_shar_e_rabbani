@@ -80,7 +80,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       type: 'article',
       locale: 'ur_PK',
       url: fullContent?.canonicalUrl || `https://jamiashererabbani.com/articles/${article.slug}`,
-      siteName: 'جامعہ شیرِ ربانی مانانوالہ',
+      siteName: 'جامعہ شیرِ ربانی مانانوالہ، ضلع شیخوپورہ',
       images: [
         {
           url: article.image,
@@ -252,7 +252,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
             <span>•</span>
             <div className="flex items-center gap-2">
               <Building2 size={16} className="text-emerald-700" />
-              <span>جامعہ شیرِ ربانی مانانوالہ</span>
+              <span>جامعہ شیرِ ربانی مانانوالہ، ضلع شیخوپورہ</span>
             </div>
             <span>•</span>
             <div className="flex items-center gap-2">

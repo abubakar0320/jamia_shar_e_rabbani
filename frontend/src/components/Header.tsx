@@ -43,8 +43,8 @@ const Header = () => {
   // Official Affiliated & National Entities with verified official websites
   const officialLogos: OfficialLogoItem[] = [
     {
-      nameUrdu: 'وفاق المدارس',
-      nameSub: 'الاسلامیہ الرضویہ',
+      nameUrdu: 'وفاق المدارس الاسلامیہ الرضویہ',
+      nameSub: 'wafaq.edu.pk',
       image: '/images/wafaq-logo.png',
       href: 'https://wafaq.edu.pk',
       title: 'وفاق المدارس الاسلامیہ الرضویہ پاکستان - آفیشل پورٹل (wafaq.edu.pk)',
@@ -128,7 +128,7 @@ const Header = () => {
                 جامعہ شیرِ ربانی
               </span>
               <span className="text-[10px] sm:text-[12px] md:text-[13px] font-bold text-slate-500 tracking-normal leading-tight mt-0.5 sm:mt-1 font-urdu truncate">
-                دینی و عصری تعلیمی مرکز • مانانوالہ
+                دینی و عصری تعلیمی مرکز • مانانوالہ، ضلع شیخوپورہ
               </span>
             </div>
           </Link>

@@ -26,11 +26,11 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://jamiashererabbani.c
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Jamia Sher-e-Rabbani | Mananwala, Sheikhupura",
+    default: "Jamia Sher-e-Rabbani | Mananwala, District Sheikhupura",
     template: "%s | Jamia Sher-e-Rabbani",
   },
   description:
-    "Official portal of Jamia Sher-e-Rabbani, Mananwala. Dedicated to the preservation and dissemination of sacred Islamic knowledge (Dars-e-Nizami, Hifz, Tajweed, Takhassus) through contemporary academic excellence.",
+    "Official portal of Jamia Sher-e-Rabbani, Mananwala, District Sheikhupura. Dedicated to the preservation and dissemination of sacred Islamic knowledge (Dars-e-Nizami, Hifz, Tajweed, Takhassus) through contemporary academic excellence.",
   keywords: [
     "Jamia Sher-e-Rabbani",
     "جامعہ شیرِ ربانی",
@@ -65,9 +65,9 @@ export const metadata: Metadata = {
     locale: "ur_PK",
     alternateLocale: "en_PK",
     url: siteUrl,
-    title: "Jamia Sher-e-Rabbani | Mananwala, Sheikhupura",
+    title: "Jamia Sher-e-Rabbani | Mananwala, District Sheikhupura",
     description:
-      "Official portal of Jamia Sher-e-Rabbani, Mananwala. Dedicated to the preservation and dissemination of sacred Islamic knowledge through contemporary academic excellence.",
+      "Official portal of Jamia Sher-e-Rabbani, Mananwala, District Sheikhupura. Dedicated to the preservation and dissemination of sacred Islamic knowledge through contemporary academic excellence.",
     siteName: "Jamia Sher-e-Rabbani",
     images: [
       {
@@ -86,9 +86,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Jamia Sher-e-Rabbani | Mananwala, Sheikhupura",
+    title: "Jamia Sher-e-Rabbani | Mananwala, District Sheikhupura",
     description:
-      "Official portal of Jamia Sher-e-Rabbani, Mananwala. Admissions open for Dars-e-Nizami, Hifz, and Islamic Studies.",
+      "Official portal of Jamia Sher-e-Rabbani, Mananwala, District Sheikhupura. Admissions open for Dars-e-Nizami, Hifz, and Islamic Studies.",
     images: ["/images/hero%20section%201.jpeg"],
   },
   robots: {
@@ -120,7 +120,7 @@ const structuredData = {
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "Jamia Sher-e-Rabbani, Near Railway Station",
-    "addressLocality": "Mananwala",
+    "addressLocality": "Mananwala, District Sheikhupura",
     "addressRegion": "Punjab",
     "postalCode": "39320",
     "addressCountry": "PK",
@@ -129,7 +129,7 @@ const structuredData = {
     "@type": "ContactPoint",
     "telephone": "+92-314-4081516",
     "contactType": "Admissions & Inquiries",
-    "email": "shererabbani@gmail.com",
+    "email": "jamiashererabbani07@gmail.com",
     "availableLanguage": ["Urdu", "Arabic", "English"],
   },
   "sameAs": [

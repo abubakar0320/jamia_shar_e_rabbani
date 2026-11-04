@@ -374,7 +374,7 @@ export default function AdmissionForm({ onSuccess }: { onSuccess: (data: Admissi
       <div className="text-center mb-10">
         <img src="/logo.jpeg" alt="جامعہ شیر ربانی" className="h-24 w-auto mx-auto mb-4 rounded-full border-2 border-emerald-100 p-1 shadow-sm" />
         <h2 className="text-3xl sm:text-4xl font-bold text-slate-800 leading-[2.1]">آن لائن داخلہ فارم</h2>
-        <p className="text-slate-600 font-medium mt-2 text-base leading-[2.0]">جامعہ شیرِ ربانی، مانانوالہ روڈ، ننکانہ صاحب</p>
+        <p className="text-slate-600 font-medium mt-2 text-base leading-[2.0]">جامعہ شیرِ ربانی، مانانوالہ، ضلع شیخوپورہ</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-10">

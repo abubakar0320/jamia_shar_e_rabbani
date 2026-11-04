@@ -104,14 +104,14 @@ export default function Contact() {
                 { 
                   title: "عمومی معلومات و استفسارات", 
                   icon: <Globe2 className="w-6 h-6 text-emerald-600" />, 
-                  info: "shererabbani@gmail.com", 
+                  info: "jamiashererabbani07@gmail.com", 
                   sub: "0314-4081516",
                   color: "bg-emerald-50 border-emerald-200"
                 },
                 { 
                   title: "دفترِ شعبہ داخلہ و امتحانات", 
                   icon: <Landmark className="w-6 h-6 text-blue-600" />, 
-                  info: "shererabbani@gmail.com", 
+                  info: "jamiashererabbani07@gmail.com", 
                   sub: "0332-8364368",
                   color: "bg-blue-50 border-blue-200"
                 }
@@ -226,7 +226,7 @@ export default function Contact() {
                       </div>
                       <div>
                         <h4 className="font-bold text-white mb-1 leading-[2.0]">جامعہ کا باضابطہ پتہ:</h4>
-                        <p className="text-sm text-emerald-100 leading-[2.2]">جامعہ شیرِ ربانی، مانانوالہ روڈ، ضلع ننکانہ صاحب / شیخوپورہ، پنجاب، پاکستان</p>
+                        <p className="text-sm text-emerald-100 leading-[2.2]">جامعہ شیرِ ربانی، مانانوالہ، ضلع شیخوپورہ، پنجاب، پاکستان</p>
                       </div>
                     </div>
 
