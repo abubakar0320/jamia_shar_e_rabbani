@@ -383,7 +383,7 @@ export default function About() {
                   آئی ٹی اینڈ سسٹم ایڈمنسٹریٹر / IT Admin
                 </span>
                 <h3 className="text-lg sm:text-xl font-black text-slate-900 font-urdu">
-                  محمد ابوبکر
+                  محمد ابوبکر صدیق
                 </h3>
                 <p className="text-xs sm:text-sm font-bold text-emerald-700 mt-1 mb-3 font-urdu">
                   IT & System Administrator (2022ء تا حال)

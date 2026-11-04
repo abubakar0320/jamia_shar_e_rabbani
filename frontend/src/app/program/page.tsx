@@ -14,6 +14,7 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import OptimizedImage from '@/components/OptimizedImage';
 import YouTubePlaylist from '@/components/YouTubePlaylist';
+import { ALL_COURSES } from '@/data/coursesData';
 
 interface PlaylistData {
   id: string;
@@ -194,12 +195,14 @@ function CourseDetailsContent() {
     );
   }
 
-  const displayTitle = translateTitle(course.title);
-  const displayDuration = translateDuration(course.duration);
-  const displayLevel = translateLevel(course.level);
-  const displayDesc = translateDesc(course.desc, course.title);
+  const detail = ALL_COURSES.find(c => c.id.toString() === String(id)) || null;
 
-  const defaultOutcomes = [
+  const displayTitle = detail ? detail.title : translateTitle(course.title);
+  const displayDuration = detail ? detail.duration : translateDuration(course.duration);
+  const displayLevel = detail ? detail.level : translateLevel(course.level);
+  const displayDesc = detail ? detail.desc : translateDesc(course.desc, course.title);
+
+  const defaultOutcomes = detail && detail.learningOutcomes ? detail.learningOutcomes : [
     'متون کی گہری تفہیم اور تحقیقی و استدلالی صلاحیت',
     'اسلامی احکام و فقہی اصولوں کا انفرادی و اجتماعی اطلاق',
     'عربی زبان دانی، فصیح تحریر و تقریر میں مکمل روانی',
@@ -288,16 +291,70 @@ function CourseDetailsContent() {
                   کورس کا تفصیلی تعارف و نصاب
                 </span>
                 <h3 className="text-2xl sm:text-3xl font-black text-slate-900 mb-4 leading-[2.0] font-urdu">
-                  مستند دینی علوم اور روحانی تربیت کا گلدستہ
+                  {detail?.arabicTitle ? detail.arabicTitle : 'مستند دینی علوم اور روحانی تربیت کا گلدستہ'}
                 </h3>
                 <div className="text-slate-600 space-y-4 text-sm sm:text-base leading-[2.3] font-urdu">
                   <p>
-                    جامعہ شیرِ ربانی میں <strong className="text-slate-900">{displayTitle}</strong> کا باقاعدہ تعلیمی پروگرام روایتی دینی علوم کی گہری اور مدلل تفہیم کے لیے تشکیل دیا گیا ہے۔ یہاں محض نصابی کتب کا مطالعہ نہیں بلکہ ہر طالب علم کی باطنی و اخلاقی تربیت، سنتِ نبوی پر عمل اور فکرِ اسلامی کی آبیاری پر خصوصی توجہ دی جاتی ہے۔
-                  </p>
-                  <p>
-                    ہمارا طریقۂ تدریس قدیم مستند روایات (تلقّی و سماع) کو جدید امتحانی و تعلیمی معیارات سے ہم آہنگ کرتا ہے تاکہ فارغ التحصیل علماء و حفاظ جدید دور کے فکری چیلنجز کا احسن طریقے سے مقابلہ کر سکیں۔
+                    {detail?.overview ? detail.overview : `جامعہ شیرِ ربانی میں ${displayTitle} کا باقاعدہ تعلیمی پروگرام روایتی دینی علوم کی گہری اور مدلل تفہیم کے لیے تشکیل دیا گیا ہے۔ یہاں محض نصابی کتب کا مطالعہ نہیں بلکہ ہر طالب علم کی باطنی و اخلاقی تربیت، سنتِ نبوی پر عمل اور فکرِ اسلامی کی آبیاری پر خصوصی توجہ دی جاتی ہے۔`}
                   </p>
                 </div>
+
+                {detail?.highlights && (
+                  <div className="mt-6 pt-5 border-t border-slate-100">
+                    <h4 className="text-sm font-bold text-slate-900 mb-3 font-urdu">اہم تعلیمی خصوصیات:</h4>
+                    <div className="space-y-2">
+                      {detail.highlights.map((h, i) => (
+                        <div key={i} className="flex items-start gap-2 text-xs sm:text-sm text-slate-700 font-urdu">
+                          <CheckCircle2 size={15} className="text-emerald-600 shrink-0 mt-1" />
+                          <span>{h}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {detail?.curriculumStages && (
+                  <div className="mt-6 pt-5 border-t border-slate-100">
+                    <h4 className="text-sm font-bold text-slate-900 mb-3 font-urdu">تعلیمی مراحل (۸ سالہ مرحلہ وار تدریس):</h4>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      {detail.curriculumStages.map((stg, i) => (
+                        <div key={i} className="p-3.5 bg-slate-50 rounded-xl border border-slate-200 text-xs">
+                          <div className="font-bold text-slate-900 mb-1">{stg.stage} ({stg.equivalent})</div>
+                          <div className="text-slate-600"><strong>مضامین: </strong>{stg.subjects.join('، ')}</div>
+                          <div className="text-slate-600 mt-1"><strong>کتب: </strong>{stg.books.join('، ')}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {detail?.curriculumSubjects && (
+                  <div className="mt-6 pt-5 border-t border-slate-100 grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <h4 className="text-sm font-bold text-slate-900 mb-2 font-urdu">شامل تدریسی مضامین:</h4>
+                      <ul className="space-y-1.5 text-xs sm:text-sm text-slate-700 font-urdu">
+                        {detail.curriculumSubjects.map((sub, i) => (
+                          <li key={i} className="flex items-start gap-2">
+                            <span className="text-emerald-600">•</span>
+                            <span>{sub}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <div>
+                      <h4 className="text-sm font-bold text-slate-900 mb-2 font-urdu">اہم تدریسی کتب:</h4>
+                      <ul className="space-y-1.5 text-xs sm:text-sm text-slate-700 font-urdu">
+                        {detail.booksTaught.map((b, i) => (
+                          <li key={i} className="flex items-start gap-2">
+                            <span className="text-emerald-600">•</span>
+                            <span>{b}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* DYNAMIC VIDEO PLAYLISTS (Preserved exactly from course data) */}

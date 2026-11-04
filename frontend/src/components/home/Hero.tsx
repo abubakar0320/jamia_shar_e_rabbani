@@ -57,7 +57,7 @@ export default function Hero() {
       titleEnd: 'کا عظیم تعلیمی مرکز',
       subtitleUrdu: 'وفاق المدارس الاسلامیہ الرضویہ پاکستان سے باقاعدہ الحاق شدہ ادارہ',
       description: 'حفظِ قرآن، درسِ نظامی (عالم و فاضل کورس)، تجوید و قرات اور تخصصات فی الفقہ کی اعلیٰ ترین دینی و عصری تعلیم۔',
-      caption: 'مرکزی کیمپس • جامعہ شیرِ ربانی مانانوالہ، ضلع شیخوپورہ',
+      caption: 'مرکزی کیمپس • جامعہ شیرِ ربانی، مانانوالہ، ضلع شیخوپورہ، پنجاب',
       ctaPrimary: { label: 'آن لائن داخلہ فارم', href: '/admissions' },
       ctaSecondary: { label: 'شعبہ جات و کورسز', href: '/courses' },
       fluentAccent: '#0078d4', // Microsoft Fluent Blue
@@ -287,16 +287,16 @@ export default function Hero() {
             {/* Quick Trust Checklist (Noori Nastaleeq) */}
             <div className="pt-4 border-t border-[#edebe9] flex flex-wrap gap-2.5 sm:gap-4 text-xs sm:text-sm font-medium text-[#323130]">
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-white border border-[#edebe9] shadow-2xs">
+                <MapPin className="w-4 h-4 text-emerald-700 shrink-0" />
+                <span className="font-urdu font-semibold text-slate-800">مانانوالہ، ضلع شیخوپورہ، پنجاب</span>
+              </div>
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-white border border-[#edebe9] shadow-2xs">
                 <CheckCircle2 className="w-4 h-4 text-[#107c41] shrink-0" />
                 <span className="font-urdu">وفاق المدارس الاسلامیہ الرضویہ سے باقاعدہ الحاق</span>
               </div>
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-white border border-[#edebe9] shadow-2xs">
                 <CheckCircle2 className="w-4 h-4 text-[#107c41] shrink-0" />
                 <span className="font-urdu">100% مفت تعلیم و ہاسٹل</span>
-              </div>
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-md bg-white border border-[#edebe9] shadow-2xs">
-                <CheckCircle2 className="w-4 h-4 text-[#107c41] shrink-0" />
-                <span className="font-urdu">اہلِ سنت کا مستند دینی مرکز</span>
               </div>
             </div>
 
@@ -311,7 +311,7 @@ export default function Hero() {
                 <div className="flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-emerald-700 shrink-0" />
                   <span className="text-xs font-bold tracking-wide text-emerald-950 font-urdu">
-                    جامعہ شیرِ ربانی
+                    جامعہ شیرِ ربانی (مانانوالہ، ضلع شیخوپورہ، پنجاب)
                   </span>
                 </div>
 
@@ -499,8 +499,8 @@ export default function Hero() {
                 <MapPin className="w-5 h-5" />
               </div>
               <div className="leading-tight">
-                <div className="text-xs sm:text-sm font-semibold text-[#201f1e] font-urdu">مانانوالہ، ضلع شیخوپورہ</div>
-                <div className="text-[11px] text-[#605e5c] mt-0.5 font-urdu">نزد ریلوے اسٹیشن</div>
+                <div className="text-xs sm:text-sm font-semibold text-[#201f1e] font-urdu">جامعہ شیرِ ربانی، مانانوالہ، ضلع شیخوپورہ</div>
+                <div className="text-[11px] text-[#605e5c] mt-0.5 font-urdu">پنجاب، پاکستان (نزد ریلوے اسٹیشن)</div>
               </div>
             </div>
 

@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import { Metadata } from "next";
 import Link from "next/link";
 import {
@@ -108,10 +109,17 @@ export default function DeveloperProfilePage() {
               
               {/* Profile Avatar & Quick Status */}
               <div className="flex flex-col items-center shrink-0 text-center">
-                <div className="relative w-36 h-36 sm:w-44 sm:h-44 rounded-3xl bg-gradient-to-br from-emerald-800 via-emerald-700 to-slate-900 text-white flex items-center justify-center text-4xl sm:text-5xl font-black shadow-2xl border-4 border-white ring-4 ring-emerald-100 overflow-hidden">
-                  <span>ابوبکر</span>
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent" />
-                  <div className="absolute bottom-2 left-2 right-2 text-center text-[12px] font-bold text-amber-300 bg-slate-950/80 py-1 rounded-md backdrop-blur-xs font-urdu">
+                <div className="relative w-36 h-36 sm:w-44 sm:h-44 rounded-3xl bg-slate-900 shadow-2xl border-4 border-white ring-4 ring-emerald-100 overflow-hidden">
+                  <Image
+                    src="/abubakar.jpeg"
+                    alt="ابوبکر صدیق"
+                    fill
+                    sizes="(max-width: 640px) 144px, 176px"
+                    className="object-cover object-top"
+                    priority
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent pointer-events-none" />
+                  <div className="absolute bottom-2 left-2 right-2 text-center text-[12px] font-bold text-amber-300 bg-slate-950/85 py-1 rounded-md backdrop-blur-xs font-urdu border border-amber-400/20 z-10">
                     ابوبکر صدیق
                   </div>
                 </div>
