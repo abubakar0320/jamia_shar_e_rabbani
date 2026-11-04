@@ -349,7 +349,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
   },
   {
     id: 'faculty-ahmad-ali',
-    title: 'مولانا حافظ احمد علی ربانی',
+    title: 'حافظ محمد احمد علی ربانی',
     category: 'faculty',
     categoryLabel: 'ادارتی قیادت و اساتذہ',
     image: '/hafiz-ahmad-ali.jpeg',
@@ -360,7 +360,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
   },
   {
     id: 'faculty-abubakar',
-    title: 'محترم ابوبکر صدیق (Abubakar Siddique)',
+    title: 'محترم ابوبکر صدیق صاحب',
     category: 'faculty',
     categoryLabel: 'ادارتی قیادت و اساتذہ',
     image: '/abubakar-latest.jpeg',
@@ -371,7 +371,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
   },
   {
     id: 'faculty-ali-hamza',
-    title: 'مولانا محمد علی حمزہ ربانی',
+    title: 'مولانا مفتی علی حمزہ صاحب',
     category: 'faculty',
     categoryLabel: 'ادارتی قیادت و اساتذہ',
     image: '/ali-hamza.jpeg',

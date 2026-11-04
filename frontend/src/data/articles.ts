@@ -14,7 +14,7 @@ export interface AuthorInfo {
 }
 
 export const OFFICIAL_AUTHOR: AuthorInfo = {
-  name: "ابوبکر صدیق",
+  name: "محترم ابوبکر صدیق صاحب",
   designation: "ڈائریکٹر انفارمیشن ٹیکنالوجی و ہیڈ آف سافٹ ویئر سسٹمز",
   image: "/abubakar-latest.jpeg",
 };

@@ -271,7 +271,7 @@ export default function Internship() {
                 <div className="relative w-28 sm:w-36 aspect-[706/1024] rounded-2xl overflow-hidden border-2 border-emerald-400/40 shadow-xl shrink-0 bg-slate-800">
                   <Image 
                     src="/abubakar-latest.jpeg" 
-                    alt="محترم ابوبکر صدیق" 
+                    alt="محترم ابوبکر صدیق صاحب" 
                     fill 
                     unoptimized
                     priority
@@ -283,10 +283,10 @@ export default function Internship() {
                     <span>★ نگران و ہیڈ آف انٹرن شپ پروگرام</span>
                   </div>
                   <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2 leading-[2.1]">
-                    محترم ابوبکر صدیق (Abubakar Siddique)
+                    محترم ابوبکر صدیق صاحب
                   </h3>
                   <p className="text-emerald-100/90 text-sm sm:text-base leading-[2.3] mb-5 max-w-3xl">
-                    جامعہ شیرِ ربانی کا یہ انٹرن شپ پروگرام محترم <strong>ابوبکر صدیق</strong> (انٹرن شپ سپروائزر) کے زیرِ نگرانی اور سرپرستی میں منعقد کیا جا رہا ہے۔ تمام منتخب امیدواروں کو براہِ راست ان کی زیرِ نگرانی لائیو پراجیکٹس، مینٹورنگ، ٹیکنیکل سیشنز اور پرفارمنس ایویلیوایشن کی سہولت فراہم کی جائے گی۔
+                    جامعہ شیرِ ربانی کا یہ انٹرن شپ پروگرام محترم <strong>ابوبکر صدیق صاحب</strong> (انٹرن شپ سپروائزر) کے زیرِ نگرانی اور سرپرستی میں منعقد کیا جا رہا ہے۔ تمام منتخب امیدواروں کو براہِ راست ان کی زیرِ نگرانی لائیو پراجیکٹس، مینٹورنگ، ٹیکنیکل سیشنز اور پرفارمنس ایویلیوایشن کی سہولت فراہم کی جائے گی۔
                   </p>
                   
                   <div className="flex flex-wrap items-center justify-center md:justify-start gap-3">
@@ -333,7 +333,7 @@ export default function Internship() {
                     <div className="p-5 bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-200 rounded-2xl shadow-xs">
                       <div className="flex items-center gap-2 text-emerald-900 font-bold text-sm mb-2 leading-[2.0]">
                         <UserCheck size={18} className="text-emerald-700" />
-                        <span>انٹرن شپ سپروائزر: ابوبکر صدیق</span>
+                        <span>انٹرن شپ سپروائزر: محترم ابوبکر صدیق صاحب</span>
                       </div>
                       <p className="text-xs text-slate-600 leading-[2.0] mb-3">
                         براہِ راست رہنمائی یا استفسار کے لیے سپروائزر سے رابطہ کریں:

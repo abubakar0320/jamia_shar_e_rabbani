@@ -112,7 +112,7 @@ export default function DeveloperProfilePage() {
                 <div className="relative w-44 sm:w-56 aspect-[706/1024] rounded-3xl bg-slate-900 shadow-2xl border-4 border-white ring-4 ring-emerald-100 overflow-hidden">
                   <Image
                     src="/abubakar-latest.jpeg"
-                    alt="ابوبکر صدیق"
+                    alt="محترم ابوبکر صدیق صاحب"
                     fill
                     unoptimized
                     className="object-cover"
@@ -120,7 +120,7 @@ export default function DeveloperProfilePage() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent pointer-events-none" />
                   <div className="absolute bottom-2 left-2 right-2 text-center text-[12px] font-bold text-amber-300 bg-slate-950/85 py-1 rounded-md backdrop-blur-xs font-urdu border border-amber-400/20 z-10">
-                    ابوبکر صدیق
+                    محترم ابوبکر صدیق صاحب
                   </div>
                 </div>
 
@@ -145,7 +145,7 @@ export default function DeveloperProfilePage() {
 
                 <div className="space-y-1">
                   <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 leading-[1.8] sm:leading-[1.9]">
-                    ابوبکر صدیق (Abu Bakar Siddique)
+                    محترم ابوبکر صدیق صاحب (Abu Bakar Siddique)
                   </h2>
                   <p className="text-base sm:text-lg font-bold text-emerald-800 leading-relaxed">
                     آئی ٹی اینڈ سسٹم ایڈمنسٹریٹر، جامعہ شیرِ ربانی مانانوالہ، ضلع شیخوپورہ
@@ -218,7 +218,7 @@ export default function DeveloperProfilePage() {
                 {/* Bio Description */}
                 <div className="pt-4 border-t border-slate-100 text-slate-700 text-sm sm:text-base leading-[2.3] space-y-2">
                   <p>
-                    میرا نام <strong className="text-slate-900 font-bold">ابوبکر صدیق</strong> ہے۔ میں جامعہ شیرِ ربانی میں بطور <strong className="text-emerald-900 font-bold">آئی ٹی اینڈ سسٹم ایڈمنسٹریٹر</strong> خدمات سرانجام دے رہا ہوں اور ادارے کے مکمل ویب پلیٹ فارم، ڈیٹا سسٹمز اور کلاؤڈ انفراسٹرکچر کا نگران ہوں۔
+                    میرا نام <strong className="text-slate-900 font-bold">محترم ابوبکر صدیق صاحب</strong> ہے۔ میں جامعہ شیرِ ربانی میں بطور <strong className="text-emerald-900 font-bold">آئی ٹی اینڈ سسٹم ایڈمنسٹریٹر</strong> خدمات سرانجام دے رہا ہوں اور ادارے کے مکمل ویب پلیٹ فارم، ڈیٹا سسٹمز اور کلاؤڈ انفراسٹرکچر کا نگران ہوں۔
                   </p>
                   <p>
                     میرا بنیادی ہدف جدید ڈیجیٹل سسٹمز، محفوظ کلاؤڈ آرکیٹیکچر، خودکار ڈیٹابیس بیک اپس اور اعلیٰ معیار کے پورٹلز کے ذریعے دینی اور تعلیمی اداروں کو ٹیکنالوجی کے میدان میں خود کفیل بنانا ہے۔

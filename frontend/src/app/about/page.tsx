@@ -75,7 +75,7 @@ export default function About() {
       badge: 'موجودہ دور',
       title: 'قیادت، تعلیمی وژن اور جدید نظام',
       subtitle: 'دینی علوم، کردار سازی اور ڈیجیٹل سسٹم ایڈمنسٹریشن',
-      description: 'سن 2022ء سے تا حال ڈاکٹر فاروق علی ربانی بطور پرنسپل خدمات سرانجام دے رہے ہیں، حافظ محمد احمد ربانی بطور ناظمِ تعلیم (ڈائریکٹر آف ایجوکیشن) تعلیمی نظام کی نگرانی فرما رہے ہیں، جبکہ محمد ابوبکر بطور آئی ٹی اینڈ سسٹم ایڈمنسٹریٹر (IT & System Administrator) 2022ء سے جامعہ کے تمام ڈیجیٹل و آئی ٹی امور، آن لائن پورٹل اور سسٹم ایڈمنسٹریشن کے فرائض سنبھالے ہوئے ہیں۔ اس مخلص ٹیم کی قیادت میں جامعہ معیاری اسلامی تعلیم کی فراہمی، اخلاقی کردار سازی، اور تقویٰ، صبر اور خدمت کے مشن کو جدید تقاضوں کے ساتھ کامیابی سے آگے بڑھا رہا ہے۔',
+      description: 'سن 2022ء سے تا حال ڈاکٹر فاروق علی ربانی بطور پرنسپل خدمات سرانجام دے رہے ہیں، حافظ محمد احمد علی ربانی بطور ناظمِ تعلیم (ڈائریکٹر آف ایجوکیشن) تعلیمی نظام کی نگرانی فرما رہے ہیں، جبکہ محترم ابوبکر صدیق صاحب بطور آئی ٹی اینڈ سسٹم ایڈمنسٹریٹر (IT & System Administrator) 2022ء سے جامعہ کے تمام ڈیجیٹل و آئی ٹی امور، آن لائن پورٹل اور سسٹم ایڈمنسٹریشن کے فرائض سنبھالے ہوئے ہیں۔ اس مخلص ٹیم کی قیادت میں جامعہ معیاری اسلامی تعلیم کی فراہمی، اخلاقی کردار سازی، اور تقویٰ، صبر اور خدمت کے مشن کو جدید تقاضوں کے ساتھ کامیابی سے آگے بڑھا رہا ہے۔',
       icon: <Sparkles className="w-5 h-5 text-emerald-700" />
     }
   ];
@@ -356,13 +356,13 @@ export default function About() {
                 </Link>
               </div>
 
-              {/* Leader 2: Nazim-e-Taleem Hafiz Muhammad Ahmad Rabbani */}
+              {/* Leader 2: Nazim-e-Taleem Hafiz Muhammad Ahmad Ali Rabbani */}
               <div className="p-6 sm:p-7 rounded-3xl bg-slate-50 border border-slate-200 shadow-sm flex flex-col items-center text-center group hover:border-emerald-300 transition-all justify-between">
                 <div className="flex flex-col items-center">
                   <div className="relative w-44 sm:w-52 aspect-[706/1024] rounded-2xl overflow-hidden border-4 border-white shadow-lg mb-5 ring-2 ring-emerald-600/30 bg-slate-100">
                     <Image 
                       src="/hafiz-ahmad-ali.jpeg" 
-                      alt="مولانا حافظ احمد علی ربانی" 
+                      alt="حافظ محمد احمد علی ربانی" 
                       fill 
                       unoptimized
                       priority
@@ -373,7 +373,7 @@ export default function About() {
                     نائب مہتمم و ناظمِ تعلیمات / Director of Education
                   </span>
                   <h3 className="text-lg sm:text-xl font-black text-slate-900 font-urdu">
-                    مولانا حافظ احمد علی ربانی
+                    حافظ محمد احمد علی ربانی
                   </h3>
                   <p className="text-xs sm:text-sm font-bold text-emerald-700 mt-1 mb-3 font-urdu">
                     ناظمِ تعلیم، جامعہ شیرِ ربانی (2022ء تا حال)
@@ -391,13 +391,13 @@ export default function About() {
                 </Link>
               </div>
 
-              {/* Leader 3: IT & System Administrator Muhammad Abu Bakar */}
+              {/* Leader 3: IT & System Administrator Mohtaram Abubakar Siddique Sahib */}
               <div className="p-6 sm:p-7 rounded-3xl bg-slate-50 border border-slate-200 shadow-sm flex flex-col items-center text-center group hover:border-emerald-300 transition-all justify-between">
                 <div className="flex flex-col items-center">
                   <div className="relative w-44 sm:w-52 aspect-[706/1024] rounded-2xl overflow-hidden border-4 border-white shadow-lg mb-5 ring-2 ring-emerald-600/30 bg-slate-100">
                     <Image 
                       src="/abubakar-latest.jpeg" 
-                      alt="محمد ابوبکر صدیق" 
+                      alt="محترم ابوبکر صدیق صاحب" 
                       fill 
                       unoptimized
                       priority
@@ -408,7 +408,7 @@ export default function About() {
                     ڈائریکٹر انفارمیشن ٹیکنالوجی / Director IT
                   </span>
                   <h3 className="text-lg sm:text-xl font-black text-slate-900 font-urdu">
-                    محترم محمد ابوبکر صدیق
+                    محترم ابوبکر صدیق صاحب
                   </h3>
                   <p className="text-xs sm:text-sm font-bold text-emerald-700 mt-1 mb-3 font-urdu">
                     Director IT & Software Systems (2022ء تا حال)

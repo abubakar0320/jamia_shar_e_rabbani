@@ -117,7 +117,7 @@ const Footer = () => {
     {
       key: 'meezan',
       bankName: 'میزان بینک (Meezan Bank)',
-      personTitle: 'حافظ احمد علی',
+      personTitle: 'حافظ محمد احمد علی ربانی',
       accountNumber: '98690112101313',
       displayNumber: '9869 0112 1013 13',
       badge: 'بینک اکاؤنٹ نمبر',
@@ -433,7 +433,7 @@ const Footer = () => {
                 <div className="mb-3">
                   <span className="text-[11px] text-slate-500 font-urdu block">نام و عہدہ:</span>
                   <span className="text-sm sm:text-base font-black text-slate-900 font-urdu">
-                    حافظ احمد علی
+                    حافظ محمد احمد علی ربانی
                   </span>
                 </div>
               </div>
@@ -561,7 +561,7 @@ const Footer = () => {
                 <div className="mb-3">
                   <span className="text-[11px] text-slate-500 font-urdu block">نام و عہدہ:</span>
                   <span className="text-sm sm:text-base font-black text-slate-900 font-urdu">
-                    ابوبکر صدیق
+                    محترم ابوبکر صدیق صاحب
                   </span>
                 </div>
               </div>
@@ -630,7 +630,7 @@ const Footer = () => {
               className="inline-flex items-center gap-1.5 text-slate-700 hover:text-emerald-800 font-bold transition-colors bg-slate-50 hover:bg-emerald-50 px-2.5 py-1 rounded-full border border-slate-200 hover:border-emerald-300 group"
             >
               <Code2 size={14} className="text-emerald-600 group-hover:rotate-12 transition-transform" />
-              <span>ڈویلپر: ابوبکر صدیق (آئی ٹی ایڈمن)</span>
+              <span>ڈویلپر: محترم ابوبکر صدیق صاحب (آئی ٹی ایڈمن)</span>
             </Link>
           </div>
         </div>
