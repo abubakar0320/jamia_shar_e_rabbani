@@ -160,7 +160,7 @@ function FacultyProfileContent() {
             
             <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start lg:items-end">
               {/* Profile Image Box */}
-              <div className="w-44 h-56 sm:w-52 sm:h-68 md:w-60 md:h-76 bg-white rounded-2xl shadow-2xl overflow-hidden relative border-4 border-white shrink-0 mb-0 lg:-mb-24 z-20">
+              <div className="w-44 sm:w-52 md:w-60 aspect-[706/1024] bg-white rounded-2xl shadow-2xl overflow-hidden relative border-4 border-white shrink-0 mb-0 lg:-mb-24 z-20">
                 <OptimizedImage 
                   src={member.image || "/images/WhatsApp.jpeg"}
                   alt={member.name}

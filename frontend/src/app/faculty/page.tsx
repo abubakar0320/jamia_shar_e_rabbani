@@ -171,7 +171,7 @@ export default function Faculty() {
                     className="flex flex-col bg-white border border-slate-200/80 shadow-sm hover:shadow-xl rounded-2xl overflow-hidden transition-all duration-300 group"
                   >
                     {/* Faculty Image */}
-                    <div className="w-full aspect-[4/5] overflow-hidden relative bg-slate-100 shrink-0">
+                    <div className="w-full aspect-[706/1024] overflow-hidden relative bg-slate-100 shrink-0">
                       <OptimizedImage 
                         src={member.image || "/images/WhatsApp.jpeg"}
                         alt={member.name}
