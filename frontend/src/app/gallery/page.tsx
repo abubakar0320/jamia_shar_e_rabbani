@@ -169,7 +169,7 @@ export default function GalleryPage() {
               </h1>
 
               <p className="text-emerald-100/90 text-sm sm:text-lg leading-[2.3] max-w-3xl mb-8">
-                کیمپس کی دیدہ زیب عمارات، سالانہ عظیم الشان کانووکیشنز و دستارِ فضیلت، تدریسی کلاس رومز، حفظ و تجوید کی مجالس، روحانی محافل اور ادارتی قیادت کا مکمل تصویری البم۔
+                جامعہ شیرِ ربانی مانانوالہ کے اکابرین، مشائخِ عظام، ممتاز مفتیان اور معزز ادارتی قیادت کا باوقار و مستند تصویری البم۔
               </p>
 
               {/* Stat Badges */}
@@ -180,7 +180,7 @@ export default function GalleryPage() {
                 </div>
                 <div className="bg-emerald-900/90 border border-emerald-500/30 px-4 py-2 rounded-xl text-emerald-100 flex items-center gap-2 font-bold shadow-sm">
                   <CheckCircle2 size={16} className="text-amber-400 shrink-0" />
-                  <span>۶ جامع کیٹیگریز و زمرہ جات</span>
+                  <span>اکابرین، مشائخ و ادارتی قیادت</span>
                 </div>
                 <div className="bg-emerald-900/90 border border-emerald-500/30 px-4 py-2 rounded-xl text-emerald-100 flex items-center gap-2 font-bold shadow-sm">
                   <MapPin size={16} className="text-amber-400 shrink-0" />
@@ -283,7 +283,7 @@ export default function GalleryPage() {
               </button>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {filteredItems.map((item, index) => (
                 <div
                   key={item.id}
@@ -291,13 +291,13 @@ export default function GalleryPage() {
                   className="group bg-white rounded-2xl sm:rounded-3xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-xl hover:border-emerald-300 transition-all duration-300 flex flex-col cursor-pointer"
                 >
                   {/* Photo Container */}
-                  <div className="relative aspect-[4/3] w-full bg-slate-900 overflow-hidden">
+                  <div className="relative aspect-[706/1024] w-full bg-slate-900 overflow-hidden">
                     <Image
                       src={item.image}
                       alt={item.title}
                       fill
                       unoptimized
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                       className="object-cover object-top group-hover:scale-108 transition-transform duration-700 ease-out"
                     />
 
