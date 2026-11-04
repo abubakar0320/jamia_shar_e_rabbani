@@ -3,7 +3,8 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import React, { useState, useEffect } from 'react';
-import { 
+import {
+  PhoneCall,
   MessageCircle, 
   Send, 
   Video, 
@@ -402,7 +403,216 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Bottom Bar */}
+                {/* Official Direct Contact Numbers Section (براہِ راست انتظامی رابطہ نمبرز) */}
+        <div className="mb-10 pt-8 border-t border-slate-200">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-5">
+            <div className="flex items-center gap-2">
+              <PhoneCall className="text-emerald-700 w-5 h-5 shrink-0" />
+              <h4 className="text-sm sm:text-base font-bold text-slate-900 font-urdu">
+                براہِ راست دفتری و انتظامی رابطہ نمبرز (Official Direct Contact Numbers)
+              </h4>
+            </div>
+            <p className="text-xs text-slate-500 font-urdu">
+              داخلہ، تعلیمی رہنمائی، انتظامی امور یا مالی تعاون کے لیے درج ذیل ذمہ داران سے رابطہ کیا جا سکتا ہے:
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {/* Contact 1: Hafiz Ahmad Ali */}
+            <div className="rounded-2xl p-4 border border-emerald-200 bg-emerald-50/60 shadow-2xs hover:shadow-sm transition-all flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between gap-2 mb-2">
+                  <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-900 border border-emerald-300 font-urdu">
+                    ناظمِ تعلیم / بیرونِ ملک رابطہ
+                  </span>
+                  <span className="text-[10px] text-emerald-700 font-urdu font-bold">
+                    WhatsApp
+                  </span>
+                </div>
+                <div className="mb-3">
+                  <span className="text-[11px] text-slate-500 font-urdu block">نام و عہدہ:</span>
+                  <span className="text-sm sm:text-base font-black text-slate-900 font-urdu">
+                    حافظ احمد علی
+                  </span>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-xl p-2.5 border border-emerald-200 shadow-2xs flex items-center justify-between gap-2">
+                <a 
+                  href="tel:+966540532511" 
+                  className="font-mono text-xs sm:text-sm font-black text-emerald-900 hover:text-emerald-700 transition-colors tracking-wider" 
+                  dir="ltr"
+                >
+                  +966 54 053 2511
+                </a>
+
+                <div className="flex items-center gap-1.5">
+                  <a
+                    href="https://wa.me/966540532511"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-1.5 rounded-lg bg-emerald-100 hover:bg-emerald-600 hover:text-white text-emerald-800 transition-colors"
+                    title="واٹس ایپ پر میسج کریں"
+                  >
+                    <MessageCircle size={14} />
+                  </a>
+                  <button
+                    type="button"
+                    onClick={() => handleCopy('+966540532511', 'contact-ahmad')}
+                    className={`inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all shrink-0 cursor-pointer ${
+                      copiedKey === 'contact-ahmad'
+                        ? 'bg-emerald-700 text-white shadow-xs'
+                        : 'bg-slate-100 hover:bg-emerald-600 hover:text-white text-slate-700 border border-slate-200'
+                    }`}
+                    title="نمبر کاپی کریں"
+                  >
+                    {copiedKey === 'contact-ahmad' ? (
+                      <>
+                        <Check size={12} />
+                        <span className="text-[10px] font-urdu">کاپی!</span>
+                      </>
+                    ) : (
+                      <>
+                        <Copy size={12} />
+                        <span className="text-[10px] font-urdu">کاپی</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Contact 2: Dr. Farooq Ali */}
+            <div className="rounded-2xl p-4 border border-teal-200 bg-teal-50/60 shadow-2xs hover:shadow-sm transition-all flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between gap-2 mb-2">
+                  <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-teal-100 text-teal-900 border border-teal-300 font-urdu">
+                    پرنسپل، جامعہ شیرِ ربانی
+                  </span>
+                  <span className="text-[10px] text-teal-700 font-urdu font-bold">
+                    کال و واٹس ایپ
+                  </span>
+                </div>
+                <div className="mb-3">
+                  <span className="text-[11px] text-slate-500 font-urdu block">نام و عہدہ:</span>
+                  <span className="text-sm sm:text-base font-black text-slate-900 font-urdu">
+                    پروفیسر ڈاکٹر فاروق علی ربانی
+                  </span>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-xl p-2.5 border border-teal-200 shadow-2xs flex items-center justify-between gap-2">
+                <a 
+                  href="tel:03144081516" 
+                  className="font-mono text-xs sm:text-sm font-black text-teal-900 hover:text-teal-700 transition-colors tracking-wider" 
+                  dir="ltr"
+                >
+                  0314 4081516
+                </a>
+
+                <div className="flex items-center gap-1.5">
+                  <a
+                    href="https://wa.me/923144081516"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-1.5 rounded-lg bg-teal-100 hover:bg-teal-600 hover:text-white text-teal-800 transition-colors"
+                    title="واٹس ایپ پر میسج کریں"
+                  >
+                    <MessageCircle size={14} />
+                  </a>
+                  <button
+                    type="button"
+                    onClick={() => handleCopy('03144081516', 'contact-farooq')}
+                    className={`inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all shrink-0 cursor-pointer ${
+                      copiedKey === 'contact-farooq'
+                        ? 'bg-teal-700 text-white shadow-xs'
+                        : 'bg-slate-100 hover:bg-teal-600 hover:text-white text-slate-700 border border-slate-200'
+                    }`}
+                    title="نمبر کاپی کریں"
+                  >
+                    {copiedKey === 'contact-farooq' ? (
+                      <>
+                        <Check size={12} />
+                        <span className="text-[10px] font-urdu">کاپی!</span>
+                      </>
+                    ) : (
+                      <>
+                        <Copy size={12} />
+                        <span className="text-[10px] font-urdu">کاپی</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Contact 3: Abubakar Siddique */}
+            <div className="rounded-2xl p-4 border border-sky-200 bg-sky-50/60 shadow-2xs hover:shadow-sm transition-all flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between gap-2 mb-2">
+                  <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-sky-100 text-sky-900 border border-sky-300 font-urdu">
+                    آئی ٹی اینڈ سسٹم ایڈمنسٹریٹر
+                  </span>
+                  <span className="text-[10px] text-sky-700 font-urdu font-bold">
+                    آن لائن داخلہ و تکنیکی معاونت
+                  </span>
+                </div>
+                <div className="mb-3">
+                  <span className="text-[11px] text-slate-500 font-urdu block">نام و عہدہ:</span>
+                  <span className="text-sm sm:text-base font-black text-slate-900 font-urdu">
+                    ابوبکر صدیق
+                  </span>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-xl p-2.5 border border-sky-200 shadow-2xs flex items-center justify-between gap-2">
+                <a 
+                  href="tel:03097354874" 
+                  className="font-mono text-xs sm:text-sm font-black text-sky-900 hover:text-sky-700 transition-colors tracking-wider" 
+                  dir="ltr"
+                >
+                  0309 7354874
+                </a>
+
+                <div className="flex items-center gap-1.5">
+                  <a
+                    href="https://wa.me/923097354874"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-1.5 rounded-lg bg-sky-100 hover:bg-sky-600 hover:text-white text-sky-800 transition-colors"
+                    title="واٹس ایپ پر میسج کریں"
+                  >
+                    <MessageCircle size={14} />
+                  </a>
+                  <button
+                    type="button"
+                    onClick={() => handleCopy('03097354874', 'contact-abubakar')}
+                    className={`inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all shrink-0 cursor-pointer ${
+                      copiedKey === 'contact-abubakar'
+                        ? 'bg-sky-700 text-white shadow-xs'
+                        : 'bg-slate-100 hover:bg-sky-600 hover:text-white text-slate-700 border border-slate-200'
+                    }`}
+                    title="نمبر کاپی کریں"
+                  >
+                    {copiedKey === 'contact-abubakar' ? (
+                      <>
+                        <Check size={12} />
+                        <span className="text-[10px] font-urdu">کاپی!</span>
+                      </>
+                    ) : (
+                      <>
+                        <Copy size={12} />
+                        <span className="text-[10px] font-urdu">کاپی</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+{/* Bottom Bar */}
         <div className="flex flex-col md:flex-row justify-between items-center pt-6 border-t border-slate-200 gap-3.5 text-xs text-slate-500 font-urdu">
           <div>
             © {new Date().getFullYear()} جامعہ شیرِ ربانی مانانوالہ، ضلع شیخوپورہ، پنجاب، پاکستان۔ جملہ حقوق محفوظ ہیں۔

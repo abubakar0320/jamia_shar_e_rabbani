@@ -109,14 +109,13 @@ export default function DeveloperProfilePage() {
               
               {/* Profile Avatar & Quick Status */}
               <div className="flex flex-col items-center shrink-0 text-center">
-                <div className="relative w-36 h-36 sm:w-44 sm:h-44 rounded-3xl bg-slate-900 shadow-2xl border-4 border-white ring-4 ring-emerald-100 overflow-hidden">
+                <div className="relative w-44 sm:w-56 aspect-[706/1024] rounded-3xl bg-slate-900 shadow-2xl border-4 border-white ring-4 ring-emerald-100 overflow-hidden">
                   <Image
-                    src="/abubakar-siddique.jpeg"
+                    src="/abubakar-latest.jpeg"
                     alt="ابوبکر صدیق"
                     fill
                     unoptimized
-                    sizes="(max-width: 640px) 144px, 176px"
-                    className="object-cover object-top"
+                    className="object-cover"
                     priority
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent pointer-events-none" />

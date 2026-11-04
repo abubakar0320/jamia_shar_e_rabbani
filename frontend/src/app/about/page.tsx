@@ -371,14 +371,14 @@ export default function About() {
 
               {/* Leader 3: IT & System Administrator Muhammad Abu Bakar */}
               <div className="p-6 sm:p-7 rounded-3xl bg-slate-50 border border-slate-200 shadow-sm flex flex-col items-center text-center group hover:border-emerald-300 transition-all">
-                <div className="relative w-32 h-32 sm:w-40 sm:h-40 rounded-full overflow-hidden border-4 border-white shadow-lg mb-5 ring-2 ring-emerald-600/30">
+                <div className="relative w-44 sm:w-52 aspect-[706/1024] rounded-2xl overflow-hidden border-4 border-white shadow-lg mb-5 ring-2 ring-emerald-600/30 bg-slate-100">
                   <Image 
-                    src="/abubakar-siddique.jpeg" 
+                    src="/abubakar-latest.jpeg" 
                     alt="محمد ابوبکر صدیق" 
                     fill 
                     unoptimized
                     priority
-                    className="object-cover object-top group-hover:scale-105 transition-transform duration-300" 
+                    className="object-cover group-hover:scale-105 transition-transform duration-300" 
                   />
                 </div>
                 <span className="px-3 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 uppercase tracking-wider mb-2 font-urdu">
