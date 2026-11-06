@@ -429,7 +429,7 @@ function FacultyProfileContent() {
             
             <div className="flex flex-col lg:flex-row gap-6 lg:gap-10 items-center lg:items-end text-center lg:text-right">
               {/* Profile Image Box */}
-              <div className="w-40 sm:w-52 md:w-60 aspect-[706/1024] bg-white rounded-2xl shadow-2xl overflow-hidden relative border-4 border-white shrink-0 mb-2 lg:-mb-24 z-20">
+              <div className="w-40 sm:w-52 md:w-60 aspect-[4/5] bg-white rounded-2xl shadow-2xl overflow-hidden relative border-4 border-white shrink-0 mb-2 lg:-mb-24 z-20">
                 <OptimizedImage 
                   src={member.image || "/logo.jpeg"}
                   alt={member.name}
@@ -604,7 +604,7 @@ function FacultyProfileContent() {
 
                 {/* Education */}
                 <div className="space-y-0.5">
-                  <span className="text-[11px] text-slate-500 block">تعلیمی اسناد و اسناد:</span>
+                  <span className="text-[11px] text-slate-500 block">تعلیمی قابلیت و اسناد:</span>
                   <span className="text-xs sm:text-sm font-bold text-slate-900 block leading-relaxed">
                     {member.education}
                   </span>

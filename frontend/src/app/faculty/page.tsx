@@ -485,115 +485,225 @@ export default function Faculty() {
                   </div>
 
                   {/* Tier Cards Grid - Responsive Grid Structure */}
-                  <div className={`grid grid-cols-1 sm:grid-cols-2 ${
-                    tierMembers.length === 1 ? 'max-w-md mx-auto sm:grid-cols-1' :
-                    tierMembers.length === 2 ? 'lg:grid-cols-2 max-w-4xl mx-auto' :
-                    tierMembers.length === 3 ? 'lg:grid-cols-3' : 'lg:grid-cols-3 xl:grid-cols-4'
-                  } gap-4 sm:gap-6`}>
-                    {tierMembers.map((member, i) => (
-                      <motion.div 
-                        key={member.id}
-                        initial={{ opacity: 0, y: 15 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: i * 0.05, duration: 0.35 }}
-                        className="flex flex-col bg-white border border-slate-200/90 shadow-xs hover:shadow-xl rounded-2xl overflow-hidden transition-all duration-300 group hover:border-emerald-300"
-                      >
-                        {/* Faculty Portrait Image */}
-                        <div className="w-full aspect-[706/1024] overflow-hidden relative bg-slate-900 shrink-0">
-                          <OptimizedImage 
-                            src={member.image}
-                            alt={member.name}
-                            fill
-                            section="faculty"
-                            className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                          />
-                          
-                          {/* Top Badges on Image */}
-                          <div className="absolute top-2.5 sm:top-3 right-2.5 sm:right-3 left-2.5 sm:left-3 flex flex-wrap items-center justify-between gap-1.5 pointer-events-none z-10">
-                            <span className={`text-[10px] sm:text-[11px] font-bold px-2.5 py-1 rounded-lg shadow-md ${member.tierBadgeColor} leading-normal`}>
-                              {member.tierLabel}
-                            </span>
-                          </div>
-                        </div>
-                        
-                        {/* Faculty Information Body */}
-                        <div className="p-4 sm:p-5 flex flex-col justify-between flex-1 text-right bg-white">
-                          <div>
-                            {/* Department Badge */}
-                            <div className="mb-2">
-                              <span className={`text-[10px] sm:text-[11px] font-bold px-2.5 py-0.5 rounded-md border inline-block leading-normal max-w-full truncate ${member.departmentColor}`}>
-                                <Building2 size={11} className="inline ml-1 -mt-0.5" />
-                                {member.department}
+                  {tierConfig.id === 'akabir' && tierMembers.length <= 2 ? (
+                    /* Akabir Tier: Optimized Ratio for 1-2 Members on Web View & Mobile View */
+                    <div className={tierMembers.length === 1 ? 'max-w-4xl mx-auto' : 'grid grid-cols-1 md:grid-cols-2 max-w-4xl mx-auto gap-5 sm:gap-6'}>
+                      {tierMembers.map((member, i) => (
+                        <motion.div 
+                          key={member.id}
+                          initial={{ opacity: 0, y: 15 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: i * 0.05, duration: 0.35 }}
+                          className={`flex ${tierMembers.length === 1 ? 'flex-col md:flex-row' : 'flex-col'} bg-white border border-slate-200/90 shadow-md hover:shadow-2xl rounded-2xl sm:rounded-3xl overflow-hidden transition-all duration-300 group hover:border-amber-400`}
+                        >
+                          {/* Faculty Portrait Image with Balanced Aspect Ratio */}
+                          <div className={`w-full ${tierMembers.length === 1 ? 'md:w-[320px] lg:w-[360px] aspect-[4/5] md:aspect-auto md:min-h-[380px]' : 'aspect-[4/5] max-h-[360px] sm:max-h-[400px]'} overflow-hidden relative bg-slate-900 shrink-0`}>
+                            <OptimizedImage 
+                              src={member.image}
+                              alt={member.name}
+                              fill
+                              section="faculty"
+                              className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                              sizes={tierMembers.length === 1 ? '(max-width: 768px) 100vw, 360px' : '(max-width: 768px) 100vw, 450px'}
+                            />
+                            
+                            {/* Top Badges on Image */}
+                            <div className="absolute top-2.5 sm:top-3 right-2.5 sm:right-3 left-2.5 sm:left-3 flex flex-wrap items-center justify-between gap-1.5 pointer-events-none z-10">
+                              <span className={`text-[10px] sm:text-[11px] font-bold px-2.5 py-1 rounded-lg shadow-md ${member.tierBadgeColor} leading-normal`}>
+                                {member.tierLabel}
                               </span>
                             </div>
+                          </div>
+                          
+                          {/* Faculty Information Body */}
+                          <div className="p-5 sm:p-6 md:p-7 flex flex-col justify-between flex-1 text-right bg-white">
+                            <div>
+                              {/* Department Badge */}
+                              <div className="mb-2">
+                                <span className={`text-[10px] sm:text-[11px] font-bold px-2.5 py-0.5 rounded-md border inline-block leading-normal max-w-full truncate ${member.departmentColor}`}>
+                                  <Building2 size={11} className="inline ml-1 -mt-0.5" />
+                                  {member.department}
+                                </span>
+                              </div>
 
-                            {/* Name */}
-                            <h3 className="text-base sm:text-lg md:text-xl font-black text-slate-900 mb-1 leading-[1.8] group-hover:text-emerald-700 transition-colors">
-                              {member.name}
-                            </h3>
+                              {/* Name */}
+                              <h3 className="text-lg sm:text-xl md:text-2xl font-black text-slate-900 mb-1 leading-[1.8] group-hover:text-amber-800 transition-colors">
+                                {member.name}
+                              </h3>
 
-                            {/* Role */}
-                            <p className="text-xs sm:text-sm font-bold text-emerald-800 mb-3 leading-normal">
-                              {member.role}
-                            </p>
+                              {/* Role */}
+                              <p className="text-xs sm:text-sm font-bold text-amber-800 mb-4 leading-normal">
+                                {member.role}
+                              </p>
+                              
+                              {/* Academic Credentials Box */}
+                              <div className={`grid grid-cols-1 ${tierMembers.length === 1 ? 'sm:grid-cols-2' : ''} gap-2.5 sm:gap-3 mb-4 text-xs`}>
+                                <div className="bg-amber-50/60 p-2.5 sm:p-3 rounded-xl border border-amber-200/60">
+                                  <span className="font-bold text-slate-900 flex items-center gap-1.5 mb-0.5 text-[11px]">
+                                    <GraduationCap size={13} className="text-amber-700 shrink-0" />
+                                    <span>تعلیمی قابلیت و اسناد:</span>
+                                  </span>
+                                  <span className="text-slate-600 block leading-relaxed text-[11px] sm:text-xs">{member.education}</span>
+                                </div>
+
+                                <div className="bg-amber-50/60 p-2.5 sm:p-3 rounded-xl border border-amber-200/60">
+                                  <span className="font-bold text-slate-900 flex items-center gap-1.5 mb-0.5 text-[11px]">
+                                    <BookOpen size={13} className="text-amber-700 shrink-0" />
+                                    <span>تخصص و مہارت:</span>
+                                  </span>
+                                  <span className="text-slate-600 block leading-relaxed text-[11px] sm:text-xs">{member.specialization}</span>
+                                </div>
+                              </div>
+                            </div>
+
+                            {/* Card Action Buttons */}
+                            <div className="flex items-center justify-between pt-3 border-t border-slate-100 gap-2">
+                              <div className="flex gap-1.5">
+                                {member.email && (
+                                  <Link 
+                                    href={`mailto:${member.email}`} 
+                                    className="p-2 rounded-lg bg-slate-100 hover:bg-amber-100 text-slate-600 hover:text-amber-800 transition-colors"
+                                    title="ای میل ارسال کریں"
+                                  >
+                                    <Mail size={15} />
+                                  </Link>
+                                )}
+                                {member.contact && (
+                                  <Link 
+                                    href={`tel:${member.contact}`} 
+                                    className="p-2 rounded-lg bg-slate-100 hover:bg-amber-100 text-slate-600 hover:text-amber-800 transition-colors"
+                                    title="رابطہ کریں"
+                                  >
+                                    <Phone size={15} />
+                                  </Link>
+                                )}
+                              </div>
+
+                              <Link 
+                                href={`/faculty-profile?id=${member.id}`}
+                                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-amber-700 hover:bg-amber-800 text-white text-xs font-bold shadow-xs hover:shadow-md transition-all active:scale-95"
+                              >
+                                <span>پروفائل دیکھیں</span>
+                                <ChevronLeft size={13} />
+                              </Link>
+                            </div>
+                          </div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  ) : (
+                    /* Other Tiers: Responsive Grid with Controlled Aspect Ratio */
+                    <div className={`grid grid-cols-1 sm:grid-cols-2 ${
+                      tierMembers.length === 1 ? 'max-w-md mx-auto sm:grid-cols-1' :
+                      tierMembers.length === 2 ? 'lg:grid-cols-2 max-w-4xl mx-auto' :
+                      tierMembers.length === 3 ? 'lg:grid-cols-3' : 'lg:grid-cols-3 xl:grid-cols-4'
+                    } gap-4 sm:gap-6`}>
+                      {tierMembers.map((member, i) => (
+                        <motion.div 
+                          key={member.id}
+                          initial={{ opacity: 0, y: 15 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: i * 0.05, duration: 0.35 }}
+                          className="flex flex-col bg-white border border-slate-200/90 shadow-xs hover:shadow-xl rounded-2xl overflow-hidden transition-all duration-300 group hover:border-emerald-300"
+                        >
+                          {/* Faculty Portrait Image */}
+                          <div className="w-full aspect-[4/5] max-h-[380px] overflow-hidden relative bg-slate-900 shrink-0">
+                            <OptimizedImage 
+                              src={member.image}
+                              alt={member.name}
+                              fill
+                              section="faculty"
+                              className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                            />
                             
-                            {/* Academic Credentials Box */}
-                            <div className="space-y-2 mb-4 text-xs">
-                              <div className="bg-slate-50 p-2.5 sm:p-3 rounded-xl border border-slate-100">
-                                <span className="font-bold text-slate-900 flex items-center gap-1.5 mb-0.5 text-[11px]">
-                                  <GraduationCap size={13} className="text-emerald-700 shrink-0" />
-                                  <span>تعلیمی اسناد و اسناد:</span>
-                                </span>
-                                <span className="text-slate-600 block leading-relaxed text-[11px] sm:text-xs">{member.education}</span>
-                              </div>
-
-                              <div className="bg-slate-50 p-2.5 sm:p-3 rounded-xl border border-slate-100">
-                                <span className="font-bold text-slate-900 flex items-center gap-1.5 mb-0.5 text-[11px]">
-                                  <BookOpen size={13} className="text-emerald-700 shrink-0" />
-                                  <span>تخصص و مہارت:</span>
-                                </span>
-                                <span className="text-slate-600 block leading-relaxed text-[11px] sm:text-xs">{member.specialization}</span>
-                              </div>
+                            {/* Top Badges on Image */}
+                            <div className="absolute top-2.5 sm:top-3 right-2.5 sm:right-3 left-2.5 sm:left-3 flex flex-wrap items-center justify-between gap-1.5 pointer-events-none z-10">
+                              <span className={`text-[10px] sm:text-[11px] font-bold px-2.5 py-1 rounded-lg shadow-md ${member.tierBadgeColor} leading-normal`}>
+                                {member.tierLabel}
+                              </span>
                             </div>
                           </div>
+                          
+                          {/* Faculty Information Body */}
+                          <div className="p-4 sm:p-5 flex flex-col justify-between flex-1 text-right bg-white">
+                            <div>
+                              {/* Department Badge */}
+                              <div className="mb-2">
+                                <span className={`text-[10px] sm:text-[11px] font-bold px-2.5 py-0.5 rounded-md border inline-block leading-normal max-w-full truncate ${member.departmentColor}`}>
+                                  <Building2 size={11} className="inline ml-1 -mt-0.5" />
+                                  {member.department}
+                                </span>
+                              </div>
 
-                          {/* Card Action Buttons */}
-                          <div className="flex items-center justify-between pt-3 border-t border-slate-100 gap-2">
-                            <div className="flex gap-1.5">
-                              {member.email && (
-                                <Link 
-                                  href={`mailto:${member.email}`} 
-                                  className="p-2 rounded-lg bg-slate-100 hover:bg-emerald-100 text-slate-600 hover:text-emerald-800 transition-colors"
-                                  title="ای میل ارسال کریں"
-                                >
-                                  <Mail size={15} />
-                                </Link>
-                              )}
-                              {member.contact && (
-                                <Link 
-                                  href={`tel:${member.contact}`} 
-                                  className="p-2 rounded-lg bg-slate-100 hover:bg-emerald-100 text-slate-600 hover:text-emerald-800 transition-colors"
-                                  title="رابطہ کریں"
-                                >
-                                  <Phone size={15} />
-                                </Link>
-                              )}
+                              {/* Name */}
+                              <h3 className="text-base sm:text-lg md:text-xl font-black text-slate-900 mb-1 leading-[1.8] group-hover:text-emerald-700 transition-colors">
+                                {member.name}
+                              </h3>
+
+                              {/* Role */}
+                              <p className="text-xs sm:text-sm font-bold text-emerald-800 mb-3 leading-normal">
+                                {member.role}
+                              </p>
+                              
+                              {/* Academic Credentials Box */}
+                              <div className="space-y-2 mb-4 text-xs">
+                                <div className="bg-slate-50 p-2.5 sm:p-3 rounded-xl border border-slate-100">
+                                  <span className="font-bold text-slate-900 flex items-center gap-1.5 mb-0.5 text-[11px]">
+                                    <GraduationCap size={13} className="text-emerald-700 shrink-0" />
+                                    <span>تعلیمی قابلیت و اسناد:</span>
+                                  </span>
+                                  <span className="text-slate-600 block leading-relaxed text-[11px] sm:text-xs">{member.education}</span>
+                                </div>
+
+                                <div className="bg-slate-50 p-2.5 sm:p-3 rounded-xl border border-slate-100">
+                                  <span className="font-bold text-slate-900 flex items-center gap-1.5 mb-0.5 text-[11px]">
+                                    <BookOpen size={13} className="text-emerald-700 shrink-0" />
+                                    <span>تخصص و مہارت:</span>
+                                  </span>
+                                  <span className="text-slate-600 block leading-relaxed text-[11px] sm:text-xs">{member.specialization}</span>
+                                </div>
+                              </div>
                             </div>
 
-                            <Link 
-                              href={`/faculty-profile?id=${member.id}`}
-                              className="inline-flex items-center gap-1 px-3.5 py-1.5 sm:py-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold shadow-xs hover:shadow-md transition-all active:scale-95"
-                            >
-                              <span>پروفائل دیکھیں</span>
-                              <ChevronLeft size={13} />
-                            </Link>
+                            {/* Card Action Buttons */}
+                            <div className="flex items-center justify-between pt-3 border-t border-slate-100 gap-2">
+                              <div className="flex gap-1.5">
+                                {member.email && (
+                                  <Link 
+                                    href={`mailto:${member.email}`} 
+                                    className="p-2 rounded-lg bg-slate-100 hover:bg-emerald-100 text-slate-600 hover:text-emerald-800 transition-colors"
+                                    title="ای میل ارسال کریں"
+                                  >
+                                    <Mail size={15} />
+                                  </Link>
+                                )}
+                                {member.contact && (
+                                  <Link 
+                                    href={`tel:${member.contact}`} 
+                                    className="p-2 rounded-lg bg-slate-100 hover:bg-emerald-100 text-slate-600 hover:text-emerald-800 transition-colors"
+                                    title="رابطہ کریں"
+                                  >
+                                    <Phone size={15} />
+                                  </Link>
+                                )}
+                              </div>
+
+                              <Link 
+                                href={`/faculty-profile?id=${member.id}`}
+                                className="inline-flex items-center gap-1 px-3.5 py-1.5 sm:py-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold shadow-xs hover:shadow-md transition-all active:scale-95"
+                              >
+                                <span>پروفائل دیکھیں</span>
+                                <ChevronLeft size={13} />
+                              </Link>
+                            </div>
                           </div>
-                        </div>
-                      </motion.div>
-                    ))}
-                  </div>
+                        </motion.div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               );
             })}
