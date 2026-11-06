@@ -290,19 +290,29 @@ export default function GalleryPage() {
                   onClick={() => openLightbox(index)}
                   className="group bg-white rounded-2xl sm:rounded-3xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-xl hover:border-emerald-300 transition-all duration-300 flex flex-col cursor-pointer"
                 >
-                  {/* Photo Container */}
-                  <div className="relative aspect-[706/1024] w-full bg-slate-900 overflow-hidden">
+                  {/* Photo Container: Exact Ratio & Complete Photo (Zero Cropping) */}
+                  <div className="relative aspect-[4/5] w-full bg-slate-950 overflow-hidden flex items-center justify-center">
+                    {/* Ambient matching soft background to gracefully fill letterbox edges */}
+                    <Image
+                      src={item.image}
+                      alt=""
+                      fill
+                      unoptimized
+                      className="object-cover blur-xl opacity-35 scale-110 pointer-events-none"
+                      aria-hidden
+                    />
+                    {/* The Crisp, Uncropped Complete Photo in Exact Ratio */}
                     <Image
                       src={item.image}
                       alt={item.title}
                       fill
                       unoptimized
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                      className="object-cover object-top group-hover:scale-108 transition-transform duration-700 ease-out"
+                      className="object-contain p-2 z-10 group-hover:scale-105 transition-transform duration-500 ease-out drop-shadow-md"
                     />
 
                     {/* Gradient overlay on hover */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-40 group-hover:opacity-75 transition-opacity duration-300" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-40 group-hover:opacity-75 transition-opacity duration-300 z-10 pointer-events-none" />
 
                     {/* Top badges */}
                     <div className="absolute top-3 right-3 left-3 flex items-center justify-between pointer-events-none z-10">

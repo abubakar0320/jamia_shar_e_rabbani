@@ -428,14 +428,24 @@ function FacultyProfileContent() {
             </Link>
             
             <div className="flex flex-col lg:flex-row gap-6 lg:gap-10 items-center lg:items-end text-center lg:text-right">
-              {/* Profile Image Box */}
-              <div className="w-40 sm:w-52 md:w-60 aspect-[4/5] bg-white rounded-2xl shadow-2xl overflow-hidden relative border-4 border-white shrink-0 mb-2 lg:-mb-24 z-20">
+              {/* Profile Image Box: Exact Ratio & Complete Uncropped Photo */}
+              <div className="w-44 sm:w-56 md:w-64 aspect-[4/5] bg-slate-950 rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden relative border-4 border-white shrink-0 mb-2 lg:-mb-24 z-20 flex items-center justify-center">
+                {/* Ambient Blurred Matching Background */}
+                <OptimizedImage 
+                  src={member.image || "/logo.jpeg"}
+                  alt=""
+                  fill
+                  className="object-cover blur-xl opacity-35 scale-110 pointer-events-none"
+                  aria-hidden
+                />
+                {/* Complete Uncropped Photo in Exact Ratio */}
                 <OptimizedImage 
                   src={member.image || "/logo.jpeg"}
                   alt={member.name}
                   fill
                   section="faculty"
-                  className="object-cover object-top"
+                  className="object-contain p-2 z-10 drop-shadow-md"
+                  sizes="(max-width: 640px) 176px, 256px"
                 />
               </div>
               
