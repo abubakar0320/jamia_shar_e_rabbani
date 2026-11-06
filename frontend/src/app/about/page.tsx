@@ -3,8 +3,8 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { useTranslation } from 'react-i18next';
-import { motion } from 'framer-motion';
-import React from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
 import { 
   Target, 
   History, 
@@ -16,7 +16,12 @@ import {
   ShieldCheck,
   HeartHandshake,
   ChevronLeft,
-  Crown
+  Crown,
+  ZoomIn,
+  ExternalLink,
+  Download,
+  X,
+  FileCheck
 } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -29,6 +34,12 @@ interface MilestoneLeader {
   profileId?: number;
 }
 
+interface MilestoneCertificate {
+  title: string;
+  authority: string;
+  image: string;
+}
+
 interface Milestone {
   year: string;
   badge: string;
@@ -38,10 +49,35 @@ interface Milestone {
   bulletPoints?: string[];
   icon: React.ReactNode;
   leaders?: MilestoneLeader[];
+  certificates?: MilestoneCertificate[];
 }
 
 export default function About() {
   const { t } = useTranslation();
+  const [selectedCertificate, setSelectedCertificate] = useState<{
+    title: string;
+    authority: string;
+    image: string;
+    details?: string;
+  } | null>(null);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setSelectedCertificate(null);
+      }
+    };
+    if (selectedCertificate) {
+      document.body.style.overflow = 'hidden';
+      window.addEventListener('keydown', handleKeyDown);
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [selectedCertificate]);
 
   const milestones: Milestone[] = [
     {
@@ -94,7 +130,19 @@ export default function About() {
         'وفاقِ وزارتِ تعلیم، حکومتِ پاکستان (Wafaq-e-Wizarat-e-Taleem)',
         'وفاق المدارس الاسلامیہ الرضویہ پاکستان (Wafaq-ul-Madaris Al-Islamia Al-Rizvia)'
       ],
-      icon: <ShieldCheck className="w-5 h-5 text-emerald-700" />
+      icon: <ShieldCheck className="w-5 h-5 text-emerald-700" />,
+      certificates: [
+        {
+          title: 'سندِ الحاق (وفاق المدارس الاسلامیہ الرضویہ)',
+          authority: 'وفاق المدارس الاسلامیہ الرضویہ پاکستان',
+          image: '/CERTIFICATE/alhaaq-wafaq-ul-madaris-al-rizvia.jpeg'
+        },
+        {
+          title: 'سندِ باقاعدہ رجسٹریشن (وزارتِ تعلیم)',
+          authority: 'وزارتِ وفاقی تعلیم، حکومتِ پاکستان',
+          image: '/CERTIFICATE/registration-wazarat-e-taleem.jpeg'
+        }
+      ]
     },
     {
       year: '2022ء تا حال',
@@ -334,6 +382,39 @@ export default function About() {
                             <span className="font-urdu">{pt}</span>
                           </div>
                         ))}
+                      </div>
+                    )}
+
+                    {/* Milestone Associated Certificates Thumbnails */}
+                    {item.certificates && item.certificates.length > 0 && (
+                      <div className="mt-4 pt-3.5 border-t border-slate-100">
+                        <div className="text-[11px] font-bold text-emerald-800 mb-2 font-urdu flex items-center gap-1.5">
+                          <ShieldCheck size={14} className="text-emerald-600" />
+                          <span>باضابطہ الحاق و رجسٹریشن کی اسناد:</span>
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                          {item.certificates.map((cert, cIdx) => (
+                            <button
+                              key={cIdx}
+                              type="button"
+                              onClick={() => setSelectedCertificate(cert)}
+                              className="flex items-center gap-2.5 p-2 rounded-xl bg-emerald-50/60 hover:bg-emerald-100/80 border border-emerald-200 hover:border-emerald-300 transition-all group text-right cursor-pointer"
+                            >
+                              <div className="w-11 h-13 rounded-lg overflow-hidden relative bg-slate-950 shrink-0 flex items-center justify-center border border-emerald-300 shadow-2xs">
+                                <OptimizedImage src={cert.image} fill className="object-contain p-0.5 group-hover:scale-105 transition-transform" alt={cert.title} />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <span className="text-xs font-bold text-slate-900 block truncate group-hover:text-emerald-900 font-urdu">{cert.title}</span>
+                                <span className="text-[10px] text-emerald-700 block truncate font-urdu">{cert.authority}</span>
+                                <span className="text-[10px] text-emerald-800 font-semibold flex items-center gap-1 mt-0.5 font-urdu">
+                                  <ZoomIn size={11} />
+                                  <span>سند دیکھیں (Zoom)</span>
+                                </span>
+                              </div>
+                              <ChevronLeft size={13} className="text-emerald-600 group-hover:translate-x-[-2px] transition-transform shrink-0" />
+                            </button>
+                          ))}
+                        </div>
                       </div>
                     )}
 
@@ -614,7 +695,247 @@ export default function About() {
           </div>
         </section>
 
-        {/* --- 5. اہم اعداد و شمار (Stats - Noori Nastaleeq) --- */}
+        {/* --- 5. باقاعدہ الحاق و سرکاری اسناد (Official Accreditations & Affiliation Certificates - Noori Nastaleeq) --- */}
+        <section className="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-slate-50/80 border-b border-slate-200/80">
+          <div className="max-w-7xl mx-auto">
+            
+            <div className="text-center max-w-3xl mx-auto mb-14">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold mb-3 font-urdu">
+                <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                <span>قانونی توثیق و باقاعدہ الحاق • Accreditations & Affiliations</span>
+              </div>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-[1.3] font-urdu">
+                جامعہ شیرِ ربانی کی باضابطہ اسنادِ الحاق و رجسٹریشن
+              </h2>
+              <p className="text-emerald-800 font-bold text-base sm:text-lg mt-2 font-urdu">
+                وفاقِ وزارتِ تعلیم، حکومتِ پاکستان اور وفاق المدارس الاسلامیہ الرضویہ پاکستان سے منظور شدہ
+              </p>
+              <p className="text-slate-600 text-sm sm:text-base mt-2 max-w-2xl mx-auto leading-relaxed font-urdu">
+                جامعہ شیرِ ربانی مانانوالہ ایک قانونی، مستند اور منظور شدہ دینی و تعلیمی ادارہ ہے۔ ہمارے تمام تعلیمی درجات، امتحانات اور اسنادِ فراغت قومی دینی وفاق اور وفاقی وزارتِ تعلیم سے باقاعدہ تسلیم شدہ ہیں۔
+              </p>
+            </div>
+
+            {/* Two Main Certificates Showcase Cards */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch max-w-6xl mx-auto">
+              
+              {/* Certificate 1: وفاق المدارس الاسلامیہ الرضویہ پاکستان */}
+              <div className="rounded-3xl bg-white border border-slate-200 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden group">
+                <div className="p-6 sm:p-7">
+                  
+                  {/* Image Frame with uncropped display and ambient backdrop */}
+                  <div 
+                    onClick={() => setSelectedCertificate({
+                      title: 'سندِ الحاق (Certificate of Affiliation)',
+                      authority: 'وفاق المدارس الاسلامیہ الرضویہ پاکستان',
+                      image: '/CERTIFICATE/alhaaq-wafaq-ul-madaris-al-rizvia.jpeg',
+                      details: 'جامعہ شیرِ ربانی مانانوالہ وفاق المدارس الاسلامیہ الرضویہ پاکستان سے باقاعدہ ملحقہ و منظور شدہ ادارہ ہے۔'
+                    })}
+                    className="relative w-full h-80 sm:h-96 md:h-[420px] rounded-2xl overflow-hidden bg-slate-950 mb-6 border-2 border-emerald-600/30 group-hover:border-emerald-600 shadow-md flex items-center justify-center cursor-pointer"
+                  >
+                    {/* Blurred ambient background */}
+                    <OptimizedImage
+                      src="/CERTIFICATE/alhaaq-wafaq-ul-madaris-al-rizvia.jpeg"
+                      alt=""
+                      fill
+                      className="object-cover blur-xl opacity-35 scale-110 pointer-events-none"
+                      aria-hidden
+                    />
+                    {/* Exact ratio foreground certificate */}
+                    <OptimizedImage
+                      src="/CERTIFICATE/alhaaq-wafaq-ul-madaris-al-rizvia.jpeg"
+                      alt="سندِ الحاق وفاق المدارس الاسلامیہ الرضویہ پاکستان"
+                      fill
+                      className="object-contain p-2 sm:p-3 z-10 drop-shadow-md group-hover:scale-[1.02] transition-transform duration-300"
+                    />
+                    
+                    {/* Top Overlay Badge */}
+                    <div className="absolute top-3 right-3 z-20">
+                      <span className="px-3 py-1 rounded-full text-xs font-black bg-emerald-700/90 text-white backdrop-blur-md shadow-md border border-emerald-500/50 font-urdu flex items-center gap-1.5">
+                        <Award size={13} />
+                        باقاعدہ الحاق شدہ
+                      </span>
+                    </div>
+
+                    {/* Bottom Hover Zoom Pill */}
+                    <div className="absolute bottom-3 inset-x-3 z-20 flex justify-center opacity-90 group-hover:opacity-100 transition-opacity">
+                      <span className="px-4 py-1.5 rounded-full text-xs font-bold bg-slate-900/85 text-emerald-200 backdrop-blur-md shadow-lg border border-slate-700 font-urdu flex items-center gap-1.5">
+                        <ZoomIn size={14} className="text-amber-400" />
+                        مکمل سند دیکھنے کے لیے کلک کریں
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Certificate Information */}
+                  <div className="text-right" dir="rtl">
+                    <span className="inline-block px-3 py-1 rounded-lg text-xs font-bold bg-emerald-50 text-emerald-800 border border-emerald-200 mb-2 font-urdu">
+                      دینی وفاق • Wafaq-ul-Madaris
+                    </span>
+                    <h3 className="text-xl sm:text-2xl font-black text-slate-900 font-urdu leading-snug">
+                      سندِ الحاق – وفاق المدارس الاسلامیہ الرضویہ پاکستان
+                    </h3>
+                    <p className="text-xs sm:text-sm font-bold text-emerald-700 mt-1 mb-3 font-urdu">
+                      Certificate of Affiliation • Wafaq-ul-Madaris Al-Islamia Al-Rizvia Pakistan
+                    </p>
+                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-urdu text-justify">
+                      جامعہ شیرِ ربانی مانانوالہ باضابطہ طور پر وفاق المدارس الاسلامیہ الرضویہ پاکستان سے ملحقہ ہے۔ جامعہ کے تمام شعبہ جات (درسِ نظامی، حفظ و تجوید، تخصص فی الفقہ اور علومِ قرآن) کے سالانہ امتحانات اس مستند تعلیمی بورڈ کے تحت منعقد ہوتے ہیں اور طلبہ کو باضابطہ سندِ فراغت جاری کی جاتی ہے۔
+                    </p>
+
+                    <div className="mt-4 pt-3.5 space-y-2 border-t border-slate-100 text-xs font-bold text-slate-700">
+                      <div className="flex items-center gap-2 font-urdu">
+                        <CheckCircle2 size={15} className="text-emerald-600 shrink-0" />
+                        <span>تمام شعبہ جات و امتحانات کی باضابطہ مرکزی رجسٹریشن</span>
+                      </div>
+                      <div className="flex items-center gap-2 font-urdu">
+                        <CheckCircle2 size={15} className="text-emerald-600 shrink-0" />
+                        <span>شہادت العالمیہ کی ڈگری ہائر ایجوکیشن کمیشن (HEC) سے ایم اے کے مساوی</span>
+                      </div>
+                      <div className="flex items-center gap-2 font-urdu">
+                        <CheckCircle2 size={15} className="text-emerald-600 shrink-0" />
+                        <span>قومی و بین الاقوامی سطح پر تسلیم شدہ اسناد</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Footer Action Buttons */}
+                <div className="p-4 sm:px-7 sm:pb-6 pt-0 flex flex-wrap items-center gap-3">
+                  <button
+                    type="button"
+                    onClick={() => setSelectedCertificate({
+                      title: 'سندِ الحاق (Certificate of Affiliation)',
+                      authority: 'وفاق المدارس الاسلامیہ الرضویہ پاکستان',
+                      image: '/CERTIFICATE/alhaaq-wafaq-ul-madaris-al-rizvia.jpeg',
+                      details: 'جامعہ شیرِ ربانی مانانوالہ وفاق المدارس الاسلامیہ الرضویہ پاکستان سے باقاعدہ ملحقہ و منظور شدہ ادارہ ہے۔'
+                    })}
+                    className="flex-1 min-w-[140px] inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs sm:text-sm font-bold shadow-md shadow-emerald-700/20 transition-all font-urdu cursor-pointer"
+                  >
+                    <ZoomIn size={15} />
+                    <span>بڑی اسکرین پر دیکھیں</span>
+                  </button>
+                  <a
+                    href="/CERTIFICATE/CERTIFICATE OF ALHAAQ WITH WAFAQ UL MADARIS AL ISLAMIA AL RIZVIA.jpeg"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs sm:text-sm font-bold border border-slate-300 transition-colors font-urdu"
+                  >
+                    <ExternalLink size={14} />
+                    <span>اصل فائل کھولیں</span>
+                  </a>
+                </div>
+              </div>
+
+              {/* Certificate 2: وزارتِ وفاقی تعلیم، حکومتِ پاکستان */}
+              <div className="rounded-3xl bg-white border border-slate-200 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden group">
+                <div className="p-6 sm:p-7">
+                  
+                  {/* Image Frame with uncropped display and ambient backdrop */}
+                  <div 
+                    onClick={() => setSelectedCertificate({
+                      title: 'سندِ باقاعدہ رجسٹریشن (Certificate of Registration)',
+                      authority: 'وزارتِ وفاقی تعلیم و پیشہ ورانہ تربیت، حکومتِ پاکستان',
+                      image: '/CERTIFICATE/registration-wazarat-e-taleem.jpeg',
+                      details: 'حکومتِ پاکستان کی وزارتِ وفاقی تعلیم کے تحت جامعہ شیرِ ربانی باضابطہ قانونی طور پر رجسٹرڈ ہے۔'
+                    })}
+                    className="relative w-full h-80 sm:h-96 md:h-[420px] rounded-2xl overflow-hidden bg-slate-950 mb-6 border-2 border-emerald-600/30 group-hover:border-emerald-600 shadow-md flex items-center justify-center cursor-pointer"
+                  >
+                    {/* Blurred ambient background */}
+                    <OptimizedImage
+                      src="/CERTIFICATE/registration-wazarat-e-taleem.jpeg"
+                      alt=""
+                      fill
+                      className="object-cover blur-xl opacity-35 scale-110 pointer-events-none"
+                      aria-hidden
+                    />
+                    {/* Exact ratio foreground certificate */}
+                    <OptimizedImage
+                      src="/CERTIFICATE/registration-wazarat-e-taleem.jpeg"
+                      alt="سندِ رجسٹریشن وزارتِ وفاقی تعلیم حکومتِ پاکستان"
+                      fill
+                      className="object-contain p-2 sm:p-3 z-10 drop-shadow-md group-hover:scale-[1.02] transition-transform duration-300"
+                    />
+                    
+                    {/* Top Overlay Badge */}
+                    <div className="absolute top-3 right-3 z-20">
+                      <span className="px-3 py-1 rounded-full text-xs font-black bg-blue-700/90 text-white backdrop-blur-md shadow-md border border-blue-500/50 font-urdu flex items-center gap-1.5">
+                        <ShieldCheck size={13} />
+                        سرکاری رجسٹریشن
+                      </span>
+                    </div>
+
+                    {/* Bottom Hover Zoom Pill */}
+                    <div className="absolute bottom-3 inset-x-3 z-20 flex justify-center opacity-90 group-hover:opacity-100 transition-opacity">
+                      <span className="px-4 py-1.5 rounded-full text-xs font-bold bg-slate-900/85 text-emerald-200 backdrop-blur-md shadow-lg border border-slate-700 font-urdu flex items-center gap-1.5">
+                        <ZoomIn size={14} className="text-amber-400" />
+                        مکمل سند دیکھنے کے لیے کلک کریں
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Certificate Information */}
+                  <div className="text-right" dir="rtl">
+                    <span className="inline-block px-3 py-1 rounded-lg text-xs font-bold bg-blue-50 text-blue-800 border border-blue-200 mb-2 font-urdu">
+                      حکومتِ پاکستان • Government of Pakistan
+                    </span>
+                    <h3 className="text-xl sm:text-2xl font-black text-slate-900 font-urdu leading-snug">
+                      سندِ رجسٹریشن – وزارتِ وفاقی تعلیم، حکومتِ پاکستان
+                    </h3>
+                    <p className="text-xs sm:text-sm font-bold text-blue-700 mt-1 mb-3 font-urdu">
+                      Certificate of Registration • Ministry of Federal Education & Professional Training
+                    </p>
+                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-urdu text-justify">
+                      جامعہ شیرِ ربانی مانانوالہ حکومتِ پاکستان کی وزارتِ وفاقی تعلیم و پیشہ ورانہ تربیت (Ministry of Federal Education & Professional Training) کے تحت باضابطہ منظور شدہ و رجسٹرڈ تعلیمی ادارہ ہے۔ جامعہ قومی تعلیمی تقاضوں اور ریاستی ضوابط کی مکمل پابندی کرتے ہوئے دینی و عصری تعلیم کا فریضہ انجام دے رہا ہے۔
+                    </p>
+
+                    <div className="mt-4 pt-3.5 space-y-2 border-t border-slate-100 text-xs font-bold text-slate-700">
+                      <div className="flex items-center gap-2 font-urdu">
+                        <CheckCircle2 size={15} className="text-blue-600 shrink-0" />
+                        <span>وزارتِ وفاقی تعلیم سے تصدیق شدہ قانونی رجسٹریشن</span>
+                      </div>
+                      <div className="flex items-center gap-2 font-urdu">
+                        <CheckCircle2 size={15} className="text-blue-600 shrink-0" />
+                        <span>ریاستی قوانین اور تعلیمی معیار کے مطابق منظوری</span>
+                      </div>
+                      <div className="flex items-center gap-2 font-urdu">
+                        <CheckCircle2 size={15} className="text-blue-600 shrink-0" />
+                        <span>باضابطہ کوائف و تعلیمی اسناد کی قانونی حیثیت</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Footer Action Buttons */}
+                <div className="p-4 sm:px-7 sm:pb-6 pt-0 flex flex-wrap items-center gap-3">
+                  <button
+                    type="button"
+                    onClick={() => setSelectedCertificate({
+                      title: 'سندِ باقاعدہ رجسٹریشن (Certificate of Registration)',
+                      authority: 'وزارتِ وفاقی تعلیم و پیشہ ورانہ تربیت، حکومتِ پاکستان',
+                      image: '/CERTIFICATE/registration-wazarat-e-taleem.jpeg',
+                      details: 'حکومتِ پاکستان کی وزارتِ وفاقی تعلیم کے تحت جامعہ شیرِ ربانی باضابطہ قانونی طور پر رجسٹرڈ ہے۔'
+                    })}
+                    className="flex-1 min-w-[140px] inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-blue-700 hover:bg-blue-800 text-white text-xs sm:text-sm font-bold shadow-md shadow-blue-700/20 transition-all font-urdu cursor-pointer"
+                  >
+                    <ZoomIn size={15} />
+                    <span>بڑی اسکرین پر دیکھیں</span>
+                  </button>
+                  <a
+                    href="/CERTIFICATE/CERTIFICATE OF REGISTRATION WITH WAFAQ E WAZRAT E TALEEM.jpeg"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs sm:text-sm font-bold border border-slate-300 transition-colors font-urdu"
+                  >
+                    <ExternalLink size={14} />
+                    <span>اصل فائل کھولیں</span>
+                  </a>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </section>
+
+        {/* --- 6. اہم اعداد و شمار (Stats - Noori Nastaleeq) --- */}
         <section className="py-14 px-4 sm:px-6 lg:px-8 bg-emerald-800 text-white">
           <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-10 text-center">
             <div>
@@ -635,6 +956,85 @@ export default function About() {
             </div>
           </div>
         </section>
+
+        {/* --- Certificate Lightbox Modal --- */}
+        <AnimatePresence>
+          {selectedCertificate && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-6"
+              onClick={() => setSelectedCertificate(null)}
+            >
+              <motion.div
+                initial={{ scale: 0.95, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.95, opacity: 0 }}
+                onClick={(e) => e.stopPropagation()}
+                className="relative max-w-4xl w-full max-h-[92vh] bg-slate-900 rounded-3xl border border-slate-700 shadow-2xl flex flex-col overflow-hidden text-white"
+              >
+                {/* Modal Header */}
+                <div className="px-5 py-3.5 bg-slate-950/80 border-b border-slate-800 flex items-center justify-between gap-3 text-right" dir="rtl">
+                  <div>
+                    <h4 className="text-sm sm:text-base font-black text-amber-300 font-urdu leading-tight">
+                      {selectedCertificate.title}
+                    </h4>
+                    <p className="text-[11px] sm:text-xs text-slate-300 font-urdu mt-0.5">
+                      {selectedCertificate.authority}
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <a
+                      href={selectedCertificate.image}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-emerald-400 hover:text-white transition-colors"
+                      title="اصل تصویر نئے ٹیب میں کھولیں"
+                    >
+                      <ExternalLink size={18} />
+                    </a>
+                    <button
+                      type="button"
+                      onClick={() => setSelectedCertificate(null)}
+                      className="p-2 rounded-xl bg-slate-800 hover:bg-rose-900/60 text-slate-300 hover:text-white transition-colors cursor-pointer"
+                      title="بند کریں"
+                    >
+                      <X size={18} />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Modal Body - High-Res Image */}
+                <div className="flex-1 overflow-auto p-3 sm:p-6 flex items-center justify-center bg-slate-950/50 min-h-[350px]">
+                  <div className="relative w-full h-[65vh] max-h-[700px] flex items-center justify-center">
+                    <Image
+                      src={selectedCertificate.image}
+                      alt={selectedCertificate.title}
+                      fill
+                      className="object-contain drop-shadow-2xl rounded-lg"
+                      sizes="(max-width: 1024px) 100vw, 1000px"
+                      priority
+                    />
+                  </div>
+                </div>
+
+                {/* Modal Footer */}
+                <div className="px-5 py-2.5 bg-slate-950/90 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400 font-urdu" dir="rtl">
+                  <span>جامعہ شیرِ ربانی مانانوالہ • باضابطہ و تصدیق شدہ اسناد</span>
+                  <a
+                    href={selectedCertificate.image}
+                    download
+                    className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-emerald-700 hover:bg-emerald-600 text-white text-[11px] font-bold transition-colors font-urdu"
+                  >
+                    <Download size={13} />
+                    <span>ڈاؤن لوڈ کریں</span>
+                  </a>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
       </main>
       <Footer />
