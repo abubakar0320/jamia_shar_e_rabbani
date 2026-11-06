@@ -17,11 +17,19 @@ export default function FacultySpotlight() {
 
   const faculty = [
     {
+      id: '14',
+      name: 'مولانا الحاج صوبیدار محمد یوسف نقشبندی مجددی صاحب',
+      role: 'چانسلر و سرپرستِ اعلیٰ، جامعہ شیرِ ربانی',
+      bio: '۳۰ سالہ عسکری نظم و ضبط اور ۲۴ سالہ دینی اخلاص، اور سلسلہ عالیہ نقشبندیہ مجددیہ کے روحانی فیضان کے امین۔ ادارے کے فکری و تعلیمی استحکام کے سرپرستِ اعلیٰ۔',
+      image: '/gallery/1.1مولانا الحاج صوبیدار محمد یوسف نقشبندی مجددی صاحب.jpeg',
+      link: '/faculty-profile?id=14'
+    },
+    {
       id: '1',
       name: 'ڈاکٹر پیر ابو احمد فاروق علی ربانی صاحب',
       role: 'وائس چانسلر و ڈینِ فیکلٹی آف اسلامک اسٹڈیز',
       bio: 'علومِ حدیث، تفاسیر اور شریعت میں 25 سال سے زائد تدریسی و تحقیقی خدمات۔ طلبہ کی علمی و روحانی رہنمائی کے سرپرستِ اعلیٰ۔',
-      image: '/gallery/2. ڈاکٹر پیر ابو احمد فاروق علی ربانی صاحب.jpeg',
+      image: '/gallery/2. ڈاکٹر پیر ابو احمد فاروق علی ربانی صاحب (جدید).jpeg',
       link: '/faculty-profile?id=1'
     },
     {
@@ -35,18 +43,10 @@ export default function FacultySpotlight() {
     {
       id: '3',
       name: 'پروفیسر ابوبکر صدیق ربانی صاحب',
-      role: 'رجسٹرار، خزانچی، چیئرپرسن و ہیڈ آف ڈیپارٹمنٹس فار آل',
+      role: 'رجسٹرار، خزانچی، چیئرپرسن و نگرانِ جملہ شعبہ جات',
       bio: 'جامعہ کے رجسٹرار، خزانچی، چیئرپرسن، تمام شعبہ جات کے نگران، کلاؤڈ سسٹمز کے معمار اور آئی ٹی پروگرام کے نگران۔',
       image: '/gallery/4. abubakar-siddique.jpeg',
       link: '/faculty-profile?id=3'
-    },
-    {
-      id: '2',
-      name: 'پروفیسر مولانا مفتی علی حمزہ صاحب',
-      role: 'پروفیسر، استاذ الحدیث و دار الافتاء',
-      bio: 'علومِ شریعہ، نحو و صرف، منطق اور فقہ کے نامور پروفیسر۔ طلبہ کی اخلاقی و فقہی تربیت اور دار الافتاء کے سینئر فیکلٹی۔',
-      image: '/gallery/8. ali-hamza.jpeg',
-      link: '/faculty-profile?id=2'
     }
   ];
 
@@ -78,12 +78,21 @@ export default function FacultySpotlight() {
               transition={{ delay: i * 0.1, duration: 0.5 }}
               className="flex flex-col bg-white border border-slate-200/80 shadow-sm hover:shadow-xl rounded-2xl overflow-hidden transition-all duration-300 group"
             >
-              <div className="w-full aspect-[706/1024] overflow-hidden relative bg-slate-100 shrink-0">
+              <div className="w-full aspect-[4/5] overflow-hidden relative bg-slate-950 shrink-0 flex items-center justify-center">
+                {/* Ambient matching soft background to gracefully fill letterbox edges */}
+                <OptimizedImage 
+                  src={member.image} 
+                  fill
+                  className="object-cover blur-xl opacity-35 scale-110 pointer-events-none" 
+                  alt="" 
+                  aria-hidden
+                />
+                {/* The Crisp, Uncropped Complete Photo in Exact Ratio */}
                 <OptimizedImage 
                   src={member.image} 
                   fill
                   section="faculty"
-                  className="object-cover object-top group-hover:scale-105 transition-transform duration-500" 
+                  className="object-contain p-2 z-10 drop-shadow-md group-hover:scale-102 transition-transform duration-500" 
                   alt={member.name} 
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                 />
