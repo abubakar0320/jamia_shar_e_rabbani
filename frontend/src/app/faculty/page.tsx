@@ -74,7 +74,7 @@ export default function Faculty() {
       departmentColor: 'bg-teal-50 text-teal-800 border-teal-200',
       education: 'پی ایچ ڈی علومِ اسلامیہ | تخصص فی الحدیث و درسِ نظامی (عالمیہ)',
       specialization: 'علومِ حدیث، تفاسیرِ قرآن، فقہِ اسلامی، نصابی اصلاحات و یونیورسٹی ایڈمنسٹریشن',
-      image: '/gallery/2. ڈاکٹر پیر ابو احمد فاروق علی ربانی صاحب.jpeg',
+      image: '/gallery/2. ڈاکٹر پیر ابو احمد فاروق علی ربانی صاحب (جدید).jpeg',
       email: 'jamiashererabbani07@gmail.com',
       contact: '03144081516'
     },
