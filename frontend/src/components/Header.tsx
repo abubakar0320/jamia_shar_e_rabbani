@@ -344,7 +344,7 @@ const Header = () => {
                           پروفیسر ابوبکر صدیق ربانی
                         </div>
                         <div className="text-[11px] font-bold text-emerald-800 font-urdu leading-tight mt-0.5">
-                          رجسٹرار، خزانچی و HOD فار آل
+                          رجسٹرار، خزانچی و ہیڈ آف ڈیپارٹمنٹس فار آل
                         </div>
                       </div>
                     </div>

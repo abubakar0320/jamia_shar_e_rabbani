@@ -328,7 +328,7 @@ export default function About() {
                   <div className="relative w-44 sm:w-52 aspect-[706/1024] rounded-2xl overflow-hidden border-4 border-white shadow-lg mb-5 ring-2 ring-emerald-600/30 bg-slate-100">
                     <Image 
                       src="/farooq-ali-rabbani.jpeg" 
-                      alt="ڈاکٹر پیر ابو احمد فاروق علی ربانی نقشبندی مجددی صاحب" 
+                      alt="ڈاکٹر پیر ابو احمد فاروق علی ربانی صاحب" 
                       fill 
                       priority
                       className="object-cover object-top group-hover:scale-105 transition-transform duration-300" 
@@ -338,7 +338,7 @@ export default function About() {
                     وائس چانسلر و ڈین / Vice Chancellor & Dean
                   </span>
                   <h3 className="text-lg sm:text-xl font-black text-slate-900 font-urdu leading-[1.9]">
-                    ڈاکٹر پیر ابو احمد فاروق علی ربانی نقشبندی مجددی صاحب
+                    ڈاکٹر پیر ابو احمد فاروق علی ربانی صاحب
                   </h3>
                   <p className="text-xs sm:text-sm font-bold text-emerald-700 mt-1 mb-3 font-urdu">
                     وائس چانسلر و ڈین، جامعہ شیرِ ربانی (2008ء تا حال)
@@ -391,7 +391,7 @@ export default function About() {
                 </Link>
               </div>
 
-              {/* Leader 3: Registrar, Treasurer & HOD for All Prof. Abubakar Siddique Rabbani */}
+              {/* Leader 3: Registrar, Treasurer & Chairperson Prof. Abubakar Siddique Rabbani */}
               <div className="p-6 sm:p-7 rounded-3xl bg-slate-50 border border-slate-200 shadow-sm flex flex-col items-center text-center group hover:border-emerald-300 transition-all justify-between">
                 <div className="flex flex-col items-center">
                   <div className="relative w-44 sm:w-52 aspect-[706/1024] rounded-2xl overflow-hidden border-4 border-white shadow-lg mb-5 ring-2 ring-emerald-600/30 bg-slate-100">
@@ -405,16 +405,16 @@ export default function About() {
                     />
                   </div>
                   <span className="px-3 py-0.5 rounded-full text-xs font-bold bg-blue-100 text-blue-800 uppercase tracking-wider mb-2 font-urdu">
-                    رجسٹرار، خزانچی، چیئرپرسن و HOD فار آل
+                    رجسٹرار، خزانچی، چیئرپرسن و نگرانِ جملہ شعبہ جات
                   </span>
                   <h3 className="text-lg sm:text-xl font-black text-slate-900 font-urdu leading-[1.9]">
                     پروفیسر ابوبکر صدیق ربانی صاحب
                   </h3>
                   <p className="text-xs sm:text-sm font-bold text-blue-700 mt-1 mb-3 font-urdu">
-                    Registrar, Treasurer, Chairperson & HOD for All
+                    رجسٹرار، خزانچی و چیئرپرسن (2022ء تا حال)
                   </p>
                   <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-sm font-urdu" dir="rtl">
-                    جامعہ شیرِ ربانی کے رجسٹرار، خزانچی، چیئرپرسن اور تمام شعبہ جات کے ہیڈ آف ڈیپارٹمنٹس (HOD for All) ہیں۔ ادارے کے تمام شعبہ جات کا تیکنیکی، مالیاتی اور رجسٹرار شپ کا نظام، کلاؤڈ سسٹمز اور آئی ٹی انٹرن شپ پروگرام آپ کی زیرِ نگرانی ہے۔
+                    جامعہ شیرِ ربانی کے رجسٹرار، خزانچی، چیئرپرسن اور تمام شعبہ جات کے نگران ہیں۔ ادارے کے تمام شعبہ جات کا تیکنیکی، مالیاتی اور رجسٹرار شپ کا نظام، کلاؤڈ سسٹمز اور آئی ٹی انٹرن شپ پروگرام آپ کی زیرِ نگرانی ہے۔
                   </p>
                 </div>
                 <Link

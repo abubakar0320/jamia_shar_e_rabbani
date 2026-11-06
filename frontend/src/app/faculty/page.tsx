@@ -57,15 +57,15 @@ export default function Faculty() {
       tierBadgeColor: 'bg-emerald-100 text-emerald-900 border-emerald-300',
       department: 'دفترِ چانسلر و مجلسِ اعلٰی (Office of the Chancellor)',
       departmentColor: 'bg-emerald-50 text-emerald-800 border-emerald-200',
-      education: 'فاضل علومِ اسلامیہ، عسکری نظم و ضبط و سلاسلِ طریقت نقشبندیہ مجددیہ',
-      specialization: 'سرپرستیِ ادارہ، فکری و انتظامی رہنمائی، نظم و نسق اور سلسلہ عالیہ نقشبندیہ',
+      education: 'فاضل علومِ اسلامیہ، ۳۰ سالہ عسکری خدمات و سلاسلِ طریقت نقشبندیہ مجددیہ',
+      specialization: '۳۰ سالہ عسکری نظم و ضبط، ۲۴ سالہ دینی اخلاص، سرپرستیِ ادارہ و سلسلہ عالیہ نقشبندیہ',
       image: '/gallery/1.1مولانا الحاج صوبیدار محمد یوسف نقشبندی مجددی صاحب.jpeg',
       email: 'jamiashererabbani07@gmail.com',
       contact: '03144081516'
     },
     {
       id: 1,
-      name: 'ڈاکٹر پیر ابو احمد فاروق علی ربانی نقشبندی مجددی صاحب',
+      name: 'ڈاکٹر پیر ابو احمد فاروق علی ربانی صاحب',
       role: 'وائس چانسلر و ڈینِ فیکلٹی آف اسلامک اسٹڈیز، جامعہ شیرِ ربانی',
       tier: 'chancellor',
       tierLabel: 'وائس چانسلر و ڈین (VC & Dean)',
@@ -79,7 +79,7 @@ export default function Faculty() {
       contact: '03144081516'
     },
 
-    // --- TIER 3: OFFICERS OF THE JAMIA (کنٹرولر امتحانات، رجسٹرار، خزانچی و HOD فار آل) ---
+    // --- TIER 3: OFFICERS OF THE JAMIA (کنٹرولر امتحانات، رجسٹرار، خزانچی و ہیڈ آف ڈیپارٹمنٹس فار آل) ---
     {
       id: 4,
       name: 'اسلامک اسکالر حافظ القاری محمد احمد ربانی صاحب',
@@ -98,14 +98,14 @@ export default function Faculty() {
     {
       id: 3,
       name: 'پروفیسر ابوبکر صدیق ربانی صاحب',
-      role: 'رجسٹرار، خزانچی، چیئرپرسن و ہیڈ آف ڈیپارٹمنٹس (HOD for All)',
+      role: 'رجسٹرار، خزانچی، چیئرپرسن و ہیڈ آف ڈیپارٹمنٹس فار آل',
       tier: 'officers',
-      tierLabel: 'رجسٹرار، خزانچی، چیئرپرسن و HOD فار آل',
+      tierLabel: 'رجسٹرار، خزانچی، چیئرپرسن و نگرانِ جملہ شعبہ جات',
       tierBadgeColor: 'bg-blue-100 text-blue-900 border-blue-300',
       department: 'مرکزی سیکرٹریٹ: رجسٹرار، خزانچی، چیئرپرسن و آئی ٹی سسٹمز',
       departmentColor: 'bg-blue-50 text-blue-800 border-blue-200',
       education: 'بی ایس انفارمیشن ٹیکنالوجی (BSIT)، بابا گرو نانک یونیورسٹی | گوگل و سسکو سرٹیفائیڈ',
-      specialization: 'یونیورسٹی رجسٹرار شپ، مالیاتی نظم و نسق (Treasurer)، چیئرپرسن شپ، تمام شعبہ جات کی نگرانی (HOD for All) و کلاؤڈ سسٹمز',
+      specialization: 'یونیورسٹی رجسٹرار شپ، مالیاتی نظم و نسق، چیئرپرسن شپ، تمام شعبہ جات کی ہمہ گیر نگرانی و کلاؤڈ سسٹمز',
       image: '/gallery/4. abubakar-siddique.jpeg',
       email: 'abubakr.bgnu@gmail.com',
       contact: '03097354874'
@@ -279,9 +279,9 @@ export default function Faculty() {
     },
     {
       id: 'officers',
-      title: 'کنٹرولر امتحانات، رجسٹرار، خزانچی و ہیڈ آف ڈیپارٹمنٹس (Officers of the Jamia)',
-      subtitle: 'جامعہ کے امتحانی، تعلیمی، رجسٹرار، مالیاتی، اور تمام شعبہ جات کی ہمہ گیر انتظامی و تیکنیکی قیادت (HOD for All)',
-      badge: 'کنٹرولر امتحانات، رجسٹرار و HOD فار آل',
+      title: 'کنٹرولر امتحانات، رجسٹرار، خزانچی و نگرانِ جملہ شعبہ جات',
+      subtitle: 'جامعہ کے امتحانی، تعلیمی، رجسٹرار، مالیاتی، اور تمام شعبہ جات کی ہمہ گیر انتظامی و تیکنیکی قیادت',
+      badge: 'کنٹرولر امتحانات، رجسٹرار و چیئرپرسن',
       headerBg: 'bg-gradient-to-r from-teal-950 via-teal-900 to-slate-950 text-white',
       badgeBg: 'bg-teal-400 text-slate-950',
       icon: <Building2 size={22} className="text-teal-300 shrink-0" />
@@ -343,7 +343,7 @@ export default function Faculty() {
               </h1>
 
               <p className="text-xs sm:text-base md:text-lg text-emerald-100/90 leading-[2.1] sm:leading-[2.2] md:leading-[2.3] max-w-3xl mx-auto mb-6 sm:mb-8 px-2">
-                اکابرینِ اہلِ سنت کی فکری سرپرستی، چانسلر و وائس چانسلر / ڈین کی رہنمائی، کنٹرولر امتحانات و رجسٹرار / HOD کی مستحکم انتظامیہ اور متبحر پروفیسرز کا مربوط تنظیمی ڈھانچہ۔
+                اکابرینِ اہلِ سنت کی فکری سرپرستی، چانسلر و وائس چانسلر / ڈین کی رہنمائی، کنٹرولر امتحانات و رجسٹرار / چیئرپرسن کی مستحکم انتظامیہ اور متبحر پروفیسرز کا مربوط تنظیمی ڈھانچہ۔
               </p>
 
               {/* Organizational Flow Visualizer - Fully Responsive (2x2 on mobile, 4 in row on desktop) */}
@@ -364,8 +364,8 @@ export default function Faculty() {
                   </div>
                   <div className="bg-teal-400/20 border border-teal-400/40 rounded-xl p-2.5 sm:p-3 flex flex-col items-center justify-center text-teal-200 text-center">
                     <Building2 size={18} className="text-teal-300 mb-1 shrink-0" />
-                    <span className="leading-tight">۳. کنٹرولر، رجسٹرار و HOD</span>
-                    <span className="text-[10px] text-teal-300/80 mt-0.5 font-sans">Controller, Registrar & HOD</span>
+                    <span className="leading-tight">۳. کنٹرولر، رجسٹرار و چیئرپرسن</span>
+                    <span className="text-[10px] text-teal-300/80 mt-0.5 font-sans">Controller & Registrar</span>
                   </div>
                   <div className="bg-sky-400/20 border border-sky-400/40 rounded-xl p-2.5 sm:p-3 flex flex-col items-center justify-center text-sky-200 text-center">
                     <BookOpen size={18} className="text-sky-300 mb-1 shrink-0" />
@@ -427,7 +427,7 @@ export default function Faculty() {
                 }`}
               >
                 <Building2 size={15} />
-                <span>کنٹرولر، رجسٹرار و HOD ({tierCounts.officers || 0})</span>
+                <span>کنٹرولر، رجسٹرار و چیئرپرسن ({tierCounts.officers || 0})</span>
               </button>
 
               <button

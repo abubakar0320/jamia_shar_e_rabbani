@@ -18,10 +18,10 @@ export default function FacultySpotlight() {
   const faculty = [
     {
       id: '1',
-      name: 'ڈاکٹر پیر ابو احمد فاروق علی ربانی نقشبندی مجددی صاحب',
+      name: 'ڈاکٹر پیر ابو احمد فاروق علی ربانی صاحب',
       role: 'وائس چانسلر و ڈینِ فیکلٹی آف اسلامک اسٹڈیز',
       bio: 'علومِ حدیث، تفاسیر اور شریعت میں 25 سال سے زائد تدریسی و تحقیقی خدمات۔ طلبہ کی علمی و روحانی رہنمائی کے سرپرستِ اعلیٰ۔',
-      image: '/farooq-ali-rabbani.jpeg',
+      image: '/gallery/2. ڈاکٹر پیر ابو احمد فاروق علی ربانی صاحب.jpeg',
       link: '/faculty-profile?id=1'
     },
     {
@@ -29,15 +29,15 @@ export default function FacultySpotlight() {
       name: 'اسلامک اسکالر حافظ القاری محمد احمد ربانی صاحب',
       role: 'کنٹرولر امتحانات و ناظمِ تعلیمات (Director of Education)',
       bio: 'جامعہ شیرِ ربانی کے امتحانی نظم و شفافیت، جملہ تدریسی شعبہ جات کے ناظمِ اعلیٰ اور طلبہ کے تعلیمی معیار کے سربراہ۔',
-      image: '/hafiz-ahmad-ali.jpeg',
+      image: '/gallery/3. hafiz ahmad ali.jpeg',
       link: '/faculty-profile?id=4'
     },
     {
       id: '3',
       name: 'پروفیسر ابوبکر صدیق ربانی صاحب',
-      role: 'رجسٹرار، خزانچی، چیئرپرسن و HOD فار آل',
-      bio: 'جامعہ کے رجسٹرار، خزانچی، چیئرپرسن، تمام شعبہ جات کے سربراہ (HOD for All)، کلاؤڈ سسٹمز کے معمار اور آئی ٹی پروگرام کے نگران۔',
-      image: '/abubakar-latest.jpeg',
+      role: 'رجسٹرار، خزانچی، چیئرپرسن و ہیڈ آف ڈیپارٹمنٹس فار آل',
+      bio: 'جامعہ کے رجسٹرار، خزانچی، چیئرپرسن، تمام شعبہ جات کے نگران، کلاؤڈ سسٹمز کے معمار اور آئی ٹی پروگرام کے نگران۔',
+      image: '/gallery/4. abubakar-siddique.jpeg',
       link: '/faculty-profile?id=3'
     },
     {
@@ -45,7 +45,7 @@ export default function FacultySpotlight() {
       name: 'پروفیسر مولانا مفتی علی حمزہ صاحب',
       role: 'پروفیسر، استاذ الحدیث و دار الافتاء',
       bio: 'علومِ شریعہ، نحو و صرف، منطق اور فقہ کے نامور پروفیسر۔ طلبہ کی اخلاقی و فقہی تربیت اور دار الافتاء کے سینئر فیکلٹی۔',
-      image: '/ali-hamza.jpeg',
+      image: '/gallery/8. ali-hamza.jpeg',
       link: '/faculty-profile?id=2'
     }
   ];

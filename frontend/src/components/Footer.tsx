@@ -497,7 +497,7 @@ const Footer = () => {
                 <div className="mb-3">
                   <span className="text-[11px] text-slate-500 font-urdu block">نام و عہدہ:</span>
                   <span className="text-sm sm:text-base font-black text-slate-900 font-urdu">
-                    ڈاکٹر پیر ابو احمد فاروق علی ربانی نقشبندی مجددی صاحب
+                    ڈاکٹر پیر ابو احمد فاروق علی ربانی صاحب
                   </span>
                 </div>
               </div>
@@ -552,7 +552,7 @@ const Footer = () => {
               <div>
                 <div className="flex items-center justify-between gap-2 mb-2">
                   <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-sky-100 text-sky-900 border border-sky-300 font-urdu">
-                    رجسٹرار، خزانچی و HOD فار آل
+                    رجسٹرار، خزانچی و ہیڈ آف ڈیپارٹمنٹس فار آل
                   </span>
                   <span className="text-[10px] text-sky-700 font-urdu font-bold">
                     آن لائن داخلہ و تکنیکی معاونت
