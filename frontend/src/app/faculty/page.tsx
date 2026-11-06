@@ -60,6 +60,96 @@ export default function Faculty() {
       image: '/abubakar-latest.jpeg',
       email: 'abubakr.bgnu@gmail.com',
       contact: '03097354874'
+    },
+    {
+      id: 8,
+      name: 'حضور ضیاء الامت جسٹس پیر محمد کرم شاہ الازہری علیہ الرحمہ',
+      role: 'فکری سرپرست، مفسرِ قرآن و سابق جسٹس سپریم کورٹ',
+      education: 'جامعہ الازہر مصر (ایم اے) و دار العلوم دیوبند',
+      specialization: 'تفسیرِ قرآن، سیرت نگاری، اسلامی قوانین و تقابلی شریعت',
+      image: '/gallery/1. Zayah ul umat justice peer muhammad karam shah.jpeg',
+      email: 'jamiashererabbani07@gmail.com',
+      contact: '03144081516'
+    },
+    {
+      id: 5,
+      name: 'پیر سید افتخار الحسن شاہ صاحب',
+      role: 'سجادہ نشین، روحانی سرپرست و مربی',
+      education: 'علومِ دینیہ و تصوف، سلاسلِ طریقت',
+      specialization: 'تزکیہ نفس، تصوف و اخلاق، خانقاہی نظام و رہنمائی',
+      image: '/gallery/5. Peer Syed Iftikhar ul hassan shah.jpeg',
+      email: 'jamiashererabbani07@gmail.com',
+      contact: '03144081516'
+    },
+    {
+      id: 6,
+      name: 'مفتی محافظ القاری مولانا محمد کاشف رفیق انجم',
+      role: 'خطیبِ اعظم سرگودھا، مفتی و مناظرِ اسلام',
+      education: 'الشہادۃ العالمیہ فی العلوم الاسلامیہ، تخصص فی الفقہ والافتاء',
+      specialization: 'خطابت و بلاغت، تقابلِ ادیان، فقہِ حنفی و مناظرہ',
+      image: '/gallery/6. Mufti Mohafiz al qari molana muhammad kashif rafique anjum al maroof katib ibn katib katib azam sarghooda.jpeg',
+      email: 'jamiashererabbani07@gmail.com',
+      contact: '03144081516'
+    },
+    {
+      id: 7,
+      name: 'پیر مفتی علامہ حافظ سید محمد احمد جامی شاہ نقشبندی مجددی',
+      role: 'پیرِ طریقت، مفتیِ اعظم و روحانی پیشوا',
+      education: 'الشہادۃ العالمیہ، حفظِ قرآن، تخصص فی الفقہ والافتاء',
+      specialization: 'سلسلہ عالیہ نقشبندیہ مجددیہ، افتاء، تجوید و سلوک',
+      image: '/gallery/7. Peer Mufti Allama Molana Hafiz Al Qari Syed Muhammad Ahmad Al maroof Jami Shah Naqshbandi Mujadadi.jpeg',
+      email: 'jamiashererabbani07@gmail.com',
+      contact: '03144081516'
+    },
+    {
+      id: 9,
+      name: 'پروفیسر پیر مفتی مولانا رانا محمد مبشر اکرم نقشبندی مجددی',
+      role: 'پروفیسر، مفتی و پیرِ طریقت',
+      education: 'ایم فل / پی ایچ ڈی اسکالر علومِ اسلامیہ، الشہادۃ العالمیہ',
+      specialization: 'یونیورسٹی سطح کی تدریس، تقابلی ادیان، فقہ و تصوف',
+      image: '/gallery/9. Prof. Peer Mufti Molana Rana Muhammad Mubashar Akram Naqsbandi Mujaddadi.jpeg',
+      email: 'jamiashererabbani07@gmail.com',
+      contact: '03144081516'
+    },
+    {
+      id: 10,
+      name: 'مفتی علامہ ذیشان علی چشتی صابری',
+      role: 'مفتی، مدرسِ شریعت و خطیب',
+      education: 'عالمیہ (درسِ نظامی)، تخصص فی الفقہ الاسلامی',
+      specialization: 'فقہی فتاویٰ، فرائض و میراث، عقائد و کلام',
+      image: '/gallery/10. Mufti Allama Zeeshan Ali Chisti Sabri.jpeg',
+      email: 'jamiashererabbani07@gmail.com',
+      contact: '03144081516'
+    },
+    {
+      id: 11,
+      name: 'مفتی علامہ علی مرتضیٰ سیالوی',
+      role: 'استاذ العلماء، مفتی و محقق',
+      education: 'الشہادۃ العالمیہ فی العلوم الاسلامیہ، تخصص فی الفقہ والاصول',
+      specialization: 'اصولِ فقہ، نحو و صرف، منطق و فلسفہ اور مناظرہ',
+      image: '/gallery/11. Mufti Allama Ali Murtaza Sialwi.jpeg',
+      email: 'jamiashererabbani07@gmail.com',
+      contact: '03144081516'
+    },
+    {
+      id: 12,
+      name: 'مفتی علامہ اسد عباس چشتی',
+      role: 'مفتی، مدرسِ درسِ نظامی و خطیب',
+      education: 'عالمیہ (درسِ نظامی)، تخصص فی الفقہ والافتاء',
+      specialization: 'فقہِ اسلامی، تجوید و قرآت، سیرت النبی ﷺ',
+      image: '/gallery/12. Mufti Allama Asad Abbas Chisti.jpeg',
+      email: 'jamiashererabbani07@gmail.com',
+      contact: '03144081516'
+    },
+    {
+      id: 13,
+      name: 'پروفیسر ڈاکٹر مفتی محمد امین بھٹی صاحب',
+      role: 'پروفیسر ڈاکٹر، بین الاقوامی محقق و مفتیِ اعظم',
+      education: 'پی ایچ ڈی علومِ اسلامیہ، ایم فل، الشہادۃ العالمیہ',
+      specialization: 'بین الاقوامی اسلامی قوانین، عصری فقہی اجتہاد، پی ایچ ڈی ریسرچ',
+      image: '/gallery/13. Prof. Dr. Mufti Muhammad Ameen Bhatti Sahib.png',
+      email: 'jamiashererabbani07@gmail.com',
+      contact: '03144081516'
     }
   ];
 
@@ -73,15 +163,13 @@ export default function Faculty() {
       .then(res => res.json())
       .then(data => {
         if (data && data.length > 0) {
-          // If backend has custom faculty, ensure leadership (Hafiz Ahmad Ali & Abubakar) are preserved
-          const list = [...data];
-          if (!list.some((m: FacultyMember) => m.id === 4 || m.name?.includes('احمد علی'))) {
-            list.splice(1, 0, staticFaculty[1]);
-          }
-          if (!list.some((m: FacultyMember) => m.id === 3 || m.name?.includes('ابوبکر'))) {
-            list.push(staticFaculty[3]);
-          }
-          setFaculty(list);
+          const combined = [...staticFaculty];
+          data.forEach((backendItem: FacultyMember) => {
+            if (!combined.some(m => m.id === backendItem.id || m.name === backendItem.name)) {
+              combined.push(backendItem);
+            }
+          });
+          setFaculty(combined);
         } else {
           setFaculty(staticFaculty);
         }
