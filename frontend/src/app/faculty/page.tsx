@@ -17,7 +17,7 @@ export interface FacultyMember {
   id: number;
   name: string;
   role: string;
-  tier: 'dean' | 'principal' | 'hod' | 'teacher';
+  tier: 'akabir' | 'chancellor' | 'officers' | 'professor';
   tierLabel: string;
   tierBadgeColor: string;
   department: string;
@@ -31,15 +31,15 @@ export interface FacultyMember {
 
 export default function Faculty() {
   const staticFaculty: FacultyMember[] = [
-    // --- TIER 1: DEANS & SUPREME PATRONS (سرپرستانِ اعلیٰ و ڈینز) ---
+    // --- TIER 1: AKABIR-E-AHL-E-SUNNAT (اکابرینِ اہلِ سنت و روحانی پیشوا) ---
     {
       id: 8,
       name: 'حضور ضیاء الامت جسٹس پیر محمد کرم شاہ الازہری علیہ الرحمہ',
-      role: 'فکری پیشوا، بانی و مفسرِ قرآن',
-      tier: 'dean',
-      tierLabel: 'بانی و فکری ڈین (Founder Dean)',
+      role: 'فکری و روحانی پیشوا، بانی و مفسرِ قرآن (اکابرینِ اہلِ سنت)',
+      tier: 'akabir',
+      tierLabel: 'اکابرینِ اہلِ سنت و فکری پیشوا',
       tierBadgeColor: 'bg-amber-100 text-amber-900 border-amber-300',
-      department: 'سرپرستِ اعلیٰ و فکری ڈین آف اسلامک اسٹڈیز',
+      department: 'اکابرینِ اہلِ سنت و مرجعِ علمی و روحانی',
       departmentColor: 'bg-amber-50 text-amber-800 border-amber-200',
       education: 'جامعہ الازہر مصر (ایم اے) و دار العلوم دیوبند',
       specialization: 'تفسیرِ قرآن، سیرت نگاری، اسلامی عدالتی قوانین و تقابلی شریعت',
@@ -47,61 +47,78 @@ export default function Faculty() {
       email: 'jamiashererabbani07@gmail.com',
       contact: '03144081516'
     },
+
+    // --- TIER 2: CHANCELLOR, VICE CHANCELLOR & DEAN (چانسلر، وائس چانسلر و ڈین) ---
     {
-      id: 5,
-      name: 'پیر سید افتخار الحسن شاہ صاحب',
-      role: 'سجادہ نشین، روحانی سرپرست و مربی',
-      tier: 'dean',
-      tierLabel: 'سرپرستِ شوریٰ و ڈین (Dean of Spiritual Affairs)',
-      tierBadgeColor: 'bg-purple-100 text-purple-900 border-purple-300',
-      department: 'مجلسِ شوریٰ و ڈین آف سپرچوئل افیئرز',
-      departmentColor: 'bg-purple-50 text-purple-800 border-purple-200',
-      education: 'علومِ دینیہ و تصوف، سلاسلِ طریقت',
-      specialization: 'تزکیہ نفس، تصوف و اخلاق، خانقاہی نظام و رہنمائی',
-      image: '/gallery/5. Peer Syed Iftikhar ul hassan shah.jpeg',
+      id: 14,
+      name: 'مولانا الحاج صوبیدار محمد یوسف نقشبندی مجددی صاحب',
+      role: 'چانسلر و سرپرستِ اعلیٰ، جامعہ شیرِ ربانی',
+      tier: 'chancellor',
+      tierLabel: 'چانسلر (Chancellor)',
+      tierBadgeColor: 'bg-emerald-100 text-emerald-900 border-emerald-300',
+      department: 'دفترِ چانسلر و مجلسِ اعلٰی (Office of the Chancellor)',
+      departmentColor: 'bg-emerald-50 text-emerald-800 border-emerald-200',
+      education: 'فاضل علومِ اسلامیہ، عسکری نظم و ضبط و سلاسلِ طریقت نقشبندیہ مجددیہ',
+      specialization: 'سرپرستیِ ادارہ، فکری و انتظامی رہنمائی، نظم و نسق اور سلسلہ عالیہ نقشبندیہ',
+      image: '/logo.jpeg',
       email: 'jamiashererabbani07@gmail.com',
       contact: '03144081516'
     },
-
-    // --- TIER 2: PRINCIPAL & EXECUTIVE LEADERSHIP (پرنسپل و انتظامی قیادت) ---
     {
       id: 1,
-      name: 'پروفیسر ڈاکٹر فاروق علی ربانی',
-      role: 'شیخ الحدیث و پرنسپل، جامعہ شیرِ ربانی',
-      tier: 'principal',
-      tierLabel: 'پرنسپل و ادارتی سربراہ (Principal)',
-      tierBadgeColor: 'bg-emerald-100 text-emerald-900 border-emerald-300',
-      department: 'شعبہ پرنسپل و سینئر فیکلٹی قیادت',
-      departmentColor: 'bg-emerald-50 text-emerald-800 border-emerald-200',
-      education: 'عالمیہ (درسِ نظامی) و تخصص فی الحدیث | پی ایچ ڈی علومِ اسلامیہ',
-      specialization: 'علومِ حدیث، تفاسیر، فقہِ اسلامی و نصابی اصلاحات',
+      name: 'ڈاکٹر پیر ابو احمد فاروق علی ربانی نقشبندی مجددی صاحب',
+      role: 'وائس چانسلر و ڈینِ فیکلٹی آف اسلامک اسٹڈیز، جامعہ شیرِ ربانی',
+      tier: 'chancellor',
+      tierLabel: 'وائس چانسلر و ڈین (VC & Dean)',
+      tierBadgeColor: 'bg-teal-100 text-teal-900 border-teal-300',
+      department: 'دفترِ وائس چانسلر و ڈین آف اسلامک اسٹڈیز',
+      departmentColor: 'bg-teal-50 text-teal-800 border-teal-200',
+      education: 'پی ایچ ڈی علومِ اسلامیہ | تخصص فی الحدیث و درسِ نظامی (عالمیہ)',
+      specialization: 'علومِ حدیث، تفاسیرِ قرآن، فقہِ اسلامی، نصابی اصلاحات و یونیورسٹی ایڈمنسٹریشن',
       image: '/farooq-ali-rabbani.jpeg',
       email: 'jamiashererabbani07@gmail.com',
       contact: '03144081516'
     },
+
+    // --- TIER 3: OFFICERS OF THE JAMIA (کنٹرولر امتحانات، رجسٹرار، خزانچی و HOD فار آل) ---
     {
       id: 4,
-      name: 'حافظ محمد احمد علی ربانی',
-      role: 'نائب مہتمم و ناظمِ تعلیمات (Director of Education)',
-      tier: 'principal',
-      tierLabel: 'نائب مہتمم (Vice Principal / Academic Director)',
+      name: 'اسلامک اسکالر حافظ القاری محمد احمد ربانی صاحب',
+      role: 'کنٹرولر امتحانات و ناظمِ تعلیمات (Controller of Examinations & Director of Education)',
+      tier: 'officers',
+      tierLabel: 'کنٹرولر امتحانات و ناظمِ تعلیمات (Controller & Director of Education)',
       tierBadgeColor: 'bg-teal-100 text-teal-900 border-teal-300',
-      department: 'شعبہ نظامتِ تعلیمات و تعلیمی ایڈمنسٹریشن',
+      department: 'دفترِ کنٹرولر امتحانات و نظامتِ تعلیمات (Examinations & Academics)',
       departmentColor: 'bg-teal-50 text-teal-800 border-teal-200',
-      education: 'عالمیہ (درسِ نظامی)، وفاق المدارس الاسلامیہ الرضویہ',
-      specialization: 'تدریسی نظم و نسق، نصاب سازی، امتحانی طریقہ کار و طلبہ کونسلنگ',
+      education: 'الشہادۃ العالمیہ فی العلوم الاسلامیہ والعربیۃ | حفظ و قرآت سبعہ عشرہ',
+      specialization: 'امتحانی کنٹرول و شفافیت، نصاب سازی، تعلیمی نظم و ضبط اور طلبہ کونسلنگ',
       image: '/hafiz-ahmad-ali.jpeg',
       email: 'jamiashererabbani07@gmail.com',
       contact: '+966540532511'
     },
+    {
+      id: 3,
+      name: 'پروفیسر ابوبکر صدیق ربانی صاحب',
+      role: 'رجسٹرار، خزانچی، چیئرپرسن و ہیڈ آف ڈیپارٹمنٹس (HOD for All)',
+      tier: 'officers',
+      tierLabel: 'رجسٹرار، خزانچی، چیئرپرسن و HOD فار آل',
+      tierBadgeColor: 'bg-blue-100 text-blue-900 border-blue-300',
+      department: 'مرکزی سیکرٹریٹ: رجسٹرار، خزانچی، چیئرپرسن و آئی ٹی سسٹمز',
+      departmentColor: 'bg-blue-50 text-blue-800 border-blue-200',
+      education: 'بی ایس انفارمیشن ٹیکنالوجی (BSIT)، بابا گرو نانک یونیورسٹی | گوگل و سسکو سرٹیفائیڈ',
+      specialization: 'یونیورسٹی رجسٹرار شپ، مالیاتی نظم و نسق (Treasurer)، چیئرپرسن شپ، تمام شعبہ جات کی نگرانی (HOD for All) و کلاؤڈ سسٹمز',
+      image: '/abubakar-latest.jpeg',
+      email: 'abubakr.bgnu@gmail.com',
+      contact: '03097354874'
+    },
 
-    // --- TIER 3: HEADS OF DEPARTMENTS (صدور و نگرانِ شعبہ جات - HODs) ---
+    // --- TIER 4: PROFESSORS & TEACHING FACULTY (پروفیسرز و تدریسی فیکلٹی) ---
     {
       id: 13,
       name: 'پروفیسر ڈاکٹر مفتی محمد امین بھٹی صاحب',
-      role: 'صدر شعبہ، شعبہ تحقیق و بین الاقوامی افتاء',
-      tier: 'hod',
-      tierLabel: 'ہیڈ آف ڈیپارٹمنٹ (HOD - ریسرچ و افتاء)',
+      role: 'پروفیسر، بین الاقوامی محقق و مفتیِ اعظم',
+      tier: 'professor',
+      tierLabel: 'پروفیسر (Professor)',
       tierBadgeColor: 'bg-indigo-100 text-indigo-900 border-indigo-300',
       department: 'شعبہ تحقیق، پی ایچ ڈی اسٹڈیز و بین الاقوامی افتاء',
       departmentColor: 'bg-indigo-50 text-indigo-800 border-indigo-200',
@@ -112,41 +129,41 @@ export default function Faculty() {
       contact: '03144081516'
     },
     {
-      id: 2,
-      name: 'مولانا مفتی علی حمزہ صاحب',
-      role: 'نگرانِ شعبہ، شعبہ درسِ نظامی و دار الافتاء',
-      tier: 'hod',
-      tierLabel: 'ہیڈ آف ڈیپارٹمنٹ (HOD - درسِ نظامی)',
-      tierBadgeColor: 'bg-emerald-100 text-emerald-900 border-emerald-300',
-      department: 'شعبہ درسِ نظامی و علومِ شریعہ',
-      departmentColor: 'bg-emerald-50 text-emerald-800 border-emerald-200',
-      education: 'عالمیہ (درسِ نظامی) و تخصص فی الفقہ',
-      specialization: 'فقہِ اسلامی، اصولِ فقہ، نحو و صرف اور عربی ادب',
-      image: '/ali-hamza.jpeg',
+      id: 5,
+      name: 'پروفیسر پیر سید افتخار الحسن شاہ صاحب',
+      role: 'پروفیسر، سجادہ نشین آستانہ عالیہ و روحانی مربی',
+      tier: 'professor',
+      tierLabel: 'پروفیسر (Professor)',
+      tierBadgeColor: 'bg-purple-100 text-purple-900 border-purple-300',
+      department: 'شعبہ تصوف، اخلاقیات و روحانیات',
+      departmentColor: 'bg-purple-50 text-purple-800 border-purple-200',
+      education: 'علومِ دینیہ و تصوف، سلاسلِ طریقت',
+      specialization: 'تزکیہ نفس، تصوف و اخلاق، خانقاہی نظام اور فکری رہنمائی',
+      image: '/gallery/5. Peer Syed Iftikhar ul hassan shah.jpeg',
       email: 'jamiashererabbani07@gmail.com',
       contact: '03144081516'
     },
     {
-      id: 3,
-      name: 'محترم ابوبکر صدیق صاحب',
-      role: 'ہیڈ آف ڈیپارٹمنٹ، شعبہ آئی ٹی و سافٹ ویئر سسٹمز',
-      tier: 'hod',
-      tierLabel: 'ہیڈ آف ڈیپارٹمنٹ (HOD - آئی ٹی و سسٹمز)',
-      tierBadgeColor: 'bg-blue-100 text-blue-900 border-blue-300',
-      department: 'شعبہ انفارمیشن ٹیکنالوجی، پورٹلز و سافٹ ویئر سسٹمز',
-      departmentColor: 'bg-blue-50 text-blue-800 border-blue-200',
-      education: 'بی ایس انفارمیشن ٹیکنالوجی (BSIT)، بابا گرو نانک یونیورسٹی | گوگل و سسکو سرٹیفائیڈ',
-      specialization: 'فل اسٹیک ویب ڈویلپمنٹ، کلاؤڈ انفراسٹرکچر، پورٹل آرکیٹیکچر و آئی ٹی انٹرن شپ',
-      image: '/abubakar-latest.jpeg',
-      email: 'abubakr.bgnu@gmail.com',
-      contact: '03097354874'
+      id: 6,
+      name: 'پروفیسر مفتی محافظ القاری مولانا محمد کاشف رفیق انجم (خطیبِ اعظم سرگودھا)',
+      role: 'پروفیسر، خطیبِ اعظم سرگودھا، مناظرِ اسلام و مفتیِ شریعت',
+      tier: 'professor',
+      tierLabel: 'پروفیسر (Professor)',
+      tierBadgeColor: 'bg-violet-100 text-violet-900 border-violet-300',
+      department: 'شعبہ دعوت، خطابت، علم الکلام و مناظرہ',
+      departmentColor: 'bg-violet-50 text-violet-800 border-violet-200',
+      education: 'الشہادۃ العالمیہ فی العلوم الاسلامیہ، تخصص فی الفقہ والافتاء',
+      specialization: 'خطابت و بلاغت، تقابلِ ادیان، فقہِ حنفی اور مناظرہ و کلام',
+      image: '/gallery/6. Mufti Mohafiz al qari molana muhammad kashif rafique anjum al maroof katib ibn katib katib azam sarghooda.jpeg',
+      email: 'jamiashererabbani07@gmail.com',
+      contact: '03144081516'
     },
     {
       id: 7,
-      name: 'پیر مفتی علامہ حافظ سید محمد احمد جامی شاہ نقشبندی مجددی',
-      role: 'صدر شعبہ، شعبہ تحفیظ القرآن و روحانیات',
-      tier: 'hod',
-      tierLabel: 'ہیڈ آف ڈیپارٹمنٹ (HOD - تحفیظ القرآن)',
+      name: 'پروفیسر پیر مفتی علامہ حافظ سید محمد احمد جامی شاہ نقشبندی مجددی',
+      role: 'پروفیسر، پیرِ طریقت، مفتیِ اعظم و سجادہ نشین',
+      tier: 'professor',
+      tierLabel: 'پروفیسر (Professor)',
       tierBadgeColor: 'bg-rose-100 text-rose-900 border-rose-300',
       department: 'شعبہ تحفیظ القرآن، حسنِ قرآت و تزکیہ سلوک',
       departmentColor: 'bg-rose-50 text-rose-800 border-rose-200',
@@ -157,28 +174,26 @@ export default function Faculty() {
       contact: '03144081516'
     },
     {
-      id: 6,
-      name: 'مفتی محافظ القاری مولانا محمد کاشف رفیق انجم',
-      role: 'صدر شعبہ، شعبہ دعوت، خطابت و مناظرہ',
-      tier: 'hod',
-      tierLabel: 'ہیڈ آف ڈیپارٹمنٹ (HOD - دعوت و خطابت)',
-      tierBadgeColor: 'bg-violet-100 text-violet-900 border-violet-300',
-      department: 'شعبہ دعوت، خطابت، علم الکلام و مناظرہ',
-      departmentColor: 'bg-violet-50 text-violet-800 border-violet-200',
-      education: 'الشہادۃ العالمیہ فی العلوم الاسلامیہ، تخصص فی الفقہ والافتاء',
-      specialization: 'خطابت و بلاغت، تقابلِ ادیان، فقہِ حنفی اور مناظرہ و کلام',
-      image: '/gallery/6. Mufti Mohafiz al qari molana muhammad kashif rafique anjum al maroof katib ibn katib katib azam sarghooda.jpeg',
+      id: 2,
+      name: 'پروفیسر مولانا مفتی علی حمزہ صاحب',
+      role: 'پروفیسر، استاذ الحدیث، شعبہ درسِ نظامی و دار الافتاء',
+      tier: 'professor',
+      tierLabel: 'پروفیسر (Professor)',
+      tierBadgeColor: 'bg-emerald-100 text-emerald-900 border-emerald-300',
+      department: 'شعبہ درسِ نظامی و علومِ شریعہ',
+      departmentColor: 'bg-emerald-50 text-emerald-800 border-emerald-200',
+      education: 'عالمیہ (درسِ نظامی) و تخصص فی الفقہ',
+      specialization: 'فقہِ اسلامی، اصولِ فقہ، نحو و صرف اور عربی ادب',
+      image: '/ali-hamza.jpeg',
       email: 'jamiashererabbani07@gmail.com',
       contact: '03144081516'
     },
-
-    // --- TIER 4: SENIOR TEACHING FACULTY & LECTURERS (اساتذہ کرام و محققین) ---
     {
       id: 9,
       name: 'پروفیسر پیر مفتی مولانا رانا محمد مبشر اکرم نقشبندی مجددی',
-      role: 'سینئر پروفیسر، شعبہ اسلامیات و معاصر علوم',
-      tier: 'teacher',
-      tierLabel: 'سینئر پروفیسر (Senior Professor)',
+      role: 'پروفیسر، پیرِ طریقت، محقق علومِ اسلامیہ و سینئر فیکلٹی',
+      tier: 'professor',
+      tierLabel: 'پروفیسر (Professor)',
       tierBadgeColor: 'bg-cyan-100 text-cyan-900 border-cyan-300',
       department: 'شعبہ اسلامیات، تقابلِ ادیان و معاصر علوم',
       departmentColor: 'bg-cyan-50 text-cyan-800 border-cyan-200',
@@ -190,10 +205,10 @@ export default function Faculty() {
     },
     {
       id: 11,
-      name: 'مفتی علامہ علی مرتضیٰ سیالوی',
-      role: 'استاذ العلماء، شعبہ اصولِ فقہ و منطق',
-      tier: 'teacher',
-      tierLabel: 'استاذ العلماء (Senior Lecturer)',
+      name: 'پروفیسر مفتی علامہ علی مرتضیٰ سیالوی (استاذ العلماء)',
+      role: 'پروفیسر، استاذ العلماء، شعبہ اصولِ فقہ و منطق',
+      tier: 'professor',
+      tierLabel: 'پروفیسر (Professor)',
       tierBadgeColor: 'bg-teal-100 text-teal-900 border-teal-300',
       department: 'شعبہ اصولِ فقہ، منطق و علومِ عقلیہ',
       departmentColor: 'bg-teal-50 text-teal-800 border-teal-200',
@@ -205,10 +220,10 @@ export default function Faculty() {
     },
     {
       id: 10,
-      name: 'مفتی علامہ ذیشان علی چشتی صابری',
-      role: 'مفتی و مدرس، شعبہ افتاء و میراث',
-      tier: 'teacher',
-      tierLabel: 'مدرسِ شریعت و مفتی (Lecturer in Fiqh)',
+      name: 'پروفیسر مفتی علامہ ذیشان علی چشتی صابری',
+      role: 'پروفیسر، مفتی و محقق، شعبہ افتاء و میراث',
+      tier: 'professor',
+      tierLabel: 'پروفیسر (Professor)',
       tierBadgeColor: 'bg-sky-100 text-sky-900 border-sky-300',
       department: 'دار الافتاء و شعبہ علم الفرائض و میراث',
       departmentColor: 'bg-sky-50 text-sky-800 border-sky-200',
@@ -220,10 +235,10 @@ export default function Faculty() {
     },
     {
       id: 12,
-      name: 'مفتی علامہ اسد عباس چشتی',
-      role: 'مدرس، شعبہ فقہ، تجوید و سیرتِ طیبہ',
-      tier: 'teacher',
-      tierLabel: 'مدرسِ درسِ نظامی (Lecturer)',
+      name: 'پروفیسر مفتی علامہ اسد عباس چشتی',
+      role: 'پروفیسر، مدرسِ درسِ نظامی، تجوید و سیرتِ طیبہ',
+      tier: 'professor',
+      tierLabel: 'پروفیسر (Professor)',
       tierBadgeColor: 'bg-amber-100 text-amber-900 border-amber-300',
       department: 'شعبہ فقہ، تجوید القرآن و سیرت النبی ﷺ',
       departmentColor: 'bg-amber-50 text-amber-800 border-amber-200',
@@ -246,37 +261,37 @@ export default function Faculty() {
 
   const TIERS_CONFIG = [
     {
-      id: 'dean',
-      title: 'سرپرستانِ اعلیٰ و ڈینز (Patrons & Deans)',
-      subtitle: 'جامعہ شیرِ ربانی کے فکری، روحانی اور مشاورتی سرپرست جن کے فیضان سے ادارہ مستفید ہے',
-      badge: 'ڈینز و سرپرست کونسل',
-      headerBg: 'bg-gradient-to-r from-amber-900 via-amber-800 to-amber-950 text-white',
+      id: 'akabir',
+      title: 'اکابرینِ اہلِ سنت و روحانی پیشوا (Akabir-e-Ahl-e-Sunnat)',
+      subtitle: 'جامعہ شیرِ ربانی کے فکری و روحانی مرجع اور مفسرِ قرآن جن کے علمی و باطنی فیضان سے ادارہ منور ہے',
+      badge: 'اکابرینِ اہلِ سنت',
+      headerBg: 'bg-gradient-to-r from-amber-950 via-amber-900 to-amber-950 text-white',
       badgeBg: 'bg-amber-400 text-slate-950',
       icon: <Crown size={22} className="text-amber-300" />
     },
     {
-      id: 'principal',
-      title: 'پرنسپل و انتظامی قیادت (Principal & Executive Leadership)',
-      subtitle: 'جامعہ کے انتظامی، نصابی اور روزمرہ تعلیمی امور کے سربراہان جن کی زیرِ نگرانی ادارہ گامزن ہے',
-      badge: 'انتظامی قیادت',
-      headerBg: 'bg-gradient-to-r from-emerald-900 via-emerald-800 to-teal-950 text-white',
+      id: 'chancellor',
+      title: 'چانسلر، وائس چانسلر و ڈین (Chancellor, Vice Chancellor & Dean)',
+      subtitle: 'جامعہ شیرِ ربانی کی سپریم قیادت، چانسلر شپ، وائس چانسلر شپ اور ڈین آف فیکلٹی',
+      badge: 'چانسلر و وائس چانسلر / ڈین',
+      headerBg: 'bg-gradient-to-r from-emerald-950 via-emerald-900 to-teal-950 text-white',
       badgeBg: 'bg-emerald-400 text-slate-950',
       icon: <ShieldCheck size={22} className="text-emerald-300" />
     },
     {
-      id: 'hod',
-      title: 'صدور و نگرانِ شعبہ جات (Heads of Departments - HODs)',
-      subtitle: 'جامعہ کے کلیدی تدریسی، تحقیقی، فنی، آئی ٹی اور تربیتی شعبہ جات کے نگران اور شعبہ جاتی صدور',
-      badge: 'صدورِ شعبہ جات (HODs)',
-      headerBg: 'bg-gradient-to-r from-teal-900 via-teal-800 to-slate-950 text-white',
+      id: 'officers',
+      title: 'کنٹرولر امتحانات، رجسٹرار، خزانچی و ہیڈ آف ڈیپارٹمنٹس (Officers of the Jamia)',
+      subtitle: 'جامعہ کے امتحانی، تعلیمی، رجسٹرار، مالیاتی، اور تمام شعبہ جات کی ہمہ گیر انتظامی و تیکنیکی قیادت (HOD for All)',
+      badge: 'کنٹرولر امتحانات، رجسٹرار و HOD فار آل',
+      headerBg: 'bg-gradient-to-r from-teal-950 via-teal-900 to-slate-950 text-white',
       badgeBg: 'bg-teal-400 text-slate-950',
       icon: <Building2 size={22} className="text-teal-300" />
     },
     {
-      id: 'teacher',
-      title: 'اساتذہ کرام، مفتیان و محققین (Senior Faculty & Teachers)',
-      subtitle: 'تدریسی فیکلٹی جو طلبہ کو علومِ شریعہ، فقہ، اصول، حدیث اور عربی زبان سکھاتے ہیں',
-      badge: 'تدریسی فیکلٹی',
+      id: 'professor',
+      title: 'پروفیسرز و تدریسی فیکلٹی (Professors & Teaching Faculty)',
+      subtitle: 'علومِ شریعہ، فقہ، حدیث، تفسیر، تحقیق، خطابت اور قرآنی علوم کے جلیل القدر پروفیسرز اور شیوخِ کرام',
+      badge: 'پروفیسرز فیکلٹی',
       headerBg: 'bg-gradient-to-r from-slate-900 via-slate-800 to-emerald-950 text-white',
       badgeBg: 'bg-sky-400 text-slate-950',
       icon: <BookOpen size={22} className="text-sky-300" />
@@ -334,34 +349,34 @@ export default function Faculty() {
               </h1>
 
               <p className="text-base sm:text-lg md:text-xl text-emerald-100/90 leading-[2.2] md:leading-[2.3] max-w-3xl mx-auto mb-10">
-                علم، عمل اور تقوٰی کے پیکر، متبحر علماء، شعبہ جاتی سربراہان اور محققین جو سرپرستان، پرنسپل، صدورِ شعبہ جات اور اساتذہ کے مربوط تنظیمی ڈھانچے کے تحت نسلِ نو کی آبیاری فرما رہے ہیں۔
+                اکابرینِ اہلِ سنت کی فکری سرپرستی، چانسلر و وائس چانسلر / ڈین کی رہنمائی، کنٹرولر امتحانات و رجسٹرار / HOD کی مستحکم انتظامیہ اور متبحر پروفیسرز کا مربوط تنظیمی ڈھانچہ۔
               </p>
 
               {/* Organizational Flow Visualizer Pills */}
               <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 sm:p-5 border border-white/15 max-w-4xl mx-auto shadow-2xl">
                 <div className="text-xs sm:text-sm font-bold text-amber-300 mb-3 text-center">
-                  جامعہ کی ادارتی و تعلیمی درجہ بندی کا فلو چارٹ (Organizational Chart)
+                  جامعہ کی ادارتی و تعلیمی درجہ بندی کا فلو چارٹ (Organizational Hierarchy)
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-3 text-xs sm:text-sm font-bold">
                   <div className="bg-amber-400/20 border border-amber-400/40 rounded-xl p-3 flex flex-col items-center justify-center text-amber-200">
                     <Crown size={20} className="text-amber-300 mb-1" />
-                    <span>۱. سرپرستان و ڈینز</span>
-                    <span className="text-[10px] text-amber-300/80 mt-0.5">Deans & Patrons</span>
+                    <span>۱. اکابرینِ اہلِ سنت</span>
+                    <span className="text-[10px] text-amber-300/80 mt-0.5">Spiritual Fountainhead</span>
                   </div>
                   <div className="bg-emerald-400/20 border border-emerald-400/40 rounded-xl p-3 flex flex-col items-center justify-center text-emerald-200">
                     <ShieldCheck size={20} className="text-emerald-300 mb-1" />
-                    <span>۲. پرنسپل و قیادت</span>
-                    <span className="text-[10px] text-emerald-300/80 mt-0.5">Principal & Vice Principal</span>
+                    <span>۲. چانسلر و وائس چانسلر / ڈین</span>
+                    <span className="text-[10px] text-emerald-300/80 mt-0.5">Chancellor, VC & Dean</span>
                   </div>
                   <div className="bg-teal-400/20 border border-teal-400/40 rounded-xl p-3 flex flex-col items-center justify-center text-teal-200">
                     <Building2 size={20} className="text-teal-300 mb-1" />
-                    <span>۳. صدورِ شعبہ جات (HODs)</span>
-                    <span className="text-[10px] text-teal-300/80 mt-0.5">Heads of Departments</span>
+                    <span>۳. کنٹرولر، رجسٹرار و HOD</span>
+                    <span className="text-[10px] text-teal-300/80 mt-0.5">Controller, Registrar & HOD</span>
                   </div>
                   <div className="bg-sky-400/20 border border-sky-400/40 rounded-xl p-3 flex flex-col items-center justify-center text-sky-200">
                     <BookOpen size={20} className="text-sky-300 mb-1" />
-                    <span>۴. اساتذہ کرام و محققین</span>
-                    <span className="text-[10px] text-sky-300/80 mt-0.5">Teaching Faculty & Muftis</span>
+                    <span>۴. پروفیسرز و تدریسی فیکلٹی</span>
+                    <span className="text-[10px] text-sky-300/80 mt-0.5">Teaching Faculty & Professors</span>
                   </div>
                 </div>
               </div>
@@ -382,7 +397,7 @@ export default function Faculty() {
                 }`}
               >
                 <Layers size={16} />
-                <span>تمام فیکلٹی و شعبہ جات</span>
+                <span>تمام فیکلٹی و قیادت</span>
                 <span className={`text-[11px] px-2 py-0.5 rounded-full font-sans font-bold ${
                   selectedTier === 'all' ? 'bg-emerald-800 text-white' : 'bg-slate-200 text-slate-600'
                 }`}>
@@ -391,70 +406,70 @@ export default function Faculty() {
               </button>
 
               <button
-                onClick={() => setSelectedTier('dean')}
+                onClick={() => setSelectedTier('akabir')}
                 className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all duration-200 shrink-0 cursor-pointer ${
-                  selectedTier === 'dean'
+                  selectedTier === 'akabir'
                     ? 'bg-amber-700 text-white shadow-md shadow-amber-700/20 scale-102'
                     : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
                 }`}
               >
                 <Crown size={16} />
-                <span>سرپرستانِ اعلیٰ و ڈینز</span>
+                <span>اکابرینِ اہلِ سنت</span>
                 <span className={`text-[11px] px-2 py-0.5 rounded-full font-sans font-bold ${
-                  selectedTier === 'dean' ? 'bg-amber-800 text-white' : 'bg-slate-200 text-slate-600'
+                  selectedTier === 'akabir' ? 'bg-amber-800 text-white' : 'bg-slate-200 text-slate-600'
                 }`}>
-                  {tierCounts.dean || 0}
+                  {tierCounts.akabir || 0}
                 </span>
               </button>
 
               <button
-                onClick={() => setSelectedTier('principal')}
+                onClick={() => setSelectedTier('chancellor')}
                 className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all duration-200 shrink-0 cursor-pointer ${
-                  selectedTier === 'principal'
+                  selectedTier === 'chancellor'
                     ? 'bg-emerald-700 text-white shadow-md shadow-emerald-700/20 scale-102'
                     : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
                 }`}
               >
                 <ShieldCheck size={16} />
-                <span>پرنسپل و انتظامی قیادت</span>
+                <span>چانسلر، وائس چانسلر و ڈین</span>
                 <span className={`text-[11px] px-2 py-0.5 rounded-full font-sans font-bold ${
-                  selectedTier === 'principal' ? 'bg-emerald-800 text-white' : 'bg-slate-200 text-slate-600'
+                  selectedTier === 'chancellor' ? 'bg-emerald-800 text-white' : 'bg-slate-200 text-slate-600'
                 }`}>
-                  {tierCounts.principal || 0}
+                  {tierCounts.chancellor || 0}
                 </span>
               </button>
 
               <button
-                onClick={() => setSelectedTier('hod')}
+                onClick={() => setSelectedTier('officers')}
                 className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all duration-200 shrink-0 cursor-pointer ${
-                  selectedTier === 'hod'
+                  selectedTier === 'officers'
                     ? 'bg-teal-700 text-white shadow-md shadow-teal-700/20 scale-102'
                     : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
                 }`}
               >
                 <Building2 size={16} />
-                <span>صدور و نگرانِ شعبہ جات (HODs)</span>
+                <span>کنٹرولر، رجسٹرار و HOD فار آل</span>
                 <span className={`text-[11px] px-2 py-0.5 rounded-full font-sans font-bold ${
-                  selectedTier === 'hod' ? 'bg-teal-800 text-white' : 'bg-slate-200 text-slate-600'
+                  selectedTier === 'officers' ? 'bg-teal-800 text-white' : 'bg-slate-200 text-slate-600'
                 }`}>
-                  {tierCounts.hod || 0}
+                  {tierCounts.officers || 0}
                 </span>
               </button>
 
               <button
-                onClick={() => setSelectedTier('teacher')}
+                onClick={() => setSelectedTier('professor')}
                 className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all duration-200 shrink-0 cursor-pointer ${
-                  selectedTier === 'teacher'
+                  selectedTier === 'professor'
                     ? 'bg-sky-700 text-white shadow-md shadow-sky-700/20 scale-102'
                     : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
                 }`}
               >
                 <BookOpen size={16} />
-                <span>اساتذہ کرام و محققین</span>
+                <span>پروفیسرز و تدریسی فیکلٹی</span>
                 <span className={`text-[11px] px-2 py-0.5 rounded-full font-sans font-bold ${
-                  selectedTier === 'teacher' ? 'bg-sky-800 text-white' : 'bg-slate-200 text-slate-600'
+                  selectedTier === 'professor' ? 'bg-sky-800 text-white' : 'bg-slate-200 text-slate-600'
                 }`}>
-                  {tierCounts.teacher || 0}
+                  {tierCounts.professor || 0}
                 </span>
               </button>
             </div>
@@ -507,7 +522,8 @@ export default function Faculty() {
 
                   {/* Tier Cards Grid */}
                   <div className={`grid grid-cols-1 sm:grid-cols-2 ${
-                    tierMembers.length <= 2 ? 'lg:grid-cols-2 max-w-4xl mx-auto' :
+                    tierMembers.length === 1 ? 'max-w-md mx-auto sm:grid-cols-1' :
+                    tierMembers.length === 2 ? 'lg:grid-cols-2 max-w-4xl mx-auto' :
                     tierMembers.length === 3 ? 'lg:grid-cols-3' : 'lg:grid-cols-4'
                   } gap-6`}>
                     {tierMembers.map((member, i) => (
@@ -522,7 +538,7 @@ export default function Faculty() {
                         {/* Faculty Portrait Image */}
                         <div className="w-full aspect-[706/1024] overflow-hidden relative bg-slate-100 shrink-0">
                           <OptimizedImage 
-                            src={member.image || "/images/WhatsApp.jpeg"}
+                            src={member.image || "/logo.jpeg"}
                             alt={member.name}
                             fill
                             section="faculty"

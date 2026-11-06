@@ -341,10 +341,10 @@ const Header = () => {
                       </div>
                       <div className="text-right">
                         <div className="text-sm font-black text-slate-900 font-urdu leading-tight">
-                          ابوبکر صدیق
+                          پروفیسر ابوبکر صدیق ربانی
                         </div>
                         <div className="text-[11px] font-bold text-emerald-800 font-urdu leading-tight mt-0.5">
-                          آئی ٹی اینڈ سسٹم ایڈمنسٹریٹر
+                          رجسٹرار، خزانچی و HOD فار آل
                         </div>
                       </div>
                     </div>

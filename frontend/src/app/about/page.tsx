@@ -322,29 +322,29 @@ export default function About() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch">
               
-              {/* Leader 1: Principal Dr. Farooq Ali Rabbani */}
+              {/* Leader 1: Vice Chancellor & Dean Dr. Peer Abu Ahmad Farooq Ali Rabbani */}
               <div className="p-6 sm:p-7 rounded-3xl bg-slate-50 border border-slate-200 shadow-sm flex flex-col items-center text-center group hover:border-emerald-300 transition-all justify-between">
                 <div className="flex flex-col items-center">
                   <div className="relative w-44 sm:w-52 aspect-[706/1024] rounded-2xl overflow-hidden border-4 border-white shadow-lg mb-5 ring-2 ring-emerald-600/30 bg-slate-100">
                     <Image 
                       src="/farooq-ali-rabbani.jpeg" 
-                      alt="Dr. Farooq Ali Rabbani" 
+                      alt="ڈاکٹر پیر ابو احمد فاروق علی ربانی نقشبندی مجددی صاحب" 
                       fill 
                       priority
                       className="object-cover object-top group-hover:scale-105 transition-transform duration-300" 
                     />
                   </div>
                   <span className="px-3 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 uppercase tracking-wider mb-2 font-urdu">
-                    پرنسپل / Principal
+                    وائس چانسلر و ڈین / Vice Chancellor & Dean
                   </span>
-                  <h3 className="text-lg sm:text-xl font-black text-slate-900 font-urdu">
-                    پروفیسر ڈاکٹر فاروق علی ربانی
+                  <h3 className="text-lg sm:text-xl font-black text-slate-900 font-urdu leading-[1.9]">
+                    ڈاکٹر پیر ابو احمد فاروق علی ربانی نقشبندی مجددی صاحب
                   </h3>
                   <p className="text-xs sm:text-sm font-bold text-emerald-700 mt-1 mb-3 font-urdu">
-                    پرنسپل، جامعہ شیرِ ربانی (2008ء تا حال)
+                    وائس چانسلر و ڈین، جامعہ شیرِ ربانی (2008ء تا حال)
                   </p>
                   <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-sm font-urdu" dir="rtl">
-                    سن 2008ء سے تا حال پرنسپل کے فرائض سرانجام دے رہے ہیں۔ ڈاکٹر صاحب نے جامعہ کے تعلیمی ارتقاء، جدید نصابی اصلاحات، اور وفاق المدارس الاسلامیہ الرضویہ و وزارتِ تعلیم سے رجسٹریشن میں کلیدی کردار ادا کیا۔
+                    جامعہ شیرِ ربانی کے وائس چانسلر و ڈین ہیں۔ ڈاکٹر صاحب نے جامعہ کے تعلیمی ارتقاء، صحاحِ ستہ کی تدریس، جدید نصابی اصلاحات اور وفاق المدارس الاسلامیہ الرضویہ و وزارتِ تعلیم سے الحاق میں کلیدی کردار ادا کیا۔
                   </p>
                 </div>
                 <Link
@@ -356,70 +356,70 @@ export default function About() {
                 </Link>
               </div>
 
-              {/* Leader 2: Nazim-e-Taleem Hafiz Muhammad Ahmad Ali Rabbani */}
+              {/* Leader 2: Controller of Examinations Islamic Scholar Hafiz Al-Qari Muhammad Ahmad Rabbani */}
               <div className="p-6 sm:p-7 rounded-3xl bg-slate-50 border border-slate-200 shadow-sm flex flex-col items-center text-center group hover:border-emerald-300 transition-all justify-between">
                 <div className="flex flex-col items-center">
                   <div className="relative w-44 sm:w-52 aspect-[706/1024] rounded-2xl overflow-hidden border-4 border-white shadow-lg mb-5 ring-2 ring-emerald-600/30 bg-slate-100">
                     <Image 
                       src="/hafiz-ahmad-ali.jpeg" 
-                      alt="حافظ محمد احمد علی ربانی" 
+                      alt="اسلامک اسکالر حافظ القاری محمد احمد ربانی صاحب" 
                       fill 
                       unoptimized
                       priority
                       className="object-cover object-top group-hover:scale-105 transition-transform duration-300" 
                     />
                   </div>
-                  <span className="px-3 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 uppercase tracking-wider mb-2 font-urdu">
-                    نائب مہتمم و ناظمِ تعلیمات / Director of Education
+                  <span className="px-3 py-0.5 rounded-full text-xs font-bold bg-teal-100 text-teal-800 uppercase tracking-wider mb-2 font-urdu">
+                    کنٹرولر امتحانات و ناظمِ تعلیمات / Controller & Director
                   </span>
-                  <h3 className="text-lg sm:text-xl font-black text-slate-900 font-urdu">
-                    حافظ محمد احمد علی ربانی
+                  <h3 className="text-lg sm:text-xl font-black text-slate-900 font-urdu leading-[1.9]">
+                    اسلامک اسکالر حافظ القاری محمد احمد ربانی صاحب
                   </h3>
-                  <p className="text-xs sm:text-sm font-bold text-emerald-700 mt-1 mb-3 font-urdu">
-                    ناظمِ تعلیم، جامعہ شیرِ ربانی (2022ء تا حال)
+                  <p className="text-xs sm:text-sm font-bold text-teal-700 mt-1 mb-3 font-urdu">
+                    کنٹرولر امتحانات و ناظمِ تعلیمات (2022ء تا حال)
                   </p>
                   <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-sm font-urdu" dir="rtl">
-                    سن 2022ء سے تا حال ناظمِ تعلیم کے طور پر خدمات سرانجام دے رہے ہیں۔ روزمرہ کے تدریسی نظم و ضبط، اساتذہ کی رہنمائی اور طلبہ کے امتحانی و تربیتی معیار کی مکمل نگرانی فرماتے ہیں۔
+                    جامعہ شیرِ ربانی کے کنٹرولر امتحانات اور ناظمِ تعلیمات ہیں۔ روزمرہ کے تدریسی نظم و ضبط، جملہ شعبہ جات کے سالانہ امتحانات کے انعقاد اور طلبہ کے امتحانی و تربیتی معیار کی مکمل نگرانی فرماتے ہیں۔
                   </p>
                 </div>
                 <Link
                   href="/faculty-profile?id=4"
-                  className="mt-6 inline-flex items-center gap-1.5 px-5 py-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold shadow-xs transition-colors font-urdu"
+                  className="mt-6 inline-flex items-center gap-1.5 px-5 py-2 rounded-xl bg-teal-700 hover:bg-teal-800 text-white text-xs font-bold shadow-xs transition-colors font-urdu"
                 >
                   <span>تفصیلی پروفائل دیکھیں</span>
                   <ChevronLeft size={13} />
                 </Link>
               </div>
 
-              {/* Leader 3: IT & System Administrator Mohtaram Abubakar Siddique Sahib */}
+              {/* Leader 3: Registrar, Treasurer & HOD for All Prof. Abubakar Siddique Rabbani */}
               <div className="p-6 sm:p-7 rounded-3xl bg-slate-50 border border-slate-200 shadow-sm flex flex-col items-center text-center group hover:border-emerald-300 transition-all justify-between">
                 <div className="flex flex-col items-center">
                   <div className="relative w-44 sm:w-52 aspect-[706/1024] rounded-2xl overflow-hidden border-4 border-white shadow-lg mb-5 ring-2 ring-emerald-600/30 bg-slate-100">
                     <Image 
                       src="/abubakar-latest.jpeg" 
-                      alt="محترم ابوبکر صدیق صاحب" 
+                      alt="پروفیسر ابوبکر صدیق ربانی صاحب" 
                       fill 
                       unoptimized
                       priority
                       className="object-cover group-hover:scale-105 transition-transform duration-300" 
                     />
                   </div>
-                  <span className="px-3 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 uppercase tracking-wider mb-2 font-urdu">
-                    ڈائریکٹر انفارمیشن ٹیکنالوجی / Director IT
+                  <span className="px-3 py-0.5 rounded-full text-xs font-bold bg-blue-100 text-blue-800 uppercase tracking-wider mb-2 font-urdu">
+                    رجسٹرار، خزانچی، چیئرپرسن و HOD فار آل
                   </span>
-                  <h3 className="text-lg sm:text-xl font-black text-slate-900 font-urdu">
-                    محترم ابوبکر صدیق صاحب
+                  <h3 className="text-lg sm:text-xl font-black text-slate-900 font-urdu leading-[1.9]">
+                    پروفیسر ابوبکر صدیق ربانی صاحب
                   </h3>
-                  <p className="text-xs sm:text-sm font-bold text-emerald-700 mt-1 mb-3 font-urdu">
-                    Director IT & Software Systems (2022ء تا حال)
+                  <p className="text-xs sm:text-sm font-bold text-blue-700 mt-1 mb-3 font-urdu">
+                    Registrar, Treasurer, Chairperson & HOD for All
                   </p>
                   <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-sm font-urdu" dir="rtl">
-                    سن 2022ء سے تا حال جامعہ شیرِ ربانی کے آئی ٹی و سسٹم ایڈمنسٹریشن کے فرائض سنبھالے ہوئے ہیں۔ جن میں آفیشل پورٹل، ڈیٹابیس، ریکارڈ مینجمنٹ سسٹم، آن لائن داخلہ جات اور ڈیجیٹل انفراسٹرکچر کی مکمل نگرانی شامل ہے۔
+                    جامعہ شیرِ ربانی کے رجسٹرار، خزانچی، چیئرپرسن اور تمام شعبہ جات کے ہیڈ آف ڈیپارٹمنٹس (HOD for All) ہیں۔ ادارے کے تمام شعبہ جات کا تیکنیکی، مالیاتی اور رجسٹرار شپ کا نظام، کلاؤڈ سسٹمز اور آئی ٹی انٹرن شپ پروگرام آپ کی زیرِ نگرانی ہے۔
                   </p>
                 </div>
                 <Link
                   href="/faculty-profile?id=3"
-                  className="mt-6 inline-flex items-center gap-1.5 px-5 py-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold shadow-xs transition-colors font-urdu"
+                  className="mt-6 inline-flex items-center gap-1.5 px-5 py-2 rounded-xl bg-blue-700 hover:bg-blue-800 text-white text-xs font-bold shadow-xs transition-colors font-urdu"
                 >
                   <span>تفصیلی پروفائل دیکھیں</span>
                   <ChevronLeft size={13} />

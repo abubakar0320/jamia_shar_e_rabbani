@@ -424,7 +424,7 @@ const Footer = () => {
               <div>
                 <div className="flex items-center justify-between gap-2 mb-2">
                   <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-900 border border-emerald-300 font-urdu">
-                    ناظمِ تعلیم / بیرونِ ملک رابطہ
+                    کنٹرولر امتحانات و ناظمِ تعلیمات
                   </span>
                   <span className="text-[10px] text-emerald-700 font-urdu font-bold">
                     WhatsApp
@@ -433,7 +433,7 @@ const Footer = () => {
                 <div className="mb-3">
                   <span className="text-[11px] text-slate-500 font-urdu block">نام و عہدہ:</span>
                   <span className="text-sm sm:text-base font-black text-slate-900 font-urdu">
-                    حافظ محمد احمد علی ربانی
+                    اسلامک اسکالر حافظ القاری محمد احمد ربانی صاحب
                   </span>
                 </div>
               </div>
@@ -488,7 +488,7 @@ const Footer = () => {
               <div>
                 <div className="flex items-center justify-between gap-2 mb-2">
                   <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-teal-100 text-teal-900 border border-teal-300 font-urdu">
-                    پرنسپل، جامعہ شیرِ ربانی
+                    وائس چانسلر و ڈینِ فیکلٹی
                   </span>
                   <span className="text-[10px] text-teal-700 font-urdu font-bold">
                     کال و واٹس ایپ
@@ -497,7 +497,7 @@ const Footer = () => {
                 <div className="mb-3">
                   <span className="text-[11px] text-slate-500 font-urdu block">نام و عہدہ:</span>
                   <span className="text-sm sm:text-base font-black text-slate-900 font-urdu">
-                    پروفیسر ڈاکٹر فاروق علی ربانی
+                    ڈاکٹر پیر ابو احمد فاروق علی ربانی نقشبندی مجددی صاحب
                   </span>
                 </div>
               </div>
@@ -552,7 +552,7 @@ const Footer = () => {
               <div>
                 <div className="flex items-center justify-between gap-2 mb-2">
                   <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-sky-100 text-sky-900 border border-sky-300 font-urdu">
-                    آئی ٹی اینڈ سسٹم ایڈمنسٹریٹر
+                    رجسٹرار، خزانچی و HOD فار آل
                   </span>
                   <span className="text-[10px] text-sky-700 font-urdu font-bold">
                     آن لائن داخلہ و تکنیکی معاونت
@@ -561,7 +561,7 @@ const Footer = () => {
                 <div className="mb-3">
                   <span className="text-[11px] text-slate-500 font-urdu block">نام و عہدہ:</span>
                   <span className="text-sm sm:text-base font-black text-slate-900 font-urdu">
-                    محترم ابوبکر صدیق صاحب
+                    پروفیسر ابوبکر صدیق ربانی صاحب
                   </span>
                 </div>
               </div>
@@ -630,7 +630,7 @@ const Footer = () => {
               className="inline-flex items-center gap-1.5 text-slate-700 hover:text-emerald-800 font-bold transition-colors bg-slate-50 hover:bg-emerald-50 px-2.5 py-1 rounded-full border border-slate-200 hover:border-emerald-300 group"
             >
               <Code2 size={14} className="text-emerald-600 group-hover:rotate-12 transition-transform" />
-              <span>ڈویلپر: محترم ابوبکر صدیق صاحب (آئی ٹی ایڈمن)</span>
+              <span>ڈویلپر: پروفیسر ابوبکر صدیق ربانی صاحب (رجسٹرار و آئی ٹی ہیڈ)</span>
             </Link>
           </div>
         </div>
