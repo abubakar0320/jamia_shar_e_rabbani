@@ -72,6 +72,14 @@ export default function AcademicPrograms() {
       desc: 'اسکول، کالج اور یونیورسٹی کے طلبہ و ملازمین کے لیے اوقاتِ کار کے مطابق لچکدار اور منظم دینی تعلیم۔',
       image: '/hadith.jpg',
       link: '/courses'
+    },
+    {
+      id: 'almiya-khasoosi',
+      title: 'عالمیہ خصوصی برائے بی اے پاس (مساوی ایم اے)',
+      category: 'فاسٹ ٹریک ۲ سالہ ڈگری',
+      desc: 'بی اے / گریجویشن پاس طلبہ و طالبات کے لیے صرف ۲ سال میں مکمل عالمیہ کورس، مساوی ایم اے عربی و اسلامیات (HEC منظور شدہ)۔',
+      image: '/hadith.jpg',
+      link: '/program?id=7'
     }
   ];
 

@@ -255,7 +255,7 @@ export default function Courses() {
                 ہر کورس کی تفصیلی وضاحت، تدریسی کتب اور شرائطِ داخلہ
               </h2>
               <p className="text-slate-600 text-sm md:text-base leading-[2.2] md:leading-[2.3] font-urdu">
-                جامعہ شیرِ ربانی کے تمام چھ کورسز کا مکمل تعارف، شامل کتب، شرائطِ داخلہ اور حاصلاتِ تعلّم پڑھنے کے لیے متعلقہ کورس پر کلک کریں۔
+                جامعہ شیرِ ربانی کے تمام سات کورسز کا مکمل تعارف، شامل کتب، شرائطِ داخلہ اور حاصلاتِ تعلّم پڑھنے کے لیے متعلقہ کورس پر کلک کریں۔
               </p>
             </div>
 
@@ -317,7 +317,13 @@ export default function Courses() {
                           <div className="pt-4 border-t border-slate-100">
                             <h4 className="text-base font-black text-slate-900 mb-3 flex items-center gap-2 text-emerald-800">
                               <GraduationCap size={18} />
-                              <span>تعلیمی مراحل و تدریسی کتب (۸ سالہ مرحلہ وار خاکہ):</span>
+                              <span>
+                                {course.id === 2 
+                                  ? 'تعلیمی مراحل و تدریسی کتب (۸ سالہ مرحلہ وار خاکہ):' 
+                                  : course.id === 7 
+                                    ? 'تعلیمی مراحل و تدریسی کتب (۲ سالہ مرحلہ وار فاسٹ ٹریک خاکہ):' 
+                                    : 'تعلیمی مراحل و تدریسی کتب (مرحلہ وار خاکہ):'}
+                              </span>
                             </h4>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                               {course.curriculumStages.map((stage, idx) => (

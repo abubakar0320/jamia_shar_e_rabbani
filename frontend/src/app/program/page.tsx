@@ -97,12 +97,21 @@ const staticCourses: Course[] = [
     level: 'Intermediate',
     desc: 'Flexible Islamic scholarship program for college and university students.',
     image: '/hadith.jpg'
+  },
+  {
+    id: 7,
+    title: 'Almiya Khasoosi for BA Graduates',
+    duration: '2 Years',
+    level: 'Advanced',
+    desc: 'Fast-track 2-year Shahadat-ul-Almiya program for BA/BSc graduates equivalent to MA Arabic & Islamic Studies for male and female students.',
+    image: '/hadith.jpg'
   }
 ];
 
 // Helper functions to translate raw database values into clean authentic Urdu while preserving original data
 function translateTitle(raw: string): string {
   const t = raw.toLowerCase();
+  if (t.includes('almiya') || t.includes('ba-pass') || t.includes('7_title')) return 'درسِ نظامی عالمیہ خصوصی (برائے بی اے پاس طلبہ و طالبات)';
   if (t.includes('hifz') || t.includes('1_title')) return 'شعبہ تحفیظ القرآن الکریم';
   if (t.includes('dars-e-nizami') || t.includes('dars') || t.includes('2_title')) return 'درسِ نظامی (عالم و فاضل کورس)';
   if (t.includes('tajweed') || t.includes('qira') || t.includes('3_title')) return 'تجوید و قرات سبعہ و عشرہ';
@@ -315,7 +324,13 @@ function CourseDetailsContent() {
 
                 {detail?.curriculumStages && (
                   <div className="mt-6 pt-5 border-t border-slate-100">
-                    <h4 className="text-sm font-bold text-slate-900 mb-3 font-urdu">تعلیمی مراحل (۸ سالہ مرحلہ وار تدریس):</h4>
+                    <h4 className="text-sm font-bold text-slate-900 mb-3 font-urdu">
+                      {detail.id === 2 
+                        ? 'تعلیمی مراحل (۸ سالہ مرحلہ وار تدریس):' 
+                        : detail.id === 7 
+                          ? 'تعلیمی مراحل (۲ سالہ مرحلہ وار فاسٹ ٹریک تدریس):' 
+                          : 'تعلیمی مراحل و نصابی تقسیم:'}
+                    </h4>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       {detail.curriculumStages.map((stg, i) => (
                         <div key={i} className="p-3.5 bg-slate-50 rounded-xl border border-slate-200 text-xs">

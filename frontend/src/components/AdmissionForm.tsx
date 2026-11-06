@@ -75,8 +75,8 @@ const PROGRAM_LABELS: Record<string, string> = {
   "Takhassus Dom": "تخصص فی الفقہ والافتاء سالِ دوم",
   "Amma Khasusi": "عامہ خصوصی (برائے کالج و اسکول طلبہ)",
   "Khasa Khasusi": "خاصہ خصوصی (برائے کالج و یونیورسٹی طلبہ)",
-  "Almiya Khasusi Part One": "عالمیہ خصوصی پارٹ ون",
-  "Almiya Khasusi Part Two": "عالمیہ خصوصی پارٹ ٹو",
+  "Almiya Khasusi Part One": "عالمیہ خصوصی سالِ اول (برائے بی اے پاس طلبہ و طالبات - ۲ سالہ مساوی ایم اے)",
+  "Almiya Khasusi Part Two": "عالمیہ خصوصی سالِ دوم / دورۂ حدیث (برائے بی اے پاس طلبہ و طالبات)",
   "Hifz-ul-Quran": "شعبہ تحفیظ القرآن الکریم",
   "Tajweed-o-Qira'at": "شعبہ تجوید و قرات سبعہ و عشرہ"
 };
