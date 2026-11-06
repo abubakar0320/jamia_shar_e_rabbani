@@ -4,9 +4,8 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { 
   GraduationCap, Mail, Phone, ChevronLeft, 
-  UserCircle, BookOpen, ShieldCheck, Sparkles, 
-  Award, Building2, Crown, Briefcase, Layers,
-  CheckCircle2, ArrowDown
+  BookOpen, ShieldCheck, Sparkles, 
+  Building2, Crown, Layers, Award
 } from 'lucide-react';
 import React, { useEffect, useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
@@ -43,7 +42,7 @@ export default function Faculty() {
       departmentColor: 'bg-amber-50 text-amber-800 border-amber-200',
       education: 'جامعہ الازہر مصر (ایم اے) و دار العلوم دیوبند',
       specialization: 'تفسیرِ قرآن، سیرت نگاری، اسلامی عدالتی قوانین و تقابلی شریعت',
-      image: '/gallery/1. Zayah ul umat justice peer muhammad karam shah.jpeg',
+      image: '/gallery/1. حضور ضیاء الامت جسٹس پیر محمد کرم شاہ الازہری علیہ الرحمہ.jpeg',
       email: 'jamiashererabbani07@gmail.com',
       contact: '03144081516'
     },
@@ -60,7 +59,7 @@ export default function Faculty() {
       departmentColor: 'bg-emerald-50 text-emerald-800 border-emerald-200',
       education: 'فاضل علومِ اسلامیہ، عسکری نظم و ضبط و سلاسلِ طریقت نقشبندیہ مجددیہ',
       specialization: 'سرپرستیِ ادارہ، فکری و انتظامی رہنمائی، نظم و نسق اور سلسلہ عالیہ نقشبندیہ',
-      image: '/logo.jpeg',
+      image: '/gallery/1.1مولانا الحاج صوبیدار محمد یوسف نقشبندی مجددی صاحب.jpeg',
       email: 'jamiashererabbani07@gmail.com',
       contact: '03144081516'
     },
@@ -75,7 +74,7 @@ export default function Faculty() {
       departmentColor: 'bg-teal-50 text-teal-800 border-teal-200',
       education: 'پی ایچ ڈی علومِ اسلامیہ | تخصص فی الحدیث و درسِ نظامی (عالمیہ)',
       specialization: 'علومِ حدیث، تفاسیرِ قرآن، فقہِ اسلامی، نصابی اصلاحات و یونیورسٹی ایڈمنسٹریشن',
-      image: '/farooq-ali-rabbani.jpeg',
+      image: '/gallery/2. ڈاکٹر پیر ابو احمد فاروق علی ربانی صاحب.jpeg',
       email: 'jamiashererabbani07@gmail.com',
       contact: '03144081516'
     },
@@ -92,7 +91,7 @@ export default function Faculty() {
       departmentColor: 'bg-teal-50 text-teal-800 border-teal-200',
       education: 'الشہادۃ العالمیہ فی العلوم الاسلامیہ والعربیۃ | حفظ و قرآت سبعہ عشرہ',
       specialization: 'امتحانی کنٹرول و شفافیت، نصاب سازی، تعلیمی نظم و ضبط اور طلبہ کونسلنگ',
-      image: '/hafiz-ahmad-ali.jpeg',
+      image: '/gallery/3. hafiz ahmad ali.jpeg',
       email: 'jamiashererabbani07@gmail.com',
       contact: '+966540532511'
     },
@@ -107,7 +106,7 @@ export default function Faculty() {
       departmentColor: 'bg-blue-50 text-blue-800 border-blue-200',
       education: 'بی ایس انفارمیشن ٹیکنالوجی (BSIT)، بابا گرو نانک یونیورسٹی | گوگل و سسکو سرٹیفائیڈ',
       specialization: 'یونیورسٹی رجسٹرار شپ، مالیاتی نظم و نسق (Treasurer)، چیئرپرسن شپ، تمام شعبہ جات کی نگرانی (HOD for All) و کلاؤڈ سسٹمز',
-      image: '/abubakar-latest.jpeg',
+      image: '/gallery/4. abubakar-siddique.jpeg',
       email: 'abubakr.bgnu@gmail.com',
       contact: '03097354874'
     },
@@ -184,7 +183,7 @@ export default function Faculty() {
       departmentColor: 'bg-emerald-50 text-emerald-800 border-emerald-200',
       education: 'عالمیہ (درسِ نظامی) و تخصص فی الفقہ',
       specialization: 'فقہِ اسلامی، اصولِ فقہ، نحو و صرف اور عربی ادب',
-      image: '/ali-hamza.jpeg',
+      image: '/gallery/8. ali-hamza.jpeg',
       email: 'jamiashererabbani07@gmail.com',
       contact: '03144081516'
     },
@@ -267,7 +266,7 @@ export default function Faculty() {
       badge: 'اکابرینِ اہلِ سنت',
       headerBg: 'bg-gradient-to-r from-amber-950 via-amber-900 to-amber-950 text-white',
       badgeBg: 'bg-amber-400 text-slate-950',
-      icon: <Crown size={22} className="text-amber-300" />
+      icon: <Crown size={22} className="text-amber-300 shrink-0" />
     },
     {
       id: 'chancellor',
@@ -276,7 +275,7 @@ export default function Faculty() {
       badge: 'چانسلر و وائس چانسلر / ڈین',
       headerBg: 'bg-gradient-to-r from-emerald-950 via-emerald-900 to-teal-950 text-white',
       badgeBg: 'bg-emerald-400 text-slate-950',
-      icon: <ShieldCheck size={22} className="text-emerald-300" />
+      icon: <ShieldCheck size={22} className="text-emerald-300 shrink-0" />
     },
     {
       id: 'officers',
@@ -285,7 +284,7 @@ export default function Faculty() {
       badge: 'کنٹرولر امتحانات، رجسٹرار و HOD فار آل',
       headerBg: 'bg-gradient-to-r from-teal-950 via-teal-900 to-slate-950 text-white',
       badgeBg: 'bg-teal-400 text-slate-950',
-      icon: <Building2 size={22} className="text-teal-300" />
+      icon: <Building2 size={22} className="text-teal-300 shrink-0" />
     },
     {
       id: 'professor',
@@ -294,14 +293,9 @@ export default function Faculty() {
       badge: 'پروفیسرز فیکلٹی',
       headerBg: 'bg-gradient-to-r from-slate-900 via-slate-800 to-emerald-950 text-white',
       badgeBg: 'bg-sky-400 text-slate-950',
-      icon: <BookOpen size={22} className="text-sky-300" />
+      icon: <BookOpen size={22} className="text-sky-300 shrink-0" />
     }
   ];
-
-  const filteredFaculty = useMemo(() => {
-    if (selectedTier === 'all') return faculty;
-    return faculty.filter(m => m.tier === selectedTier);
-  }, [faculty, selectedTier]);
 
   const tierCounts = useMemo(() => {
     const counts: Record<string, number> = { all: faculty.length };
@@ -322,61 +316,61 @@ export default function Faculty() {
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-white font-urdu" dir="rtl">
+    <div className="flex flex-col min-h-screen bg-slate-50/40 font-urdu selection:bg-emerald-100 selection:text-emerald-900" dir="rtl">
       <Header />
       
-      <main className="flex-1 bg-white text-slate-900">
+      <main className="flex-1 bg-transparent text-slate-900">
         
-        {/* --- 1. HERO SECTION WITH INSTITUTIONAL HIERARCHY --- */}
-        <section className="relative pt-16 md:pt-22 pb-14 border-b border-slate-200 bg-gradient-to-b from-slate-900 via-emerald-950 to-slate-900 text-white overflow-hidden text-right">
-          <div className="absolute top-0 right-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+        {/* --- 1. HERO SECTION (OPTIMIZED FOR MOBILE & DESKTOP) --- */}
+        <section className="relative pt-12 sm:pt-16 md:pt-20 pb-10 sm:pb-14 border-b border-slate-200 bg-gradient-to-b from-slate-950 via-emerald-950 to-slate-900 text-white overflow-hidden text-right">
+          <div className="absolute top-0 right-1/4 w-72 sm:w-96 h-72 sm:h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute bottom-0 left-1/4 w-72 sm:w-96 h-72 sm:h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
             <motion.div 
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
               className="max-w-4xl mx-auto"
             >
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-800/60 border border-emerald-400/30 text-amber-300 text-xs sm:text-sm font-bold mb-4 shadow-sm">
-                <Sparkles size={15} className="text-amber-400" />
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-800/60 border border-emerald-400/30 text-amber-300 text-xs sm:text-sm font-bold mb-3 sm:mb-4 shadow-sm">
+                <Sparkles size={14} className="text-amber-400 shrink-0" />
                 <span>جامعہ شیرِ ربانی کی باوقار علمی و ادارتی تنظیمی ساخت (Faculty Hierarchy)</span>
               </div>
 
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.9] md:leading-[2.1] mb-5">
+              <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.8] sm:leading-[1.9] md:leading-[2.1] mb-3 sm:mb-4">
                 جامعہ کی فیکلٹی، شعبہ جات اور تنظیمی قیادت
               </h1>
 
-              <p className="text-base sm:text-lg md:text-xl text-emerald-100/90 leading-[2.2] md:leading-[2.3] max-w-3xl mx-auto mb-10">
+              <p className="text-xs sm:text-base md:text-lg text-emerald-100/90 leading-[2.1] sm:leading-[2.2] md:leading-[2.3] max-w-3xl mx-auto mb-6 sm:mb-8 px-2">
                 اکابرینِ اہلِ سنت کی فکری سرپرستی، چانسلر و وائس چانسلر / ڈین کی رہنمائی، کنٹرولر امتحانات و رجسٹرار / HOD کی مستحکم انتظامیہ اور متبحر پروفیسرز کا مربوط تنظیمی ڈھانچہ۔
               </p>
 
-              {/* Organizational Flow Visualizer Pills */}
-              <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 sm:p-5 border border-white/15 max-w-4xl mx-auto shadow-2xl">
-                <div className="text-xs sm:text-sm font-bold text-amber-300 mb-3 text-center">
+              {/* Organizational Flow Visualizer - Fully Responsive (2x2 on mobile, 4 in row on desktop) */}
+              <div className="bg-white/10 backdrop-blur-md rounded-2xl p-3 sm:p-5 border border-white/15 max-w-4xl mx-auto shadow-2xl">
+                <div className="text-xs sm:text-sm font-bold text-amber-300 mb-2.5 sm:mb-3 text-center">
                   جامعہ کی ادارتی و تعلیمی درجہ بندی کا فلو چارٹ (Organizational Hierarchy)
                 </div>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-3 text-xs sm:text-sm font-bold">
-                  <div className="bg-amber-400/20 border border-amber-400/40 rounded-xl p-3 flex flex-col items-center justify-center text-amber-200">
-                    <Crown size={20} className="text-amber-300 mb-1" />
-                    <span>۱. اکابرینِ اہلِ سنت</span>
-                    <span className="text-[10px] text-amber-300/80 mt-0.5">Spiritual Fountainhead</span>
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 text-xs sm:text-sm font-bold">
+                  <div className="bg-amber-400/20 border border-amber-400/40 rounded-xl p-2.5 sm:p-3 flex flex-col items-center justify-center text-amber-200 text-center">
+                    <Crown size={18} className="text-amber-300 mb-1 shrink-0" />
+                    <span className="leading-tight">۱. اکابرینِ اہلِ سنت</span>
+                    <span className="text-[10px] text-amber-300/80 mt-0.5 font-sans">Spiritual Fountainhead</span>
                   </div>
-                  <div className="bg-emerald-400/20 border border-emerald-400/40 rounded-xl p-3 flex flex-col items-center justify-center text-emerald-200">
-                    <ShieldCheck size={20} className="text-emerald-300 mb-1" />
-                    <span>۲. چانسلر و وائس چانسلر / ڈین</span>
-                    <span className="text-[10px] text-emerald-300/80 mt-0.5">Chancellor, VC & Dean</span>
+                  <div className="bg-emerald-400/20 border border-emerald-400/40 rounded-xl p-2.5 sm:p-3 flex flex-col items-center justify-center text-emerald-200 text-center">
+                    <ShieldCheck size={18} className="text-emerald-300 mb-1 shrink-0" />
+                    <span className="leading-tight">۲. چانسلر و وائس چانسلر</span>
+                    <span className="text-[10px] text-emerald-300/80 mt-0.5 font-sans">Chancellor, VC & Dean</span>
                   </div>
-                  <div className="bg-teal-400/20 border border-teal-400/40 rounded-xl p-3 flex flex-col items-center justify-center text-teal-200">
-                    <Building2 size={20} className="text-teal-300 mb-1" />
-                    <span>۳. کنٹرولر، رجسٹرار و HOD</span>
-                    <span className="text-[10px] text-teal-300/80 mt-0.5">Controller, Registrar & HOD</span>
+                  <div className="bg-teal-400/20 border border-teal-400/40 rounded-xl p-2.5 sm:p-3 flex flex-col items-center justify-center text-teal-200 text-center">
+                    <Building2 size={18} className="text-teal-300 mb-1 shrink-0" />
+                    <span className="leading-tight">۳. کنٹرولر، رجسٹرار و HOD</span>
+                    <span className="text-[10px] text-teal-300/80 mt-0.5 font-sans">Controller, Registrar & HOD</span>
                   </div>
-                  <div className="bg-sky-400/20 border border-sky-400/40 rounded-xl p-3 flex flex-col items-center justify-center text-sky-200">
-                    <BookOpen size={20} className="text-sky-300 mb-1" />
-                    <span>۴. پروفیسرز و تدریسی فیکلٹی</span>
-                    <span className="text-[10px] text-sky-300/80 mt-0.5">Teaching Faculty & Professors</span>
+                  <div className="bg-sky-400/20 border border-sky-400/40 rounded-xl p-2.5 sm:p-3 flex flex-col items-center justify-center text-sky-200 text-center">
+                    <BookOpen size={18} className="text-sky-300 mb-1 shrink-0" />
+                    <span className="leading-tight">۴. پروفیسرز و فیکلٹی</span>
+                    <span className="text-[10px] text-sky-300/80 mt-0.5 font-sans">Teaching Faculty</span>
                   </div>
                 </div>
               </div>
@@ -384,104 +378,78 @@ export default function Faculty() {
           </div>
         </section>
 
-        {/* --- 2. HIERARCHY FILTER BAR (STICKY) --- */}
-        <section className="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-xs">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5">
-            <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-thin">
+        {/* --- 2. HIERARCHY FILTER BAR (STICKY & TOUCH-FRIENDLY) --- */}
+        <section className="bg-white/95 backdrop-blur-md border-b border-slate-200 sticky top-0 z-30 shadow-xs">
+          <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2.5 sm:py-3.5">
+            <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto pb-1 scrollbar-none">
               <button
                 onClick={() => setSelectedTier('all')}
-                className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all duration-200 shrink-0 cursor-pointer ${
+                className={`inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all duration-200 shrink-0 cursor-pointer ${
                   selectedTier === 'all'
                     ? 'bg-emerald-700 text-white shadow-md shadow-emerald-700/20 scale-102'
                     : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
                 }`}
               >
-                <Layers size={16} />
-                <span>تمام فیکلٹی و قیادت</span>
-                <span className={`text-[11px] px-2 py-0.5 rounded-full font-sans font-bold ${
-                  selectedTier === 'all' ? 'bg-emerald-800 text-white' : 'bg-slate-200 text-slate-600'
-                }`}>
-                  {tierCounts.all}
-                </span>
+                <Layers size={15} />
+                <span>تمام فیکلٹی ({tierCounts.all})</span>
               </button>
 
               <button
                 onClick={() => setSelectedTier('akabir')}
-                className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all duration-200 shrink-0 cursor-pointer ${
+                className={`inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all duration-200 shrink-0 cursor-pointer ${
                   selectedTier === 'akabir'
                     ? 'bg-amber-700 text-white shadow-md shadow-amber-700/20 scale-102'
                     : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
                 }`}
               >
-                <Crown size={16} />
-                <span>اکابرینِ اہلِ سنت</span>
-                <span className={`text-[11px] px-2 py-0.5 rounded-full font-sans font-bold ${
-                  selectedTier === 'akabir' ? 'bg-amber-800 text-white' : 'bg-slate-200 text-slate-600'
-                }`}>
-                  {tierCounts.akabir || 0}
-                </span>
+                <Crown size={15} />
+                <span>اکابرینِ اہلِ سنت ({tierCounts.akabir || 0})</span>
               </button>
 
               <button
                 onClick={() => setSelectedTier('chancellor')}
-                className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all duration-200 shrink-0 cursor-pointer ${
+                className={`inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all duration-200 shrink-0 cursor-pointer ${
                   selectedTier === 'chancellor'
                     ? 'bg-emerald-700 text-white shadow-md shadow-emerald-700/20 scale-102'
                     : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
                 }`}
               >
-                <ShieldCheck size={16} />
-                <span>چانسلر، وائس چانسلر و ڈین</span>
-                <span className={`text-[11px] px-2 py-0.5 rounded-full font-sans font-bold ${
-                  selectedTier === 'chancellor' ? 'bg-emerald-800 text-white' : 'bg-slate-200 text-slate-600'
-                }`}>
-                  {tierCounts.chancellor || 0}
-                </span>
+                <ShieldCheck size={15} />
+                <span>چانسلر، وائس چانسلر و ڈین ({tierCounts.chancellor || 0})</span>
               </button>
 
               <button
                 onClick={() => setSelectedTier('officers')}
-                className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all duration-200 shrink-0 cursor-pointer ${
+                className={`inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all duration-200 shrink-0 cursor-pointer ${
                   selectedTier === 'officers'
                     ? 'bg-teal-700 text-white shadow-md shadow-teal-700/20 scale-102'
                     : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
                 }`}
               >
-                <Building2 size={16} />
-                <span>کنٹرولر، رجسٹرار و HOD فار آل</span>
-                <span className={`text-[11px] px-2 py-0.5 rounded-full font-sans font-bold ${
-                  selectedTier === 'officers' ? 'bg-teal-800 text-white' : 'bg-slate-200 text-slate-600'
-                }`}>
-                  {tierCounts.officers || 0}
-                </span>
+                <Building2 size={15} />
+                <span>کنٹرولر، رجسٹرار و HOD ({tierCounts.officers || 0})</span>
               </button>
 
               <button
                 onClick={() => setSelectedTier('professor')}
-                className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all duration-200 shrink-0 cursor-pointer ${
+                className={`inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all duration-200 shrink-0 cursor-pointer ${
                   selectedTier === 'professor'
                     ? 'bg-sky-700 text-white shadow-md shadow-sky-700/20 scale-102'
                     : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
                 }`}
               >
-                <BookOpen size={16} />
-                <span>پروفیسرز و تدریسی فیکلٹی</span>
-                <span className={`text-[11px] px-2 py-0.5 rounded-full font-sans font-bold ${
-                  selectedTier === 'professor' ? 'bg-sky-800 text-white' : 'bg-slate-200 text-slate-600'
-                }`}>
-                  {tierCounts.professor || 0}
-                </span>
+                <BookOpen size={15} />
+                <span>پروفیسرز ({tierCounts.professor || 0})</span>
               </button>
             </div>
           </div>
         </section>
 
         {/* --- 3. TIERED FACULTY SECTIONS (HIERARCHY LAYOUT) --- */}
-        <section className="py-12 md:py-16 px-4 sm:px-6 lg:px-8 bg-slate-50/60">
-          <div className="max-w-7xl mx-auto space-y-16">
+        <section className="py-8 sm:py-12 md:py-16 px-3 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto space-y-10 sm:space-y-16">
             
             {TIERS_CONFIG.map((tierConfig) => {
-              // If filtering by specific tier, only render that tier
               if (selectedTier !== 'all' && selectedTier !== tierConfig.id) {
                 return null;
               }
@@ -490,55 +458,51 @@ export default function Faculty() {
               if (tierMembers.length === 0) return null;
 
               return (
-                <div key={tierConfig.id} className="scroll-mt-24">
+                <div key={tierConfig.id} className="scroll-mt-20">
                   {/* Tier Header Banner */}
-                  <div className={`p-6 sm:p-7 rounded-3xl ${tierConfig.headerBg} shadow-lg mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4 border-2 border-white/20`}>
-                    <div className="flex items-center gap-3.5">
-                      <div className="w-12 h-12 rounded-2xl bg-white/15 backdrop-blur-md flex items-center justify-center border border-white/20 shrink-0">
+                  <div className={`p-4 sm:p-6 md:p-7 rounded-2xl sm:rounded-3xl ${tierConfig.headerBg} shadow-lg mb-6 sm:mb-8 flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4 border-2 border-white/20`}>
+                    <div className="flex items-start sm:items-center gap-3">
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-white/15 backdrop-blur-md flex items-center justify-center border border-white/20 shrink-0 mt-1 sm:mt-0">
                         {tierConfig.icon}
                       </div>
                       <div>
                         <div className="flex items-center gap-2 mb-1">
-                          <span className={`text-[11px] font-bold px-3 py-0.5 rounded-full font-urdu ${tierConfig.badgeBg}`}>
+                          <span className={`text-[10px] sm:text-[11px] font-bold px-2.5 sm:px-3 py-0.5 rounded-full font-urdu ${tierConfig.badgeBg}`}>
                             {tierConfig.badge}
                           </span>
-                          <span className="text-xs text-white/80 font-sans font-bold">
+                          <span className="text-[11px] sm:text-xs text-white/80 font-sans font-bold">
                             ({tierMembers.length} ارکان)
                           </span>
                         </div>
-                        <h2 className="text-2xl sm:text-3xl font-black text-white leading-[1.9]">
+                        <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-white leading-[1.8] sm:leading-[1.9]">
                           {tierConfig.title}
                         </h2>
-                        <p className="text-xs sm:text-sm text-white/85 leading-[2.1] mt-1 max-w-3xl">
+                        <p className="text-xs sm:text-sm text-white/85 leading-relaxed mt-1 max-w-3xl">
                           {tierConfig.subtitle}
                         </p>
                       </div>
                     </div>
-
-                    <div className="text-xs text-white/70 font-sans hidden lg:block text-left" dir="ltr">
-                      Tier Level: <span className="font-bold uppercase text-white">{tierConfig.id}</span>
-                    </div>
                   </div>
 
-                  {/* Tier Cards Grid */}
+                  {/* Tier Cards Grid - Responsive Grid Structure */}
                   <div className={`grid grid-cols-1 sm:grid-cols-2 ${
                     tierMembers.length === 1 ? 'max-w-md mx-auto sm:grid-cols-1' :
                     tierMembers.length === 2 ? 'lg:grid-cols-2 max-w-4xl mx-auto' :
-                    tierMembers.length === 3 ? 'lg:grid-cols-3' : 'lg:grid-cols-4'
-                  } gap-6`}>
+                    tierMembers.length === 3 ? 'lg:grid-cols-3' : 'lg:grid-cols-3 xl:grid-cols-4'
+                  } gap-4 sm:gap-6`}>
                     {tierMembers.map((member, i) => (
                       <motion.div 
                         key={member.id}
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 15 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ delay: i * 0.08, duration: 0.4 }}
-                        className="flex flex-col bg-white border border-slate-200/90 shadow-sm hover:shadow-xl rounded-2xl overflow-hidden transition-all duration-300 group hover:border-emerald-300"
+                        transition={{ delay: i * 0.05, duration: 0.35 }}
+                        className="flex flex-col bg-white border border-slate-200/90 shadow-xs hover:shadow-xl rounded-2xl overflow-hidden transition-all duration-300 group hover:border-emerald-300"
                       >
                         {/* Faculty Portrait Image */}
-                        <div className="w-full aspect-[706/1024] overflow-hidden relative bg-slate-100 shrink-0">
+                        <div className="w-full aspect-[706/1024] overflow-hidden relative bg-slate-900 shrink-0">
                           <OptimizedImage 
-                            src={member.image || "/logo.jpeg"}
+                            src={member.image}
                             alt={member.name}
                             fill
                             section="faculty"
@@ -547,56 +511,56 @@ export default function Faculty() {
                           />
                           
                           {/* Top Badges on Image */}
-                          <div className="absolute top-3 right-3 left-3 flex flex-wrap items-center justify-between gap-1.5 pointer-events-none z-10">
-                            <span className={`text-[11px] font-bold px-2.5 py-1 rounded-lg shadow-md ${member.tierBadgeColor} leading-[1.8]`}>
+                          <div className="absolute top-2.5 sm:top-3 right-2.5 sm:right-3 left-2.5 sm:left-3 flex flex-wrap items-center justify-between gap-1.5 pointer-events-none z-10">
+                            <span className={`text-[10px] sm:text-[11px] font-bold px-2.5 py-1 rounded-lg shadow-md ${member.tierBadgeColor} leading-normal`}>
                               {member.tierLabel}
                             </span>
                           </div>
                         </div>
                         
                         {/* Faculty Information Body */}
-                        <div className="p-5 sm:p-6 flex flex-col justify-between flex-1 text-right bg-white">
+                        <div className="p-4 sm:p-5 flex flex-col justify-between flex-1 text-right bg-white">
                           <div>
                             {/* Department Badge */}
-                            <div className="mb-2.5">
-                              <span className={`text-[11px] font-bold px-3 py-1 rounded-md border inline-block leading-[1.9] ${member.departmentColor}`}>
-                                <Building2 size={12} className="inline ml-1 -mt-0.5" />
+                            <div className="mb-2">
+                              <span className={`text-[10px] sm:text-[11px] font-bold px-2.5 py-0.5 rounded-md border inline-block leading-normal max-w-full truncate ${member.departmentColor}`}>
+                                <Building2 size={11} className="inline ml-1 -mt-0.5" />
                                 {member.department}
                               </span>
                             </div>
 
                             {/* Name */}
-                            <h3 className="text-lg sm:text-xl font-black text-slate-900 mb-2 leading-[2.1] group-hover:text-emerald-700 transition-colors">
+                            <h3 className="text-base sm:text-lg md:text-xl font-black text-slate-900 mb-1 leading-[1.8] group-hover:text-emerald-700 transition-colors">
                               {member.name}
                             </h3>
 
                             {/* Role */}
-                            <p className="text-xs font-bold text-emerald-800 mb-4 leading-[2.0]">
+                            <p className="text-xs sm:text-sm font-bold text-emerald-800 mb-3 leading-normal">
                               {member.role}
                             </p>
                             
                             {/* Academic Credentials Box */}
-                            <div className="space-y-2.5 mb-5 text-xs">
-                              <div className="bg-slate-50 p-3 rounded-xl border border-slate-200/70">
-                                <span className="font-bold text-slate-800 flex items-center gap-1.5 mb-1">
-                                  <GraduationCap size={14} className="text-emerald-700 shrink-0" />
+                            <div className="space-y-2 mb-4 text-xs">
+                              <div className="bg-slate-50 p-2.5 sm:p-3 rounded-xl border border-slate-100">
+                                <span className="font-bold text-slate-900 flex items-center gap-1.5 mb-0.5 text-[11px]">
+                                  <GraduationCap size={13} className="text-emerald-700 shrink-0" />
                                   <span>تعلیمی اسناد و اسناد:</span>
                                 </span>
-                                <span className="text-slate-600 block leading-[2.1]">{member.education}</span>
+                                <span className="text-slate-600 block leading-relaxed text-[11px] sm:text-xs">{member.education}</span>
                               </div>
 
-                              <div className="bg-slate-50 p-3 rounded-xl border border-slate-200/70">
-                                <span className="font-bold text-slate-800 flex items-center gap-1.5 mb-1">
-                                  <BookOpen size={14} className="text-emerald-700 shrink-0" />
+                              <div className="bg-slate-50 p-2.5 sm:p-3 rounded-xl border border-slate-100">
+                                <span className="font-bold text-slate-900 flex items-center gap-1.5 mb-0.5 text-[11px]">
+                                  <BookOpen size={13} className="text-emerald-700 shrink-0" />
                                   <span>تخصص و مہارت:</span>
                                 </span>
-                                <span className="text-slate-600 block leading-[2.1]">{member.specialization}</span>
+                                <span className="text-slate-600 block leading-relaxed text-[11px] sm:text-xs">{member.specialization}</span>
                               </div>
                             </div>
                           </div>
 
                           {/* Card Action Buttons */}
-                          <div className="flex items-center justify-between pt-4 border-t border-slate-100 gap-2">
+                          <div className="flex items-center justify-between pt-3 border-t border-slate-100 gap-2">
                             <div className="flex gap-1.5">
                               {member.email && (
                                 <Link 
@@ -620,10 +584,10 @@ export default function Faculty() {
 
                             <Link 
                               href={`/faculty-profile?id=${member.id}`}
-                              className="inline-flex items-center gap-1 px-3.5 py-1.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold shadow-xs hover:shadow-md transition-all"
+                              className="inline-flex items-center gap-1 px-3.5 py-1.5 sm:py-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold shadow-xs hover:shadow-md transition-all active:scale-95"
                             >
                               <span>پروفائل دیکھیں</span>
-                              <ChevronLeft size={14} />
+                              <ChevronLeft size={13} />
                             </Link>
                           </div>
                         </div>
@@ -638,25 +602,25 @@ export default function Faculty() {
         </section>
 
         {/* --- 4. CAMPUS FACULTY ADMISSIONS CTA --- */}
-        <section className="bg-gradient-to-r from-emerald-950 via-slate-900 to-emerald-950 text-white py-14 px-4 sm:px-6 lg:px-8 border-t-4 border-amber-400">
+        <section className="bg-gradient-to-r from-emerald-950 via-slate-900 to-emerald-950 text-white py-10 sm:py-14 px-4 sm:px-6 lg:px-8 border-t-4 border-amber-400">
           <div className="max-w-5xl mx-auto text-center">
-            <Building2 size={38} className="text-amber-400 mx-auto mb-3" />
-            <h2 className="text-2xl sm:text-4xl font-black text-white leading-[2.0] mb-3">
+            <Building2 size={36} className="text-amber-400 mx-auto mb-2.5" />
+            <h2 className="text-xl sm:text-3xl md:text-4xl font-black text-white leading-[1.9] mb-2 sm:mb-3">
               جامعہ شیرِ ربانی کے جید اساتذہ و شیوخ سے اکتسابِ فیض کریں
             </h2>
-            <p className="text-emerald-100/90 text-sm sm:text-base leading-[2.3] max-w-3xl mx-auto mb-8">
+            <p className="text-emerald-100/90 text-xs sm:text-base leading-[2.1] max-w-3xl mx-auto mb-6 sm:mb-8">
               درسِ نظامی، تخصص فی الفقہ، حفظ و تجوید، آئی ٹی سسٹمز اور تقابلِ ادیان کے لیے آن لائن داخلے جاری ہیں۔
             </p>
-            <div className="flex flex-wrap items-center justify-center gap-4">
+            <div className="flex flex-wrap items-center justify-center gap-3">
               <Link
                 href="/admissions"
-                className="px-8 py-3.5 bg-amber-400 hover:bg-amber-300 text-slate-950 font-black rounded-xl text-sm sm:text-base shadow-lg hover:shadow-xl transition-all"
+                className="w-full sm:w-auto px-7 py-3 bg-amber-400 hover:bg-amber-300 text-slate-950 font-black rounded-xl text-xs sm:text-sm shadow-lg hover:shadow-xl transition-all"
               >
                 آن لائن داخلہ فارم پر کریں
               </Link>
               <Link
                 href="/courses"
-                className="px-8 py-3.5 bg-emerald-700 hover:bg-emerald-600 text-white font-bold rounded-xl text-sm sm:text-base shadow-md border border-emerald-500/40 transition-all"
+                className="w-full sm:w-auto px-7 py-3 bg-emerald-700 hover:bg-emerald-600 text-white font-bold rounded-xl text-xs sm:text-sm shadow-md border border-emerald-500/40 transition-all"
               >
                 تمام کورسز کی تفصیلات
               </Link>

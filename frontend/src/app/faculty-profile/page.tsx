@@ -9,7 +9,7 @@ import {
   GraduationCap, Mail, Phone, BookOpen, 
   Award, Languages, Calendar, MapPin, 
   ChevronLeft, ArrowRight, UserCircle,
-  Briefcase, Search, FileText, CheckCircle2,
+  Briefcase, CheckCircle2,
   ShieldCheck, Building2, Crown
 } from 'lucide-react';
 import Link from 'next/link';
@@ -48,7 +48,7 @@ const staticFaculty: FacultyMember[] = [
     department: 'اکابرینِ اہلِ سنت و مرجعِ علمی و روحانی',
     education: 'جامعہ الازہر مصر (ایم اے)، جامعہ دار العلوم دیوبند، جامعہ محمدیہ غوثیہ',
     specialization: 'تفسیرِ قرآن، سیرت نگاری، اسلامی عدالتی قوانین اور فقہِ تقابلی',
-    image: '/gallery/1. Zayah ul umat justice peer muhammad karam shah.jpeg',
+    image: '/gallery/1. حضور ضیاء الامت جسٹس پیر محمد کرم شاہ الازہری علیہ الرحمہ.jpeg',
     email: 'jamiashererabbani07@gmail.com',
     contact: '03144081516',
     bio: 'حضور ضیاء الامت مفسرِ قرآن جسٹس پیر محمد کرم شاہ الازہری علیہ الرحمہ برصغیر پاک و ہند کی وہ تاریخ ساز شخصیت ہیں جنہوں نے دینی اور عصری علوم کے امتزاج کی بنیاد رکھی۔ آپ دار العلوم محمدیہ غوثیہ بھیرہ شریف کے بانی، شریعت ایپلٹ بینچ سپریم کورٹ آف پاکستان کے جج اور تفسیر ضیاء القرآن و سیرت ضیاء النبی ﷺ کے شہرۂ آفاق مصنف ہیں۔ آپ کی فکر اور رہنمائی جامعہ شیرِ ربانی کے لیے ہمیشہ مشعلِ راہ ہے۔',
@@ -74,7 +74,7 @@ const staticFaculty: FacultyMember[] = [
     department: 'دفترِ چانسلر و مجلسِ اعلٰی (Office of the Chancellor)',
     education: 'فاضل علومِ اسلامیہ، عسکری نظم و ضبط و سلاسلِ طریقت نقشبندیہ مجددیہ',
     specialization: 'سرپرستیِ ادارہ، فکری و انتظامی رہنمائی، نظم و نسق اور سلسلہ عالیہ نقشبندیہ',
-    image: '/logo.jpeg',
+    image: '/gallery/1.1مولانا الحاج صوبیدار محمد یوسف نقشبندی مجددی صاحب.jpeg',
     email: 'jamiashererabbani07@gmail.com',
     contact: '03144081516',
     bio: 'مولانا الحاج صوبیدار محمد یوسف نقشبندی مجددی صاحب جامعہ شیرِ ربانی مانانوالہ کے معزز چانسلر اور سرپرستِ اعلیٰ ہیں۔ آپ عسکری نظم و ضبط، دینی اخلاص، اور سلسلہ عالیہ نقشبندیہ مجددیہ کے روحانی فیضان کے امین ہیں۔ جامعہ شیرِ ربانی کے قیام، فکری تسلسل اور ہمہ جہت تعلیمی و رفاہی ترقی میں آپ کی مخلصانہ سرپرستی اور دعائیں ادارے کے لیے بیش قیمت اثاثہ ہیں۔ آپ کی زیرِ سرپرستی جامعہ ملک بھر میں علومِ نبویہ کی نشر و اشاعت میں نمایاں مقام رکھتا ہے۔',
@@ -103,7 +103,7 @@ const staticFaculty: FacultyMember[] = [
     department: 'دفترِ وائس چانسلر و ڈین آف اسلامک اسٹڈیز',
     education: 'پی ایچ ڈی علومِ اسلامیہ | تخصص فی الحدیث و درسِ نظامی (عالمیہ)',
     specialization: 'علومِ حدیث، تفاسیر، فقہِ اسلامی، نصابی اصلاحات و یونیورسٹی ایڈمنسٹریشن',
-    image: '/farooq-ali-rabbani.jpeg',
+    image: '/gallery/2. ڈاکٹر پیر ابو احمد فاروق علی ربانی صاحب.jpeg',
     email: 'jamiashererabbani07@gmail.com',
     contact: '03144081516',
     bio: 'ڈاکٹر پیر ابو احمد فاروق علی ربانی نقشبندی مجددی صاحب جامعہ شیرِ ربانی کے وائس چانسلر اور ڈین ہیں۔ آپ جلیل القدر محقق، شیخ الحدیث، اور سلسلہ عالیہ نقشبندیہ مجددیہ کے صاحبِ نسبت بزرگ ہیں۔ آپ نے 25 سال سے زائد عرصے میں ہزاروں طلبہ کو صحاحِ ستہ اور علومِ شریعہ کی تدریس فرمائی ہے۔ جامعہ کو وفاق المدارس الاسلامیہ الرضویہ سے ملحق کروانے، جدید تعلیمی مناہج کو شامل کرنے اور اکیڈمک وقار کو بامِ عروج پر پہنچانے میں آپ کی مساعی جلیلہ سنگِ میل کی حیثیت رکھتی ہیں۔',
@@ -129,7 +129,7 @@ const staticFaculty: FacultyMember[] = [
     department: 'دفترِ کنٹرولر امتحانات و نظامتِ تعلیمات (Examinations & Academics)',
     education: 'الشہادۃ العالمیہ فی العلوم الاسلامیہ والعربیۃ | حفظ و قرآت سبعہ عشرہ',
     specialization: 'امتحانی کنٹرول و شفافیت، نصاب سازی، تعلیمی نظم و ضبط اور طلبہ کونسلنگ',
-    image: '/hafiz-ahmad-ali.jpeg',
+    image: '/gallery/3. hafiz ahmad ali.jpeg',
     email: 'jamiashererabbani07@gmail.com',
     contact: '+966540532511',
     bio: 'اسلامک اسکالر حافظ القاری محمد احمد ربانی صاحب جامعہ شیرِ ربانی کے کنٹرولر امتحانات اور ناظمِ تعلیمات (Director of Education) ہیں۔ آپ جامعہ کے جملہ تعلیمی شعبہ جات (درسِ نظامی، حفظ و تجوید، تخصصات) کے سالانہ و ششماہی امتحانات، پرچہ جات کی تیاری، شفاف امتحانی ریکارڈ، رزلٹس کی تدوین اور یومیہ تدریسی نظم و ضبط کی مکمل نگرانی فرماتے ہیں۔ آپ کی زیرِ قیادت وفاق المدارس الاسلامیہ الرضویہ کے امتحانات میں جامعہ کے طلبہ شاندار پوزیشنز حاصل کر رہے ہیں۔',
@@ -158,7 +158,7 @@ const staticFaculty: FacultyMember[] = [
     department: 'مرکزی سیکرٹریٹ: رجسٹرار، خزانچی، چیئرپرسن و آئی ٹی سسٹمز',
     education: 'بی ایس انفارمیشن ٹیکنالوجی (BSIT)، بابا گرو نانک یونیورسٹی | گوگل و سسکو سرٹیفائیڈ',
     specialization: 'یونیورسٹی رجسٹرار شپ، مالیاتی نظم و نسق (Treasurer)، چیئرپرسن شپ، تمام شعبہ جات کی نگرانی (HOD for All) و کلاؤڈ سسٹمز',
-    image: '/abubakar-latest.jpeg',
+    image: '/gallery/4. abubakar-siddique.jpeg',
     email: 'abubakr.bgnu@gmail.com',
     contact: '03097354874',
     bio: 'پروفیسر ابوبکر صدیق ربانی صاحب جامعہ شیرِ ربانی کے رجسٹرار، خزانچی (Treasurer)، چیئرپرسن اور تمام شعبہ جات کے ہیڈ آف ڈیپارٹمنٹس (HOD for All) ہیں۔ آپ بابا گرو نانک یونیورسٹی (BGNU) سے بی ایس انفارمیشن ٹیکنالوجی کی تعلیم مکمل کر چکے ہیں اور گوگل پروجیکٹ مینجمنٹ و سسکو سائبر سیکیورٹی سرٹیفیکیشنز کے حامل ہیں۔ جامعہ شیرِ ربانی کے تمام شعبہ جات کا تیکنیکی، مالیاتی، انتظامی اور رجسٹرار شپ کا تمام تر مربوط نظام آپ کی نگرانی میں ہے۔ ادارے کا جدید ترین ویب پورٹل، ڈیٹابیس آرکیٹیکچر، آن لائن داخلہ فارمز اور خودکار امتحانی نظام آپ ہی کی فنی مہارت کا ثمر ہے، اس کے ساتھ آپ آئی ٹی انٹرن شپ پروگرام کے ذریعے نوجوانوں کی کیریئر کونسلنگ فرما رہے ہیں۔',
@@ -287,7 +287,7 @@ const staticFaculty: FacultyMember[] = [
     department: 'شعبہ درسِ نظامی و علومِ شریعہ',
     education: 'عالمیہ (درسِ نظامی) و تخصص فی الفقہ',
     specialization: 'فقہِ اسلامی، اصولِ فقہ، نحو و صرف اور عربی ادب',
-    image: '/ali-hamza.jpeg',
+    image: '/gallery/8. ali-hamza.jpeg',
     email: 'jamiashererabbani07@gmail.com',
     contact: '03144081516',
     bio: 'پروفیسر مولانا مفتی علی حمزہ صاحب جامعہ شیرِ ربانی میں فقہ، اصولِ فقہ اور عربی ادب کے نامور پروفیسر ہیں۔ آپ دار الافتاء کے سینئر فیکلٹی ممبر اور طلبہ کی علمی، اخلاقی اور فکری رہنمائی میں ہمہ وقت سرگرم رہتے ہیں۔',
@@ -362,7 +362,7 @@ const staticFaculty: FacultyMember[] = [
     image: '/gallery/10. Mufti Allama Zeeshan Ali Chisti Sabri.jpeg',
     email: 'jamiashererabbani07@gmail.com',
     contact: '03144081516',
-    bio: 'پروفیسر مفتی علامہ ذیشان علی چشتی صابری جید مفتی، متبحر عالم اور سلسلہ چشتیہ صابریہ کے معتبر اسکالر ہیں۔ آپ فقہِ حنفی، مسائلِ روزمرہ اور علومِ عربیہ کی تدریس میں اعلیٰ مہارت رکھتے ہیں اور جامعہ شیرِ ربانی کے مخلص فکری رفیق ہیں۔',
+    bio: 'پروفیسر مفتی علامہ ذیشان علی چشتی صابری جید مفتی، متبحر عالم اور سلسلہ چشتیہ صابریہ کے معتبر اسکالر ہیں۔ آپ فقہِ حنفی، مسائلِ روزمرہ اور علومِ عربیہ کی تدریس میں اعلیٰ مہارت رکھتے ہیں اور جامعہ شیرِ ربانی کے مخلص دینی و فکری رفیق ہیں۔',
     experience: '12+ سال کا تدریسی و افتاء کا تجربہ',
     research: 'احکامِ میراث، خرید و فروخت کے جدید مسائل اور فقہِ حنفی کے قواعد',
     courses: ['علم الفرائض و تقسیمِ ترکہ', 'کنز الدقائق و قدوری', 'اصولِ الشاشی', 'فنِ خطابت'],
@@ -407,14 +407,14 @@ function FacultyProfileContent() {
   const related = staticFaculty.filter(m => m.id !== member.id);
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50/50 font-urdu" dir="rtl">
+    <div className="min-h-screen flex flex-col bg-slate-50/50 font-urdu selection:bg-emerald-100 selection:text-emerald-900" dir="rtl">
       <Header />
       
-      <main className="flex-1 pb-20">
+      <main className="flex-1 pb-16 sm:pb-20">
         
-        {/* HEADER SECTION */}
-        <section className="bg-gradient-to-b from-slate-900 via-emerald-950 to-slate-900 text-white pt-14 pb-32 relative overflow-hidden text-right">
-          <div className="absolute inset-0 opacity-15 pointer-events-none">
+        {/* HEADER SECTION (RESPONSIVE: CENTERED ON MOBILE, ALIGNED ON DESKTOP) */}
+        <section className="bg-gradient-to-b from-slate-950 via-emerald-950 to-slate-900 text-white pt-10 sm:pt-14 pb-16 sm:pb-28 lg:pb-32 relative overflow-hidden text-right">
+          <div className="absolute inset-0 opacity-10 pointer-events-none">
             <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url("${member.image || '/logo.jpeg'}")` }} />
           </div>
           
@@ -422,14 +422,14 @@ function FacultyProfileContent() {
             {/* Back to Faculty Directory */}
             <Link 
               href="/faculty" 
-              className="inline-flex items-center gap-2 text-emerald-300 hover:text-white transition-colors mb-6 text-xs sm:text-sm font-bold"
+              className="inline-flex items-center gap-2 text-emerald-300 hover:text-white transition-colors mb-4 sm:mb-6 text-xs sm:text-sm font-bold"
             >
-              <ArrowRight size={16} /> <span>تمام اساتذہ و فیکلٹی ڈائریکٹری پر واپس جائیں</span>
+              <ArrowRight size={15} /> <span>تمام اساتذہ و فیکلٹی ڈائریکٹری پر واپس جائیں</span>
             </Link>
             
-            <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start lg:items-end">
+            <div className="flex flex-col lg:flex-row gap-6 lg:gap-10 items-center lg:items-end text-center lg:text-right">
               {/* Profile Image Box */}
-              <div className="w-44 sm:w-52 md:w-60 aspect-[706/1024] bg-white rounded-2xl shadow-2xl overflow-hidden relative border-4 border-white shrink-0 mb-0 lg:-mb-24 z-20">
+              <div className="w-40 sm:w-52 md:w-60 aspect-[706/1024] bg-white rounded-2xl shadow-2xl overflow-hidden relative border-4 border-white shrink-0 mb-2 lg:-mb-24 z-20">
                 <OptimizedImage 
                   src={member.image || "/logo.jpeg"}
                   alt={member.name}
@@ -442,11 +442,11 @@ function FacultyProfileContent() {
               {/* Profile Title & Roles */}
               <div className="flex-1 pb-2 z-20">
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
                 >
                   {/* Tier & Department Badges */}
-                  <div className="flex flex-wrap items-center gap-2 mb-3">
+                  <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 mb-2.5 sm:mb-3">
                     {member.tierLabel && (
                       <span className="px-3 py-1 rounded-lg text-xs font-bold bg-amber-400 text-slate-950 shadow-sm">
                         <Crown size={13} className="inline ml-1 -mt-0.5" />
@@ -461,34 +461,34 @@ function FacultyProfileContent() {
                     )}
                   </div>
 
-                  <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black mb-3 leading-[1.9] md:leading-[2.1]">
+                  <h1 className="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-black mb-2.5 leading-[1.8] sm:leading-[1.9] md:leading-[2.1]">
                     {member.name}
                   </h1>
                   
-                  <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-emerald-200 text-xs sm:text-sm font-bold">
+                  <div className="flex flex-wrap items-center justify-center lg:justify-start gap-x-4 gap-y-1.5 text-emerald-200 text-xs sm:text-sm font-bold">
                     <span className="flex items-center gap-1.5">
-                      <Briefcase size={16} className="text-emerald-400 shrink-0" />
+                      <Briefcase size={15} className="text-emerald-400 shrink-0" />
                       <span>{member.designation || member.role}</span>
                     </span>
                     <span className="flex items-center gap-1.5">
-                      <MapPin size={16} className="text-emerald-400 shrink-0" />
+                      <MapPin size={15} className="text-emerald-400 shrink-0" />
                       <span>جامعہ شیرِ ربانی مانانوالہ، شیخوپورہ</span>
                     </span>
                   </div>
                 </motion.div>
               </div>
               
-              {/* Contact Action Buttons */}
-              <div className="w-full lg:w-auto flex flex-wrap sm:flex-nowrap gap-3 z-20 lg:mb-2">
+              {/* Contact Action Buttons (Full width touch-targets on mobile) */}
+              <div className="w-full lg:w-auto flex flex-col sm:flex-row gap-2.5 sm:gap-3 z-20 lg:mb-2">
                 <Link 
                   href={`mailto:${member.email || 'jamiashererabbani07@gmail.com'}`} 
-                  className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-white text-slate-900 font-bold rounded-xl shadow-md hover:bg-slate-100 transition-all text-xs sm:text-sm"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-white text-slate-900 font-bold rounded-xl shadow-md hover:bg-slate-100 transition-all text-xs sm:text-sm"
                 >
                   <Mail size={16} /> <span>ای میل بھیجیں</span>
                 </Link>
                 <Link 
                   href={`tel:${member.contact || '03144081516'}`} 
-                  className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-emerald-700 text-white font-bold rounded-xl border border-emerald-600 hover:bg-emerald-600 transition-all text-xs sm:text-sm"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-emerald-700 text-white font-bold rounded-xl border border-emerald-600 hover:bg-emerald-600 transition-all text-xs sm:text-sm"
                 >
                   <Phone size={16} /> <span>رابطہ کریں</span>
                 </Link>
@@ -497,42 +497,42 @@ function FacultyProfileContent() {
           </div>
         </section>
 
-        {/* --- MAIN CONTENT GRID --- */}
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 lg:mt-28">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 text-right">
+        {/* --- MAIN CONTENT GRID (RESPONSIVE STACK) --- */}
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 sm:mt-10 lg:mt-28">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 text-right">
             
             {/* Right Main Column */}
-            <div className="lg:col-span-8 space-y-8">
+            <div className="lg:col-span-8 space-y-6 sm:space-y-8">
               
               {/* 1. تعارف و سوانحی خلاصہ (Biography) */}
-              <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/80 shadow-xs">
-                <h2 className="text-xl sm:text-2xl font-black text-slate-900 mb-4 pb-3 border-b border-slate-100 flex items-center gap-2">
-                  <UserCircle className="text-emerald-700" size={24} />
+              <div className="bg-white p-5 sm:p-7 md:p-8 rounded-2xl sm:rounded-3xl border border-slate-200/80 shadow-xs">
+                <h2 className="text-lg sm:text-2xl font-black text-slate-900 mb-3 sm:mb-4 pb-2.5 sm:pb-3 border-b border-slate-100 flex items-center gap-2">
+                  <UserCircle className="text-emerald-700" size={22} />
                   <span>سوانحی خلاصہ و ادارتی کردار</span>
                 </h2>
-                <p className="text-slate-700 leading-[2.3] text-sm sm:text-base whitespace-pre-line text-justify">
+                <p className="text-slate-700 leading-[2.2] sm:leading-[2.4] text-xs sm:text-sm md:text-base whitespace-pre-line text-justify">
                   {member.bio}
                 </p>
 
                 {/* Experience & Research Highlights */}
                 {(member.experience || member.research) && (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6 pt-6 border-t border-slate-100 text-xs sm:text-sm">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mt-5 sm:mt-6 pt-5 sm:pt-6 border-t border-slate-100 text-xs sm:text-sm">
                     {member.experience && (
-                      <div className="bg-emerald-50/70 p-4 rounded-2xl border border-emerald-100">
+                      <div className="bg-emerald-50/70 p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border border-emerald-100">
                         <span className="font-bold text-emerald-950 flex items-center gap-2 mb-1">
-                          <Calendar size={16} className="text-emerald-700" />
+                          <Calendar size={15} className="text-emerald-700 shrink-0" />
                           <span>تدریسی، انتظامی و قومی تجربہ:</span>
                         </span>
-                        <span className="text-slate-700 leading-[2.0]">{member.experience}</span>
+                        <span className="text-slate-700 leading-relaxed">{member.experience}</span>
                       </div>
                     )}
                     {member.research && (
-                      <div className="bg-teal-50/70 p-4 rounded-2xl border border-teal-100">
+                      <div className="bg-teal-50/70 p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border border-teal-100">
                         <span className="font-bold text-teal-950 flex items-center gap-2 mb-1">
-                          <BookOpen size={16} className="text-teal-700" />
+                          <BookOpen size={15} className="text-teal-700 shrink-0" />
                           <span>تحقیقی میدان و مہارت:</span>
                         </span>
-                        <span className="text-slate-700 leading-[2.0]">{member.research}</span>
+                        <span className="text-slate-700 leading-relaxed">{member.research}</span>
                       </div>
                     )}
                   </div>
@@ -541,16 +541,16 @@ function FacultyProfileContent() {
 
               {/* 2. تدریسی مضامین و کتب (Courses / Subjects Taught) */}
               {member.courses && member.courses.length > 0 && (
-                <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/80 shadow-xs">
-                  <h2 className="text-xl sm:text-2xl font-black text-slate-900 mb-4 pb-3 border-b border-slate-100 flex items-center gap-2">
-                    <BookOpen className="text-emerald-700" size={24} />
+                <div className="bg-white p-5 sm:p-7 md:p-8 rounded-2xl sm:rounded-3xl border border-slate-200/80 shadow-xs">
+                  <h2 className="text-lg sm:text-2xl font-black text-slate-900 mb-3 sm:mb-4 pb-2.5 sm:pb-3 border-b border-slate-100 flex items-center gap-2">
+                    <BookOpen className="text-emerald-700" size={22} />
                     <span>تدریسی مضامین، شعبہ جاتی ذمہ داریاں و کتب</span>
                   </h2>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3.5">
                     {member.courses.map((course, idx) => (
                       <div 
                         key={idx}
-                        className="flex items-center gap-3 p-3.5 rounded-xl bg-slate-50 border border-slate-200/70 text-slate-800 text-xs sm:text-sm font-bold"
+                        className="flex items-center gap-2.5 p-3 sm:p-3.5 rounded-xl bg-slate-50 border border-slate-200/70 text-slate-800 text-xs sm:text-sm font-bold"
                       >
                         <span className="w-2 h-2 rounded-full bg-emerald-600 shrink-0" />
                         <span>{course}</span>
@@ -562,18 +562,18 @@ function FacultyProfileContent() {
 
               {/* 3. علمی خدمات و کارنامے (Achievements & Contributions) */}
               {member.achievements && member.achievements.length > 0 && (
-                <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/80 shadow-xs">
-                  <h2 className="text-xl sm:text-2xl font-black text-slate-900 mb-4 pb-3 border-b border-slate-100 flex items-center gap-2">
-                    <Award className="text-emerald-700" size={24} />
+                <div className="bg-white p-5 sm:p-7 md:p-8 rounded-2xl sm:rounded-3xl border border-slate-200/80 shadow-xs">
+                  <h2 className="text-lg sm:text-2xl font-black text-slate-900 mb-3 sm:mb-4 pb-2.5 sm:pb-3 border-b border-slate-100 flex items-center gap-2">
+                    <Award className="text-emerald-700" size={22} />
                     <span>نمایاں خدمات و کارنامے</span>
                   </h2>
-                  <ul className="space-y-3">
+                  <ul className="space-y-2.5 sm:space-y-3">
                     {member.achievements.map((ach, idx) => (
                       <li 
                         key={idx}
-                        className="flex items-start gap-3 text-slate-700 text-xs sm:text-sm leading-[2.2]"
+                        className="flex items-start gap-2.5 sm:gap-3 text-slate-700 text-xs sm:text-sm leading-[2.1] sm:leading-[2.2]"
                       >
-                        <CheckCircle2 size={18} className="text-emerald-700 shrink-0 mt-1" />
+                        <CheckCircle2 size={16} className="text-emerald-700 shrink-0 mt-1" />
                         <span>{ach}</span>
                       </li>
                     ))}
@@ -587,49 +587,49 @@ function FacultyProfileContent() {
             <div className="lg:col-span-4 space-y-6">
               
               {/* Quick Info Card */}
-              <div className="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-xs space-y-4">
-                <h3 className="text-lg font-black text-slate-900 pb-3 border-b border-slate-100">
+              <div className="bg-white p-5 sm:p-6 rounded-2xl sm:rounded-3xl border border-slate-200/80 shadow-xs space-y-3.5 sm:space-y-4">
+                <h3 className="text-base sm:text-lg font-black text-slate-900 pb-2.5 sm:pb-3 border-b border-slate-100">
                   فوری تعلیمی کوائف
                 </h3>
                 
                 {/* Department Info */}
                 {member.department && (
-                  <div className="space-y-1">
-                    <span className="text-xs text-slate-500 block">منسلک شعبہ:</span>
-                    <span className="text-xs sm:text-sm font-bold text-slate-900 block leading-[2.0]">
+                  <div className="space-y-0.5">
+                    <span className="text-[11px] text-slate-500 block">منسلک شعبہ:</span>
+                    <span className="text-xs sm:text-sm font-bold text-slate-900 block leading-relaxed">
                       {member.department}
                     </span>
                   </div>
                 )}
 
                 {/* Education */}
-                <div className="space-y-1">
-                  <span className="text-xs text-slate-500 block">تعلیمی اسناد و اسناد:</span>
-                  <span className="text-xs sm:text-sm font-bold text-slate-900 block leading-[2.0]">
+                <div className="space-y-0.5">
+                  <span className="text-[11px] text-slate-500 block">تعلیمی اسناد و اسناد:</span>
+                  <span className="text-xs sm:text-sm font-bold text-slate-900 block leading-relaxed">
                     {member.education}
                   </span>
                 </div>
 
                 {/* Specialization */}
-                <div className="space-y-1">
-                  <span className="text-xs text-slate-500 block">تخصص و علمی مہارت:</span>
-                  <span className="text-xs sm:text-sm font-bold text-emerald-800 block leading-[2.0]">
+                <div className="space-y-0.5">
+                  <span className="text-[11px] text-slate-500 block">تخصص و علمی مہارت:</span>
+                  <span className="text-xs sm:text-sm font-bold text-emerald-800 block leading-relaxed">
                     {member.specialization}
                   </span>
                 </div>
 
                 {/* Languages */}
                 {member.languages && member.languages.length > 0 && (
-                  <div className="space-y-2 pt-2 border-t border-slate-100">
-                    <span className="text-xs text-slate-500 flex items-center gap-1.5">
-                      <Languages size={14} className="text-emerald-700" />
+                  <div className="space-y-1.5 pt-2 border-t border-slate-100">
+                    <span className="text-[11px] text-slate-500 flex items-center gap-1.5">
+                      <Languages size={13} className="text-emerald-700" />
                       <span>زبانیں:</span>
                     </span>
                     <div className="flex flex-wrap gap-1.5">
                       {member.languages.map((lang, idx) => (
                         <span 
                           key={idx}
-                          className="px-2.5 py-1 bg-slate-100 text-slate-700 rounded-lg text-xs font-bold"
+                          className="px-2.5 py-0.5 bg-slate-100 text-slate-700 rounded-lg text-[11px] font-bold"
                         >
                           {lang}
                         </span>
@@ -640,22 +640,22 @@ function FacultyProfileContent() {
               </div>
 
               {/* Other Faculty Members List */}
-              <div className="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-xs">
-                <h3 className="text-lg font-black text-slate-900 pb-3 border-b border-slate-100 mb-4 flex items-center justify-between">
+              <div className="bg-white p-5 sm:p-6 rounded-2xl sm:rounded-3xl border border-slate-200/80 shadow-xs">
+                <h3 className="text-base sm:text-lg font-black text-slate-900 pb-2.5 sm:pb-3 border-b border-slate-100 mb-3.5 flex items-center justify-between">
                   <span>جامعہ کے دیگر اساتذہ و شیوخ</span>
                   <Link href="/faculty" className="text-xs text-emerald-700 hover:underline">
                     تمام دیکھیں
                   </Link>
                 </h3>
                 
-                <div className="space-y-3">
+                <div className="space-y-2.5">
                   {related.slice(0, 8).map((item) => (
                     <Link
                       key={item.id}
                       href={`/faculty-profile?id=${item.id}`}
-                      className="flex items-center gap-3 p-2.5 rounded-2xl hover:bg-emerald-50/70 border border-transparent hover:border-emerald-200 transition-all group"
+                      className="flex items-center gap-2.5 sm:gap-3 p-2 rounded-xl hover:bg-emerald-50/70 border border-transparent hover:border-emerald-200 transition-all group"
                     >
-                      <div className="w-11 h-14 rounded-xl overflow-hidden relative shrink-0 border border-slate-200">
+                      <div className="w-10 sm:w-11 h-13 sm:h-14 rounded-lg sm:rounded-xl overflow-hidden relative shrink-0 border border-slate-200 bg-slate-100">
                         <OptimizedImage
                           src={item.image || "/logo.jpeg"}
                           alt={item.name}
@@ -668,11 +668,11 @@ function FacultyProfileContent() {
                         <h4 className="font-bold text-slate-900 text-xs truncate group-hover:text-emerald-700 transition-colors">
                           {item.name}
                         </h4>
-                        <p className="text-[11px] text-slate-500 truncate">
+                        <p className="text-[10px] sm:text-[11px] text-slate-500 truncate mt-0.5">
                           {item.role}
                         </p>
                       </div>
-                      <ChevronLeft size={16} className="text-slate-400 group-hover:text-emerald-700 group-hover:-translate-x-1 transition-all shrink-0" />
+                      <ChevronLeft size={15} className="text-slate-400 group-hover:text-emerald-700 group-hover:-translate-x-1 transition-all shrink-0" />
                     </Link>
                   ))}
                 </div>
@@ -684,24 +684,24 @@ function FacultyProfileContent() {
         </section>
 
         {/* BOTTOM ADMISSIONS CTA */}
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 text-center">
-          <div className="bg-gradient-to-r from-emerald-800 to-teal-900 text-white rounded-3xl p-8 sm:p-12 shadow-lg">
-            <h2 className="text-2xl sm:text-3xl font-black mb-3">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 sm:mt-16 text-center">
+          <div className="bg-gradient-to-r from-emerald-800 to-teal-900 text-white rounded-2xl sm:rounded-3xl p-6 sm:p-10 md:p-12 shadow-lg">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-black mb-2 sm:mb-3">
               کیا آپ ہمارے جید اساتذہ کے زیرِ سایہ تعلیم حاصل کرنا چاہتے ہیں؟
             </h2>
-            <p className="text-emerald-100/90 text-sm sm:text-base mb-6 max-w-2xl mx-auto">
+            <p className="text-emerald-100/90 text-xs sm:text-sm md:text-base mb-5 sm:mb-6 max-w-2xl mx-auto leading-relaxed">
               جامعہ شیرِ ربانی کے مختلف تعلیمی شعبہ جات میں داخلے جاری ہیں۔ علمِ نافع کے سفر کا حصہ بنیں۔
             </p>
-            <div className="flex flex-wrap justify-center gap-3.5">
+            <div className="flex flex-wrap justify-center gap-3">
               <Link 
                 href="/admissions" 
-                className="px-7 py-3 bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold rounded-xl shadow-md transition-all text-sm sm:text-base"
+                className="w-full sm:w-auto px-6 sm:px-7 py-2.5 sm:py-3 bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold rounded-xl shadow-md transition-all text-xs sm:text-sm"
               >
                 آن لائن داخلہ فارم پر کریں
               </Link>
               <Link 
                 href="/contact" 
-                className="px-7 py-3 bg-white/10 hover:bg-white/20 text-white border border-white/20 font-bold rounded-xl transition-all text-sm sm:text-base"
+                className="w-full sm:w-auto px-6 sm:px-7 py-2.5 sm:py-3 bg-white/10 hover:bg-white/20 text-white border border-white/20 font-bold rounded-xl transition-all text-xs sm:text-sm"
               >
                 دفترِ تعلیمات سے رابطہ
               </Link>
