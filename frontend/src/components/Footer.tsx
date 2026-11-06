@@ -84,6 +84,13 @@ const Footer = () => {
       title: 'ہائر ایجوکیشن کمیشن پاکستان - آفیشل پورٹل',
     },
     {
+      nameUrdu: 'پنجاب پبلک سروس کمیشن (PPSC)',
+      nameSub: 'ppsc.gop.pk',
+      image: '/images/ppsc-logo.png',
+      href: 'https://www.ppsc.gop.pk',
+      title: 'پنجاب پبلک سروس کمیشن - آفیشل پورٹل (PPSC Official Portal)',
+    },
+    {
       nameUrdu: 'پاک فوج (Pakistan Army)',
       nameSub: 'pakistanarmy.gov.pk',
       image: '/images/army-logo.png',
@@ -147,6 +154,7 @@ const Footer = () => {
         { label: '100% مفت تعلیم و ہاسٹل', href: '/admissions' },
         { label: 'آن لائن رول نمبر سلپ', href: '/roll-number-slip' },
         { label: 'انٹرن شپ پروگرام', href: '/internship' },
+        { label: 'پنجاب پبلک سروس کمیشن (PPSC)', href: 'https://www.ppsc.gop.pk' },
         { label: 'جامعہ کی تاریخ و تعارف', href: '/about' },
         { label: 'مستحق طلبہ کی کفالت', href: '/donations' },
       ],
@@ -250,20 +258,37 @@ const Footer = () => {
 
               {/* Column Links with Bold Black Bar shown ONLY on hover */}
               <ul className="flex flex-col gap-2.5">
-                {section.links.map((link, j) => (
-                  <li key={j}>
-                    <Link 
-                      href={link.href} 
-                      className="group inline-flex flex-col text-xs sm:text-sm text-slate-800 hover:text-black font-semibold transition-all font-urdu w-fit"
-                    >
-                      <span className="leading-tight pb-0.5 group-hover:translate-x-[-2px] transition-transform">
-                        {link.label}
-                      </span>
-                      {/* Bold Black Bar: hidden by default, expands on hover */}
-                      <span className="h-[2.5px] w-0 group-hover:w-full rounded-full bg-slate-900 transition-all duration-300 ease-out block opacity-0 group-hover:opacity-100" />
-                    </Link>
-                  </li>
-                ))}
+                {section.links.map((link, j) => {
+                  const isExternal = link.href.startsWith('http');
+                  return (
+                    <li key={j}>
+                      {isExternal ? (
+                        <a 
+                          href={link.href} 
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="group inline-flex flex-col text-xs sm:text-sm text-slate-800 hover:text-black font-semibold transition-all font-urdu w-fit"
+                        >
+                          <span className="leading-tight pb-0.5 group-hover:translate-x-[-2px] transition-transform inline-flex items-center gap-1">
+                            <span>{link.label}</span>
+                            <ExternalLink size={10} className="text-slate-400 group-hover:text-emerald-700 shrink-0" />
+                          </span>
+                          <span className="h-[2.5px] w-0 group-hover:w-full rounded-full bg-slate-900 transition-all duration-300 ease-out block opacity-0 group-hover:opacity-100" />
+                        </a>
+                      ) : (
+                        <Link 
+                          href={link.href} 
+                          className="group inline-flex flex-col text-xs sm:text-sm text-slate-800 hover:text-black font-semibold transition-all font-urdu w-fit"
+                        >
+                          <span className="leading-tight pb-0.5 group-hover:translate-x-[-2px] transition-transform">
+                            {link.label}
+                          </span>
+                          <span className="h-[2.5px] w-0 group-hover:w-full rounded-full bg-slate-900 transition-all duration-300 ease-out block opacity-0 group-hover:opacity-100" />
+                        </Link>
+                      )}
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           ))}
@@ -283,7 +308,7 @@ const Footer = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3.5">
             {officialAffiliations.map((item, idx) => (
               <a
                 key={idx}
