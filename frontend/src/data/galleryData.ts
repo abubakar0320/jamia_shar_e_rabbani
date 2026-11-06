@@ -1,7 +1,7 @@
 export interface GalleryItem {
   id: string;
   title: string;
-  category: 'all' | 'leadership' | 'akabireen';
+  category: 'all' | 'leadership' | 'mashaikh' | 'scholars';
   categoryLabel: string;
   image: string;
   description: string;
@@ -11,7 +11,7 @@ export interface GalleryItem {
 }
 
 export interface GalleryCategory {
-  id: 'all' | 'leadership' | 'akabireen';
+  id: 'all' | 'leadership' | 'mashaikh' | 'scholars';
   label: string;
   iconName: string;
   count?: number;
@@ -20,14 +20,15 @@ export interface GalleryCategory {
 export const GALLERY_CATEGORIES: GalleryCategory[] = [
   { id: 'all', label: 'تمام تصاویر (All Photos)', iconName: 'Sparkles' },
   { id: 'leadership', label: 'ادارتی قیادت و اساتذہ', iconName: 'Users' },
-  { id: 'akabireen', label: 'اکابرین و مشائخِ عظام', iconName: 'Award' },
+  { id: 'mashaikh', label: 'اکابرین و مشائخِ عظام', iconName: 'Award' },
+  { id: 'scholars', label: 'علمائے کرام و مفتیانِ عظام', iconName: 'BookOpen' },
 ];
 
 export const GALLERY_ITEMS: GalleryItem[] = [
   {
     id: 'gallery-1-peer-karam-shah',
     title: 'حضور ضیاء الامت جسٹس پیر محمد کرم شاہ الازہری علیہ الرحمہ',
-    category: 'akabireen',
+    category: 'mashaikh',
     categoryLabel: 'اکابرین و مشائخِ عظام',
     image: '/gallery/1. Zayah ul umat justice peer muhammad karam shah.jpeg',
     description: 'مفسرِ قرآن، عظیم روحانی پیشوا، صاحبِ تفسیر ضیاء القرآن، مصنفِ ضیاء النبی ﷺ، بانی دار العلوم محمدیہ غوثیہ بھیرہ شریف و سابق جسٹس شریعت ایپلٹ بینچ سپریم کورٹ آف پاکستان۔ آپ کی علمی، فقہی، قلمی اور روحانی خدمات پوری دنیا کے مسلمانوں کے لیے عظیم مشعلِ راہ ہیں۔',
@@ -71,7 +72,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
   {
     id: 'gallery-5-peer-syed-iftikhar-shah',
     title: 'پیر سید افتخار الحسن شاہ صاحب',
-    category: 'akabireen',
+    category: 'mashaikh',
     categoryLabel: 'اکابرین و مشائخِ عظام',
     image: '/gallery/5. Peer Syed Iftikhar ul hassan shah.jpeg',
     description: 'معروف روحانی پیشوا، سجادہ نشین آستانہ عالیہ اور صاحبِ نسبت بزرگ۔ خانقاہی نظام، تصوف و احسان کی ترویج اور سنتِ نبوی کے فروغ کے ساتھ جامعہ شیرِ ربانی مانانوالہ کے عظیم سرپرست، مربی اور دعا گو۔',
@@ -81,23 +82,23 @@ export const GALLERY_ITEMS: GalleryItem[] = [
   },
   {
     id: 'gallery-6-mufti-kashif-rafique',
-    title: 'مفتی کاشف رفیق انجم صاحب',
-    category: 'akabireen',
-    categoryLabel: 'اکابرین و مشائخِ عظام',
-    image: '/gallery/6. Mufti kashif rafique anjum.jpeg',
-    description: 'جلیل القدر عالمِ دین، ممتاز مفتی اور محققِ عصر۔ فقہِ اسلامی، معاصر فتاویٰ، شریعت کونسلنگ اور دینی علوم میں گراں قدر تصنیفی و تدریسی خدمات کے امین، اور جامعہ شیرِ ربانی کے علمی معاون و رہنما۔',
-    tag: 'مفتی و محققِ شریعت',
+    title: 'مفتی محافظ القاری مولانا محمد کاشف رفیق انجم (خطیبِ اعظم سرگودھا)',
+    category: 'scholars',
+    categoryLabel: 'علمائے کرام و مفتیانِ عظام',
+    image: '/gallery/6. Mufti Mohafiz al qari molana muhammad kashif rafique anjum al maroof katib ibn katib katib azam sarghooda.jpeg',
+    description: 'مفتی محافظ القاری مولانا محمد کاشف رفیق انجم المعروف خطیب ابن خطیب، خطیبِ اعظم سرگودھا۔ جلیل القدر مناظرِ اسلام، مفتی و مصلح، خطابت و فصاحت کے بے تاج بادشاہ اور جامعہ شیرِ ربانی کے مخلص علمی و فکری سرپرست۔',
+    tag: 'خطیبِ اعظم سرگودھا',
     year: 'علمائے کرام',
     badgeColor: 'bg-indigo-700 text-white'
   },
   {
     id: 'gallery-7-mufti-ahmad-jami-shah',
-    title: 'مفتی محمد احمد جامی شاہ صاحب',
-    category: 'akabireen',
+    title: 'پیر مفتی علامہ حافظ سید محمد احمد جامی شاہ نقشبندی مجددی',
+    category: 'mashaikh',
     categoryLabel: 'اکابرین و مشائخِ عظام',
-    image: '/gallery/7. Mufti muhammad ahmad Jami shah.jpeg',
-    description: 'جید مفتی، صاحبِ علم و تقویٰ اور باوقار علمی و روحانی رہنما۔ مسندِ تدریس و افتاء پر طویل علمی خدمات، سنتِ نبوی کی ترویج اور جامعہ شیرِ ربانی کے تعلیمی و تربیتی مشن کے سرپرست و خیر خواہ۔',
-    tag: 'مفتی و استاذِ شریعت',
+    image: '/gallery/7. Peer Mufti Allama Molana Hafiz Al Qari Syed Muhammad Ahmad Al maroof Jami Shah Naqshbandi Mujadadi.jpeg',
+    description: 'پیر مفتی علامہ مولانا حافظ القاری سید محمد احمد المعروف جامی شاہ نقشبندی مجددی۔ صاحبِ علم و فضل، پیرِ طریقت، سلسلہ عالیہ نقشبندیہ مجددیہ کے مقتدر پیشوا اور جامعہ شیرِ ربانی کے روحانی سرپرست و مربی۔',
+    tag: 'پیرِ طریقت و مفتیِ اعظم',
     year: 'مشائخ و علماء',
     badgeColor: 'bg-rose-700 text-white'
   },
@@ -111,5 +112,60 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     tag: 'استاذ الحدیث و شعبہ درسِ نظامی',
     year: 'اساتذہ کرام',
     badgeColor: 'bg-emerald-800 text-white'
+  },
+  {
+    id: 'gallery-9-prof-rana-mubashar',
+    title: 'پروفیسر پیر مفتی مولانا رانا محمد مبشر اکرم نقشبندی مجددی',
+    category: 'mashaikh',
+    categoryLabel: 'اکابرین و مشائخِ عظام',
+    image: '/gallery/9. Prof. Peer Mufti Molana Rana Muhammad Mubashar Akram Naqsbandi Mujaddadi.jpeg',
+    description: 'پروفیسر پیر مفتی مولانا رانا محمد مبشر اکرم نقشبندی مجددی۔ متبحر عالمِ دین، پروفیسر، سلسلہ عالیہ نقشبندیہ کے صاحبِ ارشاد پیرِ طریقت، باوقار خطیب اور جامعہ شیرِ ربانی کے علمی و روحانی معاون۔',
+    tag: 'پروفیسر و پیرِ طریقت',
+    year: 'مشائخِ عظام',
+    badgeColor: 'bg-cyan-700 text-white'
+  },
+  {
+    id: 'gallery-10-mufti-zeeshan-chisti',
+    title: 'مفتی علامہ ذیشان علی چشتی صابری',
+    category: 'scholars',
+    categoryLabel: 'علمائے کرام و مفتیانِ عظام',
+    image: '/gallery/10. Mufti Allama Zeeshan Ali Chisti Sabri.jpeg',
+    description: 'مفتی علامہ ذیشان علی چشتی صابری۔ فاضلِ شریعت، جید مفتی، سلسلہ چشتیہ صابریہ کے معتبر عالم، علومِ اسلامیہ و فقہ کے ماہر مدرس اور جامعہ شیرِ ربانی کے مخلص دینی و فکری رفیق۔',
+    tag: 'مفتی و محققِ شریعت',
+    year: 'علمائے کرام',
+    badgeColor: 'bg-violet-700 text-white'
+  },
+  {
+    id: 'gallery-11-mufti-ali-murtaza',
+    title: 'مفتی علامہ علی مرتضیٰ سیالوی',
+    category: 'scholars',
+    categoryLabel: 'علمائے کرام و مفتیانِ عظام',
+    image: '/gallery/11. Mufti Allama Ali Murtaza Sialwi.jpeg',
+    description: 'مفتی علامہ علی مرتضیٰ سیالوی۔ استاذ العلماء، جید فقیہ و مفتی، درگاہ معلیٰ سیال شریف کی علمی و روحانی نسبت کے امین اور جامعہ شیرِ ربانی کے تعلیمی و تحقیقی شعبہ جات کے معاون و ناصح۔',
+    tag: 'مفتی و استاذ العلماء',
+    year: 'علمائے کرام',
+    badgeColor: 'bg-teal-800 text-white'
+  },
+  {
+    id: 'gallery-12-mufti-asad-abbas',
+    title: 'مفتی علامہ اسد عباس چشتی',
+    category: 'scholars',
+    categoryLabel: 'علمائے کرام و مفتیانِ عظام',
+    image: '/gallery/12. Mufti Allama Asad Abbas Chisti.jpeg',
+    description: 'مفتی علامہ اسد عباس چشتی۔ جلیل القدر مفتی، عالمِ باعمل، سلسلہ عالیہ چشتیہ کے باکمال فاضل، تدریس و فتاویٰ نویسی کے میدان میں سرگرم علمی شخصیت اور جامعہ کے بہی خواہ۔',
+    tag: 'مفتی و مدرسِ شریعت',
+    year: 'علمائے کرام',
+    badgeColor: 'bg-amber-700 text-white'
+  },
+  {
+    id: 'gallery-13-prof-dr-ameen-bhatti',
+    title: 'پروفیسر ڈاکٹر مفتی محمد امین بھٹی صاحب',
+    category: 'scholars',
+    categoryLabel: 'علمائے کرام و مفتیانِ عظام',
+    image: '/gallery/13. Prof. Dr. Mufti Muhammad Ameen Bhatti Sahib.png',
+    description: 'پروفیسر ڈاکٹر مفتی محمد امین بھٹی صاحب۔ بین الاقوامی محقق، پروفیسر، مفتی و متبحر اسلامی اسکالر۔ فقہی تحقیقات، یونیورسٹی سطح کے نصاب و مقالات کے نگراں اور جامعہ شیرِ ربانی کے تعلیمی و تحقیقی سرپرستِ اعلیٰ۔',
+    tag: 'پروفیسر ڈاکٹر و مفتیِ اعظم',
+    year: 'علمائے کرام و محققین',
+    badgeColor: 'bg-emerald-900 text-white'
   }
 ];
