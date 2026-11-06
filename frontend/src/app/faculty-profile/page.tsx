@@ -10,7 +10,7 @@ import {
   Award, Languages, Calendar, MapPin, 
   ChevronLeft, ArrowRight, UserCircle,
   Briefcase, Search, FileText, CheckCircle2,
-  ShieldCheck
+  ShieldCheck, Building2, Crown
 } from 'lucide-react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -20,6 +20,9 @@ interface FacultyMember {
   name: string;
   role: string;
   designation?: string;
+  tier?: 'dean' | 'principal' | 'hod' | 'teacher';
+  tierLabel?: string;
+  department?: string;
   education: string;
   specialization: string;
   contact?: string;
@@ -34,12 +37,66 @@ interface FacultyMember {
 }
 
 const staticFaculty: FacultyMember[] = [
+  // --- TIER 1: DEANS & SUPREME PATRONS (سرپرستانِ اعلیٰ و ڈینز) ---
+  {
+    id: 8,
+    name: 'حضور ضیاء الامت جسٹس پیر محمد کرم شاہ الازہری علیہ الرحمہ',
+    role: 'فکری پیشوا، بانی و مفسرِ قرآن',
+    designation: 'مفسرِ قرآن، بانی دار العلوم محمدیہ غوثیہ و سابق جج شریعت بینچ سپریم کورٹ آف پاکستان',
+    tier: 'dean',
+    tierLabel: 'بانی و فکری ڈین (Founder Dean)',
+    department: 'سرپرستِ اعلیٰ و فکری ڈین آف اسلامک اسٹڈیز',
+    education: 'جامعہ الازہر مصر (ایم اے)، جامعہ دار العلوم دیوبند، جامعہ محمدیہ غوثیہ',
+    specialization: 'تفسیرِ قرآن، سیرت نگاری، اسلامی عدالتی قوانین اور فقہِ تقابلی',
+    image: '/gallery/1. Zayah ul umat justice peer muhammad karam shah.jpeg',
+    email: 'jamiashererabbani07@gmail.com',
+    contact: '03144081516',
+    bio: 'حضور ضیاء الامت مفسرِ قرآن جسٹس پیر محمد کرم شاہ الازہری علیہ الرحمہ برصغیر پاک و ہند کی وہ تاریخ ساز شخصیت ہیں جنہوں نے دینی اور عصری علوم کے امتزاج کی بنیاد رکھی۔ آپ دار العلوم محمدیہ غوثیہ بھیرہ شریف کے بانی، شریعت ایپلٹ بینچ سپریم کورٹ آف پاکستان کے جج اور تفسیر ضیاء القرآن و سیرت ضیاء النبی ﷺ کے شہرۂ آفاق مصنف ہیں۔ آپ کی فکر اور رہنمائی جامعہ شیرِ ربانی کے لیے ہمیشہ مشعلِ راہ ہے۔',
+    experience: '50+ سالہ بے مثل علمی، تصنیفی، عدالتی و روحانی خدمات',
+    research: 'تفسیرِ ضیاء القرآن (۵ جلدیں)، ضیاء النبی ﷺ (۷ جلدیں)، اسلامی قوانین کی تدوین',
+    courses: ['تفسیر ضیاء القرآن', 'سیرت النبی ﷺ', 'قوانینِ شریعت و عدالتی نظام', 'عربی زبان و ادب'],
+    languages: ['عربی', 'اردو', 'انگریزی', 'فارسی'],
+    achievements: [
+      'شاہکار تفسیرِ قرآن "ضیاء القرآن" اور سیرت النبی ﷺ کی بے نظیر تدوین۔',
+      'سپریم کورٹ آف پاکستان کے شریعت بینچ میں تاریخی اسلامی فیصلے تحریر فرمائے۔',
+      'جامعہ شیرِ ربانی کے اساتذہ و بانیان کے عظیم مربی اور فکری استاد۔'
+    ]
+  },
+  {
+    id: 5,
+    name: 'پیر سید افتخار الحسن شاہ صاحب',
+    role: 'سجادہ نشین، روحانی سرپرست و مربی',
+    designation: 'سجادہ نشین آستانہ عالیہ و روحانی پیشوا، جامعہ شیرِ ربانی',
+    tier: 'dean',
+    tierLabel: 'سرپرستِ شوریٰ و ڈین (Dean of Spiritual Affairs)',
+    department: 'مجلسِ شوریٰ و ڈین آف سپرچوئل افیئرز',
+    education: 'علومِ دینیہ و تصوف، سلاسلِ طریقت',
+    specialization: 'تزکیہ نفس، تصوف و اخلاق، خانقاہی نظام اور فکری رہنمائی',
+    image: '/gallery/5. Peer Syed Iftikhar ul hassan shah.jpeg',
+    email: 'jamiashererabbani07@gmail.com',
+    contact: '03144081516',
+    bio: 'پیر سید افتخار الحسن شاہ صاحب معروف روحانی پیشوا، سجادہ نشین آستانہ عالیہ اور صاحبِ نسبت بزرگ ہیں۔ آپ دینِ مبین کی ترویج، تصوف و روحانیت کی آبیاری اور نوجوان نسل کے اخلاقی سدھار میں پیش پیش ہیں اور جامعہ شیرِ ربانی مانانوالہ کے عظیم سرپرست، مربی اور دعا گو ہیں۔',
+    experience: '30+ سالہ دینی و روحانی رہنمائی',
+    research: 'تصوفِ اسلامی، تزکیۂ قلب و باطن اور خانقاہی اصلاحات',
+    courses: ['تزکیۂ نفس و اخلاقیات', 'آدابِ سلوک و تصوف', 'مجالسِ ذکر و دعا', 'سیرت و اسلافِ صالحین'],
+    languages: ['عربی', 'اردو', 'پنجابی'],
+    achievements: [
+      'ہزاروں مریدین و متوسلین کی باطنی و روحانی تربیت۔',
+      'جامعہ شیرِ ربانی کے دینی و فلاحی مشن کی ہمہ وقت سرپرستی۔',
+      'بین المذاہب و بین المسالک ہم آہنگی اور امن کے فروغ میں نمایاں خدمات۔'
+    ]
+  },
+
+  // --- TIER 2: PRINCIPAL & EXECUTIVE LEADERSHIP (پرنسپل و انتظامی قیادت) ---
   {
     id: 1,
     name: 'پروفیسر ڈاکٹر فاروق علی ربانی',
     role: 'شیخ الحدیث و پرنسپل',
     designation: 'شیخ الحدیث و پرنسپل، جامعہ شیرِ ربانی',
-    education: 'عالمیہ (درسِ نظامی) و تخصص فی الحدیث',
+    tier: 'principal',
+    tierLabel: 'پرنسپل و ادارتی سربراہ (Principal)',
+    department: 'شعبہ پرنسپل و سینئر فیکلٹی قیادت',
+    education: 'عالمیہ (درسِ نظامی) و تخصص فی الحدیث | پی ایچ ڈی علومِ اسلامیہ',
     specialization: 'علومِ حدیث، تفاسیر اور فقہِ اسلامی',
     image: '/farooq-ali-rabbani.jpeg',
     email: 'jamiashererabbani07@gmail.com',
@@ -60,6 +117,9 @@ const staticFaculty: FacultyMember[] = [
     name: 'حافظ محمد احمد علی ربانی',
     role: 'نائب مہتمم و ناظمِ تعلیمات (Director of Education)',
     designation: 'نائب مہتمم و ناظمِ تعلیمات (Director of Education)، جامعہ شیرِ ربانی',
+    tier: 'principal',
+    tierLabel: 'نائب مہتمم (Vice Principal / Academic Director)',
+    department: 'شعبہ نظامتِ تعلیمات و تعلیمی ایڈمنسٹریشن',
     education: 'عالمیہ (درسِ نظامی)، وفاق المدارس الاسلامیہ الرضویہ | الشہادۃ العالمیہ فی العلوم الاسلامیہ والعربیۃ',
     specialization: 'علومِ شریعہ، تدریسی نظم و نسق، نصاب سازی و ایجوکیشنل ایڈمنسٹریشن',
     image: '/hafiz-ahmad-ali.jpeg',
@@ -81,11 +141,40 @@ const staticFaculty: FacultyMember[] = [
       'طلبہ کی ہمہ جہت تعلیمی، اخلاقی اور فکری نشوونما کے لیے جدید تعلیمی ورکشاپس کا انعقاد۔'
     ]
   },
+
+  // --- TIER 3: HEADS OF DEPARTMENTS (صدور و نگرانِ شعبہ جات - HODs) ---
+  {
+    id: 13,
+    name: 'پروفیسر ڈاکٹر مفتی محمد امین بھٹی صاحب',
+    role: 'صدر شعبہ، شعبہ تحقیق و بین الاقوامی افتاء',
+    designation: 'پروفیسر ڈاکٹر، بین الاقوامی محقق و مفتیِ اعظم، جامعہ شیرِ ربانی',
+    tier: 'hod',
+    tierLabel: 'ہیڈ آف ڈیپارٹمنٹ (HOD - ریسرچ و افتاء)',
+    department: 'شعبہ تحقیق، پی ایچ ڈی اسٹڈیز و بین الاقوامی افتاء',
+    education: 'پی ایچ ڈی علومِ اسلامیہ، ایم فل، الشہادۃ العالمیہ فی العلوم الاسلامیہ والعربیۃ',
+    specialization: 'بین الاقوامی اسلامی قوانین، عصری فقہی اجتہاد، یونیورسٹی لیول ریسرچ',
+    image: '/gallery/13. Prof. Dr. Mufti Muhammad Ameen Bhatti Sahib.png',
+    email: 'jamiashererabbani07@gmail.com',
+    contact: '03144081516',
+    bio: 'پروفیسر ڈاکٹر مفتی محمد امین بھٹی صاحب بین الاقوامی شہرت یافتہ محقق، یونیورسٹی پروفیسر اور جید مفتی ہیں۔ آپ نے اسلامی قوانین، تقابلِ ادیان اور معاصر فکری چیلنجز پر متعدد بین الاقوامی مقالات تحریر فرمائے ہیں اور ایم فل و پی ایچ ڈی اسکالرز کی تحقیقی نگرانی فرمائی ہے۔',
+    experience: '24+ سال کا تدریسی و بین الاقوامی تحقیقی تجربہ',
+    research: 'بین الاقوامی قانونِ اسلام، معاصر بینکاری و تکافل، اور جدید اجتہادی مسائل',
+    courses: ['بین الاقوامی قانونِ شریعت', 'معاصر فقہی اجتہاد و بینکاری', 'اصولِ تحقیق و پی ایچ ڈی تھیسس گائیڈنس', 'فلسفہ و فکرِ اسلامی'],
+    languages: ['عربی', 'اردو', 'انگریزی'],
+    achievements: [
+      'ہائر ایجوکیشن کمیشن (HEC) سے منظور شدہ کتب و تحقیقی مقالات کے مصنف۔',
+      'درجنوں پی ایچ ڈی اور ایم فل اسکالرز کے مقالہ جات کی کامیاب سپروائزری۔',
+      'جامعہ شیرِ ربانی کے اعلیٰ تعلیمی و تحقیقی شعبے کے نگرانِ اعلیٰ۔'
+    ]
+  },
   {
     id: 2,
     name: 'مولانا مفتی علی حمزہ صاحب',
-    role: 'استاذ الحدیث و شعبہ درسِ نظامی',
-    designation: 'استاذ الحدیث و نگرانِ شعبہ درسِ نظامی',
+    role: 'نگرانِ شعبہ، شعبہ درسِ نظامی و دار الافتاء',
+    designation: 'استاذ الحدیث و نگرانِ شعبہ درسِ نظامی، جامعہ شیرِ ربانی',
+    tier: 'hod',
+    tierLabel: 'ہیڈ آف ڈیپارٹمنٹ (HOD - درسِ نظامی)',
+    department: 'شعبہ درسِ نظامی و علومِ شریعہ',
     education: 'عالمیہ (درسِ نظامی) و تخصص فی الفقہ',
     specialization: 'فقہِ اسلامی، اصولِ فقہ و عربی ادب',
     image: '/ali-hamza.jpeg',
@@ -105,8 +194,11 @@ const staticFaculty: FacultyMember[] = [
   {
     id: 3,
     name: 'محترم ابوبکر صدیق صاحب',
-    role: 'ڈائریکٹر انفارمیشن ٹیکنالوجی و ہیڈ آف سافٹ ویئر سسٹمز',
+    role: 'ہیڈ آف ڈیپارٹمنٹ، شعبہ آئی ٹی و سافٹ ویئر سسٹمز',
     designation: 'ڈائریکٹر انفارمیشن ٹیکنالوجی و ہیڈ آف انٹرن شپ پروگرام، جامعہ شیرِ ربانی',
+    tier: 'hod',
+    tierLabel: 'ہیڈ آف ڈیپارٹمنٹ (HOD - آئی ٹی و سسٹمز)',
+    department: 'شعبہ انفارمیشن ٹیکنالوجی، پورٹلز و سافٹ ویئر سسٹمز',
     education: 'بی ایس انفارمیشن ٹیکنالوجی (BSIT)، بابا گرو نانک یونیورسٹی | گوگل و سسکو سرٹیفائیڈ',
     specialization: 'فل اسٹیک ویب ڈویلپمنٹ، کلاؤڈ انفراسٹرکچر، تعلیمی سسٹمز و ڈیٹا بیس آرکیٹیکچر',
     image: '/abubakar-latest.jpeg',
@@ -129,52 +221,37 @@ const staticFaculty: FacultyMember[] = [
     ]
   },
   {
-    id: 8,
-    name: 'حضور ضیاء الامت جسٹس پیر محمد کرم شاہ الازہری علیہ الرحمہ',
-    role: 'بانی و فکری پیشوا، مفسرِ قرآن و سابق جسٹس سپریم کورٹ',
-    designation: 'مفسرِ قرآن، بانی دار العلوم محمدیہ غوثیہ و سابق جج شریعت بینچ سپریم کورٹ آف پاکستان',
-    education: 'جامعہ الازہر مصر (ایم اے)، جامعہ دار العلوم دیوبند، جامعہ محمدیہ غوثیہ',
-    specialization: 'تفسیرِ قرآن، سیرت نگاری، اسلامی عدالتی قوانین اور فقہِ تقابلی',
-    image: '/gallery/1. Zayah ul umat justice peer muhammad karam shah.jpeg',
+    id: 7,
+    name: 'پیر مفتی علامہ حافظ سید محمد احمد جامی شاہ نقشبندی مجددی',
+    role: 'صدر شعبہ، شعبہ تحفیظ القرآن و روحانیات',
+    designation: 'پیرِ طریقت، مفتیِ اعظم و سجادہ نشین، سلسلہ عالیہ نقشبندیہ مجددیہ',
+    tier: 'hod',
+    tierLabel: 'ہیڈ آف ڈیپارٹمنٹ (HOD - تحفیظ القرآن)',
+    department: 'شعبہ تحفیظ القرآن، حسنِ قرآت و تزکیہ سلوک',
+    education: 'الشہادۃ العالمیہ، حفظِ قرآنِ مجید، تخصص فی الفقہ والافتاء',
+    specialization: 'سلسلہ عالیہ نقشبندیہ مجددیہ، افتاء، تجوید و حفظ اور ارشاد',
+    image: '/gallery/7. Peer Mufti Allama Molana Hafiz Al Qari Syed Muhammad Ahmad Al maroof Jami Shah Naqshbandi Mujadadi.jpeg',
     email: 'jamiashererabbani07@gmail.com',
     contact: '03144081516',
-    bio: 'حضور ضیاء الامت مفسرِ قرآن جسٹس پیر محمد کرم شاہ الازہری علیہ الرحمہ برصغیر پاک و ہند کی وہ تاریخ ساز شخصیت ہیں جنہوں نے دینی اور عصری علوم کے امتزاج کی بنیاد رکھی۔ آپ دار العلوم محمدیہ غوثیہ بھیرہ شریف کے بانی، شریعت ایپلٹ بینچ سپریم کورٹ آف پاکستان کے جج اور تفسیر ضیاء القرآن و سیرت ضیاء النبی ﷺ کے شہرۂ آفاق مصنف ہیں۔ آپ کی فکر اور رہنمائی جامعہ شیرِ ربانی کے لیے ہمیشہ مشعلِ راہ ہے۔',
-    experience: '50+ سالہ بے مثل علمی، تصنیفی، عدالتی و روحانی خدمات',
-    research: 'تفسیرِ ضیاء القرآن (۵ جلدیں)، ضیاء النبی ﷺ (۷ جلدیں)، اسلامی قوانین کی تدوین',
-    courses: ['تفسیر ضیاء القرآن', 'سیرت النبی ﷺ', 'قوانینِ شریعت و عدالتی نظام', 'عربی زبان و ادب'],
-    languages: ['عربی', 'اردو', 'انگریزی', 'فارسی'],
+    bio: 'پیر مفتی علامہ مولانا حافظ القاری سید محمد احمد المعروف جامی شاہ نقشبندی مجددی۔ آپ صاحبِ علم و تقویٰ، مسندِ افتاء کے تاجدار اور سلسلہ عالیہ نقشبندیہ مجددیہ کے مقتدر پیشوا ہیں۔ آپ نے شریعت و طریقت کے سنگم سے تشنگانِ علم و سلوک کو فیضیاب کیا ہے اور جامعہ شیرِ ربانی کے روحانی سرپرست ہیں۔',
+    experience: '22+ سالہ تدریسی و روحانی خدمات',
+    research: 'تصوفِ نقشبندی، فقہِ مجددی اور تجوید و قرآت کے اصول',
+    courses: ['مکتوباتِ امامِ ربانی مجدد الف ثانی', 'اصولِ فقہ و افتاء', 'تجوید و حفظِ قرآن', 'سلوکِ نقشبندیہ'],
+    languages: ['عربی', 'اردو', 'فارسی', 'پنجابی'],
     achievements: [
-      'شاہکار تفسیرِ قرآن "ضیاء القرآن" اور سیرت النبی ﷺ کی بے نظیر تدوین۔',
-      'سپریم کورٹ آف پاکستان کے شریعت بینچ میں تاریخی اسلامی فیصلے تحریر فرمائے۔',
-      'جامعہ شیرِ ربانی کے اساتذہ و بانیان کے عظیم مربی اور فکری استاد۔'
-    ]
-  },
-  {
-    id: 5,
-    name: 'پیر سید افتخار الحسن شاہ صاحب',
-    role: 'سجادہ نشین، روحانی سرپرست و مربی',
-    designation: 'سجادہ نشین آستانہ عالیہ و روحانی پیشوا، جامعہ شیرِ ربانی',
-    education: 'علومِ دینیہ و تصوف، سلاسلِ طریقت',
-    specialization: 'تزکیہ نفس، تصوف و اخلاق، خانقاہی نظام اور فکری رہنمائی',
-    image: '/gallery/5. Peer Syed Iftikhar ul hassan shah.jpeg',
-    email: 'jamiashererabbani07@gmail.com',
-    contact: '03144081516',
-    bio: 'پیر سید افتخار الحسن شاہ صاحب معروف روحانی پیشوا، سجادہ نشین آستانہ عالیہ اور صاحبِ نسبت بزرگ ہیں۔ آپ دینِ مبین کی ترویج، تصوف و روحانیت کی آبیاری اور نوجوان نسل کے اخلاقی سدھار میں پیش پیش ہیں اور جامعہ شیرِ ربانی مانانوالہ کے عظیم سرپرست، مربی اور دعا گو ہیں۔',
-    experience: '30+ سالہ دینی و روحانی رہنمائی',
-    research: 'تصوفِ اسلامی، تزکیۂ قلب و باطن اور خانقاہی اصلاحات',
-    courses: ['تزکیۂ نفس و اخلاقیات', 'آدابِ سلوک و تصوف', 'مجالسِ ذکر و دعا', 'سیرت و اسلافِ صالحین'],
-    languages: ['عربی', 'اردو', 'پنجابی'],
-    achievements: [
-      'ہزاروں مریدین و متوسلین کی باطنی و روحانی تربیت۔',
-      'جامعہ شیرِ ربانی کے دینی و فلاحی مشن کی ہمہ وقت سرپرستی۔',
-      'بین المذاہب و بین المسالک ہم آہنگی اور امن کے فروغ میں نمایاں خدمات۔'
+      'سلسلہ عالیہ نقشبندیہ مجددیہ کی ترویج اور خانقاہی اصلاحات۔',
+      'سینکڑوں طلبہ کو حفظِ قرآن اور تجوید کی اعلیٰ اسناد سے نوازنا۔',
+      'جامعہ شیرِ ربانی کے روحانی و تعلیمی شعبہ جات کی سرپرستی۔'
     ]
   },
   {
     id: 6,
     name: 'مفتی محافظ القاری مولانا محمد کاشف رفیق انجم',
-    role: 'خطیبِ اعظم سرگودھا، مفتی و مناظرِ اسلام',
+    role: 'صدر شعبہ، شعبہ دعوت، خطابت و مناظرہ',
     designation: 'خطیب ابن خطیب، خطیبِ اعظم سرگودھا و مفتیِ شریعت',
+    tier: 'hod',
+    tierLabel: 'ہیڈ آف ڈیپارٹمنٹ (HOD - دعوت و خطابت)',
+    department: 'شعبہ دعوت، خطابت، علم الکلام و مناظرہ',
     education: 'الشہادۃ العالمیہ فی العلوم الاسلامیہ، تخصص فی الفقہ والافتاء',
     specialization: 'خطابت و بلاغت، تقابلِ ادیان، فقہِ حنفی اور مناظرہ و کلام',
     image: '/gallery/6. Mufti Mohafiz al qari molana muhammad kashif rafique anjum al maroof katib ibn katib katib azam sarghooda.jpeg',
@@ -191,34 +268,18 @@ const staticFaculty: FacultyMember[] = [
       'جامعہ شیرِ ربانی کے تدریسی و دعوتی پروگرامز کی فکری سرپرستی۔'
     ]
   },
-  {
-    id: 7,
-    name: 'پیر مفتی علامہ حافظ سید محمد احمد جامی شاہ نقشبندی مجددی',
-    role: 'پیرِ طریقت، مفتیِ اعظم و روحانی پیشوا',
-    designation: 'پیرِ طریقت، مفتیِ اعظم و سجادہ نشین، سلسلہ عالیہ نقشبندیہ مجددیہ',
-    education: 'الشہادۃ العالمیہ، حفظِ قرآنِ مجید، تخصص فی الفقہ والافتاء',
-    specialization: 'سلسلہ عالیہ نقشبندیہ مجددیہ، افتاء، حفظ و تجوید اور ارشاد و سلوک',
-    image: '/gallery/7. Peer Mufti Allama Molana Hafiz Al Qari Syed Muhammad Ahmad Al maroof Jami Shah Naqshbandi Mujadadi.jpeg',
-    email: 'jamiashererabbani07@gmail.com',
-    contact: '03144081516',
-    bio: 'پیر مفتی علامہ مولانا حافظ القاری سید محمد احمد المعروف جامی شاہ نقشبندی مجددی۔ آپ صاحبِ علم و تقویٰ، مسندِ افتاء کے تاجدار اور سلسلہ عالیہ نقشبندیہ مجددیہ کے مقتدر پیشوا ہیں۔ آپ نے شریعت و طریقت کے سنگم سے تشنگانِ علم و سلوک کو فیضیاب کیا ہے اور جامعہ شیرِ ربانی کے روحانی سرپرست ہیں۔',
-    experience: '22+ سالہ تدریسی و روحانی خدمات',
-    research: 'تصوفِ نقشبندی، فقہِ مجددی اور تجوید و قرآت کے اصول',
-    courses: ['مکتوباتِ امامِ ربانی مجدد الف ثانی', 'اصولِ فقہ و افتاء', 'تجوید و حفظِ قرآن', 'سلوکِ نقشبندیہ'],
-    languages: ['عربی', 'اردو', 'فارسی', 'پنجابی'],
-    achievements: [
-      'سلسلہ عالیہ نقشبندیہ مجددیہ کی ترویج اور خانقاہی اصلاحات۔',
-      'سینکڑوں طلبہ کو حفظِ قرآن اور تجوید کی اعلیٰ اسناد سے نوازنا۔',
-      'جامعہ شیرِ ربانی کے روحانی و تعلیمی شعبہ جات کی سرپرستی۔'
-    ]
-  },
+
+  // --- TIER 4: SENIOR TEACHING FACULTY & LECTURERS (اساتذہ کرام و محققین) ---
   {
     id: 9,
     name: 'پروفیسر پیر مفتی مولانا رانا محمد مبشر اکرم نقشبندی مجددی',
-    role: 'پروفیسر، مفتی و پیرِ طریقت',
+    role: 'سینئر پروفیسر، شعبہ اسلامیات و معاصر علوم',
     designation: 'پروفیسر، مفتی و پیرِ طریقت، سلسلہ عالیہ نقشبندیہ',
+    tier: 'teacher',
+    tierLabel: 'سینئر پروفیسر (Senior Professor)',
+    department: 'شعبہ اسلامیات، تقابلِ ادیان و معاصر علوم',
     education: 'ایم فل / پی ایچ ڈی اسکالر علومِ اسلامیہ، الشہادۃ العالمیہ (درسِ نظامی)',
-    specialization: 'یونیورسٹی سطح کی اسلامی تدریس، تقابلی ادیان، فقہ اور سلسلہ نقشبندیہ',
+    specialization: 'یونیورسٹی سطح کی تدریس، تقابلی ادیان، فقہ اور سلسلہ نقشبندیہ',
     image: '/gallery/9. Prof. Peer Mufti Molana Rana Muhammad Mubashar Akram Naqsbandi Mujaddadi.jpeg',
     email: 'jamiashererabbani07@gmail.com',
     contact: '03144081516',
@@ -234,31 +295,13 @@ const staticFaculty: FacultyMember[] = [
     ]
   },
   {
-    id: 10,
-    name: 'مفتی علامہ ذیشان علی چشتی صابری',
-    role: 'مفتی، مدرسِ شریعت و خطیب',
-    designation: 'مفتی و مدرسِ شریعت، سلسلہ چشتیہ صابریہ',
-    education: 'عالمیہ (درسِ نظامی)، تخصص فی الفقہ الاسلامی',
-    specialization: 'فقہی فتاویٰ، فرائض و میراث، عقائد و کلام اور خطابت',
-    image: '/gallery/10. Mufti Allama Zeeshan Ali Chisti Sabri.jpeg',
-    email: 'jamiashererabbani07@gmail.com',
-    contact: '03144081516',
-    bio: 'مفتی علامہ ذیشان علی چشتی صابری جید مفتی، متبحر عالم اور سلسلہ چشتیہ صابریہ کے معتبر اسکالر ہیں۔ آپ فقہِ حنفی، مسائلِ روزمرہ اور علومِ عربیہ کی تدریس میں اعلیٰ مہارت رکھتے ہیں اور جامعہ شیرِ ربانی کے مخلص فکری رفیق ہیں۔',
-    experience: '12+ سال کا تدریسی و افتاء کا تجربہ',
-    research: 'احکامِ میراث، خرید و فروخت کے جدید مسائل اور فقہِ حنفی کے قواعد',
-    courses: ['علم الفرائض و تقسیمِ ترکہ', 'کنز الدقائق و قدوری', 'اصولِ الشاشی', 'فنِ خطابت'],
-    languages: ['عربی', 'اردو', 'پنجابی'],
-    achievements: [
-      'سینکڑوں فقہی استفتاءات کے مدلل اور مستند جوابات کی تحریر۔',
-      'میراث و ترکہ کی پیچیدہ قانونی و شرعی تقسیم میں مہارت۔',
-      'درسِ نظامی کے طلبہ کے لیے تدریسی ورکشاپس کا انعقاد۔'
-    ]
-  },
-  {
     id: 11,
     name: 'مفتی علامہ علی مرتضیٰ سیالوی',
-    role: 'استاذ العلماء، مفتی و محقق',
+    role: 'استاذ العلماء، شعبہ اصولِ فقہ و منطق',
     designation: 'استاذ العلماء، مفتی و نگرانِ تدریس',
+    tier: 'teacher',
+    tierLabel: 'استاذ العلماء (Senior Lecturer)',
+    department: 'شعبہ اصولِ فقہ، منطق و علومِ عقلیہ',
     education: 'الشہادۃ العالمیہ فی العلوم الاسلامیہ، تخصص فی الفقہ والاصول',
     specialization: 'اصولِ فقہ، نحو و صرف، منطق و فلسفہ اور علمی مناظرہ',
     image: '/gallery/11. Mufti Allama Ali Murtaza Sialwi.jpeg',
@@ -276,10 +319,37 @@ const staticFaculty: FacultyMember[] = [
     ]
   },
   {
+    id: 10,
+    name: 'مفتی علامہ ذیشان علی چشتی صابری',
+    role: 'مفتی و مدرس، شعبہ افتاء و میراث',
+    designation: 'مفتی و مدرسِ شریعت، سلسلہ چشتیہ صابریہ',
+    tier: 'teacher',
+    tierLabel: 'مدرسِ شریعت و مفتی (Lecturer in Fiqh)',
+    department: 'دار الافتاء و شعبہ علم الفرائض و میراث',
+    education: 'عالمیہ (درسِ نظامی)، تخصص فی الفقہ الاسلامی',
+    specialization: 'فقہی فتاویٰ، فرائض و میراث، عقائد و کلام اور خطابت',
+    image: '/gallery/10. Mufti Allama Zeeshan Ali Chisti Sabri.jpeg',
+    email: 'jamiashererabbani07@gmail.com',
+    contact: '03144081516',
+    bio: 'مفتی علامہ ذیشان علی چشتی صابری جید مفتی، متبحر عالم اور سلسلہ چشتیہ صابریہ کے معتبر اسکالر ہیں۔ آپ فقہِ حنفی، مسائلِ روزمرہ اور علومِ عربیہ کی تدریس میں اعلیٰ مہارت رکھتے ہیں اور جامعہ شیرِ ربانی کے مخلص فکری رفیق ہیں۔',
+    experience: '12+ سال کا تدریسی و افتاء کا تجربہ',
+    research: 'احکامِ میراث، خرید و فروخت کے جدید مسائل اور فقہِ حنفی کے قواعد',
+    courses: ['علم الفرائض و تقسیمِ ترکہ', 'کنز الدقائق و قدوری', 'اصولِ الشاشی', 'فنِ خطابت'],
+    languages: ['عربی', 'اردو', 'پنجابی'],
+    achievements: [
+      'سینکڑوں فقہی استفتاءات کے مدلل اور مستند جوابات کی تحریر۔',
+      'میراث و ترکہ کی پیچیدہ قانونی و شرعی تقسیم میں مہارت۔',
+      'درسِ نظامی کے طلبہ کے لیے تدریسی ورکشاپس کا انعقاد۔'
+    ]
+  },
+  {
     id: 12,
     name: 'مفتی علامہ اسد عباس چشتی',
-    role: 'مفتی، مدرسِ درسِ نظامی و خطیب',
+    role: 'مدرس، شعبہ فقہ، تجوید و سیرتِ طیبہ',
     designation: 'مفتی، مدرسِ درسِ نظامی و خطیب، سلسلہ عالیہ چشتیہ',
+    tier: 'teacher',
+    tierLabel: 'مدرسِ درسِ نظامی (Lecturer)',
+    department: 'شعبہ فقہ، تجوید القرآن و سیرت النبی ﷺ',
     education: 'عالمیہ (درسِ نظامی)، تخصص فی الفقہ والافتاء',
     specialization: 'فقہِ اسلامی، تجوید و قرآت، سیرت النبی ﷺ اور تدریسِ کتب',
     image: '/gallery/12. Mufti Allama Asad Abbas Chisti.jpeg',
@@ -295,27 +365,6 @@ const staticFaculty: FacultyMember[] = [
       'طلبہ کی تلفظ، تجوید اور حسنِ قرآت کی اصلاح کے لیے خصوصی کلاسز۔',
       'جامعہ شیرِ ربانی کے فلاحی و دعوتی مشن میں فعال کردار۔'
     ]
-  },
-  {
-    id: 13,
-    name: 'پروفیسر ڈاکٹر مفتی محمد امین بھٹی صاحب',
-    role: 'پروفیسر ڈاکٹر، بین الاقوامی محقق و مفتیِ اعظم',
-    designation: 'پروفیسر ڈاکٹر، بین الاقوامی محقق و مفتیِ اعظم، جامعہ شیرِ ربانی',
-    education: 'پی ایچ ڈی علومِ اسلامیہ، ایم فل، الشہادۃ العالمیہ فی العلوم الاسلامیہ والعربیۃ',
-    specialization: 'بین الاقوامی اسلامی قوانین، عصری فقہی اجتہاد، یونیورسٹی لیول ریسرچ',
-    image: '/gallery/13. Prof. Dr. Mufti Muhammad Ameen Bhatti Sahib.png',
-    email: 'jamiashererabbani07@gmail.com',
-    contact: '03144081516',
-    bio: 'پروفیسر ڈاکٹر مفتی محمد امین بھٹی صاحب بین الاقوامی شہرت یافتہ محقق، یونیورسٹی پروفیسر اور جید مفتی ہیں۔ آپ نے اسلامی قوانین، تقابلِ ادیان اور معاصر فکری چیلنجز پر متعدد بین الاقوامی مقالات تحریر فرمائے ہیں اور ایم فل و پی ایچ ڈی اسکالرز کی تحقیقی نگرانی فرمائی ہے۔',
-    experience: '24+ سال کا تدریسی و بین الاقوامی تحقیقی تجربہ',
-    research: 'بین الاقوامی قانونِ اسلام، معاصر بینکاری و تکافل، اور جدید اجتہادی مسائل',
-    courses: ['بین الاقوامی قانونِ شریعت', 'معاصر فقہی اجتہاد و بینکاری', 'اصولِ تحقیق و پی ایچ ڈی تھیسس گائیڈنس', 'فلسفہ و فکرِ اسلامی'],
-    languages: ['عربی', 'اردو', 'انگریزی'],
-    achievements: [
-      'ہائر ایجوکیشن کمیشن (HEC) سے منظور شدہ کتب و تحقیقی مقالات کے مصنف۔',
-      'درجنوں پی ایچ ڈی اور ایم فل اسکالرز کے مقالہ جات کی کامیاب سپروائزری۔',
-      'جامعہ شیرِ ربانی کے اعلیٰ تعلیمی و تحقیقی شعبے کے نگرانِ اعلیٰ۔'
-    ]
   }
 ];
 
@@ -327,7 +376,7 @@ function FacultyProfileContent() {
   const related = staticFaculty.filter(m => m.id !== member.id);
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50/50" dir="rtl">
+    <div className="min-h-screen flex flex-col bg-slate-50/50 font-urdu" dir="rtl">
       <Header />
       
       <main className="flex-1 pb-20">
@@ -342,9 +391,9 @@ function FacultyProfileContent() {
             {/* Back to Faculty Directory */}
             <Link 
               href="/faculty" 
-              className="inline-flex items-center gap-2 text-emerald-300 hover:text-white transition-colors mb-6 text-xs sm:text-sm font-bold font-urdu"
+              className="inline-flex items-center gap-2 text-emerald-300 hover:text-white transition-colors mb-6 text-xs sm:text-sm font-bold"
             >
-              <ArrowRight size={16} /> <span>تمام اساتذہ ڈائریکٹری پر واپس جائیں</span>
+              <ArrowRight size={16} /> <span>تمام اساتذہ و شعبہ جات ڈائریکٹری پر واپس جائیں</span>
             </Link>
             
             <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start lg:items-end">
@@ -365,10 +414,27 @@ function FacultyProfileContent() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                 >
-                  <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black mb-3 leading-[1.9] md:leading-[2.1] font-urdu">
+                  {/* Tier & Department Badges */}
+                  <div className="flex flex-wrap items-center gap-2 mb-3">
+                    {member.tierLabel && (
+                      <span className="px-3 py-1 rounded-lg text-xs font-bold bg-amber-400 text-slate-950 shadow-sm">
+                        <Crown size={13} className="inline ml-1 -mt-0.5" />
+                        {member.tierLabel}
+                      </span>
+                    )}
+                    {member.department && (
+                      <span className="px-3 py-1 rounded-lg text-xs font-bold bg-emerald-800/90 text-emerald-200 border border-emerald-500/40">
+                        <Building2 size={13} className="inline ml-1 -mt-0.5" />
+                        {member.department}
+                      </span>
+                    )}
+                  </div>
+
+                  <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black mb-3 leading-[1.9] md:leading-[2.1]">
                     {member.name}
                   </h1>
-                  <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-emerald-200 text-xs sm:text-sm font-bold font-urdu">
+                  
+                  <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-emerald-200 text-xs sm:text-sm font-bold">
                     <span className="flex items-center gap-1.5">
                       <Briefcase size={16} className="text-emerald-400 shrink-0" />
                       <span>{member.designation || member.role}</span>
@@ -385,13 +451,13 @@ function FacultyProfileContent() {
               <div className="w-full lg:w-auto flex flex-wrap sm:flex-nowrap gap-3 z-20 lg:mb-2">
                 <Link 
                   href={`mailto:${member.email || 'jamiashererabbani07@gmail.com'}`} 
-                  className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-white text-slate-900 font-bold rounded-xl shadow-md hover:bg-slate-100 transition-all text-xs sm:text-sm font-urdu"
+                  className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-white text-slate-900 font-bold rounded-xl shadow-md hover:bg-slate-100 transition-all text-xs sm:text-sm"
                 >
                   <Mail size={16} /> <span>ای میل بھیجیں</span>
                 </Link>
                 <Link 
                   href={`tel:${member.contact || '03144081516'}`} 
-                  className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-emerald-700 text-white font-bold rounded-xl border border-emerald-600 hover:bg-emerald-600 transition-all text-xs sm:text-sm font-urdu"
+                  className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-emerald-700 text-white font-bold rounded-xl border border-emerald-600 hover:bg-emerald-600 transition-all text-xs sm:text-sm"
                 >
                   <Phone size={16} /> <span>رابطہ کریں</span>
                 </Link>
@@ -401,80 +467,83 @@ function FacultyProfileContent() {
         </section>
 
         {/* --- MAIN CONTENT GRID --- */}
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 lg:mt-24">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 lg:mt-28">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 text-right">
             
             {/* Right Main Column */}
             <div className="lg:col-span-8 space-y-8">
               
-              {/* BIOGRAPHY */}
-              <div className="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200/80 shadow-2xs">
-                <h2 className="text-xl sm:text-2xl font-black text-slate-900 mb-4 flex items-center gap-2 font-urdu">
+              {/* 1. تعارف و سوانحی خلاصہ (Biography) */}
+              <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/80 shadow-xs">
+                <h2 className="text-xl sm:text-2xl font-black text-slate-900 mb-4 pb-3 border-b border-slate-100 flex items-center gap-2">
                   <UserCircle className="text-emerald-700" size={24} />
-                  <span>سوانح و علمی تعارف</span>
+                  <span>سوانحی خلاصہ و ادارتی کردار</span>
                 </h2>
-                <div className="text-slate-600 leading-[2.3] text-sm sm:text-base font-urdu">
+                <p className="text-slate-700 leading-[2.3] text-sm sm:text-base whitespace-pre-line text-justify">
                   {member.bio}
-                </div>
-              </div>
+                </p>
 
-              {/* SPECIALIZATION & RESEARCH */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-2xs">
-                  <h3 className="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2 font-urdu">
-                    <BookOpen className="text-emerald-700" size={20} />
-                    <span>تخصص و مہارت</span>
-                  </h3>
-                  <p className="text-sm text-slate-700 bg-slate-50 p-4 rounded-xl border border-slate-200/60 font-urdu leading-[2.2]">
-                    {member.specialization}
-                  </p>
-                </div>
-
-                {member.research && (
-                  <div className="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-2xs">
-                    <h3 className="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2 font-urdu">
-                      <Search className="text-emerald-700" size={20} />
-                      <span>علمی و تحقیقی میدان</span>
-                    </h3>
-                    <p className="text-sm text-slate-700 bg-slate-50 p-4 rounded-xl border border-slate-200/60 font-urdu leading-[2.2]">
-                      {member.research}
-                    </p>
+                {/* Experience & Research Highlights */}
+                {(member.experience || member.research) && (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6 pt-6 border-t border-slate-100 text-xs sm:text-sm">
+                    {member.experience && (
+                      <div className="bg-emerald-50/70 p-4 rounded-2xl border border-emerald-100">
+                        <span className="font-bold text-emerald-950 flex items-center gap-2 mb-1">
+                          <Calendar size={16} className="text-emerald-700" />
+                          <span>تدریسی و انتظامی تجربہ:</span>
+                        </span>
+                        <span className="text-slate-700 leading-[2.0]">{member.experience}</span>
+                      </div>
+                    )}
+                    {member.research && (
+                      <div className="bg-teal-50/70 p-4 rounded-2xl border border-teal-100">
+                        <span className="font-bold text-teal-950 flex items-center gap-2 mb-1">
+                          <BookOpen size={16} className="text-teal-700" />
+                          <span>تحقیقی میدان و مہارت:</span>
+                        </span>
+                        <span className="text-slate-700 leading-[2.0]">{member.research}</span>
+                      </div>
+                    )}
                   </div>
                 )}
               </div>
 
-              {/* COURSES TAUGHT */}
+              {/* 2. تدریسی مضامین و کتب (Courses / Subjects Taught) */}
               {member.courses && member.courses.length > 0 && (
-                <div className="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200/80 shadow-2xs">
-                  <h2 className="text-xl sm:text-2xl font-black text-slate-900 mb-6 flex items-center gap-2 font-urdu">
-                    <FileText className="text-emerald-700" size={24} />
-                    <span>تدریسی کتب و اسباق</span>
+                <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/80 shadow-xs">
+                  <h2 className="text-xl sm:text-2xl font-black text-slate-900 mb-4 pb-3 border-b border-slate-100 flex items-center gap-2">
+                    <BookOpen className="text-emerald-700" size={24} />
+                    <span>تدریسی مضامین، کتب و نگران شعبہ جات</span>
                   </h2>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {member.courses.map((course, i) => (
-                      <div key={i} className="flex items-center gap-3.5 bg-slate-50 p-4 rounded-xl border border-slate-200/70">
-                        <div className="w-8 h-8 bg-emerald-100 text-emerald-800 rounded-lg flex items-center justify-center font-bold text-xs shrink-0 font-urdu">
-                          ۰{i + 1}
-                        </div>
-                        <span className="font-bold text-slate-900 text-sm font-urdu">{course}</span>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                    {member.courses.map((course, idx) => (
+                      <div 
+                        key={idx}
+                        className="flex items-center gap-3 p-3.5 rounded-xl bg-slate-50 border border-slate-200/70 text-slate-800 text-xs sm:text-sm font-bold"
+                      >
+                        <span className="w-2 h-2 rounded-full bg-emerald-600 shrink-0" />
+                        <span>{course}</span>
                       </div>
                     ))}
                   </div>
                 </div>
               )}
 
-              {/* ACADEMIC ACHIEVEMENTS */}
+              {/* 3. علمی خدمات و کارنامے (Achievements & Contributions) */}
               {member.achievements && member.achievements.length > 0 && (
-                <div className="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200/80 shadow-2xs">
-                  <h2 className="text-xl sm:text-2xl font-black text-slate-900 mb-5 flex items-center gap-2 font-urdu">
+                <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/80 shadow-xs">
+                  <h2 className="text-xl sm:text-2xl font-black text-slate-900 mb-4 pb-3 border-b border-slate-100 flex items-center gap-2">
                     <Award className="text-emerald-700" size={24} />
-                    <span>علمی و تحقیقی کارنامے</span>
+                    <span>نمایاں علمی خدمات و کارنامے</span>
                   </h2>
-                  <ul className="space-y-3 font-urdu">
-                    {member.achievements.map((item, i) => (
-                      <li key={i} className="flex items-start gap-3 text-slate-700 text-xs sm:text-sm leading-relaxed">
-                        <CheckCircle2 size={18} className="text-emerald-600 shrink-0 mt-0.5" />
-                        <span>{item}</span>
+                  <ul className="space-y-3">
+                    {member.achievements.map((ach, idx) => (
+                      <li 
+                        key={idx}
+                        className="flex items-start gap-3 text-slate-700 text-xs sm:text-sm leading-[2.2]"
+                      >
+                        <CheckCircle2 size={18} className="text-emerald-700 shrink-0 mt-1" />
+                        <span>{ach}</span>
                       </li>
                     ))}
                   </ul>
@@ -486,55 +555,77 @@ function FacultyProfileContent() {
             {/* Left Sidebar Column */}
             <div className="lg:col-span-4 space-y-6">
               
-              {/* EDUCATION & DETAILS CARD */}
-              <div className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200/80 shadow-2xs">
-                <h3 className="text-lg font-black text-slate-900 mb-5 flex items-center gap-2 font-urdu pb-3 border-b border-slate-100">
-                  <GraduationCap className="text-emerald-700" size={22} />
-                  <span>تعلیمی کوائف و تجربہ</span>
+              {/* Quick Info Card */}
+              <div className="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-xs space-y-4">
+                <h3 className="text-lg font-black text-slate-900 pb-3 border-b border-slate-100">
+                  فوری تعلیمی کوائف
                 </h3>
-
-                <div className="space-y-5 font-urdu">
-                  <div>
-                    <span className="text-xs font-bold text-slate-400 block mb-1">تعلیمی اسناد و ڈگری</span>
-                    <p className="text-sm font-bold text-slate-800">{member.education}</p>
+                
+                {/* Department Info */}
+                {member.department && (
+                  <div className="space-y-1">
+                    <span className="text-xs text-slate-500 block">منسلک شعبہ:</span>
+                    <span className="text-xs sm:text-sm font-bold text-slate-900 block leading-[2.0]">
+                      {member.department}
+                    </span>
                   </div>
+                )}
 
-                  {member.experience && (
-                    <div className="pt-4 border-t border-slate-100">
-                      <span className="text-xs font-bold text-slate-400 block mb-1">تدریسی تجربہ</span>
-                      <p className="text-sm font-bold text-slate-800">{member.experience}</p>
-                    </div>
-                  )}
-
-                  {member.languages && (
-                    <div className="pt-4 border-t border-slate-100">
-                      <span className="text-xs font-bold text-slate-400 block mb-2">زبانیں</span>
-                      <div className="flex flex-wrap gap-2">
-                        {member.languages.map(lang => (
-                          <span key={lang} className="px-3 py-1 bg-slate-100 text-slate-700 text-xs font-bold rounded-md">
-                            {lang}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  )}
+                {/* Education */}
+                <div className="space-y-1">
+                  <span className="text-xs text-slate-500 block">تعلیمی اسناد و اسناد:</span>
+                  <span className="text-xs sm:text-sm font-bold text-slate-900 block leading-[2.0]">
+                    {member.education}
+                  </span>
                 </div>
+
+                {/* Specialization */}
+                <div className="space-y-1">
+                  <span className="text-xs text-slate-500 block">تخصص و علمی مہارت:</span>
+                  <span className="text-xs sm:text-sm font-bold text-emerald-800 block leading-[2.0]">
+                    {member.specialization}
+                  </span>
+                </div>
+
+                {/* Languages */}
+                {member.languages && member.languages.length > 0 && (
+                  <div className="space-y-2 pt-2 border-t border-slate-100">
+                    <span className="text-xs text-slate-500 flex items-center gap-1.5">
+                      <Languages size={14} className="text-emerald-700" />
+                      <span>زبانیں:</span>
+                    </span>
+                    <div className="flex flex-wrap gap-1.5">
+                      {member.languages.map((lang, idx) => (
+                        <span 
+                          key={idx}
+                          className="px-2.5 py-1 bg-slate-100 text-slate-700 rounded-lg text-xs font-bold"
+                        >
+                          {lang}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
 
-              {/* OTHER FACULTY MEMBERS */}
-              <div className="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-2xs">
-                <h3 className="text-base font-black text-slate-900 mb-4 font-urdu pb-2 border-b border-slate-100">
-                  دیگر معزز اساتذہ
+              {/* Other Faculty Members List */}
+              <div className="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-xs">
+                <h3 className="text-lg font-black text-slate-900 pb-3 border-b border-slate-100 mb-4 flex items-center justify-between">
+                  <span>جامعہ کے دیگر اساتذہ و شیوخ</span>
+                  <Link href="/faculty" className="text-xs text-emerald-700 hover:underline">
+                    تمام دیکھیں
+                  </Link>
                 </h3>
+                
                 <div className="space-y-3">
-                  {related.map(item => (
-                    <Link 
-                      key={item.id} 
-                      href={`/faculty-profile?id=${item.id}`} 
-                      className="flex items-center gap-3.5 p-3 rounded-xl border border-slate-100 hover:border-emerald-300 hover:bg-emerald-50/40 transition-all group"
+                  {related.slice(0, 7).map((item) => (
+                    <Link
+                      key={item.id}
+                      href={`/faculty-profile?id=${item.id}`}
+                      className="flex items-center gap-3 p-2.5 rounded-2xl hover:bg-emerald-50/70 border border-transparent hover:border-emerald-200 transition-all group"
                     >
-                      <div className="w-12 h-12 rounded-lg overflow-hidden relative shrink-0 bg-slate-100">
-                        <OptimizedImage 
+                      <div className="w-11 h-14 rounded-xl overflow-hidden relative shrink-0 border border-slate-200">
+                        <OptimizedImage
                           src={item.image || "/images/WhatsApp.jpeg"}
                           alt={item.name}
                           fill
@@ -543,10 +634,10 @@ function FacultyProfileContent() {
                         />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h4 className="font-bold text-slate-900 text-xs sm:text-sm truncate group-hover:text-emerald-700 transition-colors font-urdu">
+                        <h4 className="font-bold text-slate-900 text-xs truncate group-hover:text-emerald-700 transition-colors">
                           {item.name}
                         </h4>
-                        <p className="text-[11px] text-slate-500 truncate font-urdu">
+                        <p className="text-[11px] text-slate-500 truncate">
                           {item.role}
                         </p>
                       </div>
@@ -564,22 +655,22 @@ function FacultyProfileContent() {
         {/* BOTTOM ADMISSIONS CTA */}
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 text-center">
           <div className="bg-gradient-to-r from-emerald-800 to-teal-900 text-white rounded-3xl p-8 sm:p-12 shadow-lg">
-            <h2 className="text-2xl sm:text-3xl font-black mb-3 font-urdu">
+            <h2 className="text-2xl sm:text-3xl font-black mb-3">
               کیا آپ ہمارے جید اساتذہ کے زیرِ سایہ تعلیم حاصل کرنا چاہتے ہیں؟
             </h2>
-            <p className="text-emerald-100/90 text-sm sm:text-base mb-6 max-w-2xl mx-auto font-urdu">
+            <p className="text-emerald-100/90 text-sm sm:text-base mb-6 max-w-2xl mx-auto">
               جامعہ شیرِ ربانی کے مختلف تعلیمی شعبہ جات میں داخلے جاری ہیں۔ علمِ نافع کے سفر کا حصہ بنیں۔
             </p>
             <div className="flex flex-wrap justify-center gap-3.5">
               <Link 
                 href="/admissions" 
-                className="px-7 py-3 bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold rounded-xl shadow-md transition-all font-urdu text-sm sm:text-base"
+                className="px-7 py-3 bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold rounded-xl shadow-md transition-all text-sm sm:text-base"
               >
                 آن لائن داخلہ فارم پر کریں
               </Link>
               <Link 
                 href="/contact" 
-                className="px-7 py-3 bg-white/10 hover:bg-white/20 text-white border border-white/20 font-bold rounded-xl transition-all font-urdu text-sm sm:text-base"
+                className="px-7 py-3 bg-white/10 hover:bg-white/20 text-white border border-white/20 font-bold rounded-xl transition-all text-sm sm:text-base"
               >
                 دفترِ تعلیمات سے رابطہ
               </Link>
@@ -597,9 +688,11 @@ function FacultyProfileContent() {
 export default function FacultyProfile() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen flex flex-col items-center justify-center bg-white" dir="rtl">
-        <div className="w-10 h-10 border-4 border-emerald-700 border-t-transparent rounded-full animate-spin mb-3"></div>
-        <span className="text-sm font-bold text-slate-700 font-urdu">پروفائل لوڈ ہو رہی ہے...</span>
+      <div className="min-h-screen flex items-center justify-center font-urdu">
+        <div className="text-center">
+          <div className="inline-block w-10 h-10 border-4 border-slate-200 border-t-emerald-700 rounded-full animate-spin mb-3"></div>
+          <div className="text-sm font-bold text-slate-700">پروفائل لوڈ ہو رہی ہے...</div>
+        </div>
       </div>
     }>
       <FacultyProfileContent />
