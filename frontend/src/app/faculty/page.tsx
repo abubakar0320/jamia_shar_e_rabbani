@@ -32,6 +32,21 @@ export default function Faculty() {
   const staticFaculty: FacultyMember[] = [
     // --- TIER 1: AKABIR-E-AHL-E-SUNNAT (اکابرینِ اہلِ سنت و روحانی پیشوا) ---
     {
+      id: 15,
+      name: 'فخر المشائخ، پیرِ طریقت، رہبرِ شریعت میاں جمیل احمد نقشبندی مجددی شرقپوری صاحب',
+      role: 'فخر المشائخ، پیرِ طریقت، رہبرِ شریعت، سجادہ نشین آستانہ عالیہ میاں شیرِ ربانی شرقپور شریف (اکابرینِ اہلِ سنت)',
+      tier: 'akabir',
+      tierLabel: 'اکابرینِ اہلِ سنت و روحانی پیشوا',
+      tierBadgeColor: 'bg-amber-100 text-amber-900 border-amber-300',
+      department: 'اکابرینِ اہلِ سنت، مرجعِ روحانی و سجادہ نشین آستانہ عالیہ شرقپور شریف',
+      departmentColor: 'bg-amber-50 text-amber-800 border-amber-200',
+      education: 'سلسلہ عالیہ نقشبندیہ مجددیہ شرقپوریہ، علومِ شریعہ و طریقت',
+      specialization: 'سلسلہ عالیہ نقشبندیہ مجددیہ کے مقتدر پیشوا، جانشینِ شیرِ ربانی، اصلاحِ احوال، باطنی تربیت و خانقاہی سرپرستی',
+      image: '/gallery/1.1 Fakhir ul mashaiq peer tareeqaqat rehbre shareeyat mian jameel ahmad naqsbandi mujadaadi sharqpoori sajada nasheen astana alia mian shere rabbani.png',
+      email: 'jamiashererabbani07@gmail.com',
+      contact: '03144081516'
+    },
+    {
       id: 8,
       name: 'حضور ضیاء الامت جسٹس پیر محمد کرم شاہ الازہری علیہ الرحمہ',
       role: 'فکری و روحانی پیشوا، بانی و مفسرِ قرآن (اکابرینِ اہلِ سنت)',
@@ -244,6 +259,21 @@ export default function Faculty() {
       education: 'عالمیہ (درسِ نظامی)، تخصص فی الفقہ والافتاء',
       specialization: 'فقہِ اسلامی، تجوید و قرآت، سیرت النبی ﷺ اور تدریسِ کتب',
       image: '/gallery/12. Mufti Allama Asad Abbas Chisti.jpeg',
+      email: 'jamiashererabbani07@gmail.com',
+      contact: '03144081516'
+    },
+    {
+      id: 16,
+      name: 'پروفیسر ڈاکٹر مفتی حافظ القاری حامد ضیاء الحبیب صاحب',
+      role: 'پروفیسر، مفتی و محقق، شعبہ علومِ اسلامیہ و قرآت',
+      tier: 'professor',
+      tierLabel: 'پروفیسر (Professor)',
+      tierBadgeColor: 'bg-emerald-100 text-emerald-900 border-emerald-300',
+      department: 'شعبہ علومِ اسلامیہ، علوم القرآن، تجوید و افتاء',
+      departmentColor: 'bg-emerald-50 text-emerald-800 border-emerald-200',
+      education: 'پی ایچ ڈی علومِ اسلامیہ، الشہادۃ العالمیہ فی العلوم الاسلامیہ والعربیۃ، حفظ و قراءت عشرہ',
+      specialization: 'علوم القرآن و التفسیر، قراءت و تجوید، فقہ و افتاء اور اعلیٰ تعلیمی و تحقیقی رہنمائی',
+      image: '/gallery/14. Prof. Dr. Mufti Hafiz UL qari Hamid Zyah ul Habib Sahib.png',
       email: 'jamiashererabbani07@gmail.com',
       contact: '03144081516'
     }

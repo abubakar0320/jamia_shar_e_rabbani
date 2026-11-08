@@ -143,6 +143,7 @@ const Footer = () => {
         { label: 'حفظ القرآن الکریم مع تجوید', href: '/courses' },
         { label: 'درسِ نظامی (عالم و فاضل کورس)', href: '/courses' },
         { label: 'معزز اساتذہ کرام', href: '/faculty' },
+        { label: 'سید زادے و مشائخِ عظام', href: '/syed-zady' },
         { label: 'نتائج وفاق المدارس الاسلامیہ الرضویہ', href: '/wafaq-results' },
       ],
     },

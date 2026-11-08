@@ -26,6 +26,17 @@ export const GALLERY_CATEGORIES: GalleryCategory[] = [
 
 export const GALLERY_ITEMS: GalleryItem[] = [
   {
+    id: 'gallery-0-mian-jameel-ahmad-sharqpoori',
+    title: 'فخر المشائخ، پیرِ طریقت، رہبرِ شریعت میاں جمیل احمد نقشبندی مجددی شرقپوری صاحب',
+    category: 'mashaikh',
+    categoryLabel: 'اکابرین و مشائخِ عظام',
+    image: '/gallery/1.1 Fakhir ul mashaiq peer tareeqaqat rehbre shareeyat mian jameel ahmad naqsbandi mujadaadi sharqpoori sajada nasheen astana alia mian shere rabbani.png',
+    description: 'فخر المشائخ، پیرِ طریقت، رہبرِ شریعت، سجادہ نشین آستانہ عالیہ میاں شیرِ ربانی شرقپور شریف۔ سلسلہ عالیہ نقشبندیہ مجددیہ کے عظیم پیشوا اور جامعہ شیرِ ربانی مانانوالہ کے روحانی سرپرستِ اعلیٰ۔',
+    tag: 'سجادہ نشین شرقپور شریف',
+    year: 'اکابرینِ اہلِ سنت',
+    badgeColor: 'bg-amber-600 text-white'
+  },
+  {
     id: 'gallery-1-peer-karam-shah',
     title: 'حضور ضیاء الامت جسٹس پیر محمد کرم شاہ الازہری علیہ الرحمہ',
     category: 'mashaikh',
@@ -178,5 +189,27 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     tag: 'پروفیسر ڈاکٹر و مفتیِ اعظم',
     year: 'پروفیسرز و محققین',
     badgeColor: 'bg-emerald-900 text-white'
+  },
+  {
+    id: 'gallery-14-prof-dr-hamid-zyah',
+    title: 'پروفیسر ڈاکٹر مفتی حافظ القاری حامد ضیاء الحبیب صاحب',
+    category: 'scholars',
+    categoryLabel: 'پروفیسرز و علمائے کرام',
+    image: '/gallery/14. Prof. Dr. Mufti Hafiz UL qari Hamid Zyah ul Habib Sahib.png',
+    description: 'پروفیسر ڈاکٹر مفتی حافظ القاری حامد ضیاء الحبیب صاحب۔ پی ایچ ڈی علومِ اسلامیہ، مفتی و محقق، علوم القرآن و تجوید کے ماہر اور جامعہ شیرِ ربانی کے معزز پروفیسر۔',
+    tag: 'پروفیسر ڈاکٹر و قاری',
+    year: 'پروفیسرز فیکلٹی',
+    badgeColor: 'bg-teal-700 text-white'
+  },
+  {
+    id: 'gallery-15-peer-syed-abdul-wahab-shah',
+    title: 'پیر سید حافظ القاری عبد الوہاب شاہ گیلانی صاحب',
+    category: 'mashaikh',
+    categoryLabel: 'اکابرین و مشائخِ عظام',
+    image: '/syed zady/14. Peer Syed Hafiz ul qari Abdul Wahab Shah Ghillani Sahib.png',
+    description: 'سلالۂ سادات، پیرِ طریقت، سجادہ نشین آستانہ عالیہ گیلانیہ، حافظ و قاریِ قرآن مجید۔ جامعہ شیرِ ربانی مانانوالہ کے عظیم روحانی سرپرست اور تشریف آوری فرمانے والے معزز سید زادہ۔',
+    tag: 'سلالۂ سادات و پیرِ طریقت',
+    year: 'سادات و مشائخ',
+    badgeColor: 'bg-emerald-800 text-white'
   }
 ];

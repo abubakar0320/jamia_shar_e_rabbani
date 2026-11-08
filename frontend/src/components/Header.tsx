@@ -33,6 +33,7 @@ const Header = () => {
     { label: 'تصویری گیلری', href: '/gallery', color: '#f43f5e' }, // Rose Pink - Gallery
     { label: 'علمی مضامین', href: '/articles', color: '#10b981' }, // Emerald - Articles
     { label: 'اساتذہ کرام', href: '/faculty', color: '#c084fc' }, // Violet Purple
+    { label: 'سید زادے', href: '/syed-zady', color: '#f59e0b' }, // Amber - Syed Zady
     { label: 'خبریں و اعلانات', href: '/news', color: '#60a5fa' }, // Royal Blue
     { label: 'نتائج وفاق المدارس', href: '/wafaq-results', color: '#fb923c' }, // Bright Orange
     { label: 'عطیات و صدقات', href: '/donations', color: '#a3e635' }, // Lime Green
