@@ -72,7 +72,7 @@ export default function Faculty() {
       tierBadgeColor: 'bg-emerald-100 text-emerald-900 border-emerald-300',
       department: 'دفترِ چانسلر و مجلسِ اعلٰی (Office of the Chancellor)',
       departmentColor: 'bg-emerald-50 text-emerald-800 border-emerald-200',
-      education: 'فاضل علومِ اسلامیہ، ۳۰ سالہ عسکری خدمات و سلاسلِ طریقت نقشبندیہ مجددیہ',
+      education: 'الشہادۃ العالمیہ فی العلوم الاسلامیہ والعربیۃ (جامعہ شیرِ ربانی)، ۳۰ سالہ عسکری خدمات و سلاسلِ طریقت نقشبندیہ مجددیہ',
       specialization: '۳۰ سالہ عسکری نظم و ضبط، ۲۴ سالہ دینی اخلاص، سرپرستیِ ادارہ و سلسلہ عالیہ نقشبندیہ',
       image: '/gallery/1.1مولانا الحاج صوبیدار محمد یوسف نقشبندی مجددی صاحب.jpeg',
       email: 'jamiashererabbani07@gmail.com',
@@ -87,7 +87,7 @@ export default function Faculty() {
       tierBadgeColor: 'bg-teal-100 text-teal-900 border-teal-300',
       department: 'دفترِ وائس چانسلر و ڈین آف اسلامک اسٹڈیز',
       departmentColor: 'bg-teal-50 text-teal-800 border-teal-200',
-      education: 'پی ایچ ڈی علومِ اسلامیہ | تخصص فی الحدیث و درسِ نظامی (عالمیہ)',
+      education: 'پی ایچ ڈی علومِ اسلامیہ | الشہادۃ العالمیہ فی العلوم الاسلامیہ والعربیۃ (جامعہ شیرِ ربانی) و تخصص فی الحدیث',
       specialization: 'علومِ حدیث، تفاسیرِ قرآن، فقہِ اسلامی، نصابی اصلاحات و یونیورسٹی ایڈمنسٹریشن',
       image: '/gallery/2. ڈاکٹر پیر ابو احمد فاروق علی ربانی صاحب (جدید).jpeg',
       email: 'jamiashererabbani07@gmail.com',
@@ -104,7 +104,7 @@ export default function Faculty() {
       tierBadgeColor: 'bg-teal-100 text-teal-900 border-teal-300',
       department: 'دفترِ کنٹرولر امتحانات و نظامتِ تعلیمات (Examinations & Academics)',
       departmentColor: 'bg-teal-50 text-teal-800 border-teal-200',
-      education: 'الشہادۃ العالمیہ فی العلوم الاسلامیہ والعربیۃ | حفظ و قرآت سبعہ عشرہ',
+      education: 'الشہادۃ العالمیہ فی العلوم الاسلامیہ والعربیۃ (جامعہ شیرِ ربانی) | حفظ و قرآت سبعہ عشرہ',
       specialization: 'امتحانی کنٹرول و شفافیت، نصاب سازی، تعلیمی نظم و ضبط اور طلبہ کونسلنگ',
       image: '/gallery/3. hafiz ahmad ali.jpeg',
       email: 'jamiashererabbani07@gmail.com',
@@ -119,7 +119,7 @@ export default function Faculty() {
       tierBadgeColor: 'bg-blue-100 text-blue-900 border-blue-300',
       department: 'مرکزی سیکرٹریٹ: رجسٹرار، خزانچی، چیئرپرسن و آئی ٹی سسٹمز',
       departmentColor: 'bg-blue-50 text-blue-800 border-blue-200',
-      education: 'بی ایس انفارمیشن ٹیکنالوجی (BSIT)، بابا گرو نانک یونیورسٹی | گوگل و سسکو سرٹیفائیڈ',
+      education: 'بی ایس انفارمیشن ٹیکنالوجی (BSIT)، بابا گرو نانک یونیورسٹی | الشہادۃ العالمیہ فی العلوم الاسلامیہ والعربیۃ (جامعہ شیرِ ربانی) | گوگل و سسکو سرٹیفائیڈ',
       specialization: 'یونیورسٹی رجسٹرار شپ، مالیاتی نظم و نسق، چیئرپرسن شپ، تمام شعبہ جات کی ہمہ گیر نگرانی و کلاؤڈ سسٹمز',
       image: '/gallery/4. abubakar-siddique.jpeg',
       email: 'abubakr.bgnu@gmail.com',
@@ -136,7 +136,7 @@ export default function Faculty() {
       tierBadgeColor: 'bg-indigo-100 text-indigo-900 border-indigo-300',
       department: 'شعبہ تحقیق، پی ایچ ڈی اسٹڈیز و بین الاقوامی افتاء',
       departmentColor: 'bg-indigo-50 text-indigo-800 border-indigo-200',
-      education: 'پی ایچ ڈی علومِ اسلامیہ، ایم فل، الشہادۃ العالمیہ',
+      education: 'پی ایچ ڈی علومِ اسلامیہ، ایم فل، الشہادۃ العالمیہ فی العلوم الاسلامیہ والعربیۃ (جامعہ شیرِ ربانی)',
       specialization: 'بین الاقوامی اسلامی قوانین، عصری فقہی اجتہاد، یونیورسٹی لیول ریسرچ',
       image: '/gallery/13. Prof. Dr. Mufti Muhammad Ameen Bhatti Sahib.png',
       email: 'jamiashererabbani07@gmail.com',
@@ -151,7 +151,7 @@ export default function Faculty() {
       tierBadgeColor: 'bg-purple-100 text-purple-900 border-purple-300',
       department: 'شعبہ تصوف، اخلاقیات و روحانیات',
       departmentColor: 'bg-purple-50 text-purple-800 border-purple-200',
-      education: 'علومِ دینیہ و تصوف، سلاسلِ طریقت',
+      education: 'الشہادۃ العالمیہ فی العلوم الاسلامیہ والعربیۃ (جامعہ شیرِ ربانی)، علومِ دینیہ و تصوف، سلاسلِ طریقت',
       specialization: 'تزکیہ نفس، تصوف و اخلاق، خانقاہی نظام اور فکری رہنمائی',
       image: '/gallery/5. Peer Syed Iftikhar ul hassan shah.jpeg',
       email: 'jamiashererabbani07@gmail.com',
@@ -166,7 +166,7 @@ export default function Faculty() {
       tierBadgeColor: 'bg-violet-100 text-violet-900 border-violet-300',
       department: 'شعبہ دعوت، خطابت، علم الکلام و مناظرہ',
       departmentColor: 'bg-violet-50 text-violet-800 border-violet-200',
-      education: 'الشہادۃ العالمیہ فی العلوم الاسلامیہ، تخصص فی الفقہ والافتاء',
+      education: 'الشہادۃ العالمیہ فی العلوم الاسلامیہ والعربیۃ (جامعہ شیرِ ربانی)، تخصص فی الفقہ والافتاء',
       specialization: 'خطابت و بلاغت، تقابلِ ادیان، فقہِ حنفی اور مناظرہ و کلام',
       image: '/gallery/6. Mufti Mohafiz al qari molana muhammad kashif rafique anjum al maroof katib ibn katib katib azam sarghooda.jpeg',
       email: 'jamiashererabbani07@gmail.com',
@@ -181,7 +181,7 @@ export default function Faculty() {
       tierBadgeColor: 'bg-rose-100 text-rose-900 border-rose-300',
       department: 'شعبہ تحفیظ القرآن، حسنِ قرآت و تزکیہ سلوک',
       departmentColor: 'bg-rose-50 text-rose-800 border-rose-200',
-      education: 'الشہادۃ العالمیہ، حفظِ قرآنِ مجید، تخصص فی الفقہ والافتاء',
+      education: 'الشہادۃ العالمیہ فی العلوم الاسلامیہ والعربیۃ (جامعہ شیرِ ربانی)، حفظِ قرآنِ مجید، تخصص فی الفقہ والافتاء',
       specialization: 'سلسلہ عالیہ نقشبندیہ مجددیہ، افتاء، تجوید و حفظ اور ارشاد',
       image: '/gallery/7. Peer Mufti Allama Molana Hafiz Al Qari Syed Muhammad Ahmad Al maroof Jami Shah Naqshbandi Mujadadi.jpeg',
       email: 'jamiashererabbani07@gmail.com',
@@ -196,7 +196,7 @@ export default function Faculty() {
       tierBadgeColor: 'bg-emerald-100 text-emerald-900 border-emerald-300',
       department: 'شعبہ درسِ نظامی و علومِ شریعہ',
       departmentColor: 'bg-emerald-50 text-emerald-800 border-emerald-200',
-      education: 'عالمیہ (درسِ نظامی) و تخصص فی الفقہ',
+      education: 'الشہادۃ العالمیہ فی العلوم الاسلامیہ والعربیۃ (جامعہ شیرِ ربانی) و تخصص فی الفقہ',
       specialization: 'فقہِ اسلامی، اصولِ فقہ، نحو و صرف اور عربی ادب',
       image: '/gallery/8. ali-hamza.jpeg',
       email: 'jamiashererabbani07@gmail.com',
@@ -211,7 +211,7 @@ export default function Faculty() {
       tierBadgeColor: 'bg-cyan-100 text-cyan-900 border-cyan-300',
       department: 'شعبہ اسلامیات، تقابلِ ادیان و معاصر علوم',
       departmentColor: 'bg-cyan-50 text-cyan-800 border-cyan-200',
-      education: 'ایم فل / پی ایچ ڈی اسکالر علومِ اسلامیہ، الشہادۃ العالمیہ (درسِ نظامی)',
+      education: 'ایم فل / پی ایچ ڈی اسکالر علومِ اسلامیہ، الشہادۃ العالمیہ فی العلوم الاسلامیہ والعربیۃ (جامعہ شیرِ ربانی)',
       specialization: 'یونیورسٹی سطح کی تدریس، تقابلی ادیان، فقہ اور سلسلہ نقشبندیہ',
       image: '/gallery/9. Prof. Peer Mufti Molana Rana Muhammad Mubashar Akram Naqsbandi Mujaddadi.jpeg',
       email: 'jamiashererabbani07@gmail.com',
@@ -226,7 +226,7 @@ export default function Faculty() {
       tierBadgeColor: 'bg-teal-100 text-teal-900 border-teal-300',
       department: 'شعبہ اصولِ فقہ، منطق و علومِ عقلیہ',
       departmentColor: 'bg-teal-50 text-teal-800 border-teal-200',
-      education: 'الشہادۃ العالمیہ فی العلوم الاسلامیہ، تخصص فی الفقہ والاصول',
+      education: 'الشہادۃ العالمیہ فی العلوم الاسلامیہ والعربیۃ (جامعہ شیرِ ربانی)، تخصص فی الفقہ والاصول',
       specialization: 'اصولِ فقہ، نحو و صرف، منطق و فلسفہ اور علمی مناظرہ',
       image: '/gallery/11. Mufti Allama Ali Murtaza Sialwi.jpeg',
       email: 'jamiashererabbani07@gmail.com',
@@ -241,7 +241,7 @@ export default function Faculty() {
       tierBadgeColor: 'bg-sky-100 text-sky-900 border-sky-300',
       department: 'دار الافتاء و شعبہ علم الفرائض و میراث',
       departmentColor: 'bg-sky-50 text-sky-800 border-sky-200',
-      education: 'عالمیہ (درسِ نظامی)، تخصص فی الفقہ الاسلامی',
+      education: 'الشہادۃ العالمیہ فی العلوم الاسلامیہ والعربیۃ (جامعہ شیرِ ربانی)، تخصص فی الفقہ الاسلامی',
       specialization: 'فقہی فتاویٰ، فرائض و میراث، عقائد و کلام اور خطابت',
       image: '/gallery/10. Mufti Allama Zeeshan Ali Chisti Sabri.jpeg',
       email: 'jamiashererabbani07@gmail.com',
@@ -256,7 +256,7 @@ export default function Faculty() {
       tierBadgeColor: 'bg-amber-100 text-amber-900 border-amber-300',
       department: 'شعبہ فقہ، تجوید القرآن و سیرت النبی ﷺ',
       departmentColor: 'bg-amber-50 text-amber-800 border-amber-200',
-      education: 'عالمیہ (درسِ نظامی)، تخصص فی الفقہ والافتاء',
+      education: 'الشہادۃ العالمیہ فی العلوم الاسلامیہ والعربیۃ (جامعہ شیرِ ربانی)، تخصص فی الفقہ والافتاء',
       specialization: 'فقہِ اسلامی، تجوید و قرآت، سیرت النبی ﷺ اور تدریسِ کتب',
       image: '/gallery/12. Mufti Allama Asad Abbas Chisti.jpeg',
       email: 'jamiashererabbani07@gmail.com',
@@ -271,7 +271,7 @@ export default function Faculty() {
       tierBadgeColor: 'bg-emerald-100 text-emerald-900 border-emerald-300',
       department: 'شعبہ علومِ اسلامیہ، علوم القرآن، تجوید و افتاء',
       departmentColor: 'bg-emerald-50 text-emerald-800 border-emerald-200',
-      education: 'پی ایچ ڈی علومِ اسلامیہ، الشہادۃ العالمیہ فی العلوم الاسلامیہ والعربیۃ، حفظ و قراءت عشرہ',
+      education: 'پی ایچ ڈی علومِ اسلامیہ، الشہادۃ العالمیہ فی العلوم الاسلامیہ والعربیۃ (جامعہ شیرِ ربانی)، حفظ و قراءت عشرہ',
       specialization: 'علوم القرآن و التفسیر، قراءت و تجوید، فقہ و افتاء اور اعلیٰ تعلیمی و تحقیقی رہنمائی',
       image: '/gallery/14. Prof. Dr. Mufti Hafiz UL qari Hamid Zyah ul Habib Sahib.png',
       email: 'jamiashererabbani07@gmail.com',
@@ -403,6 +403,14 @@ export default function Faculty() {
                     <span className="text-[10px] text-sky-300/80 mt-0.5 font-sans">Teaching Faculty</span>
                   </div>
                 </div>
+              </div>
+
+              {/* Alumni & Shahadat-ul-Almia Distinction Banner */}
+              <div className="mt-4 bg-emerald-500/20 border border-emerald-400/40 rounded-xl p-3 sm:p-4 text-center max-w-4xl mx-auto backdrop-blur-md">
+                <p className="text-xs sm:text-sm md:text-base font-black text-amber-300 leading-[1.9]">
+                  <Sparkles size={16} className="inline ml-1.5 -mt-0.5 text-amber-400" />
+                  جامعہ شیرِ ربانی کے تمام معزز پروفیسرز، اساتذہ کرام اور انتظامی قیادت جامعہ شیرِ ربانی سے "الشہادۃ العالمیہ فی العلوم الاسلامیہ والعربیۃ" (ایم اے عربی و اسلامیات مساوی) کے سند یافتہ و فاضل ہیں۔
+                </p>
               </div>
             </motion.div>
           </div>
