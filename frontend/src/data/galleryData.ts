@@ -48,6 +48,17 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     badgeColor: 'bg-amber-600 text-white'
   },
   {
+    id: 'gallery-0-1-molvi-manzoor-ahmad',
+    title: 'مولانا مولوی منظور احمد نقشبندی مجددی صاحب',
+    category: 'leadership',
+    categoryLabel: 'ادارتی قیادت و بانیان',
+    image: '/gallery/Mollana Molvi Manzoor Ahmad Naqsbandi Mujadadi.jpeg',
+    description: 'بانیِ اول جامعہ شیرِ ربانی مانانوالہ (1992ء)۔ آپ نے اسلامی تعلیمات کے فروغ، دینی اقدار کے تحفظ اور روحانی و اخلاقی نشوونما کے عظیم وژن کے تحت 1992ء میں مدرسہ شیرِ ربانی کا سنگِ بنیاد رکھا، جس کے فیض سے آج جامعہ شیرِ ربانی ایک عظیم تعلیمی و دینی یونیورسٹی کے طور پر فیض رساں ہے۔',
+    tag: 'بانیِ اول (سنگِ بنیاد 1992ء)',
+    year: '1992ء',
+    badgeColor: 'bg-emerald-900 text-white'
+  },
+  {
     id: 'gallery-1-1-chancellor-muhammad-yousaf',
     title: 'مولانا الحاج صوبیدار محمد یوسف نقشبندی مجددی صاحب',
     category: 'leadership',

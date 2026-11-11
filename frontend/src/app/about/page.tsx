@@ -85,8 +85,15 @@ export default function About() {
       badge: 'سنگِ بنیاد',
       title: 'مدرسہ شیرِ ربانی کا قیام',
       subtitle: 'دینی علوم و روحانی تربیت کا آغاز',
-      description: 'جامعہ شیرِ ربانی کے اس مقدس سفر کا آغاز 1992ء میں ہوا، جب مولانا منظور احمد صاحب نے اسلامی تعلیمات کے فروغ، دینی اقدار کے تحفظ اور روحانی و اخلاقی نشوونما کے عظیم وژن کے تحت اس ادارے کی بنیاد رکھی۔ مدرسہ شیرِ ربانی کا قیام مولانا منظور احمد صاحب کی بابرکت قیادت اور رہنمائی میں عمل میں آیا، جو اسلامی علوم کی ترویج اور مسلم کمیونٹی کی بے لوث خدمت کے ایک مخلصانہ مشن کا باقاعدہ آغاز تھا۔',
-      icon: <Building2 className="w-5 h-5 text-emerald-700" />
+      description: 'جامعہ شیرِ ربانی کے اس مقدس سفر کا آغاز 1992ء میں ہوا، جب مولانا مولوی منظور احمد نقشبندی مجددی صاحب نے اسلامی تعلیمات کے فروغ، دینی اقدار کے تحفظ اور روحانی و اخلاقی نشوونما کے عظیم وژن کے تحت اس ادارے کی بنیاد رکھی۔ مدرسہ شیرِ ربانی کا قیام مولانا مولوی منظور احمد نقشبندی مجددی صاحب کی بابرکت قیادت اور رہنمائی میں عمل میں آیا، جو اسلامی علوم کی ترویج اور مسلم کمیونٹی کی بے لوث خدمت کے ایک مخلصانہ مشن کا باقاعدہ آغاز تھا۔',
+      icon: <Building2 className="w-5 h-5 text-emerald-700" />,
+      leaders: [
+        {
+          name: 'مولانا مولوی منظور احمد نقشبندی مجددی صاحب',
+          role: 'بانیِ اول، جامعہ شیرِ ربانی (سنگِ بنیاد 1992ء)',
+          image: '/gallery/Mollana Molvi Manzoor Ahmad Naqsbandi Mujadadi.jpeg'
+        }
+      ]
     },
     {
       year: '2002ء',
@@ -322,7 +329,7 @@ export default function About() {
                 ایمان، علم اور خدمت کا سفر (1992ء تا حال)
               </p>
               <p className="text-slate-600 text-sm sm:text-base mt-2 leading-relaxed font-urdu">
-                جامعہ شیرِ ربانی کے اس سفر کا آغاز 1992ء میں ہوا، جب مولانا منظور احمد صاحب نے اسلامی تعلیمات کے فروغ، دینی اقدار اور روحانی نشوونما کے وژن کے ساتھ اس کی بنیاد رکھی۔
+                جامعہ شیرِ ربانی کے اس سفر کا آغاز 1992ء میں ہوا، جب مولانا مولوی منظور احمد نقشبندی مجددی صاحب نے اسلامی تعلیمات کے فروغ، دینی اقدار اور روحانی نشوونما کے وژن کے ساتھ اس کی بنیاد رکھی۔
               </p>
             </div>
 
@@ -428,7 +435,7 @@ export default function About() {
                           {item.leaders.map((ldr, lIdx) => (
                             <Link 
                               key={lIdx} 
-                              href={ldr.profileId ? `/faculty-profile?id=${ldr.profileId}` : '/faculty'}
+                              href={ldr.profileId ? `/faculty-profile?id=${ldr.profileId}` : '/gallery'}
                               className="flex items-center gap-2.5 p-2 rounded-xl bg-slate-50 hover:bg-emerald-50 border border-slate-200 hover:border-emerald-300 transition-all group"
                             >
                               <div className="w-11 h-13 rounded-lg overflow-hidden relative bg-slate-950 shrink-0 flex items-center justify-center border border-slate-200">
