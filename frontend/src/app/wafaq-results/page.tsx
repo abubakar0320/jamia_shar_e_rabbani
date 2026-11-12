@@ -17,7 +17,7 @@ export default function WafaqResultsPage() {
       <section 
         className="relative pt-24 pb-16 bg-white border-b border-slate-200 bg-cover bg-center text-right"
         style={{ 
-          backgroundImage: "linear-gradient(rgba(255,255,255,0.92), rgba(255,255,255,0.92)), url('/ahmad.png')", 
+          backgroundImage: "linear-gradient(rgba(255,255,255,0.92), rgba(255,255,255,0.92)), url('/ahmad.webp')", 
           backgroundSize: "cover", 
           backgroundPosition: "center" 
         }}

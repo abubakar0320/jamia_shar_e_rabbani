@@ -2,7 +2,6 @@
 
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { useTranslation } from 'react-i18next';
 import Image from 'next/image';
 import { 
   FileText, 
@@ -56,7 +55,6 @@ const getRequirementDisplay = (raw: { title: string, text: string }) => {
 };
 
 export default function Admissions() {
-  const { t } = useTranslation();
   const [submittedData, setSubmittedData] = useState<Admission | null>(null);
   const [requirements, setRequirements] = useState<{id: number, title: string, text: string}[]>([]);
   const [mounted, setMounted] = useState(false);
@@ -92,7 +90,7 @@ export default function Admissions() {
       <main className="flex-1 font-urdu text-slate-900 bg-white" dir="rtl">
         
         {/* --- HERO SECTION --- */}
-        <section className="relative pt-24 pb-20 bg-white border-b border-slate-100 bg-cover bg-center" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.88), rgba(255,255,255,0.88)), url('/ahmad.png')", backgroundSize: "cover", backgroundPosition: "center" }}>
+        <section className="relative pt-24 pb-20 bg-white border-b border-slate-100 bg-cover bg-center" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.88), rgba(255,255,255,0.88)), url('/ahmad.webp')", backgroundSize: "cover", backgroundPosition: "center" }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
             <div className="max-w-3xl mx-auto">
               <motion.div 
@@ -206,7 +204,7 @@ export default function Admissions() {
                             <CheckCircle2 size={20} />
                           </div>
                           <div>
-                            <h4 className="font-bold text-slate-900 text-base mb-1 leading-[2.0]">{req.title}</h4>
+                            <h3 className="font-bold text-slate-900 text-base mb-1 leading-[2.0]">{req.title}</h3>
                             <p className="text-sm text-slate-600 leading-[2.2]">{req.text}</p>
                           </div>
                         </div>
@@ -218,7 +216,7 @@ export default function Admissions() {
                             <CheckCircle2 size={20} />
                           </div>
                           <div>
-                            <h4 className="font-bold text-slate-900 text-base mb-1 leading-[2.0]">درست اور تصدیق شدہ کوائف</h4>
+                            <h3 className="font-bold text-slate-900 text-base mb-1 leading-[2.0]">درست اور تصدیق شدہ کوائف</h3>
                             <p className="text-sm text-slate-600 leading-[2.2]">طالب علم کے شناختی کارڈ / ب فارم اور سابقہ اسناد کا نادرا اور تعلیمی بورڈ سے مصدقہ ہونا لازمی ہے۔</p>
                           </div>
                         </div>
@@ -228,7 +226,7 @@ export default function Admissions() {
                             <CheckCircle2 size={20} />
                           </div>
                           <div>
-                            <h4 className="font-bold text-slate-900 text-base mb-1 leading-[2.0]">اصل دستاویزات کا ہمراہ ہونا</h4>
+                            <h3 className="font-bold text-slate-900 text-base mb-1 leading-[2.0]">اصل دستاویزات کا ہمراہ ہونا</h3>
                             <p className="text-sm text-slate-600 leading-[2.2]">انٹرویو اور ٹیسٹ کے وقت تمام اصل تعلیمی اسناد، رزلٹ کارڈز اور قومی شناختی کارڈ ساتھ لانا لازمی ہوگا۔</p>
                           </div>
                         </div>
@@ -238,7 +236,7 @@ export default function Admissions() {
                             <CheckCircle2 size={20} />
                           </div>
                           <div>
-                            <h4 className="font-bold text-slate-900 text-base mb-1 leading-[2.0]">جامعہ کے قواعد و ضوابط کی پابندی</h4>
+                            <h3 className="font-bold text-slate-900 text-base mb-1 leading-[2.0]">جامعہ کے قواعد و ضوابط کی پابندی</h3>
                             <p className="text-sm text-slate-600 leading-[2.2]">طالب علم اور سرپرست کے لیے جامعہ کی روایات، شرعی وضع قطع، اور اوقاتِ تعلیم کی مکمل پاسداری لازم ہوگی۔</p>
                           </div>
                         </div>
@@ -248,7 +246,7 @@ export default function Admissions() {
 
                   {/* Help Box */}
                   <div className="mt-10 bg-gradient-to-br from-emerald-800 to-teal-900 p-8 text-white rounded-3xl shadow-xl relative overflow-hidden">
-                    <h4 className="text-xl font-bold mb-3 leading-[2.0]">رہنمائی یا معاونت درکار ہے؟</h4>
+                    <h3 className="text-xl font-bold mb-3 leading-[2.0]">رہنمائی یا معاونت درکار ہے؟</h3>
                     <p className="text-emerald-100 text-sm mb-6 leading-[2.2]">اگر آپ کو داخلہ فارم مکمل کرنے یا کسی معلومات کے حصول میں کوئی مشکل درپیش ہو تو شعبہ داخلہ سے فوری رابطہ فرمائیں۔</p>
                     <div className="flex flex-col gap-3">
                       <div className="flex items-center gap-3 font-bold text-sm" dir="ltr">
@@ -302,10 +300,10 @@ export default function Admissions() {
               }
             ].map((box, i) => (
               <div key={i} className="bg-white p-6 md:p-8 border border-slate-200 shadow-sm rounded-2xl transition-all transform hover:-translate-y-1">
-                <h4 className="font-bold text-slate-900 text-lg mb-3 flex items-center gap-2 leading-[2.0]">
+                <h3 className="font-bold text-slate-900 text-lg mb-3 flex items-center gap-2 leading-[2.0]">
                   <div className={`w-2.5 h-2.5 rounded-full shrink-0 shadow-sm ${box.color}`} />
                   {box.title}
-                </h4>
+                </h3>
                 <p className="text-sm text-slate-600 leading-[2.3]">{box.desc}</p>
               </div>
             ))}

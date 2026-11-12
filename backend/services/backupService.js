@@ -45,16 +45,21 @@ async function generateBackupData() {
   const data = {};
   const counts = {};
 
-  for (const key of keys) {
-    try {
-      const records = await models[key].find().lean();
-      data[key] = records;
-      counts[key] = records.length;
-    } catch (err) {
-      console.error(`[Backup] Error reading collection ${key}:`, err.message);
-      data[key] = [];
-      counts[key] = 0;
-    }
+  const entries = await Promise.all(
+    keys.map(async (key) => {
+      try {
+        const records = await models[key].find().lean();
+        return [key, records, records.length];
+      } catch (err) {
+        console.error(`[Backup] Error reading collection ${key}:`, err.message);
+        return [key, [], 0];
+      }
+    })
+  );
+
+  for (const [key, records, count] of entries) {
+    data[key] = records;
+    counts[key] = count;
   }
 
   return {

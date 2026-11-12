@@ -26,7 +26,7 @@ export default function ArticleAuthorCard({
             src={authorImg} 
             alt={OFFICIAL_AUTHOR.name} 
             fill 
-            unoptimized 
+            sizes="24px"
             className="object-cover object-top" 
           />
         </div>
@@ -46,7 +46,7 @@ export default function ArticleAuthorCard({
             src={authorImg} 
             alt={OFFICIAL_AUTHOR.name} 
             fill 
-            unoptimized 
+            sizes="24px"
             className="object-cover object-top" 
           />
         </div>
@@ -75,8 +75,7 @@ export default function ArticleAuthorCard({
               src={authorImg} 
               alt={OFFICIAL_AUTHOR.name} 
               fill 
-              unoptimized 
-              priority
+              sizes="64px"
               className="object-cover object-top" 
             />
           </div>

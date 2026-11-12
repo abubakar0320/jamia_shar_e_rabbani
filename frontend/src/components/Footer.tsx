@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   PhoneCall,
   MessageCircle, 
@@ -26,12 +26,7 @@ interface OfficialAffiliation {
 }
 
 const Footer = () => {
-  const [mounted, setMounted] = useState(false);
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const handleCopy = (text: string, key: string) => {
     if (typeof window !== 'undefined' && navigator?.clipboard) {
@@ -42,16 +37,6 @@ const Footer = () => {
       }, 2500);
     }
   };
-
-  if (!mounted) {
-    return (
-      <footer className="bg-white text-slate-600 py-10 border-t border-slate-200 print:hidden" dir="rtl">
-        <div className="max-w-[1600px] mx-auto px-6 text-center text-xs opacity-50 font-urdu">
-          لوڈ ہو رہا ہے...
-        </div>
-      </footer>
-    );
-  }
 
   // Official Affiliated & National Entities with verified official links
   const officialAffiliations: OfficialAffiliation[] = [
@@ -248,9 +233,9 @@ const Footer = () => {
           {footerSections.map((section, i) => (
             <div key={i} className="flex flex-col">
               {/* Column Heading */}
-              <h4 className="text-sm md:text-base font-bold text-slate-900 pb-1.5 font-urdu">
+              <h3 className="text-sm md:text-base font-bold text-slate-900 pb-1.5 font-urdu">
                 {section.title}
-              </h4>
+              </h3>
               {/* Full Width Bold Colored Bar under Column Heading */}
               <span 
                 className="h-[3.5px] w-full rounded-full mb-3.5 shadow-2xs block" 
@@ -300,9 +285,9 @@ const Footer = () => {
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-5">
             <div className="flex items-center gap-2">
               <ShieldCheck className="text-emerald-700 w-5 h-5 shrink-0" />
-              <h4 className="text-sm sm:text-base font-bold text-slate-900 font-urdu">
+              <h3 className="text-sm sm:text-base font-bold text-slate-900 font-urdu">
                 قومی الحاق و باضابطہ آفیشل پورٹلز
-              </h4>
+              </h3>
             </div>
             <p className="text-xs text-slate-500 font-urdu">
               جامعہ شیرِ ربانی وفاق المدارس الاسلامیہ الرضویہ پاکستان سے باقاعدہ الحاق شدہ اور ملکی تعلیمی اصولوں پر عمل پیرا ہے۔
@@ -350,9 +335,9 @@ const Footer = () => {
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-5">
             <div className="flex items-center gap-2">
               <Landmark className="text-emerald-700 w-5 h-5 shrink-0" />
-              <h4 className="text-sm sm:text-base font-bold text-slate-900 font-urdu">
+              <h3 className="text-sm sm:text-base font-bold text-slate-900 font-urdu">
                 عطیات، زکوٰۃ و مالی تعاون کے باضابطہ اکاؤنٹس
-              </h4>
+              </h3>
             </div>
             <div className="flex items-center gap-3">
               <p className="text-xs text-slate-500 font-urdu hidden sm:block">
@@ -393,7 +378,7 @@ const Footer = () => {
 
                 <div className="bg-white rounded-xl p-2.5 border border-slate-200 shadow-2xs flex items-center justify-between gap-2">
                   <div className="flex flex-col min-w-0 flex-1">
-                    <span className="text-[9px] text-slate-400 font-urdu">نمبر:</span>
+                    <span className="text-[9px] text-slate-600 font-urdu">نمبر:</span>
                     <span 
                       className="font-mono text-xs sm:text-sm font-black text-slate-900 tracking-wider truncate" 
                       dir="ltr"
@@ -435,9 +420,9 @@ const Footer = () => {
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-5">
             <div className="flex items-center gap-2">
               <PhoneCall className="text-emerald-700 w-5 h-5 shrink-0" />
-              <h4 className="text-sm sm:text-base font-bold text-slate-900 font-urdu">
+              <h3 className="text-sm sm:text-base font-bold text-slate-900 font-urdu">
                 براہِ راست دفتری و انتظامی رابطہ نمبرز (Official Direct Contact Numbers)
-              </h4>
+              </h3>
             </div>
             <p className="text-xs text-slate-500 font-urdu">
               داخلہ، تعلیمی رہنمائی، انتظامی امور یا مالی تعاون کے لیے درج ذیل ذمہ داران سے رابطہ کیا جا سکتا ہے:
@@ -641,7 +626,7 @@ const Footer = () => {
 
 {/* Bottom Bar */}
         <div className="flex flex-col md:flex-row justify-between items-center pt-6 border-t border-slate-200 gap-3.5 text-xs text-slate-500 font-urdu">
-          <div>
+          <div suppressHydrationWarning>
             © {new Date().getFullYear()} جامعہ شیرِ ربانی مانانوالہ، ضلع شیخوپورہ، پنجاب، پاکستان۔ جملہ حقوق محفوظ ہیں۔
           </div>
           

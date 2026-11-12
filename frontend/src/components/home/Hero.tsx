@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
 import { 
@@ -18,7 +17,6 @@ import {
   ArrowRight, 
   ExternalLink 
 } from 'lucide-react';
-import { useTranslation } from 'react-i18next';
 
 interface SlideData {
   id: string;
@@ -39,9 +37,9 @@ interface SlideData {
 }
 
 export default function Hero() {
-  const { t } = useTranslation();
-  const [mounted, setMounted] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [hasAdvanced, setHasAdvanced] = useState(false);
+  const [loadedIndices, setLoadedIndices] = useState<number[]>([0]);
   const [isPaused, setIsPaused] = useState(false);
 
   // Exclusively using the 7 user-provided images (hero section 1 to 7) with tailored features
@@ -167,37 +165,38 @@ export default function Hero() {
     },
   ], []);
 
+  const selectSlide = useCallback((idx: number) => {
+    const normalized = (idx + slides.length) % slides.length;
+    setHasAdvanced(true);
+    setCurrentSlide(normalized);
+    setLoadedIndices((prev) => (prev.includes(normalized) ? prev : [...prev, normalized]));
+  }, [slides.length]);
+
   const nextSlide = useCallback(() => {
-    setCurrentSlide((prev) => (prev + 1) % slides.length);
+    setHasAdvanced(true);
+    setCurrentSlide((prev) => {
+      const next = (prev + 1) % slides.length;
+      setLoadedIndices((loaded) => (loaded.includes(next) ? loaded : [...loaded, next]));
+      return next;
+    });
   }, [slides.length]);
 
   const prevSlide = useCallback(() => {
-    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+    setHasAdvanced(true);
+    setCurrentSlide((prev) => {
+      const next = (prev - 1 + slides.length) % slides.length;
+      setLoadedIndices((loaded) => (loaded.includes(next) ? loaded : [...loaded, next]));
+      return next;
+    });
   }, [slides.length]);
 
   useEffect(() => {
-    setMounted(true);
-
-    // Preload all 7 hero images into browser memory immediately for instant 0ms switching
-    slides.forEach((s) => {
-      const img = new window.Image();
-      img.src = s.image;
-    });
-
     if (isPaused) return;
     const timer = setInterval(() => {
       nextSlide();
     }, 6500);
     return () => clearInterval(timer);
-  }, [isPaused, nextSlide, slides]);
-
-  if (!mounted) {
-    return (
-      <section className="relative w-full h-[540px] bg-[#faf9f8] animate-pulse flex items-center justify-center">
-        <div className="w-10 h-10 border-2 border-[#0078d4] border-t-transparent rounded-full animate-spin" />
-      </section>
-    );
-  }
+  }, [isPaused, nextSlide]);
 
   const slide = slides[currentSlide];
 
@@ -225,15 +224,10 @@ export default function Hero() {
           {/* Left Column: Text & Call to Action */}
           <div className="lg:col-span-6 xl:col-span-6 space-y-6">
             
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentSlide}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.3, ease: 'easeOut' }}
-                className="space-y-5 sm:space-y-6"
-              >
+            <div
+              key={currentSlide}
+              className={`space-y-5 sm:space-y-6 ${hasAdvanced ? 'animate-[heroFadeIn_0.28s_ease-out]' : ''}`}
+            >
                 {/* Live Admissions & Affiliation Badge */}
                 <div className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-md bg-white border border-[#edebe9] text-[#323130] text-xs sm:text-sm font-semibold shadow-2xs">
                   <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse shrink-0" />
@@ -267,6 +261,7 @@ export default function Hero() {
                 <div className="pt-2 flex flex-wrap items-center gap-3 sm:gap-4">
                   <Link
                     href={slide.ctaPrimary.href}
+                    prefetch={false}
                     className="inline-flex items-center justify-center gap-2 px-7 py-3 bg-[#0078d4] hover:bg-[#106ebe] text-white font-semibold text-sm sm:text-base rounded-md shadow-xs hover:shadow-md active:scale-[0.99] transition-all tracking-wide"
                   >
                     <span className="font-urdu">{slide.ctaPrimary.label}</span>
@@ -275,14 +270,14 @@ export default function Hero() {
 
                   <Link
                     href={slide.ctaSecondary.href}
+                    prefetch={false}
                     className="inline-flex items-center justify-center gap-2 px-7 py-3 bg-white hover:bg-[#f3f2f1] text-[#201f1e] font-semibold text-sm sm:text-base rounded-md border border-[#8a8886] hover:border-[#323130] shadow-2xs hover:shadow-xs active:scale-[0.99] transition-all tracking-wide"
                   >
                     <span className="font-urdu">{slide.ctaSecondary.label}</span>
                     <ExternalLink className="w-4 h-4 text-[#605e5c]" />
                   </Link>
                 </div>
-              </motion.div>
-            </AnimatePresence>
+              </div>
 
             {/* Quick Trust Checklist (Noori Nastaleeq) */}
             <div className="pt-4 border-t border-[#edebe9] flex flex-wrap gap-2.5 sm:gap-4 text-xs sm:text-sm font-medium text-[#323130]">
@@ -335,9 +330,11 @@ export default function Hero() {
               {/* Main Image Stage inside Microsoft Side Box - Proper Aspect Ratio with 100% full image visibility & instant zero-lag switching */}
               <div className="relative w-full aspect-[16/11] sm:aspect-[16/10] rounded-lg overflow-hidden border border-[#edebe9] bg-[#141414] shadow-inner group">
                 
-                {/* All 7 slides pre-rendered & GPU-cached for instantaneous transition */}
+                {/* Mount slide 0 eagerly for LCP; load other slides cleanly on demand */}
                 {slides.map((s, idx) => {
                   const isCurrent = idx === currentSlide;
+                  const shouldMount = idx === 0 || isCurrent || loadedIndices.includes(idx);
+                  if (!shouldMount) return null;
                   return (
                     <div
                       key={s.id}
@@ -345,10 +342,9 @@ export default function Hero() {
                         isCurrent ? 'opacity-100 z-10 pointer-events-auto' : 'opacity-0 z-0 pointer-events-none'
                       }`}
                     >
-                      {/* Ambient subtle blur to give Microsoft Fluent acrylic feel around letterbox edges */}
-                      <div 
-                        className="absolute inset-0 bg-cover bg-center blur-2xl opacity-35 scale-110 pointer-events-none"
-                        style={{ backgroundImage: `url("${s.image}")` }}
+                      {/* Subtle CSS ambient backdrop around letterbox edges without duplicate image fetches */}
+                      <div
+                        className="absolute inset-0 bg-gradient-to-br from-slate-900 via-[#141414] to-emerald-950/80 pointer-events-none"
                         aria-hidden="true"
                       />
 
@@ -357,10 +353,12 @@ export default function Hero() {
                         src={s.image}
                         alt={s.titleStart}
                         fill
-                        priority={idx === 0 || idx === 1}
-                        unoptimized
+                        preload={idx === 0}
+                        loading={idx === 0 ? 'eager' : 'lazy'}
+                        fetchPriority={idx === 0 ? 'high' : 'auto'}
+                        quality={idx === 0 ? 70 : 65}
                         className="object-contain object-center z-10 drop-shadow-md select-none"
-                        sizes="(max-width: 1024px) 100vw, 50vw"
+                        sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 480px"
                       />
 
                       {/* Soft gradient at bottom for high-contrast caption legibility */}
@@ -425,10 +423,11 @@ export default function Hero() {
                     return (
                       <button
                         key={s.id}
-                        onClick={() => setCurrentSlide(idx)}
-                        className={`text-center py-1.5 px-0.5 rounded transition-all relative overflow-hidden ${
+                        type="button"
+                        onClick={() => selectSlide(idx)}
+                        className={`text-center py-1.5 px-0.5 rounded font-semibold relative overflow-hidden ${
                           isActive 
-                            ? 'bg-[#f3f2f1] text-[#201f1e] font-bold shadow-2xs' 
+                            ? 'bg-[#f3f2f1] text-[#201f1e] ring-1 ring-[#edebe9]' 
                             : 'hover:bg-[#faf9f8] text-[#605e5c]'
                         }`}
                         title={s.tabLabel}
@@ -436,15 +435,15 @@ export default function Hero() {
                         <div className="text-[10px] font-mono leading-none">0{idx + 1}</div>
                         <div className="text-[10px] font-medium truncate mt-0.5 hidden sm:block font-urdu">{s.tabShort}</div>
                         
-                        {/* Animated Fluent Active Progress Line */}
+                        {/* GPU-composited Fluent Active Progress Line */}
                         {isActive && (
-                          <motion.div
+                          <span
                             key={currentSlide}
-                            initial={{ width: '0%' }}
-                            animate={{ width: isPaused ? '100%' : '100%' }}
-                            transition={{ duration: isPaused ? 0 : 6.5, ease: 'linear' }}
-                            className="absolute bottom-0 inset-x-0 h-0.5"
-                            style={{ backgroundColor: s.fluentAccent }}
+                            className="absolute bottom-0 inset-x-0 h-0.5 origin-right"
+                            style={{
+                              backgroundColor: s.fluentAccent,
+                              animation: isPaused ? 'none' : 'heroProgress 6.5s linear forwards',
+                            }}
                           />
                         )}
                       </button>

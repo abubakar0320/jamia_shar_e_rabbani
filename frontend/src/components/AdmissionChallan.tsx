@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Printer, Download, ArrowLeft, CheckCircle2, Smartphone, ShieldCheck, Clock, Share2 } from 'lucide-react';
+import '@/i18n';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import Image from 'next/image';

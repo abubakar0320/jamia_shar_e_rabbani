@@ -8,11 +8,13 @@ import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const viewport: Viewport = {
@@ -147,17 +149,12 @@ export default function RootLayout({
   return (
     <html lang="ur" dir="rtl">
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;500;600;700;800&display=swap"
-          rel="stylesheet"
-        />
-        <Script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5810661605612266"
+          rel="preload"
+          href="/fonts/noto-nastaliq-urdu.woff2"
+          as="font"
+          type="font/woff2"
           crossOrigin="anonymous"
-          strategy="afterInteractive"
         />
         <script
           type="application/ld+json"
@@ -169,6 +166,11 @@ export default function RootLayout({
           {children}
           <FloatingWhatsApp />
         </Providers>
+        <Script
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5810661605612266"
+          crossOrigin="anonymous"
+          strategy="lazyOnload"
+        />
       </body>
     </html>
   );

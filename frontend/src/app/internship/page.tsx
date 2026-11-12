@@ -3,7 +3,6 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Image from 'next/image';
-import { useTranslation } from 'react-i18next';
 import { 
   FileText, 
   CheckCircle2,
@@ -30,7 +29,6 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 export default function Internship() {
-  const { t } = useTranslation();
   const [mounted, setMounted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -139,28 +137,28 @@ export default function Internship() {
                     <div className="w-12 h-12 bg-emerald-100 flex items-center justify-center mb-4 text-emerald-700 rounded-lg">
                       <Briefcase size={24} />
                     </div>
-                    <h3 className="text-3xl font-bold text-[#323130] mb-1">50+</h3>
+                    <h2 className="text-3xl font-bold text-[#323130] mb-1">50+</h2>
                     <p className="text-sm font-bold text-[#605e5c] leading-[2.0]">انٹرن شپ نشستیں</p>
                   </div>
                   <div className="bg-[#faf9f8] p-6 border border-[#edebe9] mt-8 rounded-xl shadow-sm">
                     <div className="w-12 h-12 bg-blue-100 flex items-center justify-center mb-4 text-blue-700 rounded-lg">
                       <GraduationCap size={24} />
                     </div>
-                    <h3 className="text-3xl font-bold text-[#323130] mb-1">100%</h3>
+                    <h2 className="text-3xl font-bold text-[#323130] mb-1">100%</h2>
                     <p className="text-sm font-bold text-[#605e5c] leading-[2.0]">مکمل طور پر مفت (بغیر فیس)</p>
                   </div>
                   <div className="bg-[#faf9f8] p-6 border border-[#edebe9] -mt-4 rounded-xl shadow-sm">
                     <div className="w-12 h-12 bg-amber-100 flex items-center justify-center mb-4 text-amber-700 rounded-lg">
                       <Award size={24} />
                     </div>
-                    <h3 className="text-2xl font-bold text-[#323130] mb-1">تصدیق شدہ</h3>
+                    <h2 className="text-2xl font-bold text-[#323130] mb-1">تصدیق شدہ</h2>
                     <p className="text-sm font-bold text-[#605e5c] leading-[2.0]">باضابطہ سرٹیفکیٹ</p>
                   </div>
                   <div className="bg-[#faf9f8] p-6 border border-[#edebe9] mt-4 rounded-xl shadow-sm">
                     <div className="w-12 h-12 bg-purple-100 flex items-center justify-center mb-4 text-purple-700 rounded-lg">
                       <Clock size={24} />
                     </div>
-                    <h3 className="text-3xl font-bold text-[#323130] mb-1">۳ تا ۶</h3>
+                    <h2 className="text-3xl font-bold text-[#323130] mb-1">۳ تا ۶</h2>
                     <p className="text-sm font-bold text-[#605e5c] leading-[2.0]">ماہ کا دورانیہ</p>
                   </div>
                 </div>
@@ -273,8 +271,7 @@ export default function Internship() {
                     src="/abubakar-latest.jpeg" 
                     alt="محترم ابوبکر صدیق صاحب" 
                     fill 
-                    unoptimized
-                    priority
+                    sizes="144px"
                     className="object-cover" 
                   />
                 </div>
@@ -349,7 +346,7 @@ export default function Internship() {
                             <MessageCircle size={20} />
                           </div>
                           <div>
-                            <h4 className="font-bold text-xs leading-[2.0]">واٹس ایپ و رابطہ (WhatsApp)</h4>
+                            <h3 className="font-bold text-xs leading-[2.0]">واٹس ایپ و رابطہ (WhatsApp)</h3>
                             <p className="text-xs text-emerald-700 font-mono font-bold" dir="ltr">0309-7354874</p>
                           </div>
                         </a>
@@ -362,7 +359,7 @@ export default function Internship() {
                             <Mail size={20} />
                           </div>
                           <div>
-                            <h4 className="font-bold text-xs leading-[2.0]">آفیشل ای میل (Email)</h4>
+                            <h3 className="font-bold text-xs leading-[2.0]">آفیشل ای میل (Email)</h3>
                             <p className="text-xs text-blue-700 font-mono font-bold truncate" dir="ltr">abubakr.bgnu@gmail.com</p>
                           </div>
                         </a>
@@ -374,7 +371,7 @@ export default function Internship() {
                          <MapPin size={24} />
                       </div>
                       <div>
-                        <h4 className="font-bold text-[#323130] text-sm leading-[2.0]">کیمپس کی لوکیشن</h4>
+                        <h3 className="font-bold text-[#323130] text-sm leading-[2.0]">کیمپس کی لوکیشن</h3>
                         <p className="text-xs text-[#605e5c] leading-[2.0]">جامعہ شیرِ ربانی، مانانوالہ، ضلع شیخوپورہ</p>
                       </div>
                     </div>
@@ -384,7 +381,7 @@ export default function Internship() {
                     <div className="flex items-start gap-4">
                       <Award className="w-6 h-6 shrink-0 text-emerald-300 mt-1" />
                       <div>
-                        <h4 className="font-bold mb-1 leading-[2.0]">۱۰۰ فیصد مفت پروگرام</h4>
+                        <h3 className="font-bold mb-1 leading-[2.0]">۱۰۰ فیصد مفت پروگرام</h3>
                         <p className="text-xs text-emerald-100 leading-[2.2]">اس پروگرام کی کوئی فیس نہیں ہے۔ یہ اقدام نوجوانوں کے علمی و عملی فروغ کے لیے مکمل طور پر فری ہے۔</p>
                       </div>
                     </div>

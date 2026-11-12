@@ -22,4 +22,8 @@ const StudentSchema = new mongoose.Schema({
   documents: { type: Object, default: {} }
 }, { timestamps: true });
 
+StudentSchema.index({ rollNo: 1 });
+StudentSchema.index({ cnic: 1 });
+StudentSchema.index({ studentId: 1 });
+
 module.exports = mongoose.model('Student', StudentSchema);

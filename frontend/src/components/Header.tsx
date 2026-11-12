@@ -1,10 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { useTranslation } from 'react-i18next';
 import React from 'react';
 import { Menu, X, ExternalLink, Code2 } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 
@@ -17,14 +15,8 @@ interface OfficialLogoItem {
 }
 
 const Header = () => {
-  const { t } = useTranslation();
   const pathname = usePathname();
   const [isOpen, setIsOpen] = React.useState(false);
-  const [mounted, setMounted] = React.useState(false);
-
-  React.useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const navItems = [
     { label: 'ہوم', href: '/', color: '#fbbf24' }, // Vibrant Amber Gold
@@ -81,32 +73,6 @@ const Header = () => {
     },
   ];
 
-  if (!mounted) {
-    return (
-      <header className="sticky top-0 z-50 bg-white border-b border-gray-200 print:hidden" dir="rtl">
-        {/* Skeleton Header: Logo & Title */}
-        <div className="bg-white border-b border-slate-100 py-2 sm:py-2.5">
-          <div className="max-w-[1600px] mx-auto px-3 sm:px-6 md:px-8 flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-slate-100 rounded-full animate-pulse" />
-              <div className="flex flex-col gap-1.5">
-                <div className="h-4 w-36 sm:w-44 bg-slate-100 rounded animate-pulse" />
-                <div className="h-2.5 w-24 sm:w-28 bg-slate-50 rounded animate-pulse" />
-              </div>
-            </div>
-            <div className="flex items-center gap-1.5 sm:gap-2">
-              {[1, 2, 3, 4, 5].map((i) => (
-                <div key={i} className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-slate-100 animate-pulse" />
-              ))}
-            </div>
-          </div>
-        </div>
-        {/* Skeleton Navbar */}
-        <div className="bg-emerald-800 h-12" />
-      </header>
-    );
-  }
-
   return (
     <header className="sticky top-0 z-50 bg-white shadow-sm font-sans print:hidden" dir="rtl">
       {/* 1. TOP HEADER: Logo & Name with National / Affiliation Logos - Single clean horizontal line, NEVER wraps */}
@@ -122,7 +88,8 @@ const Header = () => {
                 width={56} 
                 height={56} 
                 className="rounded-full shadow-sm group-hover:scale-105 transition-transform border border-emerald-100 object-cover w-full h-full"
-                priority
+                loading="eager"
+                fetchPriority="high"
               />
             </div>
             <div className="flex flex-col text-right min-w-0">
@@ -159,7 +126,7 @@ const Header = () => {
                   <span className="text-[11px] font-black text-slate-800 tracking-tight whitespace-nowrap group-hover:text-emerald-700 transition-colors font-urdu">
                     {item.nameUrdu}
                   </span>
-                  <span className="text-[8px] font-bold text-slate-400 whitespace-nowrap hidden 2xl:block">
+                  <span className="text-[8px] font-bold text-slate-600 whitespace-nowrap hidden 2xl:block">
                     {item.nameSub}
                   </span>
                 </div>
@@ -192,6 +159,7 @@ const Header = () => {
                   <Link
                     key={item.href}
                     href={item.href}
+                    prefetch={false}
                     className={`group relative px-2.5 sm:px-3 pt-1 pb-1.5 flex flex-col items-center justify-center text-[13px] md:text-[14px] font-bold tracking-normal rounded-md transition-all whitespace-nowrap flex-shrink-0 font-urdu ${
                       isActive
                         ? 'bg-emerald-950/70 text-white'
@@ -213,6 +181,7 @@ const Header = () => {
               {/* Mobile quick apply button inside scrollable menu */}
               <Link
                 href="/admissions"
+                prefetch={false}
                 className="md:hidden flex-shrink-0 ml-1 px-3.5 py-1 bg-amber-400 hover:bg-amber-300 text-slate-900 text-[12px] font-bold rounded-full shadow-xs whitespace-nowrap font-urdu"
               >
                 آن لائن داخلہ
@@ -223,6 +192,7 @@ const Header = () => {
             <div className="flex-shrink-0 ml-3 pl-3 border-l border-emerald-700/70 hidden md:flex items-center">
               <Link
                 href="/admissions"
+                prefetch={false}
                 className="px-4 py-1.5 bg-amber-400 hover:bg-amber-300 text-slate-900 text-[13px] font-bold rounded-full shadow-sm hover:shadow transition-all whitespace-nowrap font-urdu"
               >
                 آن لائن داخلہ
@@ -233,26 +203,18 @@ const Header = () => {
       </nav>
 
       {/* Mobile Nav Overlay / Drawer */}
-      <AnimatePresence>
-        {isOpen && (
-          <>
-            {/* Backdrop */}
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setIsOpen(false)}
-              className="xl:hidden fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-40"
-            />
-            
-            {/* Sidebar */}
-            <motion.div 
-              initial={{ x: '100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="xl:hidden fixed top-0 right-0 h-screen w-[85vw] sm:w-80 bg-white z-50 overflow-y-auto shadow-2xl flex flex-col"
-            >
+      {isOpen && (
+        <>
+          {/* Backdrop */}
+          <div 
+            onClick={() => setIsOpen(false)}
+            className="xl:hidden fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-40 transition-opacity duration-200"
+          />
+          
+          {/* Sidebar */}
+          <div 
+            className="xl:hidden fixed top-0 right-0 h-screen w-[85vw] sm:w-80 bg-white z-50 overflow-y-auto shadow-2xl flex flex-col animate-[drawerIn_0.22s_ease-out]"
+          >
               <div className="px-6 py-5 flex justify-between items-center border-b border-slate-100 bg-emerald-800 text-white">
                 <div className="flex items-center gap-2">
                   <Image 
@@ -365,10 +327,9 @@ const Header = () => {
                   آن لائن داخلہ فارم پر کریں
                 </Link>
               </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+          </div>
+        </>
+      )}
     </header>
   );
 };

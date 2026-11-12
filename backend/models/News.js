@@ -11,4 +11,6 @@ const NewsSchema = new mongoose.Schema({
   author: { type: String }
 }, { timestamps: true });
 
+NewsSchema.index({ createdAt: -1 });
+
 module.exports = mongoose.model('News', NewsSchema);

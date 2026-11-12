@@ -180,7 +180,7 @@ export default function News() {
         {/* --- HERO SECTION --- */}
         <section 
           style={{ 
-            backgroundImage: "linear-gradient(rgba(255,255,255,0.92), rgba(255,255,255,0.92)), url('/ahmad.png')", 
+            backgroundImage: "linear-gradient(rgba(255,255,255,0.92), rgba(255,255,255,0.92)), url('/ahmad.webp')", 
             backgroundSize: "cover", 
             backgroundPosition: "center" 
           }} 
@@ -475,9 +475,9 @@ export default function News() {
                         <span className="text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-100 px-2.5 py-1 rounded-md inline-block mb-2">
                           {event.category}
                         </span>
-                        <h4 className="font-black text-slate-900 text-base md:text-lg leading-[2.1] group-hover:text-emerald-700 transition-colors">
+                        <h3 className="font-black text-slate-900 text-base md:text-lg leading-[2.1] group-hover:text-emerald-700 transition-colors">
                           {event.title}
-                        </h4>
+                        </h3>
                       </div>
                     </div>
 

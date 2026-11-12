@@ -278,7 +278,7 @@ export default function ArticlesClient() {
                         src="/abubakar-latest.jpeg" 
                         alt={prominentArticle.author || OFFICIAL_AUTHOR.name} 
                         fill 
-                        unoptimized 
+                        sizes="24px"
                         className="object-cover object-top" 
                       />
                     </div>
@@ -307,6 +307,7 @@ export default function ArticlesClient() {
                       src={article.image}
                       alt={article.title}
                       fill
+                      sizes="(max-width: 1024px) 92vw, 400px"
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                     <div className="absolute top-3 right-3">
@@ -339,7 +340,7 @@ export default function ArticlesClient() {
                             src="/abubakar-latest.jpeg" 
                             alt={article.author || OFFICIAL_AUTHOR.name} 
                             fill 
-                            unoptimized 
+                            sizes="24px"
                             className="object-cover object-top" 
                           />
                         </div>
@@ -524,7 +525,7 @@ export default function ArticlesClient() {
                           src="/abubakar-latest.jpeg" 
                           alt={article.author || OFFICIAL_AUTHOR.name} 
                           fill 
-                          unoptimized 
+                          sizes="24px"
                           className="object-cover object-top" 
                         />
                       </div>

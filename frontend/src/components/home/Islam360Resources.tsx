@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { 
+import {
   Book, 
   Languages, 
   MessageSquareText, 
@@ -14,6 +14,7 @@ import {
   Download,
   ExternalLink
 } from 'lucide-react';
+import '@/i18n';
 import { useTranslation } from 'react-i18next';
 import React, { useState, useEffect } from 'react';
 

@@ -151,7 +151,7 @@ https://jamiashererabbani.com/admissions/status?q=${result.applicationNo}`;
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="bg-rose-50 border border-rose-200 p-6 rounded-3xl text-rose-800 shadow-md flex items-start gap-4">
             <XCircle size={24} className="text-rose-600 shrink-0 mt-0.5" />
             <div>
-              <h4 className="font-bold text-base mb-1 leading-[2.0]">کوئی ریکارڈ نہیں ملا (No Record Found)</h4>
+              <h2 className="font-bold text-base mb-1 leading-[2.0]">کوئی ریکارڈ نہیں ملا (No Record Found)</h2>
               <p className="text-sm text-rose-700 leading-[2.2]">{error}</p>
               <p className="text-xs text-rose-500 mt-2 leading-[2.0]">براہ کرم اپنا ایپلیکیشن نمبر، چالان نمبر، یا شناختی کارڈ نمبر درست دیکھ کر دوبارہ کوشش کریں۔</p>
             </div>

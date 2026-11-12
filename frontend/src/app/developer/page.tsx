@@ -114,9 +114,10 @@ export default function DeveloperProfilePage() {
                     src="/abubakar-latest.jpeg"
                     alt="محترم ابوبکر صدیق صاحب"
                     fill
-                    unoptimized
+                    sizes="(max-width: 640px) 176px, 224px"
                     className="object-cover"
-                    priority
+                    preload
+                    fetchPriority="high"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent pointer-events-none" />
                   <div className="absolute bottom-2 left-2 right-2 text-center text-[12px] font-bold text-amber-300 bg-slate-950/85 py-1 rounded-md backdrop-blur-xs font-urdu border border-amber-400/20 z-10">

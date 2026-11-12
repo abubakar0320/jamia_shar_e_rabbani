@@ -233,7 +233,9 @@ function CourseDetailsContent() {
               src={course.image || '/hadith.jpg'} 
               alt={displayTitle}
               fill
-              priority
+              preload
+              fetchPriority="high"
+              sizes="100vw"
               section="course"
               className="object-cover object-center opacity-30 blur-xs"
             />
@@ -299,9 +301,9 @@ function CourseDetailsContent() {
                 <span className="text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-md mb-3 inline-block font-urdu">
                   کورس کا تفصیلی تعارف و نصاب
                 </span>
-                <h3 className="text-2xl sm:text-3xl font-black text-slate-900 mb-4 leading-[2.0] font-urdu">
+                <h2 className="text-2xl sm:text-3xl font-black text-slate-900 mb-4 leading-[2.0] font-urdu">
                   {detail?.arabicTitle ? detail.arabicTitle : 'مستند دینی علوم اور روحانی تربیت کا گلدستہ'}
-                </h3>
+                </h2>
                 <div className="text-slate-600 space-y-4 text-sm sm:text-base leading-[2.3] font-urdu">
                   <p>
                     {detail?.overview ? detail.overview : `جامعہ شیرِ ربانی میں ${displayTitle} کا باقاعدہ تعلیمی پروگرام روایتی دینی علوم کی گہری اور مدلل تفہیم کے لیے تشکیل دیا گیا ہے۔ یہاں محض نصابی کتب کا مطالعہ نہیں بلکہ ہر طالب علم کی باطنی و اخلاقی تربیت، سنتِ نبوی پر عمل اور فکرِ اسلامی کی آبیاری پر خصوصی توجہ دی جاتی ہے۔`}
@@ -310,7 +312,7 @@ function CourseDetailsContent() {
 
                 {detail?.highlights && (
                   <div className="mt-6 pt-5 border-t border-slate-100">
-                    <h4 className="text-sm font-bold text-slate-900 mb-3 font-urdu">اہم تعلیمی خصوصیات:</h4>
+                    <h3 className="text-sm font-bold text-slate-900 mb-3 font-urdu">اہم تعلیمی خصوصیات:</h3>
                     <div className="space-y-2">
                       {detail.highlights.map((h, i) => (
                         <div key={i} className="flex items-start gap-2 text-xs sm:text-sm text-slate-700 font-urdu">
@@ -324,13 +326,13 @@ function CourseDetailsContent() {
 
                 {detail?.curriculumStages && (
                   <div className="mt-6 pt-5 border-t border-slate-100">
-                    <h4 className="text-sm font-bold text-slate-900 mb-3 font-urdu">
+                    <h3 className="text-sm font-bold text-slate-900 mb-3 font-urdu">
                       {detail.id === 2 
                         ? 'تعلیمی مراحل (۸ سالہ مرحلہ وار تدریس):' 
                         : detail.id === 7 
                           ? 'تعلیمی مراحل (۲ سالہ مرحلہ وار فاسٹ ٹریک تدریس):' 
                           : 'تعلیمی مراحل و نصابی تقسیم:'}
-                    </h4>
+                    </h3>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       {detail.curriculumStages.map((stg, i) => (
                         <div key={i} className="p-3.5 bg-slate-50 rounded-xl border border-slate-200 text-xs">
@@ -346,7 +348,7 @@ function CourseDetailsContent() {
                 {detail?.curriculumSubjects && (
                   <div className="mt-6 pt-5 border-t border-slate-100 grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <h4 className="text-sm font-bold text-slate-900 mb-2 font-urdu">شامل تدریسی مضامین:</h4>
+                      <h3 className="text-sm font-bold text-slate-900 mb-2 font-urdu">شامل تدریسی مضامین:</h3>
                       <ul className="space-y-1.5 text-xs sm:text-sm text-slate-700 font-urdu">
                         {detail.curriculumSubjects.map((sub, i) => (
                           <li key={i} className="flex items-start gap-2">
@@ -358,7 +360,7 @@ function CourseDetailsContent() {
                     </div>
 
                     <div>
-                      <h4 className="text-sm font-bold text-slate-900 mb-2 font-urdu">اہم تدریسی کتب:</h4>
+                      <h3 className="text-sm font-bold text-slate-900 mb-2 font-urdu">اہم تدریسی کتب:</h3>
                       <ul className="space-y-1.5 text-xs sm:text-sm text-slate-700 font-urdu">
                         {detail.booksTaught.map((b, i) => (
                           <li key={i} className="flex items-start gap-2">
@@ -374,7 +376,7 @@ function CourseDetailsContent() {
                 {detail && (
                   <div className="mt-6 pt-5 border-t border-slate-100 grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="bg-amber-50/70 p-4 rounded-xl border border-amber-200">
-                      <h4 className="text-sm font-bold text-amber-950 mb-2 font-urdu">شرائطِ داخلہ و اہلیت:</h4>
+                      <h3 className="text-sm font-bold text-amber-950 mb-2 font-urdu">شرائطِ داخلہ و اہلیت:</h3>
                       <ul className="space-y-1.5 text-xs sm:text-sm text-amber-950 font-urdu">
                         {detail.eligibility.map((item, i) => (
                           <li key={i} className="flex items-start gap-2">
@@ -386,7 +388,7 @@ function CourseDetailsContent() {
                     </div>
 
                     <div className="bg-emerald-50/70 p-4 rounded-xl border border-emerald-200">
-                      <h4 className="text-sm font-bold text-emerald-950 mb-2 font-urdu">جامعہ کی مفت سہولیات:</h4>
+                      <h3 className="text-sm font-bold text-emerald-950 mb-2 font-urdu">جامعہ کی مفت سہولیات:</h3>
                       <ul className="space-y-1.5 text-xs sm:text-sm text-emerald-950 font-urdu">
                         {detail.facilities.map((fac, i) => (
                           <li key={i} className="flex items-start gap-2">

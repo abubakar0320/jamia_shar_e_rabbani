@@ -183,13 +183,6 @@ export default function SyedZadyPage() {
                   
                   {/* PHOTO COLUMN (UNCROPPED, FULL ASPECT RATIO WITH AMBIENT BACKDROP) */}
                   <div className="lg:col-span-5 bg-gradient-to-b from-slate-950 via-slate-900 to-emerald-950 p-4 sm:p-6 lg:p-7 flex flex-col items-center justify-between relative overflow-hidden group">
-                    {/* Ambient Glow */}
-                    <div className="absolute inset-0 opacity-20 pointer-events-none">
-                      <div 
-                        className="w-full h-full bg-cover bg-center blur-2xl scale-125"
-                        style={{ backgroundImage: `url("${syed.image}")` }}
-                      />
-                    </div>
 
                     {/* Top Badges over Photo */}
                     <div className="w-full flex items-center justify-between gap-2 z-10 mb-3">
@@ -217,7 +210,10 @@ export default function SyedZadyPage() {
                         alt={syed.name}
                         width={600}
                         height={750}
-                        priority={index === 0}
+                        preload={index === 0}
+                        loading={index === 0 ? 'eager' : 'lazy'}
+                        fetchPriority={index === 0 ? 'high' : 'auto'}
+                        sizes="(max-width: 1024px) 90vw, 450px"
                         className="w-full h-auto max-h-[520px] object-contain rounded-xl drop-shadow-2xl transition-transform duration-500 group-hover:scale-[1.02]"
                       />
                     </div>

@@ -83,7 +83,7 @@ export default function Donations() {
         {/* --- HERO SECTION --- */}
         <section 
           style={{ 
-            backgroundImage: "linear-gradient(rgba(255,255,255,0.92), rgba(255,255,255,0.92)), url('/ahmad.png')", 
+            backgroundImage: "linear-gradient(rgba(255,255,255,0.92), rgba(255,255,255,0.92)), url('/ahmad.webp')", 
             backgroundSize: "cover", 
             backgroundPosition: "center" 
           }} 
@@ -323,9 +323,9 @@ export default function Donations() {
                       <ShieldCheck size={24} className="text-emerald-300" />
                     </div>
                     <div>
-                      <h4 className="font-bold text-lg mb-1 text-white leading-snug">
+                      <h3 className="font-bold text-lg mb-1 text-white leading-snug">
                         شفاف حسابات و مکمل نگرانی
-                      </h4>
+                      </h3>
                       <p className="text-emerald-100/90 text-sm leading-[2.2]">
                         جامعہ کا ہر ایک روپیہ باقاعدہ فنانشل آڈٹ اور جید علماء کرام کی سرپرستی میں پوری امانت کے ساتھ صرف کیا جاتا ہے۔
                       </p>
@@ -337,9 +337,9 @@ export default function Donations() {
                       <Award size={24} className="text-emerald-300" />
                     </div>
                     <div>
-                      <h4 className="font-bold text-lg mb-1 text-white leading-snug">
+                      <h3 className="font-bold text-lg mb-1 text-white leading-snug">
                         شرعی اصولوں کے عین مطابق صرف
-                      </h4>
+                      </h3>
                       <p className="text-emerald-100/90 text-sm leading-[2.2]">
                         زکوٰۃ کے فنڈز کو مفتیانِ کرام کی براہِ راست نگرانی میں صرف اور صرف مستحقینِ زکوٰۃ پر خرچ کیا جاتا ہے۔
                       </p>
@@ -351,9 +351,9 @@ export default function Donations() {
                       <Users size={24} className="text-emerald-300" />
                     </div>
                     <div>
-                      <h4 className="font-bold text-lg mb-1 text-white leading-snug">
+                      <h3 className="font-bold text-lg mb-1 text-white leading-snug">
                         براہِ راست دینی و ملی فائدہ
-                      </h4>
+                      </h3>
                       <p className="text-emerald-100/90 text-sm leading-[2.2]">
                         ۲,۰۰۰ سے زائد مخلص مخیرین و معاونین کے قافلے میں شامل ہو کر طلبہ کے روشن مستقبل کی تعمیر میں کردار ادا کریں۔
                       </p>

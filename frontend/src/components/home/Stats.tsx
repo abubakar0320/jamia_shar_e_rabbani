@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Users, ShieldCheck, BookOpen, Award } from 'lucide-react';
+import '@/i18n';
 import { useTranslation } from 'react-i18next';
 import React, { useState, useEffect } from 'react';
 

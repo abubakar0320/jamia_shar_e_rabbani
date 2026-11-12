@@ -27,4 +27,7 @@ const ChallanSchema = new mongoose.Schema({
   verifiedAt: { type: String }
 }, { timestamps: true });
 
+ChallanSchema.index({ challanNo: 1 });
+ChallanSchema.index({ status: 1, type: 1 });
+
 module.exports = mongoose.model('Challan', ChallanSchema);

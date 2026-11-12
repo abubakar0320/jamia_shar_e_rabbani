@@ -485,9 +485,6 @@ function FacultyProfileContent() {
         
         {/* HEADER SECTION (RESPONSIVE: CENTERED ON MOBILE, ALIGNED ON DESKTOP) */}
         <section className="bg-gradient-to-b from-slate-950 via-emerald-950 to-slate-900 text-white pt-10 sm:pt-14 pb-16 sm:pb-28 lg:pb-32 relative overflow-hidden text-right">
-          <div className="absolute inset-0 opacity-10 pointer-events-none">
-            <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url("${member.image || '/logo.jpeg'}")` }} />
-          </div>
           
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             {/* Back to Faculty Directory */}
@@ -500,15 +497,7 @@ function FacultyProfileContent() {
             
             <div className="flex flex-col lg:flex-row gap-6 lg:gap-10 items-center lg:items-end text-center lg:text-right">
               {/* Profile Image Box: Exact Ratio & Complete Uncropped Photo */}
-              <div className="w-44 sm:w-56 md:w-64 aspect-[4/5] bg-slate-950 rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden relative border-4 border-white shrink-0 mb-2 lg:-mb-24 z-20 flex items-center justify-center">
-                {/* Ambient Blurred Matching Background */}
-                <OptimizedImage 
-                  src={member.image || "/logo.jpeg"}
-                  alt=""
-                  fill
-                  className="object-cover blur-xl opacity-35 scale-110 pointer-events-none"
-                  aria-hidden
-                />
+              <div className="w-44 sm:w-56 md:w-64 aspect-[4/5] bg-gradient-to-br from-slate-900 via-slate-950 to-emerald-950 rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden relative border-4 border-white shrink-0 mb-2 lg:-mb-24 z-20 flex items-center justify-center">
                 {/* Complete Uncropped Photo in Exact Ratio */}
                 <OptimizedImage 
                   src={member.image || "/logo.jpeg"}

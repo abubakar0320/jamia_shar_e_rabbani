@@ -2,7 +2,6 @@
 
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import React, { useState, useEffect } from 'react';
 import { 
@@ -53,7 +52,6 @@ interface Milestone {
 }
 
 export default function About() {
-  const { t } = useTranslation();
   const [selectedCertificate, setSelectedCertificate] = useState<{
     title: string;
     authority: string;
@@ -1021,7 +1019,6 @@ export default function About() {
                       fill
                       className="object-contain drop-shadow-2xl rounded-lg"
                       sizes="(max-width: 1024px) 100vw, 1000px"
-                      priority
                     />
                   </div>
                 </div>

@@ -3,6 +3,7 @@
 import React from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import '@/i18n';
 import { useTranslation } from 'react-i18next';
 
 export default function Loading() {

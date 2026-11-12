@@ -9,6 +9,7 @@ const path = require('path');
 require('dotenv').config({ path: path.join(__dirname, '.env') });
 require('dotenv').config();
 const express = require('express');
+const zlib = require('zlib');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const cloudinary = require('cloudinary').v2;
@@ -38,7 +39,47 @@ app.use(cors());
 app.use(express.json({ limit: "20mb" }));
 app.use(express.urlencoded({ limit: "20mb", extended: true }));
 app.use(sanitizeInput);
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+// Built-in Node zlib compression for non-Vercel persistent deployments (Vercel handles edge compression natively)
+app.use((req, res, next) => {
+  if (process.env.VERCEL) return next();
+  const acceptEncoding = req.headers['accept-encoding'] || '';
+  if (!/\b(br|gzip)\b/.test(acceptEncoding)) return next();
+
+  const origJson = res.json.bind(res);
+  res.json = (body) => {
+    if (res.headersSent) return origJson(body);
+    const jsonStr = JSON.stringify(body);
+    if (!jsonStr || Buffer.byteLength(jsonStr) < 1024) {
+      return origJson(body);
+    }
+
+    res.setHeader('Content-Type', 'application/json; charset=utf-8');
+    res.setHeader('Vary', 'Accept-Encoding');
+
+    if (/\bbr\b/.test(acceptEncoding)) {
+      return zlib.brotliCompress(jsonStr, { params: { [zlib.constants.BROTLI_PARAM_QUALITY]: 4 } }, (err, buf) => {
+        if (err || res.headersSent) return origJson(body);
+        res.setHeader('Content-Encoding', 'br');
+        return res.send(buf);
+      });
+    }
+
+    return zlib.gzip(jsonStr, (err, buf) => {
+      if (err || res.headersSent) return origJson(body);
+      res.setHeader('Content-Encoding', 'gzip');
+      return res.send(buf);
+    });
+  };
+  next();
+});
+
+const publicCache = (maxAge = 300, swr = 600) => (req, res, next) => {
+  res.setHeader('Cache-Control', `public, max-age=${maxAge}, s-maxage=${maxAge}, stale-while-revalidate=${swr}`);
+  next();
+};
+
+app.use('/uploads', express.static(path.join(__dirname, 'uploads'), { maxAge: '30d', immutable: false }));
 app.use('/api', apiLimiter);
 
 // Production Health Check & Uptime Monitoring
@@ -195,10 +236,11 @@ async function setSetting(key, value) {
 app.post('/api/visit', async (req, res) => {
   try {
     const dateStr = new Date().toLocaleDateString('en-CA'); // YYYY-MM-DD
-    const analytics = await getSetting('analytics', { visits: {} });
-    if (!analytics.visits) analytics.visits = {};
-    analytics.visits[dateStr] = (analytics.visits[dateStr] || 0) + 1;
-    await setSetting('analytics', analytics);
+    await SystemSetting.findOneAndUpdate(
+      { key: 'analytics' },
+      { $inc: { [`value.visits.${dateStr}`]: 1 } },
+      { upsert: true }
+    );
     res.json({ success: true });
   } catch (err) {
     res.json({ success: true });
@@ -213,7 +255,7 @@ app.get('/api/admin/analytics', requireAdminAuth, async (req, res) => {
 // ----------------------------------------------------
 // Exam Mess Routes
 // ----------------------------------------------------
-app.get('/api/exam-mess/config', async (req, res) => {
+app.get('/api/exam-mess/config', publicCache(120, 600), async (req, res) => {
   const rawConfig = await getSetting('messConfig', { fee: 3000, examName: 'Salana Imtihaan 2026' });
   const config = {
     fee: Number(rawConfig?.fee) || 3000,
@@ -289,7 +331,7 @@ app.post('/api/exam-mess/apply', async (req, res) => {
 // ----------------------------------------------------
 // Fee & Admission Configurations
 // ----------------------------------------------------
-app.get('/api/fee-config', async (req, res) => {
+app.get('/api/fee-config', publicCache(120, 600), async (req, res) => {
   const feeConfig = await getSetting('feeConfig', {
     admissionFee: 2000,
     registrationFee: 1000,
@@ -303,7 +345,7 @@ app.post('/api/admin/fee-config', requireAdminAuth, async (req, res) => {
   res.json({ success: true });
 });
 
-app.get('/api/admission-schedule', async (req, res) => {
+app.get('/api/admission-schedule', publicCache(60, 300), async (req, res) => {
   const schedule = await getSetting('admissionSchedule', {
     enabled: true,
     dailyLateFee: 170,
@@ -342,12 +384,12 @@ const DEFAULT_PAYMENT_ACCOUNTS = {
   accountNumber: "98690112101313"
 };
 
-app.get('/api/payment-accounts', async (req, res) => {
+app.get('/api/payment-accounts', publicCache(300, 900), async (req, res) => {
   const accounts = await getSetting('paymentAccounts', DEFAULT_PAYMENT_ACCOUNTS);
   res.json({ ...DEFAULT_PAYMENT_ACCOUNTS, ...accounts });
 });
 
-app.get('/api/bank-config', async (req, res) => {
+app.get('/api/bank-config', publicCache(300, 900), async (req, res) => {
   const accounts = await getSetting('paymentAccounts', DEFAULT_PAYMENT_ACCOUNTS);
   res.json({ ...DEFAULT_PAYMENT_ACCOUNTS, ...accounts });
 });
@@ -969,19 +1011,19 @@ app.delete('/api/admin/fee-categories/:id', requireAdminAuth, async (req, res) =
   res.json({ success: true });
 });
 
-app.get('/api/results', async (req, res) => {
+app.get('/api/results', publicCache(120, 600), async (req, res) => {
   res.json(await getSetting('results', []));
 });
 
 // ----------------------------------------------------
 // Courses Routes
 // ----------------------------------------------------
-app.get('/api/courses', async (req, res) => {
+app.get('/api/courses', publicCache(300, 1200), async (req, res) => {
   const courses = await Course.find().sort({ id: 1 }).lean();
   res.json(courses);
 });
 
-app.get('/api/courses/:id', async (req, res) => {
+app.get('/api/courses/:id', publicCache(300, 1200), async (req, res) => {
   const id = parseInt(req.params.id) || req.params.id;
   const course = await Course.findOne({ id }).lean();
   if (course) res.json(course);
@@ -1018,12 +1060,12 @@ app.delete('/api/admin/courses/:id', requireAdminAuth, async (req, res) => {
 // ----------------------------------------------------
 // Faculty Routes
 // ----------------------------------------------------
-app.get('/api/faculty', async (req, res) => {
+app.get('/api/faculty', publicCache(300, 1200), async (req, res) => {
   const faculty = await Faculty.find().sort({ id: 1 }).lean();
   res.json(faculty);
 });
 
-app.get('/api/faculty/:id', async (req, res) => {
+app.get('/api/faculty/:id', publicCache(300, 1200), async (req, res) => {
   const id = parseInt(req.params.id) || req.params.id;
   const member = await Faculty.findOne({ id }).lean();
   if (member) res.json(member);
@@ -1060,12 +1102,12 @@ app.delete('/api/admin/faculty/:id', requireAdminAuth, async (req, res) => {
 // ----------------------------------------------------
 // News Routes
 // ----------------------------------------------------
-app.get('/api/news', async (req, res) => {
+app.get('/api/news', publicCache(60, 300), async (req, res) => {
   const news = await News.find().sort({ createdAt: -1 }).lean();
   res.json(news);
 });
 
-app.get('/api/news/:id', async (req, res) => {
+app.get('/api/news/:id', publicCache(120, 600), async (req, res) => {
   const id = parseInt(req.params.id) || req.params.id;
   const article = await News.findOne({ id }).lean();
   if (article) res.json(article);
@@ -1076,12 +1118,19 @@ app.get('/api/news/:id', async (req, res) => {
 // Admin Stats & Backup
 // ----------------------------------------------------
 app.get('/api/admin/stats', requireAdminAuth, async (req, res) => {
+  const [courses, faculty, news, contactsSetting, admissions] = await Promise.all([
+    Course.countDocuments(),
+    Faculty.countDocuments(),
+    News.countDocuments(),
+    getSetting('contacts', []),
+    Admission.countDocuments(),
+  ]);
   res.json({
-    courses: await Course.countDocuments(),
-    faculty: await Faculty.countDocuments(),
-    news: await News.countDocuments(),
-    contacts: await getSetting('contacts', []).then(c => Array.isArray(c) ? c.length : 0),
-    admissions: await Admission.countDocuments(),
+    courses,
+    faculty,
+    news,
+    contacts: Array.isArray(contactsSetting) ? contactsSetting.length : 0,
+    admissions,
   });
 });
 
@@ -1468,18 +1517,18 @@ app.get('/api/donations', async (req, res) => {
   res.json(donations);
 });
 
-app.get('/api/donation-portals', async (req, res) => {
+app.get('/api/donation-portals', publicCache(300, 900), async (req, res) => {
   res.json(await getSetting('donationPortals', []));
 });
 
-app.get('/api/page-configs', async (req, res) => {
+app.get('/api/page-configs', publicCache(120, 600), async (req, res) => {
   res.json(await getSetting('pageConfigs', []));
 });
 
 // ----------------------------------------------------
 // Popup Announcement
 // ----------------------------------------------------
-app.get('/api/popup-announcement', async (req, res) => {
+app.get('/api/popup-announcement', publicCache(60, 300), async (req, res) => {
   res.json(await getSetting('popupAnnouncement', { enabled: false }));
 });
 
@@ -1521,7 +1570,7 @@ app.get('/api/admin/admission-requirements', requireAdminAuth, async (req, res) 
   const list = await AdmissionRequirement.find().sort({ id: 1 }).lean();
   res.json(list);
 });
-app.get('/api/admission-requirements', async (req, res) => {
+app.get('/api/admission-requirements', publicCache(300, 900), async (req, res) => {
   let list = await AdmissionRequirement.find().sort({ id: 1 }).lean();
   list = list.map(item => {
     if (REQUIREMENT_URDU_MAP[item.title]) {
@@ -1572,7 +1621,7 @@ app.get('/api/admin/form-fields', requireAdminAuth, async (req, res) => {
   const fields = await FormField.find().sort({ createdAt: 1 }).lean();
   res.json(fields);
 });
-app.get('/api/form-fields', async (req, res) => {
+app.get('/api/form-fields', publicCache(300, 900), async (req, res) => {
   let fields = await FormField.find().sort({ createdAt: 1 }).lean();
   fields = fields.map(field => {
     if (FORM_FIELD_URDU_MAP[field.id] || FORM_FIELD_URDU_MAP[field.title]) {
@@ -1810,17 +1859,17 @@ app.post('/api/public/track-application', async (req, res) => {
       return res.status(404).json({ error: 'No application found with the provided details. Please verify your Application No, CNIC, or Mobile.' });
     }
 
-    // Look up associated Challan
-    const challan = await Challan.findOne({ challanNo: admission.challanNo }).lean();
-
-    // Look up enrolled Student if approved
-    const student = await Student.findOne({
-      $or: [
-        { applicationNo: admission.applicationNo },
-        { cnic: admission.cnic },
-        { rollNo: admission.applicationNo }
-      ]
-    }).lean();
+    // Look up associated Challan & enrolled Student in parallel
+    const [challan, student] = await Promise.all([
+      Challan.findOne({ challanNo: admission.challanNo }).lean(),
+      Student.findOne({
+        $or: [
+          { applicationNo: admission.applicationNo },
+          { cnic: admission.cnic },
+          { rollNo: admission.applicationNo }
+        ]
+      }).lean(),
+    ]);
 
     const currentStatus = admission.status || 'Pending';
     const feeStatus = challan?.status || (currentStatus === 'Approved' ? 'Paid' : 'Unpaid');

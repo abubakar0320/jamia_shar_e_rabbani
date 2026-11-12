@@ -251,7 +251,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
                   src="/abubakar-latest.jpeg" 
                   alt={OFFICIAL_AUTHOR.name} 
                   fill 
-                  unoptimized 
+                  sizes="24px"
                   className="object-cover object-top" 
                 />
               </div>
@@ -285,8 +285,10 @@ export default async function ArticleDetailPage({ params }: PageProps) {
             src={article.image}
             alt={fullContent?.imageAlt || article.imageAlt || article.title}
             fill
+            sizes="(max-width: 896px) 92vw, 850px"
             className="object-cover"
-            priority
+            preload
+            fetchPriority="high"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent" />
           <div className="absolute bottom-4 right-4 bg-slate-900/80 backdrop-blur-xs text-white px-3.5 py-1.5 rounded-lg text-xs font-bold">
@@ -507,9 +509,9 @@ export default async function ArticleDetailPage({ params }: PageProps) {
                       <div className="w-6 h-6 rounded-full bg-emerald-800 text-white flex items-center justify-center text-xs font-bold shrink-0">
                         {index + 1}
                       </div>
-                      <h4 className="text-base font-black text-slate-900 leading-[1.8]">
+                      <h3 className="text-base font-black text-slate-900 leading-[1.8]">
                         {pt.title}
-                      </h4>
+                      </h3>
                     </div>
                     <p className="text-xs sm:text-sm text-slate-600 leading-[2.1] pr-8">
                       {pt.desc}
@@ -634,8 +636,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
                 src="/abubakar-latest.jpeg" 
                 alt={OFFICIAL_AUTHOR.name} 
                 fill 
-                unoptimized 
-                priority
+                sizes="96px"
                 className="object-cover object-top" 
               />
             </div>
@@ -722,9 +723,9 @@ export default async function ArticleDetailPage({ params }: PageProps) {
 
                   <div className="p-4 flex flex-col flex-grow justify-between">
                     <div>
-                      <h4 className="text-sm sm:text-base font-black text-slate-900 leading-[1.9] mb-2 group-hover:text-emerald-800 transition-colors">
+                      <h3 className="text-sm sm:text-base font-black text-slate-900 leading-[1.9] mb-2 group-hover:text-emerald-800 transition-colors">
                         {rel.title}
-                      </h4>
+                      </h3>
                       <p className="text-slate-600 text-xs leading-[2.1] line-clamp-2 mb-3">
                         {rel.description}
                       </p>
@@ -737,7 +738,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
                             src="/abubakar-latest.jpeg" 
                             alt={rel.author || OFFICIAL_AUTHOR.name} 
                             fill 
-                            unoptimized 
+                            sizes="24px"
                             className="object-cover object-top" 
                           />
                         </div>

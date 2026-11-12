@@ -1,10 +1,6 @@
-'use client';
-
-import { motion } from 'framer-motion';
 import { ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
 import OptimizedImage from '@/components/OptimizedImage';
-import React, { useState, useEffect } from 'react';
 
 interface ProgramItem {
   id: string;
@@ -15,78 +11,69 @@ interface ProgramItem {
   link: string;
 }
 
+const academicPrograms: ProgramItem[] = [
+  {
+    id: 'hifz',
+    title: 'شعبہ تحفیظ القرآن الکریم',
+    category: 'حفظ و قرات',
+    desc: 'تجوید و حسنِ قراءت کے بنیادی و اعلیٰ قواعد کے ساتھ قرآن مجید کا مکمل حفظ اور روزانہ کی بنیاد پر باقاعدہ دور۔',
+    image: '/images/hifaz.jpeg',
+    link: '/courses',
+  },
+  {
+    id: 'dars-e-nizami',
+    title: 'درسِ نظامی (عالم و فاضل کورس)',
+    category: 'شریعہ و علومِ اسلامیہ',
+    desc: 'قرآن، حدیث، فقہ، اصولِ فقہ، منطق اور عربی ادب کا باقاعدہ جامع نصاب، وفاق المدارس الاسلامیہ الرضویہ سے تصدیق شدہ۔',
+    image: '/hadith.jpg',
+    link: '/courses',
+  },
+  {
+    id: 'tajweed',
+    title: 'تجوید و قرات سبعہ و عشرہ',
+    category: 'تجوید و لہجہ',
+    desc: 'مستند قراء کرام کے زیرِ نگرانی مخارج و صفات کی درستی، ترتیل و حدر اور قرات کی عملی مشق۔',
+    image: '/images/tajweed.jpeg',
+    link: '/courses',
+  },
+  {
+    id: 'arabic',
+    title: 'عربی زبان و ادب کورس',
+    category: 'زبان دانی',
+    desc: 'جدید و کلاسیکی عربی بول چال، نحو و صرف اور فصیح عربی تحریر و تقریر پر خصوصی عملی توجہ۔',
+    image: '/arabic-language.jpg',
+    link: '/courses',
+  },
+  {
+    id: 'takhasusat',
+    title: 'تخصص فی الفقہ والافتاء',
+    category: 'اعلیٰ تخصص',
+    desc: 'فقہِ اسلامی، معاشی و جدید فقہی مسائل پر فتوٰی نویسی اور اصولِ افتاء کی گہری تحقیقی و عملی تربیت۔',
+    image: '/takhasus.jpeg',
+    link: '/program?id=5',
+  },
+  {
+    id: 'khasusi-dars-e-nizami',
+    title: 'خصوصی درسِ نظامی برائے کالج طلبہ',
+    category: 'عصری و دینی امتزاج',
+    desc: 'اسکول، کالج اور یونیورسٹی کے طلبہ و ملازمین کے لیے اوقاتِ کار کے مطابق لچکدار اور منظم دینی تعلیم۔',
+    image: '/hadith.jpg',
+    link: '/courses',
+  },
+  {
+    id: 'almiya-khasoosi',
+    title: 'عالمیہ خصوصی برائے بی اے پاس (مساوی ایم اے)',
+    category: 'فاسٹ ٹریک ۲ سالہ ڈگری',
+    desc: 'بی اے / گریجویشن پاس طلبہ و طالبات کے لیے صرف ۲ سال میں مکمل عالمیہ کورس، مساوی ایم اے عربی و اسلامیات (HEC منظور شدہ)۔',
+    image: '/hadith.jpg',
+    link: '/program?id=7',
+  },
+];
+
 export default function AcademicPrograms() {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) return <div className="py-24 min-h-[400px]" />;
-
-  const academicPrograms: ProgramItem[] = [
-    {
-      id: 'hifz',
-      title: 'شعبہ تحفیظ القرآن الکریم',
-      category: 'حفظ و قرات',
-      desc: 'تجوید و حسنِ قراءت کے بنیادی و اعلیٰ قواعد کے ساتھ قرآن مجید کا مکمل حفظ اور روزانہ کی بنیاد پر باقاعدہ دور۔',
-      image: '/images/hifaz.jpeg',
-      link: '/courses'
-    },
-    {
-      id: 'dars-e-nizami',
-      title: 'درسِ نظامی (عالم و فاضل کورس)',
-      category: 'شریعہ و علومِ اسلامیہ',
-      desc: 'قرآن، حدیث، فقہ، اصولِ فقہ، منطق اور عربی ادب کا باقاعدہ جامع نصاب، وفاق المدارس الاسلامیہ الرضویہ سے تصدیق شدہ۔',
-      image: '/hadith.jpg',
-      link: '/courses'
-    },
-    {
-      id: 'tajweed',
-      title: 'تجوید و قرات سبعہ و عشرہ',
-      category: 'تجوید و لہجہ',
-      desc: 'مستند قراء کرام کے زیرِ نگرانی مخارج و صفات کی درستی، ترتیل و حدر اور قرات کی عملی مشق۔',
-      image: '/images/tajweed.jpeg',
-      link: '/courses'
-    },
-    {
-      id: 'arabic',
-      title: 'عربی زبان و ادب کورس',
-      category: 'زبان دانی',
-      desc: 'جدید و کلاسیکی عربی بول چال، نحو و صرف اور فصیح عربی تحریر و تقریر پر خصوصی عملی توجہ۔',
-      image: '/arabic-language.jpg',
-      link: '/courses'
-    },
-    {
-      id: 'takhasusat',
-      title: 'تخصص فی الفقہ والافتاء',
-      category: 'اعلیٰ تخصص',
-      desc: 'فقہِ اسلامی، معاشی و جدید فقہی مسائل پر فتوٰی نویسی اور اصولِ افتاء کی گہری تحقیقی و عملی تربیت۔',
-      image: '/takhasus.jpeg',
-      link: '/program?id=5'
-    },
-    {
-      id: 'khasusi-dars-e-nizami',
-      title: 'خصوصی درسِ نظامی برائے کالج طلبہ',
-      category: 'عصری و دینی امتزاج',
-      desc: 'اسکول، کالج اور یونیورسٹی کے طلبہ و ملازمین کے لیے اوقاتِ کار کے مطابق لچکدار اور منظم دینی تعلیم۔',
-      image: '/hadith.jpg',
-      link: '/courses'
-    },
-    {
-      id: 'almiya-khasoosi',
-      title: 'عالمیہ خصوصی برائے بی اے پاس (مساوی ایم اے)',
-      category: 'فاسٹ ٹریک ۲ سالہ ڈگری',
-      desc: 'بی اے / گریجویشن پاس طلبہ و طالبات کے لیے صرف ۲ سال میں مکمل عالمیہ کورس، مساوی ایم اے عربی و اسلامیات (HEC منظور شدہ)۔',
-      image: '/hadith.jpg',
-      link: '/program?id=7'
-    }
-  ];
-
   return (
     <section className="py-16 md:py-20 bg-white" dir="rtl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
           <span className="text-xs md:text-sm font-semibold tracking-wide inline-block mb-3 px-3 py-1 rounded-md text-emerald-800 bg-emerald-50 border border-emerald-200 font-urdu">
@@ -102,23 +89,21 @@ export default function AcademicPrograms() {
 
         {/* Programs Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {academicPrograms.map((program, i) => (
-            <motion.div 
+          {academicPrograms.map((program) => (
+            <div
               key={program.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ delay: i * 0.08, duration: 0.4 }}
-              className="flex flex-col bg-white text-slate-900 shadow-sm border border-slate-200/80 hover:shadow-xl hover:-translate-y-1 rounded-2xl overflow-hidden transition-all group"
+              className="flex flex-col bg-white text-slate-900 shadow-sm border border-slate-200/80 hover:shadow-xl hover:-translate-y-1 rounded-2xl overflow-hidden transition-[transform,box-shadow] group"
             >
               <div className="aspect-[16/10] overflow-hidden relative bg-slate-100">
-                <OptimizedImage 
-                  src={program.image} 
+                <OptimizedImage
+                  src={program.image}
                   alt={program.title}
                   fill
+                  loading="lazy"
+                  quality={65}
                   section="course"
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 390px"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <span className="absolute top-3 right-3 text-xs px-2.5 py-1 rounded-md font-bold bg-white/95 text-emerald-800 shadow-sm font-urdu">
@@ -134,20 +119,20 @@ export default function AcademicPrograms() {
                   {program.desc}
                 </p>
                 <div className="mt-auto pt-3 border-t border-slate-100 flex items-center justify-between">
-                  <Link 
+                  <Link
                     href={program.link}
+                    prefetch={false}
                     className="inline-flex items-center text-xs md:text-sm text-emerald-700 font-bold hover:text-emerald-800 group/link font-urdu gap-1"
                   >
                     <span>تفصیلات و داخلہ معلومات</span>
                     <ChevronLeft className="w-4 h-4 group-hover/link:-translate-x-1 transition-transform" />
                   </Link>
-                  <span className="text-[11px] text-slate-400 font-urdu">مفت تعلیم</span>
+                  <span className="text-[11px] text-slate-600 font-urdu">مفت تعلیم</span>
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
-
       </div>
     </section>
   );

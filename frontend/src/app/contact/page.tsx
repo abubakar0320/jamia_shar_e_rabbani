@@ -2,7 +2,6 @@
 
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { useTranslation } from 'react-i18next';
 import Image from 'next/image';
 import { Mail, Phone, MapPin, ChevronLeft, Globe2, Clock, Landmark, ShieldCheck, Award, ArrowLeft } from 'lucide-react';
 import React, { useState, useEffect } from 'react';
@@ -10,7 +9,6 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 
 export default function Contact() {
-  const { t } = useTranslation();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -65,7 +63,7 @@ export default function Contact() {
       <main className="flex-1 bg-white font-urdu text-slate-900" dir="rtl">
         
         {/* --- HERO SECTION --- */}
-        <section className="relative pt-24 pb-20 bg-white border-b border-slate-100 bg-cover bg-center" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.88), rgba(255,255,255,0.88)), url('/ahmad.png')", backgroundSize: "cover", backgroundPosition: "center" }}>
+        <section className="relative pt-24 pb-20 bg-white border-b border-slate-100 bg-cover bg-center" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.88), rgba(255,255,255,0.88)), url('/ahmad.webp')", backgroundSize: "cover", backgroundPosition: "center" }}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
             <div className="max-w-3xl mx-auto">
               <motion.div 
@@ -120,7 +118,7 @@ export default function Contact() {
                   <div className={`mb-4 w-14 h-14 mx-auto rounded-full flex items-center justify-center shadow-sm border ${method.color}`}>
                     {method.icon}
                   </div>
-                  <h3 className="text-xl font-bold text-slate-900 mb-2 leading-[2.0]">{method.title}</h3>
+                  <h2 className="text-xl font-bold text-slate-900 mb-2 leading-[2.0]">{method.title}</h2>
                   <p className="text-sm font-bold text-slate-700 mb-1 font-mono" dir="ltr">{method.info}</p>
                   <p className="text-base text-emerald-700 font-bold font-mono" dir="ltr">{method.sub}</p>
                 </div>

@@ -11,7 +11,7 @@ interface OptimizedImageProps extends ImageProps {
 const PLACEHOLDERS = {
   hero: 'https://images.unsplash.com/photo-1519817650390-64a93db51149?q=80&w=2000',
   course: 'https://images.unsplash.com/photo-1585032226651-759b368d7246?q=80&w=800',
-  faculty: '/images/WhatsApp.jpeg',
+  faculty: '/images/WhatsApp 1.jpeg',
   campus: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1000',
   student: 'https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=200',
   news: 'https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=1000',

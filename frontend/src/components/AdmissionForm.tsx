@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import '@/i18n';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { User, Phone, CheckCircle2, Upload, Calendar, X, GraduationCap, Building2, Eye, CreditCard, AlertCircle } from 'lucide-react';

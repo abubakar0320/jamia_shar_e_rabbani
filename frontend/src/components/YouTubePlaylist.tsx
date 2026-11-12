@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Video, Book, Award, PlayCircle } from 'lucide-react';
+import '@/i18n';
 import { useTranslation } from 'react-i18next';
 
 interface PlaylistProps {

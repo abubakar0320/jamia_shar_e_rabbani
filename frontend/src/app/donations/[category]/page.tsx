@@ -135,7 +135,7 @@ export default function DonationPortal() {
   return (
     <div 
       style={{ 
-        backgroundImage: "linear-gradient(rgba(255,255,255,0.92), rgba(255,255,255,0.92)), url('/ahmad.png')", 
+        backgroundImage: "linear-gradient(rgba(255,255,255,0.92), rgba(255,255,255,0.92)), url('/ahmad.webp')", 
         backgroundSize: "cover", 
         backgroundPosition: "center" 
       }} 

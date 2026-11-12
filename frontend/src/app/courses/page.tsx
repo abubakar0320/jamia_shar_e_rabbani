@@ -189,9 +189,9 @@ export default function Courses() {
                       {course.arabicTitle}
                     </div>
 
-                    <h3 className="text-lg md:text-xl font-black text-slate-900 mb-2 leading-[2.0] font-urdu group-hover:text-emerald-700 transition-colors">
+                    <h2 className="text-lg md:text-xl font-black text-slate-900 mb-2 leading-[2.0] font-urdu group-hover:text-emerald-700 transition-colors">
                       {course.title}
-                    </h3>
+                    </h2>
 
                     <p className="text-slate-600 text-xs sm:text-sm leading-[2.2] mb-4 font-urdu">
                       {course.desc}

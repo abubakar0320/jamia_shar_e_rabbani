@@ -1,32 +1,32 @@
 'use client';
 
-import { ReactNode, useEffect, useState } from 'react';
-import '../i18n';
-import { useTranslation } from 'react-i18next';
+import { ReactNode, useEffect } from 'react';
 
 export function Providers({ children }: { children: ReactNode }) {
-  const { i18n } = useTranslation();
-  const [mounted, setMounted] = useState(false);
-
   useEffect(() => {
-    setMounted(true);
-    if (typeof window !== 'undefined' && !sessionStorage.getItem('has_visited')) {
-      sessionStorage.setItem('has_visited', 'true');
-      fetch('/api/visit', { method: 'POST' }).catch(() => null);
-    }
-  }, []);
+    if (typeof window === 'undefined' || sessionStorage.getItem('has_visited')) return;
 
-  useEffect(() => {
-    if (!mounted) return;
-    const updateAttributes = () => {
-      const dir = i18n.language === 'ur' || i18n.language === 'ar' ? 'rtl' : 'ltr';
-      document.documentElement.dir = dir;
-      document.documentElement.lang = i18n.language;
+    const recordVisit = () => {
+      try {
+        sessionStorage.setItem('has_visited', 'true');
+        fetch('/api/visit', { method: 'POST', keepalive: true }).catch(() => null);
+      } catch {
+        // Ignore storage or network errors during passive telemetry
+      }
     };
-    updateAttributes();
-    i18n.on('languageChanged', updateAttributes);
-    return () => i18n.off('languageChanged', updateAttributes);
-  }, [i18n, mounted]);
+
+    const w = window as Window & {
+      requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
+      cancelIdleCallback?: (id: number) => void;
+    };
+    if (typeof w.requestIdleCallback === 'function') {
+      const id = w.requestIdleCallback(recordVisit, { timeout: 2500 });
+      return () => w.cancelIdleCallback?.(id);
+    }
+
+    const timer = setTimeout(recordVisit, 2000);
+    return () => clearTimeout(timer);
+  }, []);
 
   return <>{children}</>;
 }

@@ -268,7 +268,7 @@ export default function GalleryPage() {
           {filteredItems.length === 0 ? (
             <div className="text-center py-20 bg-white rounded-3xl border border-dashed border-slate-300 p-8 shadow-xs">
               <Eye size={48} className="mx-auto text-slate-300 mb-4" />
-              <h3 className="text-xl sm:text-2xl font-bold text-slate-700 mb-2">کوئی تصویر نہیں ملی</h3>
+              <h2 className="text-xl sm:text-2xl font-bold text-slate-700 mb-2">کوئی تصویر نہیں ملی</h2>
               <p className="text-slate-500 text-sm max-w-md mx-auto mb-6 leading-[2.1]">
                 آپ کے مطلوبہ لفظ &ldquo;{searchQuery}&rdquo; سے مطابقت رکھنے والی کوئی تصویر دستیاب نہیں ہے۔ براہِ کرم کوئی دوسرا لفظ تلاش کریں۔
               </p>
@@ -291,23 +291,14 @@ export default function GalleryPage() {
                   className="group bg-white rounded-2xl sm:rounded-3xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-xl hover:border-emerald-300 transition-all duration-300 flex flex-col cursor-pointer"
                 >
                   {/* Photo Container: Exact Ratio & Complete Photo (Zero Cropping) */}
-                  <div className="relative aspect-[4/5] w-full bg-slate-950 overflow-hidden flex items-center justify-center">
-                    {/* Ambient matching soft background to gracefully fill letterbox edges */}
-                    <Image
-                      src={item.image}
-                      alt=""
-                      fill
-                      unoptimized
-                      className="object-cover blur-xl opacity-35 scale-110 pointer-events-none"
-                      aria-hidden
-                    />
+                  <div className="relative aspect-[4/5] w-full bg-gradient-to-br from-slate-900 via-slate-950 to-emerald-950 overflow-hidden flex items-center justify-center">
                     {/* The Crisp, Uncropped Complete Photo in Exact Ratio */}
                     <Image
                       src={item.image}
                       alt={item.title}
                       fill
-                      unoptimized
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                      loading={index < 4 ? 'eager' : 'lazy'}
+                      sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 290px"
                       className="object-contain p-2 z-10 group-hover:scale-105 transition-transform duration-500 ease-out drop-shadow-md"
                     />
 
@@ -344,9 +335,9 @@ export default function GalleryPage() {
                   {/* Card Content */}
                   <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between bg-white">
                     <div>
-                      <h3 className="text-base sm:text-lg font-black text-slate-800 group-hover:text-emerald-700 transition-colors leading-[2.1] mb-2 line-clamp-2">
+                      <h2 className="text-base sm:text-lg font-black text-slate-800 group-hover:text-emerald-700 transition-colors leading-[2.1] mb-2 line-clamp-2">
                         {item.title}
-                      </h3>
+                      </h2>
                       <p className="text-slate-600 text-xs sm:text-sm leading-[2.2] line-clamp-3 mb-4">
                         {item.description}
                       </p>
@@ -418,8 +409,7 @@ export default function GalleryPage() {
                   src={currentLightboxItem.image}
                   alt={currentLightboxItem.title}
                   fill
-                  unoptimized
-                  priority
+                  sizes="(max-width: 1024px) 95vw, 1000px"
                   className="object-contain drop-shadow-2xl rounded-xl"
                 />
               </div>

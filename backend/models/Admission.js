@@ -26,4 +26,9 @@ const AdmissionSchema = new mongoose.Schema({
   customFields: { type: Object, default: {} }
 }, { timestamps: true });
 
+AdmissionSchema.index({ applicationNo: 1 });
+AdmissionSchema.index({ cnic: 1 });
+AdmissionSchema.index({ challanNo: 1 });
+AdmissionSchema.index({ status: 1 });
+
 module.exports = mongoose.model('Admission', AdmissionSchema);

@@ -20,4 +20,6 @@ const InternshipCertificateSchema = new mongoose.Schema({
   details: { type: Object }
 }, { timestamps: true });
 
+InternshipCertificateSchema.index({ slug: 1 });
+
 module.exports = mongoose.model('InternshipCertificate', InternshipCertificateSchema);

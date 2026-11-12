@@ -3,14 +3,12 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { useTranslation } from 'react-i18next';
 import { FileText, Award, CheckCircle2, User, BookOpen, Calendar, ShieldCheck, Download, ExternalLink } from 'lucide-react';
 import Image from 'next/image';
 import Head from 'next/head';
 
 export default function InternshipCertificatePage() {
   const { slug } = useParams();
-  const { t } = useTranslation();
   const [profile, setProfile] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 

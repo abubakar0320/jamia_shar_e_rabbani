@@ -3,21 +3,11 @@ import React, { useEffect, useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Image from 'next/image';
-import { useTranslation } from 'react-i18next';
 import Head from 'next/head';
 import { ChevronLeft, Target, Clock, Users, ArrowLeft, UserCheck, Phone, Mail, MessageCircle } from 'lucide-react';
 import Link from 'next/link';
 
 export default function ProgramDetailsPage() {
-  const { t } = useTranslation();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) return null;
-
   const domains = [
     {
       id: "it",
@@ -112,7 +102,7 @@ export default function ProgramDetailsPage() {
                 <Clock />
               </div>
               <div>
-                <h3 className="font-bold text-[#323130] text-base leading-[2.0]">دورانیہ</h3>
+                <h2 className="font-bold text-[#323130] text-base leading-[2.0]">دورانیہ</h2>
                 <p className="text-sm text-[#605e5c] leading-[2.0]">۳ سے ۶ ماہ</p>
               </div>
             </div>
@@ -121,7 +111,7 @@ export default function ProgramDetailsPage() {
                 <Users />
               </div>
               <div>
-                <h3 className="font-bold text-[#323130] text-base leading-[2.0]">اہلیت</h3>
+                <h2 className="font-bold text-[#323130] text-base leading-[2.0]">اہلیت</h2>
                 <p className="text-sm text-[#605e5c] leading-[2.0]">یونیورسٹی اور دینی مدارس کے طلبہ و طالبات</p>
               </div>
             </div>
@@ -130,7 +120,7 @@ export default function ProgramDetailsPage() {
                 <Target />
               </div>
               <div>
-                <h3 className="font-bold text-[#323130] text-base leading-[2.0]">طریقہ کار</h3>
+                <h2 className="font-bold text-[#323130] text-base leading-[2.0]">طریقہ کار</h2>
                 <p className="text-sm text-[#605e5c] leading-[2.0]">جامعہ کیمپس اور آن لائن (ریموٹ)</p>
               </div>
             </div>
@@ -197,9 +187,10 @@ export default function ProgramDetailsPage() {
                   src="/abubakar-latest.jpeg" 
                   alt="محترم ابوبکر صدیق" 
                   fill 
-                  unoptimized
-                  priority
                   className="object-cover" 
+                  sizes="144px"
+                  preload
+                  fetchPriority="high"
                 />
               </div>
               <div className="flex-1 text-center md:text-right">
