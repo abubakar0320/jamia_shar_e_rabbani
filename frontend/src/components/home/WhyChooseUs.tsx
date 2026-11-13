@@ -1,5 +1,5 @@
 import { Users, Landmark, Award, ShieldCheck, CheckCircle2 } from 'lucide-react';
-import OptimizedImage from '@/components/OptimizedImage';
+import Image from 'next/image';
 import React from 'react';
 
 interface FeatureItem {
@@ -38,13 +38,12 @@ export default function WhyChooseUs() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           {/* Left/Image Side */}
           <div className="lg:col-span-5 relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-slate-200 shadow-md border border-slate-200">
-            <OptimizedImage
+            <Image
               src="/images/WhatsApp 1.jpeg"
               alt="جامعہ شیرِ ربانی کیمپس و تدریس"
               fill
               loading="lazy"
               quality={65}
-              section="campus"
               className="object-cover"
               sizes="(max-width: 1024px) 92vw, 40vw"
             />

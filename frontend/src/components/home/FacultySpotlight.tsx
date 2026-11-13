@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import OptimizedImage from '@/components/OptimizedImage';
+import Image from 'next/image';
 import { ChevronLeft } from 'lucide-react';
 
 const faculty = [
@@ -63,12 +63,11 @@ export default function FacultySpotlight() {
             >
               <div className="w-full aspect-[4/5] overflow-hidden relative bg-gradient-to-br from-slate-900 via-slate-950 to-emerald-950 shrink-0 flex items-center justify-center">
                 {/* Complete Portrait in Exact Ratio without duplicate blurred background image */}
-                <OptimizedImage
+                <Image
                   src={member.image}
                   fill
                   loading="lazy"
                   quality={65}
-                  section="faculty"
                   className="object-contain p-2 z-10 drop-shadow-md group-hover:scale-102 transition-transform duration-500"
                   alt={member.name}
                   sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 290px"

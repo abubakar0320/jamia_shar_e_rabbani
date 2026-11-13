@@ -1,8 +1,5 @@
-'use client';
-
 import Link from 'next/link';
 import Image from 'next/image';
-import React, { useState } from 'react';
 import {
   PhoneCall,
   MessageCircle, 
@@ -12,10 +9,9 @@ import {
   ExternalLink, 
   ShieldCheck, 
   Code2, 
-  Landmark, 
-  Copy, 
-  Check 
+  Landmark,
 } from 'lucide-react';
+import FooterCopyButton from '@/components/FooterCopyButton';
 
 interface OfficialAffiliation {
   nameUrdu: string;
@@ -26,59 +22,48 @@ interface OfficialAffiliation {
 }
 
 const Footer = () => {
-  const [copiedKey, setCopiedKey] = useState<string | null>(null);
-
-  const handleCopy = (text: string, key: string) => {
-    if (typeof window !== 'undefined' && navigator?.clipboard) {
-      navigator.clipboard.writeText(text);
-      setCopiedKey(key);
-      setTimeout(() => {
-        setCopiedKey((prev) => (prev === key ? null : prev));
-      }, 2500);
-    }
-  };
 
   // Official Affiliated & National Entities with verified official links
   const officialAffiliations: OfficialAffiliation[] = [
     {
       nameUrdu: 'وفاق المدارس الاسلامیہ الرضویہ',
       nameSub: 'wafaq.edu.pk',
-      image: '/images/wafaq-logo.png',
+      image: '/images/optimized/wafaq-logo.webp',
       href: 'https://wafaq.edu.pk',
       title: 'وفاق المدارس الاسلامیہ الرضویہ پاکستان - آفیشل پورٹل',
     },
     {
       nameUrdu: 'حکومتِ پاکستان',
       nameSub: 'pakistan.gov.pk',
-      image: '/images/gov-logo.svg',
+      image: '/images/optimized/gov-logo.webp',
       href: 'https://pakistan.gov.pk',
       title: 'حکومتِ پاکستان - آفیشل پورٹل',
     },
     {
       nameUrdu: 'حکومتِ پنجاب',
       nameSub: 'punjab.gov.pk',
-      image: '/images/punjab-logo.svg',
+      image: '/images/optimized/punjab-logo.webp',
       href: 'https://punjab.gov.pk',
       title: 'حکومتِ پنجاب - آفیشل پورٹل',
     },
     {
       nameUrdu: 'ہائر ایجوکیشن کمیشن (HEC)',
       nameSub: 'hec.gov.pk',
-      image: '/images/hec-logo.png',
+      image: '/images/optimized/hec-logo.webp',
       href: 'https://hec.gov.pk',
       title: 'ہائر ایجوکیشن کمیشن پاکستان - آفیشل پورٹل',
     },
     {
       nameUrdu: 'پنجاب پبلک سروس کمیشن (PPSC)',
       nameSub: 'ppsc.gop.pk',
-      image: '/images/ppsc-logo.png',
+      image: '/images/optimized/ppsc-logo.webp',
       href: 'https://www.ppsc.gop.pk',
       title: 'پنجاب پبلک سروس کمیشن - آفیشل پورٹل (PPSC Official Portal)',
     },
     {
       nameUrdu: 'پاک فوج (Pakistan Army)',
       nameSub: 'pakistanarmy.gov.pk',
-      image: '/images/army-logo.png',
+      image: '/images/optimized/army-logo.webp',
       href: 'https://pakistanarmy.gov.pk',
       title: 'پاک فوج - آفیشل پورٹل',
     },
@@ -181,9 +166,9 @@ const Footer = () => {
         {/* Brand & Social Section */}
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 mb-10 border-b border-slate-200 pb-8">
           <div className="flex flex-col">
-            <Link href="/" className="flex items-center mb-2.5 group gap-3.5">
+            <Link href="/" prefetch={false} className="flex items-center mb-2.5 group gap-3.5">
               <Image 
-                src="/logo.jpeg" 
+                src="/images/optimized/logo-icon.webp" 
                 alt="لوگو جامعہ شیرِ ربانی" 
                 width={52} 
                 height={52} 
@@ -264,6 +249,7 @@ const Footer = () => {
                       ) : (
                         <Link 
                           href={link.href} 
+                          prefetch={false}
                           className="group inline-flex flex-col text-xs sm:text-sm text-slate-800 hover:text-black font-semibold transition-all font-urdu w-fit"
                         >
                           <span className="leading-tight pb-0.5 group-hover:translate-x-[-2px] transition-transform">
@@ -345,6 +331,7 @@ const Footer = () => {
               </p>
               <Link 
                 href="/donations" 
+                prefetch={false}
                 className="text-xs font-bold text-emerald-800 hover:text-emerald-950 underline font-urdu shrink-0"
               >
                 عطیات پورٹل وزٹ کریں ←
@@ -387,28 +374,14 @@ const Footer = () => {
                     </span>
                   </div>
 
-                  <button
-                    type="button"
-                    onClick={() => handleCopy(acc.accountNumber, acc.key)}
-                    className={`inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-bold transition-all shrink-0 cursor-pointer ${
-                      copiedKey === acc.key
-                        ? 'bg-emerald-700 text-white shadow-xs'
-                        : 'bg-slate-100 hover:bg-emerald-600 hover:text-white text-slate-700 border border-slate-200 hover:border-emerald-600'
-                    }`}
+                  <FooterCopyButton
+                    text={acc.accountNumber}
                     title="اکاؤنٹ نمبر کاپی کریں"
-                  >
-                    {copiedKey === acc.key ? (
-                      <>
-                        <Check size={13} />
-                        <span className="text-[11px] font-urdu">کاپی ہو گیا!</span>
-                      </>
-                    ) : (
-                      <>
-                        <Copy size={13} />
-                        <span className="text-[11px] font-urdu">کاپی کریں</span>
-                      </>
-                    )}
-                  </button>
+                    idleLabel="کاپی کریں"
+                    copiedLabel="کاپی ہو گیا!"
+                    variant="default"
+                    tone="emerald"
+                  />
                 </div>
               </div>
             ))}
@@ -468,28 +441,13 @@ const Footer = () => {
                   >
                     <MessageCircle size={14} />
                   </a>
-                  <button
-                    type="button"
-                    onClick={() => handleCopy('+966540532511', 'contact-ahmad')}
-                    className={`inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all shrink-0 cursor-pointer ${
-                      copiedKey === 'contact-ahmad'
-                        ? 'bg-emerald-700 text-white shadow-xs'
-                        : 'bg-slate-100 hover:bg-emerald-600 hover:text-white text-slate-700 border border-slate-200'
-                    }`}
+                  <FooterCopyButton
+                    text="+966540532511"
                     title="نمبر کاپی کریں"
-                  >
-                    {copiedKey === 'contact-ahmad' ? (
-                      <>
-                        <Check size={12} />
-                        <span className="text-[10px] font-urdu">کاپی!</span>
-                      </>
-                    ) : (
-                      <>
-                        <Copy size={12} />
-                        <span className="text-[10px] font-urdu">کاپی</span>
-                      </>
-                    )}
-                  </button>
+                    idleLabel="کاپی"
+                    copiedLabel="کاپی!"
+                    tone="emerald"
+                  />
                 </div>
               </div>
             </div>
@@ -532,28 +490,13 @@ const Footer = () => {
                   >
                     <MessageCircle size={14} />
                   </a>
-                  <button
-                    type="button"
-                    onClick={() => handleCopy('03144081516', 'contact-farooq')}
-                    className={`inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all shrink-0 cursor-pointer ${
-                      copiedKey === 'contact-farooq'
-                        ? 'bg-teal-700 text-white shadow-xs'
-                        : 'bg-slate-100 hover:bg-teal-600 hover:text-white text-slate-700 border border-slate-200'
-                    }`}
+                  <FooterCopyButton
+                    text="03144081516"
                     title="نمبر کاپی کریں"
-                  >
-                    {copiedKey === 'contact-farooq' ? (
-                      <>
-                        <Check size={12} />
-                        <span className="text-[10px] font-urdu">کاپی!</span>
-                      </>
-                    ) : (
-                      <>
-                        <Copy size={12} />
-                        <span className="text-[10px] font-urdu">کاپی</span>
-                      </>
-                    )}
-                  </button>
+                    idleLabel="کاپی"
+                    copiedLabel="کاپی!"
+                    tone="teal"
+                  />
                 </div>
               </div>
             </div>
@@ -596,28 +539,13 @@ const Footer = () => {
                   >
                     <MessageCircle size={14} />
                   </a>
-                  <button
-                    type="button"
-                    onClick={() => handleCopy('03097354874', 'contact-abubakar')}
-                    className={`inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all shrink-0 cursor-pointer ${
-                      copiedKey === 'contact-abubakar'
-                        ? 'bg-sky-700 text-white shadow-xs'
-                        : 'bg-slate-100 hover:bg-sky-600 hover:text-white text-slate-700 border border-slate-200'
-                    }`}
+                  <FooterCopyButton
+                    text="03097354874"
                     title="نمبر کاپی کریں"
-                  >
-                    {copiedKey === 'contact-abubakar' ? (
-                      <>
-                        <Check size={12} />
-                        <span className="text-[10px] font-urdu">کاپی!</span>
-                      </>
-                    ) : (
-                      <>
-                        <Copy size={12} />
-                        <span className="text-[10px] font-urdu">کاپی</span>
-                      </>
-                    )}
-                  </button>
+                    idleLabel="کاپی"
+                    copiedLabel="کاپی!"
+                    tone="sky"
+                  />
                 </div>
               </div>
             </div>
@@ -638,6 +566,7 @@ const Footer = () => {
             <span className="text-slate-300 hidden sm:inline">|</span>
             <Link 
               href="/developer" 
+              prefetch={false}
               className="inline-flex items-center gap-1.5 text-slate-700 hover:text-emerald-800 font-bold transition-colors bg-slate-50 hover:bg-emerald-50 px-2.5 py-1 rounded-full border border-slate-200 hover:border-emerald-300 group"
             >
               <Code2 size={14} className="text-emerald-600 group-hover:rotate-12 transition-transform" />

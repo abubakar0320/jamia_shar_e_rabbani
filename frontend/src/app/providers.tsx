@@ -2,7 +2,7 @@
 
 import { ReactNode, useEffect } from 'react';
 
-export function Providers({ children }: { children: ReactNode }) {
+export function Providers({ children }: { children?: ReactNode }) {
   useEffect(() => {
     if (typeof window === 'undefined' || sessionStorage.getItem('has_visited')) return;
 
@@ -15,18 +15,10 @@ export function Providers({ children }: { children: ReactNode }) {
       }
     };
 
-    const w = window as Window & {
-      requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
-      cancelIdleCallback?: (id: number) => void;
-    };
-    if (typeof w.requestIdleCallback === 'function') {
-      const id = w.requestIdleCallback(recordVisit, { timeout: 2500 });
-      return () => w.cancelIdleCallback?.(id);
-    }
-
-    const timer = setTimeout(recordVisit, 2000);
+    // Defer passive visit telemetry until well after hydration and initial paint
+    const timer = setTimeout(recordVisit, 5500);
     return () => clearTimeout(timer);
   }, []);
 
-  return <>{children}</>;
+  return children ? <>{children}</> : null;
 }

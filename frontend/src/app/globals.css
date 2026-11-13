@@ -8,22 +8,33 @@
        url('/fonts/noto-nastaliq-urdu.woff2') format('woff2'),
        local('Noto Nastaliq Urdu'),
        local('Urdu Typesetting');
-  font-weight: 100 900;
+  /* Pin single default instance (400) so HarfBuzz shapes Nastaleeq once without per-weight gvar instantiation */
+  font-weight: 400;
   font-style: normal;
   font-display: swap;
+  unicode-range: U+0600-06FF, U+0750-077F, U+0870-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+FB50-FDFF, U+FE70-FEFC;
+}
+
+@font-face {
+  font-family: 'NooriNastaleeqFallback';
+  src: local('Noto Sans Arabic'), local('Segoe UI'), local('Tahoma'), local('Arial');
+  ascent-override: 205%;
+  descent-override: 65%;
+  line-gap-override: 0%;
+  size-adjust: 88%;
   unicode-range: U+0600-06FF, U+0750-077F, U+0870-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+FB50-FDFF, U+FE70-FEFC;
 }
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --font-nastaleeq: 'NooriNastaleeq', 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', 'Urdu Typesetting', 'Alvi Nastaleeq', 'Nafees Nastaleeq', serif;
+  --font-nastaleeq: 'NooriNastaleeq', 'NooriNastaleeqFallback', 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', 'Urdu Typesetting', 'Alvi Nastaleeq', 'Nafees Nastaleeq', serif;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: 'NooriNastaleeq', var(--font-geist-sans), 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', 'Urdu Typesetting', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-sans: 'NooriNastaleeq', 'NooriNastaleeqFallback', var(--font-geist-sans), 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', 'Urdu Typesetting', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-mono: var(--font-geist-mono);
   --font-urdu: var(--font-nastaleeq);
 }
@@ -41,7 +52,7 @@
    while Latin characters (English/numbers) automatically render in Geist / modern sans-serif!
 */
 html, body, button, input, select, textarea, h1, h2, h3, h4, h5, h6, p, span, a, div, li, label, blockquote, dt, dd {
-  font-family: 'NooriNastaleeq', var(--font-geist-sans), 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', 'Urdu Typesetting', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: 'NooriNastaleeq', 'NooriNastaleeqFallback', var(--font-geist-sans), 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', 'Urdu Typesetting', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 /* Dedicated Nastaleeq typography classes */
@@ -50,7 +61,7 @@ html, body, button, input, select, textarea, h1, h2, h3, h4, h5, h6, p, span, a,
 [lang="ur"],
 :lang(ur),
 [dir="rtl"] {
-  font-family: 'NooriNastaleeq', 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', 'Urdu Typesetting', serif !important;
+  font-family: 'NooriNastaleeq', 'NooriNastaleeqFallback', 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', 'Urdu Typesetting', serif !important;
 }
 
 /* Elegant line-height for Nastaleeq text to give proper breathing room for diacritics / dots */
@@ -67,6 +78,11 @@ h3.font-urdu, h3 .font-urdu {
   line-height: 1.55;
 }
 
+/* Consolidate dense UI/copy weights to 400 while preserving bold primary headings & semantic emphasis */
+:where(body, div, section, header, nav, footer, p, span, a, li, button, label, h3, h4, h5, h6):not(h1):not(h1 *):not(h2):not(h2 *):not(strong):not(b) {
+  font-weight: 400;
+}
+
 [dir="rtl"] body {
   font-family: var(--font-nastaleeq);
 }
@@ -74,11 +90,9 @@ h3.font-urdu, h3 .font-urdu {
 @keyframes heroFadeIn {
   from {
     opacity: 0;
-    transform: translateY(8px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 

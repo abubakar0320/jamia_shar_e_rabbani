@@ -39,35 +39,35 @@ const Header = () => {
     {
       nameUrdu: 'وفاق المدارس الاسلامیہ الرضویہ',
       nameSub: 'wafaq.edu.pk',
-      image: '/images/wafaq-logo.png',
+      image: '/images/optimized/wafaq-logo.webp',
       href: 'https://wafaq.edu.pk',
       title: 'وفاق المدارس الاسلامیہ الرضویہ پاکستان - آفیشل پورٹل (wafaq.edu.pk)',
     },
     {
       nameUrdu: 'حکومتِ پاکستان',
       nameSub: 'Govt of Pakistan',
-      image: '/images/gov-logo.svg',
+      image: '/images/optimized/gov-logo.webp',
       href: 'https://pakistan.gov.pk',
       title: 'حکومتِ پاکستان - آفیشل پورٹل (pakistan.gov.pk)',
     },
     {
       nameUrdu: 'حکومتِ پنجاب',
       nameSub: 'Govt of Punjab',
-      image: '/images/punjab-logo.svg',
+      image: '/images/optimized/punjab-logo.webp',
       href: 'https://punjab.gov.pk',
       title: 'حکومتِ پنجاب - آفیشل پورٹل (punjab.gov.pk)',
     },
     {
       nameUrdu: 'ہائر ایجوکیشن کمیشن',
       nameSub: 'HEC Pakistan',
-      image: '/images/hec-logo.png',
+      image: '/images/optimized/hec-logo.webp',
       href: 'https://hec.gov.pk',
       title: 'ہائر ایجوکیشن کمیشن پاکستان - آفیشل پورٹل (hec.gov.pk)',
     },
     {
       nameUrdu: 'پاک فوج',
       nameSub: 'Pakistan Army',
-      image: '/images/army-logo.png',
+      image: '/images/optimized/army-logo.webp',
       href: 'https://pakistanarmy.gov.pk',
       title: 'پاک فوج - آفیشل پورٹل (pakistanarmy.gov.pk)',
     },
@@ -80,16 +80,15 @@ const Header = () => {
         <div className="max-w-[1600px] mx-auto px-3 sm:px-6 md:px-8 flex items-center justify-between gap-2 sm:gap-4 flex-nowrap">
           
           {/* Main Institution Logo & Name (Always on RIGHT in RTL) */}
-          <Link href="/" className="flex items-center gap-2 sm:gap-3 group flex-shrink-0 min-w-0">
+          <Link href="/" prefetch={false} className="flex items-center gap-2 sm:gap-3 group flex-shrink-0 min-w-0">
             <div className="relative w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 flex-shrink-0">
               <Image 
-                src="/logo.jpeg" 
+                src="/images/optimized/logo-icon.webp" 
                 alt="لوگو جامعہ شیرِ ربانی" 
                 width={56} 
                 height={56} 
                 className="rounded-full shadow-sm group-hover:scale-105 transition-transform border border-emerald-100 object-cover w-full h-full"
                 loading="eager"
-                fetchPriority="high"
               />
             </div>
             <div className="flex flex-col text-right min-w-0">
@@ -218,7 +217,7 @@ const Header = () => {
               <div className="px-6 py-5 flex justify-between items-center border-b border-slate-100 bg-emerald-800 text-white">
                 <div className="flex items-center gap-2">
                   <Image 
-                    src="/logo.jpeg" 
+                    src="/images/optimized/logo-icon.webp" 
                     alt="Logo" 
                     width={32} 
                     height={32} 
@@ -241,6 +240,7 @@ const Header = () => {
                     <Link
                       key={item.href}
                       href={item.href}
+                      prefetch={false}
                       onClick={() => setIsOpen(false)}
                       className={`flex items-center justify-between px-4 py-2.5 text-sm font-bold rounded-lg transition-all font-urdu ${
                         isActive
@@ -295,6 +295,7 @@ const Header = () => {
                   </div>
                   <Link
                     href="/developer"
+                    prefetch={false}
                     onClick={() => setIsOpen(false)}
                     className="flex items-center justify-between p-3 mx-1 rounded-xl bg-gradient-to-r from-emerald-50 to-slate-50 hover:from-emerald-100 hover:to-slate-100 border border-emerald-200/90 transition-all group shadow-2xs"
                   >
@@ -321,6 +322,7 @@ const Header = () => {
               <div className="p-5 border-t border-slate-100 bg-slate-50">
                 <Link 
                   href="/admissions" 
+                  prefetch={false}
                   onClick={() => setIsOpen(false)}
                   className="flex items-center justify-center py-3 bg-emerald-700 text-white text-[15px] font-bold rounded-xl shadow-md hover:bg-emerald-800 transition-colors font-urdu"
                 >

@@ -56,7 +56,7 @@ const staticCourses: Course[] = [
     duration: '3-4 Years',
     level: 'Primary',
     desc: 'Complete memorization of the Holy Quran with Tajweed rules.',
-    image: '/images/hifaz.jpeg'
+    image: '/images/optimized/hifaz-card.webp'
   },
   {
     id: 2,
@@ -64,7 +64,7 @@ const staticCourses: Course[] = [
     duration: '8 Years',
     level: 'Advanced',
     desc: 'Comprehensive Islamic scholarship program covering Fiqh, Hadith, Tafseer, and Arabic Literature.',
-    image: '/hadith.jpg'
+    image: '/images/optimized/hadith.webp'
   },
   {
     id: 3,
@@ -72,7 +72,7 @@ const staticCourses: Course[] = [
     duration: '2 Years',
     level: 'Intermediate',
     desc: 'Specialized course in the art of Quranic recitation.',
-    image: '/images/tajweed.jpeg'
+    image: '/images/optimized/tajweed-card.webp'
   },
   {
     id: 4,
@@ -96,7 +96,7 @@ const staticCourses: Course[] = [
     duration: '6 Years',
     level: 'Intermediate',
     desc: 'Flexible Islamic scholarship program for college and university students.',
-    image: '/hadith.jpg'
+    image: '/images/optimized/hadith.webp'
   },
   {
     id: 7,
@@ -104,7 +104,7 @@ const staticCourses: Course[] = [
     duration: '2 Years',
     level: 'Advanced',
     desc: 'Fast-track 2-year Shahadat-ul-Almiya program for BA/BSc graduates equivalent to MA Arabic & Islamic Studies for male and female students.',
-    image: '/hadith.jpg'
+    image: '/images/optimized/hadith.webp'
   }
 ];
 
@@ -230,7 +230,7 @@ function CourseDetailsContent() {
         <section className="relative h-[45vh] min-h-[380px] flex items-center overflow-hidden bg-slate-900 text-white">
           <div className="absolute inset-0 z-0">
             <OptimizedImage 
-              src={course.image || '/hadith.jpg'} 
+              src={course.image || '/images/optimized/hadith.webp'} 
               alt={displayTitle}
               fill
               preload

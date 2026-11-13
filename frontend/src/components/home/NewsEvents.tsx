@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import OptimizedImage from '@/components/OptimizedImage';
+import Image from 'next/image';
 import { ChevronLeft, Calendar, MapPin } from 'lucide-react';
 
 const sideNews = [
@@ -58,12 +58,11 @@ export default function NewsEvents() {
           {/* Main Featured News Card */}
           <div className="lg:col-span-7 bg-white shadow-sm border border-slate-200/80 hover:shadow-xl transition-shadow rounded-2xl overflow-hidden flex flex-col group text-right">
             <div className="aspect-[16/10] w-full overflow-hidden relative bg-slate-100">
-              <OptimizedImage
+              <Image
                 src="/images/news.jpeg"
                 fill
                 loading="lazy"
                 quality={65}
-                section="news"
                 className="absolute inset-0 object-cover group-hover:scale-105 transition-transform duration-500"
                 alt="سالانہ کانووکیشن و دستارِ فضیلت"
                 sizes="(max-width: 1024px) 92vw, 60vw"

@@ -1,6 +1,6 @@
 import { ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
-import OptimizedImage from '@/components/OptimizedImage';
+import Image from 'next/image';
 
 interface ProgramItem {
   id: string;
@@ -17,7 +17,7 @@ const academicPrograms: ProgramItem[] = [
     title: 'شعبہ تحفیظ القرآن الکریم',
     category: 'حفظ و قرات',
     desc: 'تجوید و حسنِ قراءت کے بنیادی و اعلیٰ قواعد کے ساتھ قرآن مجید کا مکمل حفظ اور روزانہ کی بنیاد پر باقاعدہ دور۔',
-    image: '/images/hifaz.jpeg',
+    image: '/images/optimized/hifaz-card.webp',
     link: '/courses',
   },
   {
@@ -25,7 +25,7 @@ const academicPrograms: ProgramItem[] = [
     title: 'درسِ نظامی (عالم و فاضل کورس)',
     category: 'شریعہ و علومِ اسلامیہ',
     desc: 'قرآن، حدیث، فقہ، اصولِ فقہ، منطق اور عربی ادب کا باقاعدہ جامع نصاب، وفاق المدارس الاسلامیہ الرضویہ سے تصدیق شدہ۔',
-    image: '/hadith.jpg',
+    image: '/images/optimized/hadith.webp',
     link: '/courses',
   },
   {
@@ -33,7 +33,7 @@ const academicPrograms: ProgramItem[] = [
     title: 'تجوید و قرات سبعہ و عشرہ',
     category: 'تجوید و لہجہ',
     desc: 'مستند قراء کرام کے زیرِ نگرانی مخارج و صفات کی درستی، ترتیل و حدر اور قرات کی عملی مشق۔',
-    image: '/images/tajweed.jpeg',
+    image: '/images/optimized/tajweed-card.webp',
     link: '/courses',
   },
   {
@@ -57,7 +57,7 @@ const academicPrograms: ProgramItem[] = [
     title: 'خصوصی درسِ نظامی برائے کالج طلبہ',
     category: 'عصری و دینی امتزاج',
     desc: 'اسکول، کالج اور یونیورسٹی کے طلبہ و ملازمین کے لیے اوقاتِ کار کے مطابق لچکدار اور منظم دینی تعلیم۔',
-    image: '/hadith.jpg',
+    image: '/images/optimized/hadith.webp',
     link: '/courses',
   },
   {
@@ -65,7 +65,7 @@ const academicPrograms: ProgramItem[] = [
     title: 'عالمیہ خصوصی برائے بی اے پاس (مساوی ایم اے)',
     category: 'فاسٹ ٹریک ۲ سالہ ڈگری',
     desc: 'بی اے / گریجویشن پاس طلبہ و طالبات کے لیے صرف ۲ سال میں مکمل عالمیہ کورس، مساوی ایم اے عربی و اسلامیات (HEC منظور شدہ)۔',
-    image: '/hadith.jpg',
+    image: '/images/optimized/hadith.webp',
     link: '/program?id=7',
   },
 ];
@@ -95,13 +95,12 @@ export default function AcademicPrograms() {
               className="flex flex-col bg-white text-slate-900 shadow-sm border border-slate-200/80 hover:shadow-xl hover:-translate-y-1 rounded-2xl overflow-hidden transition-[transform,box-shadow] group"
             >
               <div className="aspect-[16/10] overflow-hidden relative bg-slate-100">
-                <OptimizedImage
+                <Image
                   src={program.image}
                   alt={program.title}
                   fill
                   loading="lazy"
                   quality={65}
-                  section="course"
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                   sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 390px"
                 />

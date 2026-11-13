@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import Script from "next/script";
+import AdSenseLoader from "@/components/AdSenseLoader";
 import "./globals.css";
 import { Providers } from "./providers";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
@@ -59,9 +59,9 @@ export const metadata: Metadata = {
   },
   manifest: "/manifest.json",
   icons: {
-    icon: "/logo.jpeg",
-    shortcut: "/logo.jpeg",
-    apple: "/logo.jpeg",
+    icon: "/images/optimized/logo-apple.png",
+    shortcut: "/images/optimized/logo-apple.png",
+    apple: "/images/optimized/logo-apple.png",
   },
   openGraph: {
     type: "website",
@@ -162,15 +162,10 @@ export default function RootLayout({
         />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}>
-        <Providers>
-          {children}
-          <FloatingWhatsApp />
-        </Providers>
-        <Script
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5810661605612266"
-          crossOrigin="anonymous"
-          strategy="lazyOnload"
-        />
+        {children}
+        <FloatingWhatsApp />
+        <Providers />
+        <AdSenseLoader />
       </body>
     </html>
   );

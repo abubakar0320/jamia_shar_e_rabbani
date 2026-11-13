@@ -161,7 +161,7 @@ export default function Courses() {
                     onClick={() => course.image && setSelectedImage(course.image)}
                   >
                     <OptimizedImage
-                      src={course.image || '/hadith.jpg'}
+                      src={course.image || '/images/optimized/hadith.webp'}
                       alt={course.title}
                       fill
                       section="course"

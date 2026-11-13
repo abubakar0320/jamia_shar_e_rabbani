@@ -53,7 +53,7 @@ export default function Donations() {
     {
       title: "دائمی صدقہ جاریہ فنڈ",
       desc: "قرآنی نسخہ جات، دینی کتب، واٹر پلانٹ اور مستقل تعلیمی سہولیات میں دائمی ثواب کی نیت سے شرکت فرمائیں۔",
-      img: "/images/tajweed.jpeg",
+      img: "/images/optimized/tajweed-card.webp",
       link: "/donations/sadaqah-jariyah",
       btnText: "صدقہ جاریہ دیں"
     }
